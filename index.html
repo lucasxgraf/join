@@ -1,0 +1,92 @@
+<!-- splash.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Join – Loading…</title>
+<style>
+  :root{
+    --bg:#f6f8fb;
+    --ink:#2a3647;
+    --brand:#52a9df;
+    --dur:1200ms;        /* Animationsdauer Logo */
+    --fade:320ms;        /* Ausblenden der Seite */
+  }
+
+  /* Seite zentrieren */
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg);
+    display:grid; place-items:center;
+    overflow:hidden; transition:opacity var(--fade) ease;
+  }
+  body.out{ opacity:0; }
+
+  /* Logo-Wrapper */
+  .logo{
+    display:grid; place-items:center;
+    gap:18px;
+    animation: pop var(--dur) ease forwards;
+    transform: translateZ(0);   /* smoother */
+  }
+
+  /* Join-Schriftzug optional */
+  .word{ font:700 28px/1.1 ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;
+         color:#3b4656; letter-spacing:.02em; opacity:.9 }
+
+  /* Keyframes */
+  @keyframes pop{
+    0%   { transform:scale(.86); opacity:0 }
+    50%  { transform:scale(1.04); opacity:1 }
+    100% { transform:scale(1); opacity:1 }
+  }
+
+  /* Reduzierte Bewegung: kein Pop, schneller Redirect */
+  @media (prefers-reduced-motion: reduce){
+    .logo{ animation:none; opacity:1; transform:none }
+  }
+
+  /* Optional: kleines “Progress-Dot” unter dem Logo */
+  .dot{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--brand); opacity:.9; filter:saturate(.9);
+    animation: blink 900ms ease-in-out infinite;
+    justify-self:center;
+  }
+  @keyframes blink{
+    0%,100%{ transform:translateY(0); opacity:.35 }
+    50%    { transform:translateY(-6px); opacity:1 }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Dein Logo (SVG/PNG). Nutze hier einfach deine vorhandene Grafik -->
+  <div class="logo" aria-label="Join">
+    <img src="./assets/img/logo.svg" alt="Join" width="260" height="260"
+         style="display:block; max-width:48vw; height:auto;">
+    <!-- <div class="word">JOIN</div> -->
+    <div class="dot" aria-hidden="true"></div>
+  </div>
+
+<script>
+  // Redirect nach der Animation
+  (function () {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SHOW_MS = prefersReduced ? 400 : 1400;  // wie lange Splash sichtbar bleibt
+    const FADE_MS = 320;
+
+    setTimeout(() => document.body.classList.add('out'), SHOW_MS);
+    setTimeout(() => {
+      // replace() verhindert, dass man per Zurück-Taste wieder auf die Splash-Seite kommt
+      location.replace('login.html');
+    }, SHOW_MS + FADE_MS + 40);
+  })();
+</script>
+
+<noscript>
+  <meta http-equiv="refresh" content="1; url=login.html">
+</noscript>
+</body>
+</html>
