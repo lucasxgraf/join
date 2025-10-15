@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sign up – Join</title>
+<link rel="stylesheet" href="./styles/signup.css">
+<script src="./js/remoteStorage.js" defer></script>
+<script src="./js/signup.js" defer></script>
+<script src="./js/login.js" defer></script>
+</head>
+<body>
+  <!-- Logo oben links -->
+  <header class="top">
+    <img src="./assets/img/logo.svg" style="height: 100px; width: 100px; margin-top: 50px;">
+  </header>
+
+  <!-- Card -->
+  <main class="wrap">
+    <section class="card" aria-labelledby="title">
+      <div class="head">
+        <button class="back" aria-label="Back">
+          <!-- HTML -->
+<a class="back-link" href="./login.html" aria-label="Back">
+  <svg class="back-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <!-- Pfeilspitze -->
+    <path d="M15 19L8 12L15 5"
+          fill="none" stroke="currentColor" stroke-width="2.6"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Pfeil-Schaft -->
+    <line x1="8" y1="12" x2="20" y2="12"
+          stroke="currentColor" stroke-width="2.6"
+          stroke-linecap="round"/>
+  </svg>
+</a>
+
+        </button>
+        <h1 id="title">Sign up</h1>
+      </div>
+
+      <div class="accent" aria-hidden="true"></div>
+
+      <form class="form" action="#" method="post" onsubmit="addUser(); return false;">
+        <!-- Name -->
+        <label class="field">
+          <input class="input" type="text" name="name" placeholder="Name" id="name" required>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm8 8a8 8 0 1 0-16 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+
+        <!-- Email -->
+        <label class="field">
+          <input class="input" type="email" name="email" placeholder="E-Mail" id="email" required>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 2 8 5 8-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+
+        <!-- Password -->
+        <label class="field">
+          <input class="input" type="password" name="password" placeholder="Password" id="password" required>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 10V7a5 5 0 0 1 10 0v3M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+
+        <!-- Confirm -->
+        <label class="field">
+          <input class="input" type="password" name="confirm" placeholder="Confirm password" id="confirm_password" required>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 10V7a5 5 0 0 1 10 0v3M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+
+        <label class="consent">
+          <input type="checkbox" required>
+          <span>I accept the <a href="#">privacy Policy</a></span>
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn">Sign up</button>
+        </div>
+
+        
+      </form>
+    </section>
+    
+  </main>
+  <div class="links">
+          <a href="./privacy_policy_signup.html" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="./legal_notice_signup.html">Legal notice</a>
+        </div>
+</body>
+</html>
