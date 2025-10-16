@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join - Login Page</title>
+  <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon" />
+
+  <link rel="stylesheet" href="./styles/login.css">
+  <link rel="stylesheet" href="./styles/standard.css">
+
+  <script src="./scripts/login.js"></script>
+</head>
+<body>
+  <div id="overlay">
+    <div class="overlay_msg">You Signed Up Successfully</div>
+  </div>
+
+  <div class="bg_overlay_responsive"></div>
+
+  <header class="login_header">
+    <div class="sign_up">
+      <span>Not a Join user?</span>
+      <button id="sign_btn" class="transition">Sign up</button>
+    </div>
+  </header>
+
+  <div class="image_container">
+    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo"/>
+  </div>
+
+  <main>
+    <div class="login_card">
+      <div class="login_title">
+        <h1>Log In</h1>
+        <div class="underline"></div>
+      </div>
+    
+      <form id="loginForm" class="form_content">
+        <div class="email_container input_container">
+          <label for="loginEmail"></label>
+          <input type="email" name="Email" placeholder="Email" id="loginEmail" required>
+          <img class="input_icon" src="./assets/svg/email.svg" alt="Icon email">
+        </div>
+        <div class="error_message email_error_position" id="emailError"></div>
+    
+        <div class="password_container input_container">
+          <label for="loginPassword"></label>
+          <input type="password" name="Password" placeholder="Password" id="loginPassword" required>
+          <img class="input_icon cursor_pointer" src="./assets/svg/lock.svg" alt="Icon lock" id="togglePassword">
+        </div>
+        <div class="error_message password_error_position" id="passwordError"></div>
+    
+        <div class="form_btn">
+          <button class="transition" type="submit" id="login_btn">Log In</button>
+          <button class="transition" type="button" id="guest_btn">Guest Log In</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="terms_conditions">
+    <a href="./privacy_policy_signup.html">Privacy Policy</a>
+    <a href="./legal_notice_signup.html">Legal notice</a>
+  </footer>
+</body>
+</html>
