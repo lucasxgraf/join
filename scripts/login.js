@@ -20,3 +20,11 @@ function startIntro() {
   }, { once: true });
 }
 document.addEventListener('DOMContentLoaded', startIntro);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const SIGN_BTN = document.getElementById('sign_btn');
+  if (!SIGN_BTN) return;
+  SIGN_BTN.addEventListener('click', () => {
+    window.location.href = './sign_up.html';
+  });
+});

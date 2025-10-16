@@ -30,3 +30,32 @@
 .d_none{
   display: none;
 }
+
+.transition {
+  transition: all 125ms ease-in-out;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.terms_conditions {
+  margin-bottom: 30px;
+  font-size: 12px;
+}
+
+.terms_conditions a {
+  text-decoration: none;
+  color: rgb(168, 168, 168);
+  padding: 10px;
+  display: inline-block;
+}
+
+.terms_conditions a:hover {
+  color: rgb(41, 171, 226);
+  transform: scale(1.1);
+}

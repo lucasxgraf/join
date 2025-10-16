@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Page</title>
+  <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon" />
+
+  <link rel="stylesheet" href="./styles/sign_up.css">
+  <link rel="stylesheet" href="./styles/standard.css">
+
+  <script src="./scripts/sign_up.js"></script>
+</head>
+<body>
+  <div class="image_container">
+    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo"/>
+  </div>
+
+  <main>
+    <div class="signup_card">
+      <button class="back_arrow" id="backBtn" aria-label="Go back">
+        <span class="back_arrow_icon" aria-hidden="true"></span>
+      </button>
+
+      <div class="signup_title">
+        <h1>Sign up</h1>
+        <div class="underline"></div>
+      </div>
+    
+      <form id="signupForm" class="form_content">
+        <div class="name_container form_input_wrapper">
+          <label for="signUpName"></label>
+          <input type="text" name="Name" placeholder="Name" id="signUpName" required>
+          <img class="input_icon" src="./assets/svg/person.svg" alt="Icon person">
+        </div>
+        <div class="error_message name_error_position" id="nameError"></div>
+        
+        <div class="email_container form_input_wrapper">
+          <label for="signUpEmail"></label>
+          <input type="email" name="Email" placeholder="Email" id="signUpEmail" required>
+          <img class="input_icon" src="./assets/svg/email.svg" alt="Icon email">
+        </div>
+        <div class="error_message email_error_position" id="emailError"></div>
+        
+        <div class="password_container form_input_wrapper">
+          <label for="signUpPassword"></label>
+          <input type="password" name="Password" placeholder="Password" id="signUpPassword" required>
+          <img class="input_icon icon_lock" src="./assets/svg/lock.svg" alt="Lock">
+          <img class="input_icon eye eye_show" src="./assets/svg/visibility.svg" alt="Show" id="togglePassword">
+          <img class="input_icon eye eye_hide" src="./assets/svg/visibility_off.svg" alt="Hide" id="togglePasswordOff">
+        </div>
+        <div class="error_message password_error_position" id="passwordError"></div>
+
+        <div class="confirm_password_container form_input_wrapper">
+          <label for="signUpConfirmPassword"></label>
+          <input type="password" name="ConfirmPassword" placeholder="Confirm Password" id="signUpConfirmPassword" required>
+          <img class="input_icon icon_lock" src="./assets/svg/lock.svg" alt="Lock">
+          <img class="input_icon eye eye_show" src="./assets/svg/visibility.svg" alt="Show" id="toggleConfirmPassword">
+          <img class="input_icon eye eye_hide" src="./assets/svg/visibility_off.svg" alt="Hide" id="toggleConfirmPasswordOff">
+        </div>
+        <div class="error_message confirm_password_error_position" id="confirmPasswordError"></div>
+
+        <div class="checkbox_container">
+          <input type="checkbox" id="privacyCheckbox" required>
+          <label for="privacyCheckbox">I accept the <a href="./privacy_policy_signup.html" target="_blank">Privacy policy</a></label>
+        </div>
+        
+        <div class="form_btn">
+          <button class="transition" type="submit" id="signup_btn">Sign up</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="terms_conditions">
+    <a href="./privacy_policy_signup.html">Privacy Policy</a>
+    <a href="./legal_notice_signup.html">Legal notice</a>
+  </footer>
+</body>
+</html>
