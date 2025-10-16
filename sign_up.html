@@ -6,9 +6,11 @@
   <title>Sign Up Page</title>
   <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon" />
 
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="./styles/sign_up.css">
   <link rel="stylesheet" href="./styles/standard.css">
 
+  <script src="./script.js"></script>
   <script src="./scripts/sign_up.js"></script>
 </head>
 <body>
@@ -37,14 +39,14 @@
         
         <div class="email_container form_input_wrapper">
           <label for="signUpEmail"></label>
-          <input type="email" name="Email" placeholder="Email" id="signUpEmail" required>
+          <input type="email" autocomplete="email" name="Email" placeholder="Email" id="signUpEmail" required>
           <img class="input_icon" src="./assets/svg/email.svg" alt="Icon email">
         </div>
         <div class="error_message email_error_position" id="emailError"></div>
         
         <div class="password_container form_input_wrapper">
           <label for="signUpPassword"></label>
-          <input type="password" name="Password" placeholder="Password" id="signUpPassword" required>
+          <input type="password" autocomplete="current-password" name="Password" placeholder="Password" id="signUpPassword" required>
           <img class="input_icon icon_lock" src="./assets/svg/lock.svg" alt="Lock">
           <img class="input_icon eye eye_show" src="./assets/svg/visibility.svg" alt="Show" id="togglePassword">
           <img class="input_icon eye eye_hide" src="./assets/svg/visibility_off.svg" alt="Hide" id="togglePasswordOff">
@@ -53,7 +55,7 @@
 
         <div class="confirm_password_container form_input_wrapper">
           <label for="signUpConfirmPassword"></label>
-          <input type="password" name="ConfirmPassword" placeholder="Confirm Password" id="signUpConfirmPassword" required>
+          <input type="password" autocomplete="current-password" name="ConfirmPassword" placeholder="Confirm Password" id="signUpConfirmPassword" required>
           <img class="input_icon icon_lock" src="./assets/svg/lock.svg" alt="Lock">
           <img class="input_icon eye eye_show" src="./assets/svg/visibility.svg" alt="Show" id="toggleConfirmPassword">
           <img class="input_icon eye eye_hide" src="./assets/svg/visibility_off.svg" alt="Hide" id="toggleConfirmPasswordOff">

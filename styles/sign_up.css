@@ -157,40 +157,6 @@ body {
   border: 1px solid rgb(41, 171, 226);
 }
 
-.form_input_wrapper { 
-  position: relative; 
-  width: 100%; 
-}
-
-.form_input_wrapper input {
-  width: 100%;
-  padding: 20px;
-  padding-right: 48px;
-  border-radius: 12px;
-  border: 1px solid rgba(209, 209, 209, 1);
-  outline: none;
-  font-size: 20px;
-  font-weight: 400;
-  box-sizing: border-box;
-}
-
-/* Basis-Icon-Stile */
-.input_icon {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  pointer-events: none; /* Default: nicht klickbar */
-}
-
-/* Alle Augen-Icons sind klickbar */
-.input_icon.eye {
-  pointer-events: auto;
-  cursor: pointer;
-}
-
 .checkbox_container {
   display: flex;
   align-items: center;
@@ -243,24 +209,3 @@ body {
   background-color: rgba(209, 209, 209, 1);
   cursor: not-allowed;
 }
-
-/* =========================================================
-   Finale, eindeutige Anzeige-Logik für Lock/Auge(n)
-   Reihenfolge wichtig: diese Regeln sollten am Ende stehen
-   ========================================================= */
-
-/* 1) Default: nur Lock sichtbar */
-.input_icon.icon_lock { display: block; }
-.input_icon.eye { display: none; }
-
-/* 2) Wenn Wert vorhanden: Lock aus, Augen-Gruppe an */
-.form_input_wrapper.has-value .icon_lock { display: none; }
-.form_input_wrapper.has-value .eye { display: block; }
-
-/* 3) Verdeckt (nicht showing) -> show-Auge sichtbar, hide-Auge aus */
-.form_input_wrapper.has-value:not(.showing) .eye_show { display: block; }
-.form_input_wrapper.has-value:not(.showing) .eye_hide { display: none; }
-
-/* 4) Sichtbar (showing) -> hide-Auge sichtbar, show-Auge aus */
-.form_input_wrapper.has-value.showing .eye_show { display: none; }
-.form_input_wrapper.has-value.showing .eye_hide { display: block; }

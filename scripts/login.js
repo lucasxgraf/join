@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function startIntro() {
-  const logo = document.querySelector('.join_image');
-  const parts = document.querySelectorAll('.login_header, .login_card, footer');
-  if (!logo) return;
-  logo.addEventListener('animationstart', () => {
-    parts.forEach((el,i) => {
+  const LOGO = document.querySelector('.join_image');
+  const PARTS = document.querySelectorAll('.login_header, .login_card, footer');
+  if (!LOGO) return;
+  LOGO.addEventListener('animationstart', () => {
+    PARTS.forEach((el,i) => {
       el.style.visibility = 'visible';
       el.style.animation = `fadeIn 240ms ease-out ${i*80}ms forwards`;
     });
@@ -27,4 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
   SIGN_BTN.addEventListener('click', () => {
     window.location.href = './sign_up.html';
   });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof initPasswordToggle === 'function') {
+    initPasswordToggle('loginPassword', '.form_input_wrapper', 'toggleLoginPassword', 'toggleLoginPasswordOff');
+  }
 });

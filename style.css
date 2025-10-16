@@ -1,0 +1,58 @@
+.form_input_wrapper { 
+  position: relative; 
+  width: 100%; 
+}
+
+.form_input_wrapper input {
+  width: 100%;
+  padding: 20px;
+  padding-right: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  outline: none;
+  font-size: 20px;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+.input_icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.input_icon.eye {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.input_icon.icon_lock { 
+  display: block;
+}
+.input_icon.eye { 
+  display: none; 
+}
+
+.form_input_wrapper.has-value .icon_lock { 
+  display: none; 
+}
+.form_input_wrapper.has-value .eye { 
+  display: block;
+}
+
+.form_input_wrapper.has-value:not(.showing) .eye_show { 
+  display: block;
+}
+.form_input_wrapper.has-value:not(.showing) .eye_hide { 
+  display: none; 
+}
+
+.form_input_wrapper.has-value.showing .eye_show { 
+  display: none; 
+}
+.form_input_wrapper.has-value.showing .eye_hide { 
+  display: block; }

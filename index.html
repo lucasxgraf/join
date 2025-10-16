@@ -6,9 +6,11 @@
   <title>Join - Login Page</title>
   <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon" />
 
-  <link rel="stylesheet" href="./styles/login.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="./styles/standard.css">
+  <link rel="stylesheet" href="./styles/login.css">
 
+  <script src="./script.js"></script>
   <script src="./scripts/login.js"></script>
 </head>
 <body>
@@ -39,21 +41,23 @@
       <form id="loginForm" class="form_content">
         <div class="email_container input_container">
           <label for="loginEmail"></label>
-          <input type="email" name="Email" placeholder="Email" id="loginEmail" required>
+          <input type="email" autocomplete="email" name="Email" placeholder="Email" id="loginEmail" required>
           <img class="input_icon" src="./assets/svg/email.svg" alt="Icon email">
         </div>
         <div class="error_message email_error_position" id="emailError"></div>
     
-        <div class="password_container input_container">
+        <div class="password_container input_container form_input_wrapper">
           <label for="loginPassword"></label>
-          <input type="password" name="Password" placeholder="Password" id="loginPassword" required>
-          <img class="input_icon cursor_pointer" src="./assets/svg/lock.svg" alt="Icon lock" id="togglePassword">
+          <input type="password" autocomplete="current-password" name="Password" placeholder="Password" id="loginPassword" required>
+          <img class="input_icon icon_lock" src="./assets/svg/lock.svg" alt="Lock">
+          <img class="input_icon eye eye_show" src="./assets/svg/visibility.svg" alt="Show" id="toggleLoginPassword">
+          <img class="input_icon eye eye_hide" src="./assets/svg/visibility_off.svg" alt="Hide" id="toggleLoginPasswordOff">
         </div>
         <div class="error_message password_error_position" id="passwordError"></div>
     
         <div class="form_btn">
-          <button class="transition" type="submit" id="login_btn">Log In</button>
-          <button class="transition" type="button" id="guest_btn">Guest Log In</button>
+          <button class="transition" type="submit" id="login_btn" href="#">Log In</button>
+          <button class="transition" type="button" id="guest_btn" href="#">Guest Log In</button>
         </div>
       </form>
     </div>
