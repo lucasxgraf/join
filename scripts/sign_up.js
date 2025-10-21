@@ -1,82 +1,228 @@
-// Authentication Sign Up Page
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+/**
+ * Event Listeners für Sign Up Page
+ * @module signUpEventListener
+ */
 
-  const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyDZ8H-y7k78IYizot3dt3YNEmjFdDl79X8",
-    authDomain: "join-ee4e0.firebaseapp.com",
-    projectId: "join-ee4e0",
-    storageBucket: "join-ee4e0.firebasestorage.app",
-    messagingSenderId: "856619134139",
-    appId: "1:856619134139:web:ab0c32f3aff766bd758d9e"
-  };
+import { signUpUser } from './firebase_auth.js';
 
-  const APP = initializeApp(FIREBASE_CONFIG);
-  const AUTH = getAuth(APP);
+// ====
+// DOM ELEMENTE
+// ====
+const REF_BACK_BTN = document.getElementById("goBackArrow");
+const SIGNUP_FORM = document.getElementById("signUp");
+const SIGNUP_NAME_INPUT = document.getElementById("name");
+const SIGNUP_EMAIL_INPUT = document.getElementById("signUpEmail");
+const SIGNUP_PSW_INPUT = document.getElementById("signUpPassword");
+const SIGNUP_CONF_PSW_INPUT = document.getElementById("signUpConfirmPassword");
+const PRIVACY_CHECKBOX = document.getElementById("privacy_police");
 
-  const SUBMIT = document.getElementById('signup_btn');
+// ====
+// EVENT LISTENERS
+// ====
 
-  SUBMIT.addEventListener('click', function(event) {
-  event.preventDefault()
-  // const NAME = document.getElementById('signUpName').value;
-  const EMAIL = document.getElementById('signUpEmail').value;
-  const PASSWORD = document.getElementById('signUpPassword').value;
-  // const CONFIRM_PASSWORD = document.getElementById('signUpConfirmPassword').value;
+/**
+ * DOMContentLoaded: Initialisierung
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  // Password Toggle initialisieren
+  initPasswordToggle(
+    "signUpPassword",
+    "toggleSignUpPassword",
+    "./assets/svg/lock.svg",
+    "./assets/svg/visibility_off.svg",
+    "./assets/svg/visibility.svg"
+  );
 
-  createUserWithEmailAndPassword(AUTH, EMAIL, PASSWORD)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    alert("Creating User ...");
-    window.location.href = "index.html";
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(errorMessage);
-    // ..
-  });
-  })
+  initPasswordToggle(
+    "signUpConfirmPassword",
+    "toggleSignUpConfirmPassword",
+    "./assets/svg/lock.svg",
+    "./assets/svg/visibility_off.svg",
+    "./assets/svg/visibility.svg"
+  );
 
-
-// Function to toggle password visibility
-document.addEventListener('DOMContentLoaded', () => {
-  const BACK_BTN = document.getElementById('backBtn');
-  const SIGN_UP_FORM = document.getElementById('signupForm');
-
-  if (BACK_BTN) {
-    BACK_BTN.addEventListener('click', () => {
-      window.location.href = './index.html';
-    });
+  // Sign Window sofort anzeigen (ohne Animation)
+  const signWindow = document.querySelector(".sign_window");
+  const footer = document.querySelector("footer");
+  
+  if (signWindow) {
+    signWindow.style.display = "block";
   }
-
-  if (SIGN_UP_FORM) {
-    SIGN_UP_FORM.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const NAME = document.getElementById('signUpName').value;
-      const EMAIL = document.getElementById('signUpEmail').value;
-      const PASSWORD = document.getElementById('signUpPassword').value;
-      const CONFIRM_PASSWORD = document.getElementById('signUpConfirmPassword').value;
-      const PRIVACY_CHECKBOX = document.getElementById('privacyCheckbox');
-
-      clearErrors();
-
-      if (PASSWORD !== CONFIRM_PASSWORD) {
-        showError('confirmPasswordError', 'Passwords do not match');
-        return;
-      }
-
-      if (!PRIVACY_CHECKBOX.checked) {
-        alert('Please accept the Privacy Policy');
-        return;
-      }
-
-      console.log('Sign up successful:', { NAME, EMAIL });
-      window.location.href = './index.html';
-    });
+  if (footer) {
+    footer.style.display = "block";
   }
-
-  initPasswordToggle('signUpPassword', '.form_input_wrapper', 'togglePassword', 'togglePasswordOff');
-  initPasswordToggle('signUpConfirmPassword', '.form_input_wrapper', 'toggleConfirmPassword', 'toggleConfirmPasswordOff');
 });
+
+/**
+ * Back Arrow Click
+ */
+if (REF_BACK_BTN) {
+  REF_BACK_BTN.addEventListener("click", goBack);
+}
+
+/**
+ * Password Match Validation
+ */
+if (SIGNUP_CONF_PSW_INPUT) {
+  SIGNUP_CONF_PSW_INPUT.addEventListener("input", checkPasswordMatch);
+}
+
+/**
+ * Form Submit
+ */
+if (SIGNUP_FORM) {
+  SIGNUP_FORM.addEventListener("submit", handleSignUpSubmit);
+}
+
+/**
+ * Click außerhalb des Forms: Error Messages löschen
+ */
+document.addEventListener("click", function (event) {
+  if (SIGNUP_FORM && !SIGNUP_FORM.contains(event.target)) {
+    clearSignUpErrors();
+  }
+});
+
+// ====
+// FUNKTIONEN
+// ====
+
+/**
+ * Prüft ob Passwörter übereinstimmen
+ */
+function checkPasswordMatch() {
+  const password = SIGNUP_PSW_INPUT.value;
+  const confirmPassword = SIGNUP_CONF_PSW_INPUT.value;
+  const errorElement = document.getElementById("signUpConfirmPasswordError");
+
+  if (confirmPassword && password !== confirmPassword) {
+    showError("signUpConfirmPasswordError", "Your passwords don't match. Please try again.");
+    SIGNUP_CONF_PSW_INPUT.style.borderColor = "red";
+  } else {
+    errorElement.textContent = "";
+    SIGNUP_CONF_PSW_INPUT.style.borderColor = "";
+  }
+}
+
+/**
+ * Holt Daten aus dem Sign Up Form und validiert
+ */
+async function handleSignUpSubmit(event) {
+  event.preventDefault();
+  clearSignUpErrors();
+
+  const name = SIGNUP_NAME_INPUT.value.trim();
+  const email = SIGNUP_EMAIL_INPUT.value.trim();
+  const password = SIGNUP_PSW_INPUT.value;
+  const confirmPassword = SIGNUP_CONF_PSW_INPUT.value;
+  const privacyAccepted = PRIVACY_CHECKBOX.checked;
+
+  // Validierung
+  if (!validateSignUpForm(name, email, password, confirmPassword, privacyAccepted)) {
+    return;
+  }
+
+  // User registrieren mit Firebase Auth
+  const result = await signUpUser(name, email, password);
+
+  if (result.success) {
+    showSuccessOverlay();
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 2000);
+  } else {
+    showError("signUpEmailError", result.error);
+    SIGNUP_EMAIL_INPUT.style.borderColor = "red";
+  }
+}
+
+/**
+ * Validiert alle Sign Up Form Felder
+ * @returns {boolean} - true wenn valide, false wenn Fehler
+ */
+function validateSignUpForm(name, email, password, confirmPassword, privacyAccepted) {
+  let isValid = true;
+
+  if (!name) {
+    showError("signUpNameError", "Please enter your name");
+    SIGNUP_NAME_INPUT.style.borderColor = "red";
+    isValid = false;
+  }
+
+  if (!email) {
+    showError("signUpEmailError", "Please enter your email");
+    SIGNUP_EMAIL_INPUT.style.borderColor = "red";
+    isValid = false;
+  } else if (!isValidEmail(email)) {
+    showError("signUpEmailError", "Please enter a valid email");
+    SIGNUP_EMAIL_INPUT.style.borderColor = "red";
+    isValid = false;
+  }
+
+  if (!password) {
+    showError("signUpPasswordError", "Please enter a password");
+    SIGNUP_PSW_INPUT.style.borderColor = "red";
+    isValid = false;
+  } else if (password.length < 6) {
+    showError("signUpPasswordError", "Password must be at least 6 characters");
+    SIGNUP_PSW_INPUT.style.borderColor = "red";
+    isValid = false;
+  }
+
+  if (!confirmPassword) {
+    showError("signUpConfirmPasswordError", "Please confirm your password");
+    SIGNUP_CONF_PSW_INPUT.style.borderColor = "red";
+    isValid = false;
+  } else if (password !== confirmPassword) {
+    showError("signUpConfirmPasswordError", "Passwords do not match");
+    SIGNUP_CONF_PSW_INPUT.style.borderColor = "red";
+    isValid = false;
+  }
+
+  if (!privacyAccepted) {
+    showError("signUpEmailError", "Please accept the privacy policy");
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+/**
+ * Zeigt Success Overlay
+ */
+function showSuccessOverlay() {
+  const overlay = document.getElementById("overlay");
+  if (overlay) {
+    overlay.style.display = "block";
+  }
+}
+
+/**
+ * Validiert Email Format
+ */
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+/**
+ * Löscht alle Error Messages
+ */
+function clearSignUpErrors() {
+  const errorIds = [
+    "signUpNameError",
+    "signUpEmailError", 
+    "signUpPasswordError",
+    "signUpConfirmPasswordError",
+  ];
+
+  errorIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = "";
+  });
+
+  // Border Colors zurücksetzen
+  [SIGNUP_NAME_INPUT, SIGNUP_EMAIL_INPUT, SIGNUP_PSW_INPUT, SIGNUP_CONF_PSW_INPUT].forEach(input => {
+    if (input) input.style.borderColor = "";
+  });
+}

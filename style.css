@@ -1,58 +1,74 @@
-.form_input_wrapper { 
-  position: relative; 
-  width: 100%; 
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 16px;
 }
 
-.form_input_wrapper input {
+.form_group {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.form_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_container {
+  position: relative;
   width: 100%;
-  padding: 20px;
-  padding-right: 48px;
-  border-radius: 12px;
-  border: 1px solid rgba(209, 209, 209, 1);
-  outline: none;
-  font-size: 20px;
-  font-weight: 400;
-  box-sizing: border-box;
 }
 
 .input_icon {
   position: absolute;
-  right: 16px;
+  right: 22px;
   top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
   width: 24px;
   height: 24px;
-  pointer-events: none;
 }
 
-.input_icon.eye {
-  pointer-events: auto;
+#loginEmail,
+#loginPassword,
+#name,
+#signUpEmail,
+#signUpPassword,
+#signUpConfirmPassword {
+  box-sizing: border-box;
+  height: 36px;
+  width: 100%;
+  padding: 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  border: 1px solid rgba(209, 209, 209, 1);
+  border-radius: 12px;
+  outline: none;
   cursor: pointer;
 }
 
-.input_icon.icon_lock { 
-  display: block;
-}
-.input_icon.eye { 
-  display: none; 
+::placeholder {
+  color: rgba(209, 209, 209, 1);
 }
 
-.form_input_wrapper.has-value .icon_lock { 
-  display: none; 
+#loginEmail:focus,
+#signUpEmail:focus,
+#loginPassword:focus,
+#signUpPassword:focus,
+#signUpConfirmPassword:focus,
+#name:focus {
+  border: 1px solid rgb(41, 171, 226);
 }
-.form_input_wrapper.has-value .eye { 
+
+.error_message {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  min-height: 18px;
   display: block;
 }
 
-.form_input_wrapper.has-value:not(.showing) .eye_show { 
-  display: block;
+.email_error_position {
+  position: absolute;
+  top: 182px;
 }
-.form_input_wrapper.has-value:not(.showing) .eye_hide { 
-  display: none; 
-}
-
-.form_input_wrapper.has-value.showing .eye_show { 
-  display: none; 
-}
-.form_input_wrapper.has-value.showing .eye_hide { 
-  display: block; }

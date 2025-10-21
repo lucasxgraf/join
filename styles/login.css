@@ -12,17 +12,16 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(2);
   object-fit: cover;
   animation: moveShrinkFade 0.8s ease-in-out forwards;
   z-index: 100;
-  animation-delay: 0.5s;
-  height: 200px;
+  animation-delay: 1s;
 }
 
 @keyframes moveShrinkFade {
   0% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(2);
     opacity: 1;
     position: absolute;
     top: 50%;
@@ -30,16 +29,12 @@ body {
   }
 
   100% {
-    transform: translate(0, 0) scale(0.5);
+    transform: translate(0, 0) scale(1);
     opacity: 1;
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: 56px;
+    left: 56px;
   }
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
 }
 
 header {
@@ -53,11 +48,11 @@ header {
 .sign_up {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 32px;
 }
 
 .sign_up span {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
 }
 
@@ -70,7 +65,6 @@ header {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  margin-left: 20px;
   height: 49px;
   width: 91px;
 }
@@ -83,49 +77,34 @@ header {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
   opacity: 0;
+  animation: fadeIn 125ms forwards;
   width: 500px;
-  padding: 40px 80px;
-  transition: filter 120ms linear; /* optional, sehr kurz */
+  padding: 32px 64px;
+  display: none;
 }
 
 .login_title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 8px;
-
-}
-
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 13px;
-  margin-top: 10px;
 }
 
 .underline {
   border: 1px solid;
-  width: 98px;
+  width: 60px;
   height: 1px;
   color: rgb(41, 171, 226);
   background-color: rgb(41, 171, 226);
-  margin-bottom: 13px;
-}
-
-.form_content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .form_btn {
   display: flex;
   justify-content: center;
   gap: 40px;
-  margin-top: 30px;
+  margin-top: 24px;
 }
 
 .sign_btn {
@@ -134,74 +113,18 @@ h1 {
   gap: 40px;
 }
 
-.error_message {
-  position: absolute;
-  color: red;
-  font-size: 12px;
-  margin: 0;
-  padding: 0;
-  top: 48%;
-  left: 40px;
-  width: auto;
-}
-
-.email_error_position {
-  position: absolute;
-  top: 182px;
-}
-
+.email_error_position,
 .password_error_position {
-  position: absolute;
-  top: 250px;
-}
-
-#loginEmail,
-#loginPassword{
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 400;
-  height: 36px;
-  width: 100%;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid rgba(209, 209, 209, 1);
-  outline: none;
-  box-sizing: border-box;}
-
-::placeholder {
-  color: rgba(209, 209, 209, 1);
-}
-
-#loginEmail:focus,
-#loginPassword:focus{
-  border: 1px solid rgb(41, 171, 226);
-}
-
-.password_container {
-  position: relative;
-  width: 100%;
-}
-
-.password_icon {
-  position: absolute;
-  right: 22px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
+  position: static;
+  top: auto; /* Sicherheits-Reset */
+  margin-top: 4px; /* leichte Abstand nach dem Input */
 }
 
 #loginPassword {
   background-image: none;
 }
 
-#togglePassword { 
-  pointer-events: auto; 
-  cursor: pointer; 
-}
-
-#guest_btn {
+#guestLog {
   background-color: white;
   color: rgb(42, 54, 71);
   border: 1px solid;
@@ -211,10 +134,18 @@ h1 {
   font-weight: bold;
   width: 140px;
   height: 40px;
-  font-size: 1rem;
+  font-size: large;
+  cursor: pointer;
 }
 
-#login_btn {
+#guestLog:hover {
+  color: rgb(41, 171, 226);
+  border-color: rgb(41, 171, 226);
+  box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
+  transition: all 125ms ease-in-out;
+}
+
+#loginBtn {
   cursor: pointer;
   background-color: rgb(42, 54, 71);
   color: white;
@@ -222,77 +153,19 @@ h1 {
   padding: 10px;
   border-radius: 8px;
   font-weight: 400;
-  width: 100px;
+  width: 99px;
   height: 40px;
-  font-size: 1rem;
+  font-size: large;
 }
 
-#guest_btn:hover {
-  color: rgb(41, 171, 226);
-  border-color: rgb(41, 171, 226);
-  box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
-}
-
-#login_btn:hover,
-#sign_btn:hover {
+#loginBtn:hover {
   background-color: rgb(41, 171, 226);
   box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
+  transition: all 125ms ease-in-out;
 }
 
-.login_header,
-.login_card,
-footer {
-  opacity: 0;
-  visibility: hidden;
-  will-change: opacity;
-}
-
-.show_after_intro {
-  animation: fadeIn 300ms ease-out forwards;
-  visibility: visible;
-}
-
-#overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  display: none;
-}
-
-.overlay_msg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 326px;
-  height: 74px;
-  border-radius: 30px;
-  z-index: 3;
-  background-color: rgba(42, 54, 71, 1);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.input_container { 
-  position: relative; 
-  width: 100%; 
-}
-
-.input_icon {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
+#signBtn:hover {
+  background-color: rgb(41, 171, 226);
+  box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
+  transition: all 125ms ease-in-out;
 }

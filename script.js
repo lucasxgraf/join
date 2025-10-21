@@ -7,42 +7,49 @@ function clearErrors() {
   document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
 }
 
-function initPasswordToggle(inputId, wrapperSelector, showId, hideId) {
+function initPasswordToggle(inputId, toggleId, lockIcon, visibilityOffIcon, visibilityIcon) {
   const INPUT = document.getElementById(inputId);
-  if (!INPUT) return;
-  const WRAPPER = INPUT.closest(wrapperSelector);
-  const BTN_SHOW = document.getElementById(showId);
-  const BTN_HIDE = document.getElementById(hideId);
-  if (!WRAPPER) return;
+  const TOGGLE = document.getElementById(toggleId);
+  
+  if (!INPUT || !TOGGLE) return;
 
-  function sync(forceMask = false) {
-    const hasVal = INPUT.value.length > 0;
-    if (forceMask && hasVal && INPUT.type !== 'password') {
-      INPUT.type = 'password';
+  // Input Event: Icon ändern basierend auf Wert
+  INPUT.addEventListener("input", () => {
+    if (INPUT.value.length === 0) {
+      TOGGLE.src = lockIcon;
+    } else if (INPUT.type === "password") {
+      TOGGLE.src = visibilityOffIcon;
+    } else {
+      TOGGLE.src = visibilityIcon;
     }
-    WRAPPER.classList.toggle('has-value', hasVal);
-    WRAPPER.classList.toggle('showing', INPUT.type === 'text');
-  }
-
-  BTN_SHOW?.addEventListener('click', () => {
-    INPUT.type = 'text';
-    WRAPPER.classList.add('showing');
   });
 
-  BTN_HIDE?.addEventListener('click', () => {
-    INPUT.type = 'password';
-    WRAPPER.classList.remove('showing');
-  });
-
-  INPUT.addEventListener('input', () => {
-    if (INPUT.value) {
-      INPUT.type = 'password';
-      WRAPPER.classList.remove('showing');
+  // Click Event: Password sichtbar/unsichtbar machen
+  TOGGLE.addEventListener("click", () => {
+    if (INPUT.type === "password") {
+      INPUT.type = "text";
+      TOGGLE.src = visibilityIcon;
+    } else {
+      INPUT.type = "password";
+      if (INPUT.value.length === 0) {
+        TOGGLE.src = lockIcon;
+      } else {
+        TOGGLE.src = visibilityOffIcon;
+      }
     }
-    sync(false);
   });
+}
 
-  INPUT.type = 'password';
-  WRAPPER.classList.remove('showing');
-  sync(false);
+function goBack() {
+  window.history.back();
+}
+
+function fadeInElement(selector, delay = 1000) {
+  const element = document.querySelector(selector);
+  if (!element) return;
+  
+  setTimeout(() => {
+    element.style.display = "block";
+    element.style.animation = "fadeIn 3s forwards";
+  }, delay);
 }

@@ -1,78 +1,175 @@
-// Authentication Sign Up Page
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+/**
+ * Login Page Event Listeners und Funktionen
+ * @module login
+ */
 
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDZ8H-y7k78IYizot3dt3YNEmjFdDl79X8",
-  authDomain: "join-ee4e0.firebaseapp.com",
-  projectId: "join-ee4e0",
-  storageBucket: "join-ee4e0.firebasestorage.app",
-  messagingSenderId: "856619134139",
-  appId: "1:856619134139:web:ab0c32f3aff766bd758d9e"
-};
+import { loginUser, loginAsGuest } from './firebase_auth.js';
 
-const APP = initializeApp(FIREBASE_CONFIG);
-const AUTH = getAuth(APP);
+// ====
+// DOM ELEMENTE
+// ====
+const REF_LOGIN_BTN = document.querySelector("#loginBtn");
+const PASSWORD_INPUT = document.getElementById("loginPassword");
+const TOGGLE_PASSWORD = document.getElementById("togglePassword");
+const GUEST_LOGIN_BTN = document.querySelector("#guestLog");
 
-const SUBMIT = document.getElementById('login_btn');
+// ====
+// INITIALISIERUNG
+// ====
 
-SUBMIT.addEventListener('click', function(event) {
-event.preventDefault()
-// const NAME = document.getElementById('signUpName').value;
-const EMAIL = document.getElementById('loginEmail').value;
-const PASSWORD = document.getElementById('loginPassword').value;
-// const CONFIRM_PASSWORD = document.getElementById('signUpConfirmPassword').value;
-
-signInWithEmailAndPassword(AUTH, EMAIL, PASSWORD)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    alert("Logging In ...");
-    window.location.href = "test.html";
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  alert(errorMessage);
-  // ..
-});
-})
-
-
+/**
+ * Initialisiert die Login Page
+ */
 document.addEventListener("DOMContentLoaded", function () {
-  const BG_OVERLAY = document.querySelector(".bg_overlay_responsive");
+  const LOGIN_CARD = document.querySelector(".login_card");
+  const loginHeader = document.querySelector(".login_header");
+  const footer = document.querySelector("footer");
+
+  // Fade In Animationen
   setTimeout(() => {
-    BG_OVERLAY.style.animation = "fadeOut 1s forwards";
-    setTimeout(() => {
-      BG_OVERLAY.style.display = "none";
-    }, 800);
-  }, 1200);
+    footer.style.display = "block";
+    footer.style.animation = "fadeIn 3s forwards";
+    loginHeader.style.display = "flex";
+    loginHeader.style.animation = "fadeIn 3s forwards";
+    LOGIN_CARD.style.display = "inline";
+    LOGIN_CARD.style.animation = "fadeIn 3s forwards";
+  }, 1000);
+
+  // Password Toggle initialisieren
+  initPasswordToggle(
+    "loginPassword",
+    "togglePassword",
+    "./assets/svg/lock.svg",
+    "./assets/svg/visibility_off.svg",
+    "./assets/svg/visibility.svg"
+  );
 });
 
-function startIntro() {
-  const LOGO = document.querySelector('.join_image');
-  const PARTS = document.querySelectorAll('.login_header, .login_card, footer');
-  if (!LOGO) return;
-  LOGO.addEventListener('animationstart', () => {
-    PARTS.forEach((el,i) => {
-      el.style.visibility = 'visible';
-      el.style.animation = `fadeIn 240ms ease-out ${i*80}ms forwards`;
-    });
-  }, { once: true });
+// ====
+// EVENT LISTENERS
+// ====
+
+/**
+ * Login Button Click
+ */
+if (REF_LOGIN_BTN) {
+  REF_LOGIN_BTN.addEventListener("click", handleLoginSubmit);
 }
-document.addEventListener('DOMContentLoaded', startIntro);
 
-document.addEventListener('DOMContentLoaded', () => {
-  const SIGN_BTN = document.getElementById('sign_btn');
-  if (!SIGN_BTN) return;
-  SIGN_BTN.addEventListener('click', () => {
-    window.location.href = './sign_up.html';
+/**
+ * Guest Login Button Click
+ */
+if (GUEST_LOGIN_BTN) {
+  GUEST_LOGIN_BTN.addEventListener("click", handleGuestLogin);
+}
+
+/**
+ * Password Input Change
+ */
+if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
+  PASSWORD_INPUT.addEventListener("input", () => {
+    if (PASSWORD_INPUT.value.length === 0) {
+      TOGGLE_PASSWORD.src = "./assets/svg/lock.svg";
+    } else if (PASSWORD_INPUT.type === "password") {
+      TOGGLE_PASSWORD.src = "./assets/svg/visibility_off.svg";
+    } else {
+      TOGGLE_PASSWORD.src = "./assets/svg/visibility.svg";
+    }
   });
-});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof initPasswordToggle === 'function') {
-    initPasswordToggle('loginPassword', '.form_input_wrapper', 'toggleLoginPassword', 'toggleLoginPasswordOff');
+/**
+ * Click außerhalb des Forms: Error Messages löschen
+ */
+document.addEventListener("click", function (event) {
+  const formContent = document.querySelector(".form_content");
+  if (formContent && !formContent.contains(event.target)) {
+    clearLoginErrors();
   }
 });
+
+// ====
+// FUNKTIONEN
+// ====
+
+/**
+ * Behandelt Login Form Submit
+ */
+async function handleLoginSubmit(event) {
+  event.preventDefault();
+  clearLoginErrors();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  // Validierung
+  if (!validateLoginInputs(email, password)) {
+    return;
+  }
+
+  // Login mit Firebase Auth
+  const result = await loginUser(email, password);
+
+  if (result.success) {
+    window.location.href = "./test.html";
+  } else {
+    showLoginError(result.error);
+  }
+}
+
+/**
+ * Behandelt Guest Login
+ */
+async function handleGuestLogin() {
+  const result = await loginAsGuest();
+
+  if (result.success) {
+    window.location.href = "./test.html";
+  } else {
+    alert("Guest login failed. Please try again.");
+  }
+}
+
+/**
+ * Validiert Login Inputs
+ * @returns {boolean} - true wenn valide, false wenn Fehler
+ */
+function validateLoginInputs(email, password) {
+  let isValid = true;
+
+  if (!email) {
+    showError("emailError", "Please enter your email address here.");
+    document.getElementById("loginEmail").style.borderColor = "red";
+    isValid = false;
+  }
+
+  if (!password) {
+    showError("passwordError", "Please enter your password here.");
+    document.getElementById("loginPassword").style.borderColor = "red";
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+/**
+ * Zeigt Login Error (Email + Password rot)
+ */
+function showLoginError(message) {
+  const emailElement = document.getElementById("loginEmail");
+  const passwordElement = document.getElementById("loginPassword");
+  
+  emailElement.style.borderColor = "red";
+  passwordElement.style.borderColor = "red";
+  document.getElementById("passwordError").innerText = message;
+}
+
+/**
+ * Löscht alle Login Error Messages
+ */
+function clearLoginErrors() {
+  document.getElementById("emailError").innerText = "";
+  document.getElementById("passwordError").innerText = "";
+  document.getElementById("loginEmail").style.borderColor = "";
+  document.getElementById("loginPassword").style.borderColor = "";
+}
