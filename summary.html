@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="stylesheet" href="./summary.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="upper-container">
+        <div class="sidebar">
+            <img class="sidebar-logo" src="./assets/logos/Join logo vector.svg">
+            <div class="next-page">
+                <button class="summary" href="#"><img src="./assets/icons/summary.svg"></button>
+                <button class="add-task" href="#"><img src="./assets/icons/Add Task.svg"></button>
+                <button class="board" href="#"><img src="./assets/icons/Board.svg"></button>
+                <button class="contacts" href="#"><img src="./assets/icons/Contacts.svg"></button>
+            </div>
+            <div class="sidebar-bottom">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Legal notice</a>
+            </div>
+        </div>
+        <div class="center-wrap">
+            <header>
+            <div class="header-wrap" id="headerWrap">
+                <h2>Kanban Project Management Tool</h2>
+                <div class="profile-section">
+                    <button class="help-icon"><img src="./assets/svg/help_small.svg"></button>
+                    <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+                </div>
+            </div> 
+            </header>
+            <div class="dropdown-menu-container" id="dropDownMenu">
+                <div class="dropdown-menu">
+                    <button>Legal Notice</button>
+                    <button>Privacy Policy</button>
+                    <button>Log out</button>
+                </div>
+            </div>
+        <div style="display: flex;">   
+        <div class="content">  
+            <div class="headlines">
+                <h1>Join 360</h1>
+                <div class="blue-divider"></div>
+                <h2 class="join-subline">Key Metrics at a Glance</h2>
+            </div>
+            <div class="two-cards">
+                <div class="card-to-do" id="todoCard">
+                    <span><img src="./assets/svg/pencil_default.svg" id="iconToDo"></span>
+                    <div class="card-info">
+                        <span class="card-font" id="todoNumber">1</span>
+                        <span class="task-category" id="taskToDo">To-Do</span>
+                    </div>
+                </div>
+                <div class="card-done" id="doneCard">
+                    <span><img src="./assets/svg/check_default.svg" id="iconDone"></span>
+                    <div class="card-info">
+                        <span class="card-font" id="doneNumber">1</span>
+                        <span class="task-category" id="taskDone">Done</span>
+                    </div>
+                </div>
+            </div>
+            <div class="long-card" id="longCard">
+                <span><img src="./assets/svg/urgent_icon.svg"></span>
+                <div class="card-info">
+                        <span class="card-font" id="urgentNumber">1</span>
+                        <span class="task-category" id="taskUrgent">Urgent</span>
+                </div>
+                <div class="divider"></div>
+                <div class="urgent-info">
+                    <span id="dateText" class="date">date</span>
+                    <span id="dateSubline" class="date-subline">Upcoming Deadline</span>
+                </div>
+            </div>
+            <div class="three-cards-row">
+                <div class="task-board-container" id="taskBoard">
+                    <span class="three-card-number" id="taskBoardNumber">5</span>
+                    <span class="three-card-subline" id="taskBoardText">Tasks in Board</span>
+                </div>
+                <div class="task-progress-container" id="taskProgress">
+                    <span class="three-card-number" id="taskProgressNumber">2</span>
+                    <span class="three-card-subline" id="taskProgressText">Tasks in Progress</span>
+                </div>
+                <div class="feedback-container" id="feedback">
+                    <span class="three-card-number" id="feedbackNumber">2</span>
+                    <span class="three-card-subline" id="feedbackText">Awaiting Feedback</span>
+                </div>
+            </div>
+        </div>
+        <div class="greetings">
+            <span id="timeGreeting">Good morning,</span>
+            <span id="userGreeting">Sofia Müller</span>
+        </div>
+        </div>     
+        </div>
+        
+
+        
+    </div>
+
+    
+<script src="./summary_hover.js"></script>
+<script src="./header_sidebar/summary_header.js"></script>
+<script src="./summary.js"></script>
+</body>
+</html>
