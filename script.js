@@ -1,6 +1,6 @@
 function showError(elementId, message) {
-  const el = document.getElementById(elementId);
-  if (el) el.textContent = message;
+  const ELEMENT = document.getElementById(elementId);
+  if (ELEMENT) ELEMENT.textContent = message;
 }
 
 function clearErrors() {
@@ -10,34 +10,40 @@ function clearErrors() {
 function initPasswordToggle(inputId, toggleId, lockIcon, visibilityOffIcon, visibilityIcon) {
   const INPUT = document.getElementById(inputId);
   const TOGGLE = document.getElementById(toggleId);
+  const ICONS = { 
+    lock: lockIcon, 
+    off: visibilityOffIcon, 
+    on: visibilityIcon 
+  };
   
-  if (!INPUT || !TOGGLE) return;
+  if (!INPUT || !TOGGLE) 
+  return;
+  
+  INPUT.addEventListener("input", () => 
+  updateToggleIcon(INPUT, TOGGLE, ICONS));
 
-  // Input Event: Icon ändern basierend auf Wert
-  INPUT.addEventListener("input", () => {
-    if (INPUT.value.length === 0) {
-      TOGGLE.src = lockIcon;
-    } else if (INPUT.type === "password") {
-      TOGGLE.src = visibilityOffIcon;
-    } else {
-      TOGGLE.src = visibilityIcon;
-    }
-  });
+  TOGGLE.addEventListener("click", () => 
+  togglePasswordVisibility(INPUT, TOGGLE, ICONS));
+}
 
-  // Click Event: Password sichtbar/unsichtbar machen
-  TOGGLE.addEventListener("click", () => {
-    if (INPUT.type === "password") {
-      INPUT.type = "text";
-      TOGGLE.src = visibilityIcon;
-    } else {
-      INPUT.type = "password";
-      if (INPUT.value.length === 0) {
-        TOGGLE.src = lockIcon;
-      } else {
-        TOGGLE.src = visibilityOffIcon;
-      }
-    }
-  });
+function updateToggleIcon(input, toggle, icons) {
+  if (input.value.length === 0) {
+    toggle.src = icons.lock;
+  } else if (input.type === "password") {
+    toggle.src = icons.off;
+  } else {
+    toggle.src = icons.on;
+  }
+}
+
+function togglePasswordVisibility(input, toggle, icons) {
+  if (input.type === "password") {
+    input.type = "text";
+    toggle.src = icons.on;
+  } else {
+    input.type = "password";
+    toggle.src = input.value.length === 0 ? icons.lock : icons.off;
+  }
 }
 
 function goBack() {
@@ -45,11 +51,11 @@ function goBack() {
 }
 
 function fadeInElement(selector, delay = 1000) {
-  const element = document.querySelector(selector);
-  if (!element) return;
+  const ELEMENT = document.querySelector(selector);
+  if (!ELEMENT) return;
   
   setTimeout(() => {
-    element.style.display = "block";
-    element.style.animation = "fadeIn 3s forwards";
+    ELEMENT.style.display = "block";
+    ELEMENT.style.animation = "fadeIn 3s forwards";
   }, delay);
 }

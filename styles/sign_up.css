@@ -1,3 +1,7 @@
+body {
+  background-color: #f4f4f4;
+}
+
 .join_image {
   position: absolute;
   top: 56px;
@@ -61,18 +65,6 @@
   color: rgb(41, 171, 226);
   background-color: rgb(41, 171, 226);
   margin-bottom: 16px;
-}
-
-#name {
-  background: url("../assets/svg/person.svg") no-repeat right center;
-  background-repeat: no-repeat;
-  background-position: calc(100% - 20px);
-}
-
-#signUpEmail{
-  background: url("../assets/svg/email.svg") no-repeat right center;
-  background-repeat: no-repeat;
-  background-position: calc(100% - 20px);
 }
 
 #signUpNameError,
@@ -173,7 +165,9 @@ input[type="checkbox"]:hover {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 120%);
+  opacity: 0;
+  animation: overlaySlideUp 2s ease-in-out forwards;
   width: 326px;
   height: 74px;
   border-radius: 30px;
@@ -183,8 +177,28 @@ input[type="checkbox"]:hover {
   color: rgb(255, 255, 255);
   font-size: 1.25rem;
   font-weight: 400;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* Toast Animation: Von Unten in die Mitte */
+@keyframes overlaySlideUp {
+  0% {
+    transform: translate(-50%, 120%);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%);
+    opacity: 1; 
+  }
+  100% {
+    transform: translate(-50%, 120%); /* auf -50% ändern, wenn es in der Mitte stehen bleiben soll */
+    opacity: 0;
+  }
+}
+
