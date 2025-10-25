@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join - Legal Notice</title>
+
+  <link rel="stylesheet" href="./header_sidebar/headbar_sidebar.css">
+  <link rel="stylesheet" href="legalNotice.css">
+
+  <script src="./header_sidebar/summary_header.js"></script>
+  <script src="legalNotice.js"></script>
+</head>
+<body>
+    <div class="upper-container">
+        <div class="sidebar">
+            <img class="sidebar-logo" src="./assets/logos/Join logo vector.svg">
+            <div class="next-page">
+                <button class="summary" href="#"><img src="./assets/icons/summary.svg"></button>
+                <button class="add-task" href="#"><img src="./assets/icons/Add Task.svg"></button>
+                <button class="board" href="#"><img src="./assets/icons/Board.svg"></button>
+                <button class="contacts" href="#"><img src="./assets/icons/Contacts.svg"></button>
+            </div>
+            <div class="sidebar-bottom">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Legal notice</a>
+            </div>
+        </div>
+        <div class="center-wrap">
+            <header>
+            <div class="header-wrap" id="headerWrap">
+                <h2>Kanban Project Management Tool</h2>
+                <div class="profile-section">
+                    <button class="help-icon"><img src="./assets/svg/help_small.svg"></button>
+                    <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+                </div>
+            </div> 
+            </header>
+            <div class="dropdown-menu-container" id="dropDownMenu">
+                <div class="dropdown-menu">
+                    <button>Legal Notice</button>
+                    <button>Privacy Policy</button>
+                    <button>Log out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
