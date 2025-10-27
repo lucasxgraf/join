@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Log in – Join</title>
+<link rel="stylesheet" href="./styles/login.css">
+<!-- head -->
+<script src="./js/db.js" defer></script>
+<script src="./js/session.js" defer></script>
+<script src="./js/login.js" defer></script>
+
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="top">
+    <div class="logo">
+      <!-- Placeholder logo similar feel -->
+      <img src="./assets/img/logo.svg" style="height: 100px; width: 100px; margin-top: 50px;">
+    </div>
+    <div class="signup">
+      <span>Not a Join user?</span>
+      <a class="btn" href="signup.html">Sign up</a>
+    </div>
+  </header>
+
+  <!-- Centered card -->
+  <main class="wrap">
+    <section class="card" aria-labelledby="loginTitle">
+      <h1 id="loginTitle">Log in</h1>
+      <div class="accent" aria-hidden="true"></div>
+
+      <form class="form" action="#" method="post" onsubmit="login(); return false;">
+        <!-- Email -->
+        <label class="field">
+          <input class="input" type="email" name="email" placeholder="Email" required id="email"/>
+          <!-- mail icon -->
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 2 8 5 8-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+
+        <!-- Password -->
+        <label class="field">
+          <input class="input" type="password" name="password" placeholder="Password" required id="password"/>
+          <!-- lock icon -->
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 10V7a5 5 0 0 1 10 0v3M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+        
+
+        <form class="form" action="#" method="post">
+          ...
+          <div class="actions">
+            <button type="submit" class="btn btn-lg">Log in</button>
+            <button type="button" id="guestBtn" class="btn btn-outline btn-lg">Guest Log in</button>
+          </div>
+        </form>
+
+      </form>
+
+      <div style="display: flex; justify-content: center;">
+      <div id="msgBox" style="display:none;"></div>
+      </div>
+
+    </section>
+  </main>
+  <div class="footer">
+        <a href="./privacy_policy_signup.html">Privacy Policy</a>
+        <a href="./legal_notice_signup.html">Legal notice</a>
+      </div>
+
+</body>
+</html>
+
+
