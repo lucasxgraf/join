@@ -1,10 +1,10 @@
-body {
+.template {
     height: 100vh;
     margin: 0;
     background-color: rgba(246, 247, 248, 1);
 }
 
-header {
+.header-template {
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     height: 100px;
@@ -53,31 +53,6 @@ button {
 .upper-container {
     display: flex;
     position: relative;
-}
-
-.upper-container h1 {
-    text-align: start;
-    font-family: Inter;
-    font-weight: 700;
-    font-size: 54px;
-    margin-left: 100px;
-    margin-top: 64px;
-    text-wrap-mode: nowrap;
-}
-
-.blue-divider {
-    background-color: #29ABE2;
-    height: 65px;
-    width: 3px;
-    transform: translateY(10px);
-}
-
-.join-subline {
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 27px;
-    transform: translateY(-5px);
-    text-wrap-mode: nowrap;
 }
 
 .profile-section {
