@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Page</title>
+  <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon" />
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./styles/standard.css">
+  <link rel="stylesheet" href="./styles/sign_up.css">
+
+  <script type="module" src="./scripts/firebase_config.js" defer></script>
+  <script type="module" src="./scripts/firebase_auth.js" defer></script>
+  <script src="script.js"></script>
+  <script src="./scripts/sign_up.js" type="module" defer></script>
+
+
+</head>
+<body>
+  <div id="overlay">
+    <div class="overlay_msg">You Signed Up Successfully</div>
+  </div>
+
+  <div class="image_container">
+    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo"/>
+  </div>
+
+  <main>
+    <div class="sign_card">
+      <div class="back_arrow_container">
+        <img id="goBackArrow" src="./assets/svg/arrow.svg" alt="arrow"/>
+      </div>
+
+      <div class="sign_up_content">
+        <div class="sign_title">
+          <div class="center_title_and_underline">
+            <h1>Sign up</h1>
+            <div class="sign_up_underline"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+          <div>
+            <form id="signUp" class="form_content" novalidate>
+              <div class="form_group">
+                <label for="name"></label>
+                <div class="input_container">
+                  <input id="name" name="name" type="text" placeholder="Name"/>
+                  <img src="./assets/svg/person.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                </div>
+                <div id="signUpNameError" class="error_message email_error_position"></div>
+              </div>
+
+              <div class="form_group">
+                <label for="signUpEmail"></label>
+                <div class="input_container">
+                  <input id="signUpEmail" autocomplete="username" name="email" type="email" placeholder="Email"/>
+                  <img id="togglePassword" src="./assets/svg/email.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                </div>
+                <div id="signUpEmailError" class="error_message email_error_position"></div>
+              </div>
+
+              <div class="form_group">
+                <label for="signUpPassword"></label>
+                <div class="input_container">
+                  <input id="signUpPassword" autocomplete="new-password" name="password" type="password" placeholder="Password"/>
+                  <img id="toggleSignUpPassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                </div>
+                <div id="signUpPasswordError" class="error_message email_error_position"></div>
+              </div>
+
+              <div class="form_group">
+                <label for="signUpConfirmPassword"></label>
+                <div class="input_container">
+                  <input id="signUpConfirmPassword" autocomplete="new-password" type="password" placeholder="Confirm Password"/>
+                  <img id="toggleSignUpConfirmPassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                </div>
+                <div id="signUpConfirmPasswordError" class="error_message email_error_position"></div>
+              </div>
+
+                <div class="privacy_police_content">
+                  <input type="checkbox" id="privacy_police" value="privacy_police" />
+                  <label for="privacy_police">I accept the <a href="./privacy_policy_signup.html">Privacy policy</a></label>
+                </div>
+
+              <div class="form_btn_sign">
+                <button id="signBtnRegister" type="submit">Sign up</button>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="terms_conditions d_none">
+    <a href="./privacy_policy_signup.html">Privacy Policy</a>
+    <a href="./legal_notice_signup.html">Legal notice</a>
+  </footer>
+</body>
+</html>
