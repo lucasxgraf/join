@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-main {
-  height: 100vh;
-}
-
 p {
   margin-bottom: 24px;
 }
@@ -17,13 +13,13 @@ ul {
 }
 
 li {
-  list-style-type: circle;
+  margin-left: 24px;
 }
 
 .scroll_layout {
-  gap: 24px;
-  margin: 220px 0 110px 96px;
+  padding: 80px;
   overflow-y: scroll;
+  max-height: calc(100vh - 100px - 48px);
 }
 
 .scroll_layout::-webkit-scrollbar {
@@ -33,7 +29,6 @@ li {
 .legal {
   display: flex;
   background-color: rgb(246, 247, 248);
-  width: 1014px;
 }
 
 .legal-content {
