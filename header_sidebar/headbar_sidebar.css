@@ -138,7 +138,10 @@ button {
 
 .sidebar-bottom a:hover {
     background-color: #091931;
-    /* transform: scale(1.05);  */
+}
+
+.focus{
+    background-color: #091931;
 }
 
 .dropdown-menu-container {

@@ -3,9 +3,6 @@ body {
   height: 100%;
   overflow: hidden;
   background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .join_image {
