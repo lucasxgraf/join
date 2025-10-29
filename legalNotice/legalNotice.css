@@ -22,24 +22,6 @@ li {
   max-height: calc(100vh - 100px - 48px);
 }
 
-.scroll_layout::-webkit-scrollbar {
-  display: none;
-}
-
-.legal {
-  display: flex;
-  background-color: rgb(246, 247, 248);
-}
-
-.legal-content {
-  font-size: 16px;
-}
-
-.links {
-  color: rgba(41, 171, 226, 1);
-  text-decoration: none;
-}
-
 h1 {
   font-size: 3.75rem;
   font-weight: 700;
@@ -56,8 +38,4 @@ h2 {
 h3 {
   font-size: 20px;
   font-weight: 600;
-}
-
-.mobile_logo {
-  display: none;
 }
