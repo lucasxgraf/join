@@ -10,6 +10,10 @@
     height: 100px;
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
 }
 
 .sidebar {
@@ -59,7 +63,6 @@ button {
     display: flex;
     justify-content: end;
     margin-right: 32px;
-    margin-top: 16px;
     gap: 16px;
 }
 
@@ -92,13 +95,8 @@ button {
     background-color: #E1E6EC;
 }
 
-.header-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
 
-.header-wrap h2 {
+header h2 {
     margin-left: 64px;
     font-family: inter;
     font-weight: 400;
