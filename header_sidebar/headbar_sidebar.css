@@ -14,18 +14,17 @@ header h2{
     font-weight: 400;
 }
 
-.template {
-    height: 100vh;
-    margin: 0;
-    background-color: rgba(246, 247, 248, 1);
-}
-
 nav {
     background-color: #2A3647;
     height: 100vh;
     width: 200px;
     display: flex;
     flex-direction: column;
+}
+
+.upper-container {
+    display: flex;
+    position: relative;
 }
 
 .sidebar-logo {
@@ -56,13 +55,14 @@ nav {
     font-weight: lighter;
 }
 
+.sidebar-links {
+    width: 200px;
+    border: 0;
+}
+
 .sidebar-links img {
     width: 30px;
     align-items: center;
-    font-weight: 400;
-}
-
-text {
     font-weight: 400;
 }
 
@@ -71,19 +71,43 @@ text {
     cursor: pointer;
 }
 
+text {
+    font-weight: 400;
+}
+
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    text-align: center;
+}
+
+.sidebar-bottom a {
+    font-weight: 400;
+    color: #A8A8A8;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px;
+}
+
+.sidebar-bottom a:hover {
+    color: rgb(41, 171, 226);
+    transition: all 125ms ease-in-out;
+}
+
+.focus {
+    background-color: #091931;
+    pointer-events: none;
+}
+
 button {
     background-color: transparent;
     padding-left: 0;
 }
 
-.sidebar-links {
-    width: 200px;
-    border: 0;
-}
-
-.upper-container {
-    display: flex;
-    position: relative;
+.center-wrap {
+    flex-direction: column;
+    width: 100%;
 }
 
 .profile-section {
@@ -121,31 +145,6 @@ button {
     background-color: #E1E6EC;
 }
 
-.sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    text-align: center;
-}
-
-.sidebar-bottom a {
-    font-weight: 400;
-    color: #A8A8A8;
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 8px;
-}
-
-.sidebar-bottom a:hover {
-    color: rgb(41, 171, 226);
-    transition: all 125ms ease-in-out;
-}
-
-.focus {
-    background-color: #091931;
-    pointer-events: none;
-}
-
 .dropdown-menu-container {
     display: none;
     flex-direction: column;
@@ -181,14 +180,4 @@ button {
 
 .dropdown-menu button:hover {
     background-color: #2A3D59;
-}
-
-.center-wrap {
-    flex-direction: column;
-    width: 100%;
-}
-
-.profile:hover {
-    cursor: pointer;
-    background-color: #E1E6EC;
 }

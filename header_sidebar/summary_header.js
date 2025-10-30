@@ -14,7 +14,6 @@ dropDownOpen = true;
 } 
 }
 
-
 function closeDropDownEvent() { 
 document.body.addEventListener('click', closeDropDown); 
 }
