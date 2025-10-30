@@ -67,7 +67,7 @@ text {
 }
 
 .sidebar-links:hover {
-    background-color: #091931;
+    background-color:#2A3D59;
     cursor: pointer;
 }
 
@@ -137,11 +137,13 @@ button {
 }
 
 .sidebar-bottom a:hover {
-    background-color: #091931;
+    color: rgb(41, 171, 226);
+    transition: all 125ms ease-in-out;
 }
 
-.focus{
+.focus {
     background-color: #091931;
+    pointer-events: none;
 }
 
 .dropdown-menu-container {
