@@ -44,6 +44,10 @@ h3 {
   font-weight: 600;
 }
 
+h4 {
+  margin-top: 16px;
+}
+
 a {
   color: rgb(41, 171, 226);
 }
@@ -82,4 +86,8 @@ ol h3{
 
 ol p{
   padding-left: 32px;
+}
+
+span {
+  color: rgb(41, 171, 226);
 }
