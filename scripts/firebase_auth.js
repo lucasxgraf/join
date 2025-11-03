@@ -78,11 +78,10 @@ async function loginAsGuest() {
 }
 
 // Loggt den aktuellen User aus
-
 async function logoutUser() {
   try {
     await signOut(AUTH);
-    window.location.replace("../../index.html");
+    window.location.replace("../index.html");
   } catch (error) {
     console.error("Logout Error:", error);
   }
@@ -100,7 +99,7 @@ function watchAuthState() {
       window.location.href = PROTECTED_PAGE;
     } else if (!user && !IS_ON_LOGIN_PAGE) {
       // User ist nicht eingeloggt und auf geschützter Page → Zurück zu Login
-      window.location.replace("../../index.html");
+      window.location.replace("../index.html");
     }
   });
 }
@@ -162,3 +161,5 @@ export {
   getCurrentUser,
   getUserData,
 };
+
+window.logoutUser = logoutUser;

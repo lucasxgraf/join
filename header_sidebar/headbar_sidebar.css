@@ -97,12 +97,13 @@ text {
 
 .focus {
     background-color: #091931;
-    pointer-events: none;
+    color: #CDCDCD !important;
 }
 
 button {
     background-color: transparent;
     padding-left: 0;
+    border: transparent;
 }
 
 .center-wrap {
@@ -112,7 +113,7 @@ button {
 
 .profile-section {
     display: flex;
-    justify-content: end;
+    align-items: center;
     gap: 16px;
 }
 
