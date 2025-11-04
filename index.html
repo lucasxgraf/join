@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join - Login Page</title>
+  <link rel="shortcut icon" href="./assets/img/logo/join_logo.png" type="image/x-icon"/>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./styles/standard.css">
+  <link rel="stylesheet" href="./styles/login.css">
+
+  <script type="module" src="./scripts/firebase_config.js" defer></script>
+  <script type="module" src="./scripts/firebase_auth.js" defer></script>
+  <script src="script.js"></script>
+  <script type="module" src="./scripts/login.js" defer></script>
+  
+</head>
+<body>
+  <header class="login_header" style="display: none">
+    <div class="sign_up">
+      <span>Not a Join user?</span>
+      <a href="sign_up.html"> 
+        <button id="signBtn">Sign up</button>
+      </a>
+    </div>
+  </header>
+
+  <div>
+    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo" />
+  </div>
+
+  <main>
+    <div class="login_card" style="display: none">
+      <div class="login_title">
+        <h1>Log In</h1>
+        <div class="underline"></div>
+      </div>
+      <div>
+        <form id="loginForm" class="form_content" novalidate>
+          <div class="form_group">
+            <label for="loginEmail"></label>
+            <div class="input_container">
+              <input id="loginEmail" autocomplete="username" type="email" placeholder="Email" required />
+              <img src="./assets/svg/email.svg" alt="Toggle Password Visibility" class="input_icon" />
+            </div>
+            <div id="emailError" class="error_message email_error_position"></div>
+          </div>
+
+          <div class="form_group">
+            <label for="loginPassword"></label>
+            <div class="input_container">
+              <input id="loginPassword" autocomplete="current-password" name="password" type="password" placeholder="Password" required />
+              <img id="togglePassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon" />
+            </div>
+            <div id="passwordError" class="error_message password_error_position"></div>
+          </div>
+
+          <div class="form_btn">
+            <button id="loginBtn" type="submit">Log in</button>
+            <button id="guestLog" type="button">Guest Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="terms_conditions d_none">
+    <a href="./privacyPolicy/privacyPolicy_auth.html">Privacy Policy</a>
+    <a href="./legalNotice/legalNotice_auth.html">Legal notice</a>
+  </footer>
+</body>
+</html>
