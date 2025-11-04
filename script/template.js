@@ -66,3 +66,41 @@ function renderSubtaskButtons() {
     `;
   }
 }
+
+function renderCalender() {
+  let caldenerOpen = document.getElementById("calender")
+
+  caldenerOpen.innerHTML += 
+    `<div class="datePicker">
+            <div class="datepickerTop">
+                <div class="btnGroup">
+                    <button type="button" class="tag" onclick="pickDate(0)">Today</button>
+                    <button type="button" class="tag" onclick="pickDate(1)">Tomorrow</button>
+                    <button type="button" class="tag" onclick="pickDate(2)">in 2 days</button>
+                </div>
+                <div class="monthSelector">
+                    <button type="button" id="reverse" class="arrow" onclick="changeMonth(-1)"><i class="icons change180">➜</i></button>
+                    <span class="monthName" id="month">Oktober</span>
+                    <span class="monthName" id="year">2025</span>
+                    <button type="button" id="forward" class="arrow" onclick="changeMonth(1)"><i class="icons">➜</i></button>
+                </div>
+            </div> 
+            <div class="datepickerCalender">
+                <span class="day">Mo</span>
+                <span class="day">Tu</span>
+                <span class="day">We</span>
+                <span class="day">Th</span>
+                <span class="day">Fr</span>
+                <span class="day">Sa</span>
+                <span class="day">Su</span>
+            </div>
+            <div class="datepickerCalender mg-t8" id="calenderDays"></div>
+        </div>`;
+        
+  const today = new Date();
+  currentMonth = today.getMonth();
+  currentYear = today.getFullYear();
+
+  initMonthDisplay();
+  renderCalendarDays(currentMonth, currentYear);  
+}

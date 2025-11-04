@@ -20,14 +20,18 @@ async function addTask() {
     "titel": titel.value,
     "discription": discription.value,
     "date": date.value || date.innerText,
-    "subtask": String(subtaskArray),
+    "subtask": subtaskArray,
     "priority": selectedPriority,
     "contact": contactList,
-    "category": category.value
+    "category": category.value,
+    "dragclass": "todo"
 
   };
   task.push(newTask);
   clearInput()
+  enableSubmit()
+  console.log(newTask);
+  
    return postData("addTask.json", newTask);
 }
 // #####################################################################################

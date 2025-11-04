@@ -5,6 +5,8 @@ function init() {
     addTaskButton();
     addSubtask();
     enterSubtask();
+    enableSubmit();
+
 
     
 }
@@ -30,3 +32,7 @@ function addTaskButton() {
   const input = document.getElementById("subtaskReadOut");
   input.addEventListener("input", renderSubtaskButtons);
 }
+// Card############################################################
+
+
+

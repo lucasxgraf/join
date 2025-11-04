@@ -1,7 +1,10 @@
 
-const task = [];
-const BASE_URL = "https://add-task-2efc5-default-rtdb.europe-west1.firebasedatabase.app/";
+let task = [];
+const contact = ["Alex", "Lisa", "Tim"];
 let subtaskArray = [];
+let contactList = [];
+let contactBadge = [];
+let category = ["Technical Task", "User Story",];
 let contactColors = [  
 "#FF5EB3",
 "#FF7A00",
@@ -20,101 +23,103 @@ let contactColors = [
 "#FFBB2B"
  ];
 
-async function postData(path="addTask.json", data={task}) {
-  let response = await fetch(BASE_URL + path,{
-    method: "POST",
-    headers: {"Content-Type": "application/json",},
-    body: JSON.stringify(data)
+function clearInput() {
+  document.getElementById("title").value = "";
+  document.getElementById("discription").value = "";
+  document.getElementById("duedate").value = "";
+  task = [];
+
+  const categoryInput = document.getElementById("selectedCategory");
+  categoryInput.value = "Select task category";
+
+  selectedPriority = "";
+  document.querySelectorAll('.priority-btn').forEach(btn => btn.classList.remove('active'));
+
+clearSubtask()
+clearContact()
+}
+
+
+function clearSubtask() {
+
+  subtaskArray = [];
+  const addSubtaskContainer = document.getElementById("addSubtask");
+  if (addSubtaskContainer) addSubtask(addSubtaskContainer, subtaskArray);
+ 
+  addSubtaskContainer.innerHTML = ""
+}
+
+
+function clearContact() {
+  contactList = [];
+  contactBadge = [];
+  const iconConact = document.getElementById("iconConact");
+  if (iconConact) iconConact.innerHTML = "";
+
+    document.querySelectorAll('#contactDropdown input[type="checkbox"]').forEach(checkbox => {
+    checkbox.checked = false;
   });
-   return response.json();
 }
 
-async function addTask() {
-   event.preventDefault();
-  let titel = document.getElementById("title");
-  let discription = document.getElementById("discription");
-  let date = document.getElementById("duedate");
-  let category = document.getElementById("selectedCategory")
+function toggleDropdown(selector) {
+  const dropdown = document.getElementById(selector);
+  const isOpen = dropdown.classList.toggle("open");
 
-
-  const newTask = {
-    "titel": titel.value,
-    "discription": discription.value,
-    "date": date.innerText,
-    "subtask": String(subtaskArray), // Create a copy of the subtaskArray
-    "priority": selectedPriority,
-    "contact": contactList,
-    "category": category.innerText
-
-  };
-  task.push(newTask);
-   return postData("addTask.json", newTask);
-}
-
-  document.getElementById("taskForm").addEventListener("submit", handleSubmit);
-async function handleSubmit(event) {
-  event.preventDefault(); // Stoppt den sofortigen Reload
-  const form = event.target;
-
-  // Browser prüft required → wenn ungültig, kommt diese Funktion gar nicht so weit.
-  if (!form.checkValidity()) {
-    // sorgt dafür, dass der Browser seine eigene Fehlermeldung anzeigt
-    form.reportValidity();
-    return;
+  if (selector === "contact") {
+    renderIcon();
   }
 
-  try {
-    await addTask();   // Task erzeugen + posten
-    form.submit();     // jetzt den echten Submit auslösen
-  } catch (err) {
-    console.error("Fehler beim Speichern:", err);
+  if (isOpen) {
+    function handleClickOutside(e) {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        document.removeEventListener("click", handleClickOutside);
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
   }
 }
 
-
-function toggleContactDropdown() {
-  const dropdown = document.getElementById("contactDropdown");
-  dropdown.classList.toggle("open");
-
-  renderIcon()
-}
-
-function toggleCategoryDropdown() {
-  const dropdown = document.getElementById("categoryDropdown");
-  dropdown.classList.toggle("open");
-
-}
 
 function changeCategory(selection) {
   let text = "";
+  const input = document.getElementById("selectedCategory");
+
   if (typeof selection === "string") {
     text = selection;
-  } else if (selection instanceof Element) {
+  } 
+   if (selection instanceof Element) {
     const span = selection.querySelector("span");
     text = span ? span.innerText.trim() : selection.innerText.trim();
   }
-  const display = document.getElementById("selectedCategory");
-  if (display && text) {
-    display.textContent = text;
+
+  if (input && text) {
+    input.value = text;
   }
-  toggleCategoryDropdown();
+  
+  toggleDropdown('categoryDropdown');
+  enableSubmit()
+  
 }
+
 
 function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
   const addSubtaskContainer = document.getElementById("addSubtask");
-
   const value = readout.value.trim();
-  if (value === "") return; // nichts leeres speichern
+  if (value === "" || subtaskArray.length >= 5) return;
 
-  // Enter Sinvoll?
-  // document.getElementById("subtaskReadOut").addEventListener("keypress", (event) => {  
-  // if (event.key === "Enter") addSubtask();
-  // });
   subtaskArray.push(value);
   subtask(addSubtaskContainer, subtaskArray);
-
   readout.value = "";
+}
+
+function enterSubtask() {
+  document.getElementById("subtaskReadOut").addEventListener("keypress", (event) => {  
+  if (event.key === "Enter"){
+    event.preventDefault();
+    addSubtask();
+  }}); 
 }
 
 // ######################################################################
@@ -127,7 +132,6 @@ buttons.forEach(button => {
     if (button.classList.contains('active')) {
       button.classList.remove('active');
       selectedPriority = '';
-      console.log('Priorität zurückgesetzt');
       return;
     }
 
@@ -139,16 +143,15 @@ buttons.forEach(button => {
 
 // speichern
     selectedPriority = button.textContent.trim().split(' ')[0];
-    console.log('Ausgewählte Priorität:', selectedPriority);
   });
 });
 // ######################################################################
 
 function fetchSVGs() {
   const svgs = [
-    { path: './assets/svg/priority_symblos/urgent.svg', selector: '#urgentBtn .urgent_icon' },
-    { path: './assets/svg/priority_symblos/Medium.svg', selector: '#mediumBtn .medium_icon' },
-    { path: './assets/svg/priority_symblos/Low.svg', selector: '#low_btn .low_icon' }
+    { path: './assets/Urgent.svg', selector: '#urgentBtn .urgent_icon' },
+    { path: './assets/Medium.svg', selector: '#mediumBtn .medium_icon' },
+    { path: './assets/Low.svg', selector: '#low_btn .low_icon' }
   ];
 
   svgs.forEach(svg => {
@@ -169,8 +172,6 @@ function applyContactColors(i) {
   badge.style.backgroundColor = color;
 }
 
-let contactList = [];
-let contactBadge = [];
 
 function selectContacts(i, checkbox) {
   let badgeName = contactName[i].innerText // besseren Namen raussuchen
@@ -190,20 +191,18 @@ function selectContacts(i, checkbox) {
   }
 }
 
+
 function iconConactHTML() {
   const iconConact = document.getElementById("iconConact");
-  iconConact.innerHTML = ""; // alte Anzeige leeren
-
-  // max. 9 anzeigen
   const visibleBadges = contactBadge.slice(0, 9);
+  iconConact.innerHTML = ""; 
 
-  // Badges einfügen
+
   visibleBadges.forEach(badge => {
     iconConact.appendChild(badge.cloneNode(true));
   });
-
-  // Wenn mehr als 9 gespeichert sind → "+ Badge" anhängen
-  if (contactBadge.length > 9) {
+// Hier noch mal den kontakt anpassen mit css
+  if (contactBadge.length > 9) { 
     const moreBadge = document.createElement("div");
     moreBadge.classList.add("iconConact", "dpf_cc");
     moreBadge.style.backgroundColor = "#ffffff";
@@ -212,79 +211,162 @@ function iconConactHTML() {
   }
 }
 
+
 function toggleContactDropdown() {
   const dropdown = document.getElementById("contactDropdown");
   dropdown.classList.toggle("open");
 
-  // Wenn geschlossen (also "open" wurde entfernt)
   if (!dropdown.classList.contains("open")) {
-    iconConactHTML(); // oder dein console.log("Dropdown geschlossen")
+    iconConactHTML();
   }
-
-  // Wenn geöffnet kannst du hier z. B. renderIcon() ausführen
-  else {
-    renderIcon();
-  }
-
 }
 
 function deleteTask(i){
 
-  const addSubtask = document.getElementById("addSubtask"); // dein Container-Element
+  const addSubtask = document.getElementById("addSubtask");
   subtaskArray.splice(i, 1);
   subtask(addSubtask, subtaskArray);
 }
+
 
 function cleanInput() {
   let input = document.getElementById("subtaskReadOut")
   input.value = "";  
 }
 
+
 function editSubtask(i) {
-  // aktuellen Wert aus dem Array holen
-  const oldValue = subtaskArray[i];
+  const taskOutput = document.getElementById(`taskOutput-${i}`);
+  const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
+  const containerEditSubtask = document.getElementById(`containerEditSubtask-${i}`)
 
-  // neuen Wert abfragen (z. B. per Prompt)
-  const newValue = prompt("Subtask ändern:", oldValue);
 
-  // prüfen, ob der Nutzer was eingegeben hat
+    taskOutput.classList.toggle("dnone");
+    containerEditSubtask.classList.toggle("dnone")
+    editInputSubtask.value = subtaskArray[i];
+    editInputSubtask.focus();   
+      editInputSubtask.onblur = (e) => {
+
+    // wenn Fokus auf einen Button im Container geht → nicht abbrechen
+    if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
+      return;
+    }
+    cancelEditSubtask(i);
+  }
+
+  };
+
+function cancelEditSubtask(i) {
+  const taskOutput = document.getElementById(`taskOutput-${i}`);
+  const container = document.getElementById(`containerEditSubtask-${i}`);
+
+  container.classList.add("dnone");
+  taskOutput.classList.remove("dnone");
+}
+  
+function addEditSubtask(i) {
+  const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
+  const newValue = editInputSubtask.value;
+  
+
   if (newValue !== null && newValue.trim() !== "") {
-    subtaskArray[i] = newValue.trim(); // neuen Wert speichern
-    subtask(document.getElementById("addSubtask"), subtaskArray); // Liste neu rendern
+    subtaskArray[i] = newValue.trim();
+    subtask(document.getElementById("addSubtask"), subtaskArray);
+  }
+
+  else{ (editInputSubtask.value === "") 
+  subtaskArray.splice(i, 1);
+  subtask(document.getElementById("addSubtask"), subtaskArray) 
   }
 }
 
-function pickDate() {
-  const today = new Date(); // aktuelles Datum holen
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Monat (0–11) → +1 und mit führender Null
-  const day = String(today.getDate()).padStart(2, '0'); // Tag mit führender Null
-  let inputDate = document.getElementById("duedate")
-  const dateString = `<div class="fontColorBl">${day}/${month}/${year}</div>`;
-  
-  inputDate.innerHTML = ""
-  inputDate.innerHTML = dateString;
+function clearEditSubtask(i) {
+  const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
 
-} 
-  
-//  mehr farben? 
-                      // "#FF7A00",
-                      // "#9327FF",
-                      // "#6E52FF",
-                      // "#FC71FF",
-                      // "#FFBB2B",
-                      // "#1FD7C1",
-                      // "#FF3D00", // Rot-Orange
-                      // "#FF6EC7", // Rosa
-                      // "#C427FF", // Lila
-                      // "#5A00FF", // Dunkles Violett
-                      // "#00C2FF", // Hellblau
-                      // "#00FFB3", // Türkisgrün
-                      // "#FFD319", // Gelb
-                      // "#FF5A5A", // Koralle
-                      // "#B86BFF", // Flieder
-                      // "#FF8DC7", // Hellrosa
-                      // "#2AE8A8", // Minzgrün
-                      // "#FF9F1C", // Warmes Orange
-                      // "#F72585", // Magenta
-                      // "#7209B7"
+  if (editInputSubtask.value === "") {
+  subtaskArray.splice(i, 1);
+  subtask(document.getElementById("addSubtask"), subtaskArray) 
+  }
+  else{
+  editInputSubtask.value = "";
+  editInputSubtask.focus();
+  }
+}
+
+
+// Hilfsfunktionen für die Überprüfung von inputs
+function showError(elementId, message) {
+  const el = document.getElementById(elementId);
+  if (el) el.textContent = message;
+}
+
+function clearErrors() {
+  document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
+}
+
+document.getElementById("taskForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  clearErrors();
+
+  let isValid = true;
+
+  const titleInput = document.getElementById("title");
+  if (titleInput.value.trim() === "") {
+    showError("titleError", "This field is required."); // zeigt im titleError-div
+    isValid = false;
+  }
+    if (!validateDueDate()) {
+    isValid = false;
+  }
+
+  const categorySelect = document.getElementById("selectedCategory");
+  if (categorySelect.value.trim() === "") {
+    showError("categoryError", "This field is required."); // zeigt im titleError-div
+    isValid = false;
+  }
+
+  if (isValid) {
+    addTask()
+  }
+});
+
+
+function validateDueDate() {
+  const duedateInput = document.getElementById("duedate");
+  const value = duedateInput.value.trim();
+
+  if (value === "") {
+
+    showError("dateError", "This field is required.");
+    return false;
+  }
+  duedateInput.classList.remove("error");
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+  if (!dateRegex.test(value)) {
+    showError("dateError", "Please select a valid date format DD/MM/YYYY.");
+    return false;
+  }
+
+  if (!checkDate(duedateInput)) {
+    showError("dateError", "The date must be today or in the future.");
+    return false;
+  }
+  return true;
+}
+
+document.getElementById("title").addEventListener("input", enableSubmit);
+document.getElementById("duedate").addEventListener("input", enableSubmit);
+
+function enableSubmit() {
+  const duedateInput = document.getElementById("duedate").value.trim();
+  const categorySelect = document.getElementById("selectedCategory").value.trim();
+  const titleInput = document.getElementById("title").value.trim();
+  const allFilled = categorySelect && titleInput && duedateInput
+
+  if (allFilled) {
+    document.getElementById("submit").disabled = false
+  }
+  else{
+  document.getElementById("submit").disabled = true
+  }
+}
