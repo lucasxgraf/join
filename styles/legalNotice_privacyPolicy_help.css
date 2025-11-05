@@ -16,16 +16,6 @@ li {
   margin-left: 24px;
 }
 
-.scroll_layout {
-  padding: 80px;
-  overflow-y: scroll;
-  max-height: calc(100vh - 100px - 48px);
-}
-
-.scroll_layout::-webkit-scrollbar {
-  display: none;
-}
-
 h1 {
   font-size: 3.75rem;
   font-weight: 700;
