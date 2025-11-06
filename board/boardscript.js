@@ -21,9 +21,9 @@ function renderCard (element) {
         <div class="card_category ${element.category.toLowerCase().replace(/\s+/g, '')}" id="cardCategrory">${element.category}
         </div>
         <div class="card_content">
-            <div class="card_titel" id="cardTitel">${element.titel}?
+            <div class="card_title" id="cardTitle">${element.title}?
             </div>
-        <div class="card_description" id="cardDiscription">${element.discription}
+        <div class="card_description" id="cardDescription">${element.description}
         </div>
       </div>
       <div class="subtask_container">
