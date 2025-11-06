@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="shortcut icon" href="/assets/logos/Logo for Favicon construction.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/header_sidebar/headbar_sidebar.css">
+    <link rel="stylesheet" href="/styles/standard.css">
+    <link rel="stylesheet" href="/contacts.css">
+    <script src="/contacts.js"></script>
+    
+</head>
+<body onload="init()">
+    <div class="upper-container">
+        <nav>
+          <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+          <div class="sidebar-content">
+            <div class="sidebar-links-container">
+              <a class="sidebar-links" href="#">
+                <img src="/assets/svg/icons_page/add_task.svg">
+                Add Task
+              </a>
+              <a class="sidebar-links" href="#">
+                <img src="/assets/svg/icons_page/summary.svg">
+                Summary
+              </a>
+              <a class="sidebar-links" href="#">
+                <img src="/assets/svg/icons_page/board.svg">
+                Board
+              </a>
+              <a class="sidebar-links focus" href="#">
+                <img src="/assets/svg/icons_page/contacts.svg">
+                Contacts
+              </a>
+            </div>
+            <div class="sidebar-bottom">
+              <a href="#">Privacy Policy</a>
+              <a href="/legalNotice/legalNotice.html">Legal notice</a>
+            </div>
+          </div>
+        </nav>
+        <div class="center-wrap">
+          <header>
+              <h2>Kanban Project Management Tool</h2>
+              <div class="profile-section">
+                <button class="help-icon"><img src="/assets/svg/help_small.svg"></button>
+                <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+              </div>
+          </header>
+          <div class="dropdown-menu-container" id="dropDownMenu">
+            <div class="dropdown-menu">
+              <a href="/legalNotice/legalNotice.html">
+                <button>Legal Notice</button>
+              </a>
+              <a href="/privacyPolicy/privacyPolicy.html">
+                <button>Privacy Policy</button>
+              </a>
+              <a href="/index.html">
+                <button>Log out</button>
+              </a>
+            </div>
+          </div>
+
+          <main>
+            <div class="content">
+                <div class="contact-list">
+                  <button class="add-contact">
+                    Add new contact
+                    <img src="/assets/svg/person_add.svg">
+                  </button>
+                  <ul class="list" id="contact_list">
+                  </ul>
+                </div>
+                <div class="contact-informations">
+                    <div class="textbox">
+                        <h1>Contacts</h1>
+                        <div class="divider"></div>
+                        <h2>Better with a team</h2>
+                    </div>
+                </div>
+            </div>
+          </main>
+    <script src="/header_sidebar/summary_header.js"></script>
+</body>
+</html>

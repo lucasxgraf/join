@@ -1,0 +1,204 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.join_image {
+  position: absolute;
+  top: 56px;
+  left: 56px;
+}
+
+.sign_card {
+  border: 1px transparent;
+  border-radius: 16px;
+  filter: drop-shadow(3px 3px 3px rgba(179, 179, 179, 0.9));
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  width: 500px;
+  padding: 32px 64px;
+}
+
+.sign_up_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sign_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.center_title_and_underline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back_arrow_container {
+  position: absolute;
+  top: 40px;
+  left: 24px;
+  transition: all 125ms ease-in-out;
+}
+
+#goBackArrow:hover {
+  cursor: pointer;
+  content: url(../assets/svg/arrow_hover.svg);
+  width: 32px;
+  height: 32px;
+}
+
+.sign_up_underline {
+  border: 1px solid;
+  width: 100px;
+  height: 1px;
+  color: rgb(41, 171, 226);
+  background-color: rgb(41, 171, 226);
+  margin-bottom: 16px;
+}
+
+#signUpNameError,
+#signUpEmailError,
+#signUpPasswordError,
+#signUpConfirmPasswordError {
+  position: static;
+}
+
+.form_btn_sign {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.privacy_police_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: small;
+}
+
+.privacy_police_content label{
+  cursor: pointer;
+}
+
+.privacy_police_content a {
+  color: rgb(41, 171, 226);
+  text-decoration: none;
+}
+
+.disabled_btn {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#signBtnRegister {
+  background-color: rgb(42, 54, 71);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 400;
+  width: 99px;
+  height: 40px;
+  transition: all 125ms ease-in-out;
+}
+
+#signBtnRegister:disabled:hover {
+  background-color: rgb(42, 54, 71);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+#signBtnRegister:hover {
+  background-color: rgb(41, 171, 226);
+  box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 19px;
+  height: 19px;
+  background-image: url(../assets/svg/check_btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url(../assets/svg/check_btn_checked.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+input[type="checkbox"]:hover {
+  background-image: url(../assets/svg/check_btn_checked.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  display: none;
+}
+
+.overlay_msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 120%);
+  opacity: 0;
+  animation: overlaySlideUp 2s ease-in-out forwards;
+  width: 326px;
+  height: 74px;
+  border-radius: 30px;
+  z-index: 3;
+  background-color: rgba(42, 54, 71, 1);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  color: rgb(255, 255, 255);
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Toast Animation: Von Unten in die Mitte */
+@keyframes overlaySlideUp {
+  0% {
+    transform: translate(-50%, 120%);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%);
+    opacity: 1; 
+  }
+  100% {
+    transform: translate(-50%, 120%); /* auf -50% ändern, wenn es in der Mitte stehen bleiben soll */
+    opacity: 0;
+  }
+}
+

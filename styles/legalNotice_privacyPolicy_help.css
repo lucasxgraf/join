@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  margin-bottom: 24px;
+}
+
+ul {
+  margin-bottom: 16px;
+}
+
+li {
+  margin-left: 24px;
+}
+
+.scroll_layout {
+  padding: 80px;
+  overflow-y: scroll;
+  max-height: calc(100vh - 100px - 48px);
+}
+
+.scroll_layout::-webkit-scrollbar {
+  display: none;
+}
+
+h1 {
+  font-size: 3.75rem;
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+h2 {
+  font-size: 27px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+a {
+  color: rgb(41, 171, 226);
+}
