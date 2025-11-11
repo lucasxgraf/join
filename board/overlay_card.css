@@ -1,0 +1,168 @@
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: #0000004d;
+  z-index: 1;
+}
+
+#overlay_card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 520px;
+  min-height: 800px;
+  max-height: 950px;
+  overflow: auto;
+  background: #fff;
+  color: #000;
+  padding: 48px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.overlay_card_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay_card_category{
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  border: 1px solid #D1D1D1;
+  font-size: 1.25rem;
+}
+
+.overlay_close_btn{
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.overlay_card_title{
+  font-weight: 700;
+  font-size: 3rem;
+  color: black;
+}
+
+.overlay_card_description{
+  font-size: 1.25rem;
+  color: black;
+}
+
+.overlay_card_due_date_container,
+.overlay_card_priority_container{
+  display: flex;
+  gap: 24px;
+  font-size: 1.25rem;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.overlay_card_due_date_container span,
+.overlay_card_priority_container span,
+.overlay_card_assigned_to_container span,
+.overlay_card_subtasks_container span{
+  width: 120px;
+  color: #2A3647;
+  font-size: 1.25rem;
+}
+
+.overlay_card_priority_layout{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.overlay_card_priority_img{
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+}
+
+.overlay_card_priority_img_urgent{
+  background-image: url('../assets/svg/priority_symblos/urgent.svg');
+}
+
+.overlay_card_priority_img_medium{
+  background-image: url('../assets/svg/priority_symblos/medium.svg');
+}
+
+.overlay_card_priority_img_low{
+  background-image: url('../assets/svg/priority_symblos/low.svg');
+}
+
+.overlay_card_assigned_to_container{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overlay_card_assigned_to_layout{
+  max-height: 175px;
+  overflow-y: auto;
+}
+
+#overlayCardContact {
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 16px;
+}
+
+.overlay_card_subtasks_container{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overlay_card_subtask_layout{
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 19px;
+  height: 19px;
+  background-image: url(../assets/svg/check_btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url(../assets/svg/check_btn_checked.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay_card_single_subtask{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 16px;
+}
+
+.overlay_card_footer{
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+  color: #2a3647;
+}
+
+.overlay_card_footer_seperator{
+  width: 1px;
+  height: 30px;
+  background-color: #D1D1D1;
+}

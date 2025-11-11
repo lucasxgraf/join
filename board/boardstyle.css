@@ -1,7 +1,7 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 .content_header {
@@ -22,7 +22,7 @@ body {
 }
 
 .dnone{
-  display: none;
+    display: none;
 }
 
 h1{
@@ -51,24 +51,24 @@ h3{
 }
 
 .addTaskButton {
-  background-color: #2a3647;
-  color: white;
-  font-weight: 700;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 700;
-  font-size: 21px;
-  cursor: pointer;
+    background-color: #2a3647;
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 21px;
+    cursor: pointer;
 }
 
 .addTaskButton img {
- width: 32px;
- height: 32px;
- filter: brightness(0) invert(1);
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
 }
  
 .addTask {
@@ -76,6 +76,7 @@ h3{
     border: 2px solid #2a3647;
     border-radius: 8px;
     cursor: pointer;
+    height: 100%;
 }
 
 /* erstmal um einen button zu haben */
@@ -113,7 +114,6 @@ h3{
     width: 252px;
     border-radius: 24px;
     background-color: white;
-    margin: 16px;
 }
 
 .cardBorder{
@@ -122,6 +122,7 @@ h3{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .card_category {
@@ -137,15 +138,17 @@ h3{
     gap: 8px;
 }
 
-.userstory{
+.user_story{
     background-color: #0038FF;
+    border-radius: 8px;
 }
 
-.technicaltask{
+.technical_task{
     background-color: #1FD7C1;
+    border-radius: 8px;
 }
 
-.card_titel{
+.card_title{
     font-weight: 700;
     line-height: 120%;
     min-height: 40px;

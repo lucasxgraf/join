@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../header_sidebar/headbar_sidebar.css">
     <link rel="stylesheet" href="../board/boardstyle.css">
-
-    <script src="../header_sidebar/summary_header.js"></script>
+    <link rel="stylesheet" href="../board/overlay_card.css">
+  
+    <script src="../header_sidebar/summary_header.js" defer></script>
     <script src="../board/boardscript.js" defer></script>
-    <script src="../board/search.js"></script>
+    <script src="../board/search.js" defer></script>
+    <script src="../board/overlay_card.js" defer></script>
 
 </head>
 <body onload="initBoard()">
@@ -55,7 +57,7 @@
           <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
         </div>
       </header>
-      
+
       <div class="dropdown-menu-container" id="dropDownMenu">
         <div class="dropdown-menu">
           <a href="../legalNotice/legalNotice.html">
@@ -96,7 +98,7 @@
                       </button>
                   </div>
                   <div class="singleDragContainer" id="todo" ondrop="moveTo('todo')" ondragover="dragoverHandler(event)">
-                  </div>  
+                  </div> 
               </div>
 
               <div>    
@@ -131,6 +133,11 @@
           </section>
         </div>
       </main>
-    
+
+      <div id="overlay" class="d_none" onclick="toggleOverlay()">
+        <div id="overlay_card" onclick="stopOverlayClose(event)"></div>
+      </div>
+
+
 </body>
 </html>
