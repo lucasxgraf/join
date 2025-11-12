@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Add Task</title>
+    <link rel="shortcut icon" href="../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
+    <link rel="stylesheet" href="../styles/addTaskStyle.css">
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
+
+    <script src="../scripts/template/template.js" defer></script>
+    <script src="../scripts//template/template_funktion.js" defer></script>
+    <script src="../scripts/summary_header.js" defer></script>
+    <script src="../scripts/api.js" defer></script>
+    <script src="../scripts/calender.js" defer></script>
+    <script src="../scripts/addTaskScript.js" defer></script>
+</head>
+<body class="template" onload="init()">
+
+<div class="upper-container">
+    <nav>
+      <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+      <div class="sidebar-content">
+        <div class="sidebar-links-container">
+          <a class="sidebar-links" href="#">
+            <img src="../assets/svg/icons_page/add_task.svg">
+            Add Task
+          </a>
+          <a class="sidebar-links" href="#">
+            <img src="../assets/svg/icons_page/summary.svg">
+            Summary
+          </a>
+          <a class="sidebar-links" href="./board.html">
+            <img src="../assets/svg/icons_page/board.svg">
+            Board
+          </a>
+          <a class="sidebar-links" href="#">
+            <img src="../assets/svg/icons_page/contacts.svg">
+            Contacts
+          </a>
+        </div>
+        <div class="sidebar-bottom">
+          <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+          <a href="../components/html/legalNotice.html">Legal notice</a>
+        </div>
+      </div>
+    </nav>
+    <div class="center-wrap">
+            <header class="header-template">
+        <h2>Kanban Project Management Tool</h2>
+        <div class="profile-section">
+          <a href="../components/html/help.html" >
+            <button class="help-icon"><img src="../assets/svg/help_small.svg"></button>
+          </a>
+          <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+        </div>
+      </header>
+
+      <div class="dropdown-menu-container" id="dropDownMenu">
+        <div class="dropdown-menu">
+          <a href="../components/html/legalNotice.html">
+            <button>Legal Notice</button>
+          </a>
+          <a href="../components/html/privacyPolicy.html">
+            <button>Privacy Policy</button>
+          </a>
+          <a>
+            <button onclick="logoutUser()">Log out</button>
+          </a>
+        </div>
+      </div> 
+      <div id="addTaskTemplate"></div>
+
+      <!-- <div class="feedbackAddTask dnone" id="feedback">
+        <span>Task added to board</span>
+        <img src="../assets/svg/icons_page/board.svg" alt="">
+      </div>-->
+    <!-- <main class="border overflow-y">
+        <form id="taskForm">
+            <h1>Add Task</h1>
+            <section>
+                <div class="add-task-container">
+                    <div class="task-input-container">
+                        <div class="input_field">
+                            <label aria-label="title">Title<span class="req">*</span></label>
+                            <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title">
+                            <div id="titleError" class="error_message"></div>
+                        </div>
+                        <div class="input_field">
+                            <label aria-label="Title">Discription</label>
+                            <textarea id="discription" class="task-input inputBorderColor" placeholder="Enter a description"></textarea>
+                        </div>
+                        <div class="input_field">
+                            <label aria-label="Date">Due date<span class="req">*</span></label>
+                            <div id="date" class="task-input dpf sp_between inputBackground"  >
+                                    <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
+                                    maxlength="10"  ></input>
+                                <button type="button" onclick="toggleCalender()" class="iconButtonsForImg"><img src="./assets/svg/event.svg" alt="event"></button>
+                            </div>
+                            <div class="calender" id="calender"></div>
+                            <div id="dateError" class="error_message"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+               
+                <div class="add-task-container-right">
+                    <div class="task-input-container">
+                        <div class="input_field">
+                            <label aria-label="Priority">Priority</label>
+                            <div class="priority-buttons">
+                                <button type="button" id="urgentBtn" class="urgent_btn priority-btn">Urgent <span class="urgent_icon"></span> </button> 
+                                <button type="button" id="mediumBtn" class="medium-btn priority-btn">Medium <span class="medium_icon"></span></button>
+                                <button type="button" id="low_btn" class="low_btn priority-btn">Low <span class="low_icon"></span></button>
+                            </div>
+                        </div>
+
+                        <div class="input_field">
+                            <label aria-label="Assigned_to">Assigned to</label>
+                            <div class="custom-category-dropdown" id="contactDropdown">
+                                <div class="dropdown-header" onclick="toggleDropdown('contactDropdown')">
+                                    <span>Select contacts to assign</span>
+                                    <div class="dropdown-arrow" id="dropdownArrow"> <img src="./assets/img/arrow_drop_down.png" alt="arrow"></div>
+                                </div>
+                                <div class="dropdown-list" id="categoryDropdownList">
+                                    <div id="labelContact"></div>
+                                </div>
+                                <div id="iconContact" class="dpf gap8"></div>
+                            </div>
+                        </div>
+                        
+
+                    <div class="input_field">
+                        <label aria-label="Category">Category<span class="req">*</span></label>
+
+                            <div class="custom-category-dropdown" id="categoryDropdown">
+                                <div class="dropdown-header" onclick="toggleDropdown('categoryDropdown')">
+                                    <input class="fontColor cleanInputforDate" id="selectedCategory" placeholder="Select task category">
+                                    <div class="dropdown-arrow" id="dropdownArrow">
+                                        <img src="./assets/img/arrow_drop_down.png" alt="arrow">
+                                    </div>
+                                </div>
+                                <div class="dropdown-list" id="categoryDropdownList">
+                                    <div id="labelCategory"></div>
+                                </div>
+                            </div>
+                        <div id="categoryError" class="error_message"></div>
+                    </div>
+                        
+
+                        <div class="input_field">
+                            <label aria-label="Subtasks">Subtasks</label>
+                              <div class="input-wrapper">
+                                <input 
+                                type="text" 
+                                class="task-input inputBorderColor" 
+                                id="subtaskReadOut" 
+                                placeholder="Add new subtask">
+                                <div id="inputButtons"></div>
+                            </div>
+                            <div class="subtask" id="addSubtask"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <div class="footer_Add_Task">
+                <span><span class="req">*</span>This field is required</span>
+                <div class="buttons_Add_Task dpf gap8">
+                    <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
+                        <img class="closeSvg" src="./assets/svg/close.svg" alt="">
+                    </button>
+                    <button type="submit" disabled id="submit" class="btn btn_create dpf_cc">Create Task
+                        <img class="checkSvg" src="./assets/svg/check.svg" alt="">
+                    </button>
+            </div>
+        </form>
+
+        </div>
+    </main>
+
+</body> 
+</html>
