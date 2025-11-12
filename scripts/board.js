@@ -1,9 +1,11 @@
 let cardFromFirebase = [];
 let dragElementId = "";
-const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+// const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
 
 function initBoard() {
     loadTasks()
+    renderInHtml();
+
 }
 
 // function renderCardinBoard() {
@@ -16,9 +18,9 @@ function initBoard() {
 
 function renderCard (element) {
   return`
-    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" onclick="openOverlay('${element.id}')">
+    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')">
       <div class="cardBorder"> 
-        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}
+        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g, '')}" id="cardCategrory">${element.category}
         </div>
         <div class="card_content">
             <div class="card_title" id="cardTitle">${element.title}?
@@ -31,7 +33,7 @@ function renderCard (element) {
           <div class="subtaskProgressBarCalc">
           </div>
         </div>
-        <div class="subtask">1/${element.subtask.length} Subtastk
+        <div class="subtask">1/${element.subtask?.length} Subtastk
         </div>
       </div>
       <div class="cardFooter">
@@ -66,24 +68,38 @@ async function loadTasks() {
 }
 
 function loadDetails(cardFromFirebase) {
-     updateHTML(cardFromFirebase)
+     updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
 
 }
+
+function forLoopCards(ref, array , placeholdertext) {
+
+      ref.innerHTML = '';
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index]
+        ref.innerHTML += renderCard(element);
+    }
+    if (array.length <= 0) {
+    ref.innerHTML = `<div class="placeholderDragContainer">${placeholdertext}</div>`} 
+}
+
+
 // function für die todo in Progress
-function updateHTML(cardFromFirebase) {
+function updateHTMLToDo(cardFromFirebase) {
     let todoArray = cardFromFirebase.filter(d => d['dragclass'] === "todo");
     const todoRef = document.getElementById("todo");
 
-    todoRef.innerHTML = '';
-    for (let index = 0; index < todoArray.length; index++) {
-        const element = todoArray[index]
-        todoRef.innerHTML += renderCard(element);
-    }
-    if (todoArray.length <= 0) {
-    todoRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'} 
+    // todoRef.innerHTML = '';
+    // for (let index = 0; index < todoArray.length; index++) {
+    //     const element = todoArray[index]
+    //     todoRef.innerHTML += renderCard(element);
+    // }
+    forLoopCards(todoRef, todoArray, "No tasks To Do")
+    // if (todoArray.length <= 0) {
+    // todoRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'} 
     
 }
 // function für die Category in Progress
@@ -91,40 +107,45 @@ function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
     const inprogressRef = document.getElementById("inProgress");
 
-    inprogressRef.innerHTML = '';
-    for (let index = 0; index < inprogressArray.length; index++) {
-        const element = inprogressArray[index]
-        inprogressRef.innerHTML += renderCard(element);
-   } 
-    if (inprogressArray.length <= 0) {
-    inprogressRef.innerHTML = '<div class="placeholderDragContainer">No tasks In Progress</div>'} 
+  //   inprogressRef.innerHTML = '';
+  //   for (let index = 0; index < inprogressArray.length; index++) {
+  //       const element = inprogressArray[index]
+  //       inprogressRef.innerHTML += renderCard(element);
+  //  } 
+
+    forLoopCards(inprogressRef, inprogressArray, "No tasks In Progress")
+    // if (inprogressArray.length <= 0) {
+    // inprogressRef.innerHTML = '<div class="placeholderDragContainer">No tasks In Progress</div>'} 
 }
 
 function updateHTMLawaitFeedback(cardFromFirebase) {
     let awaitFeedbackArray = cardFromFirebase.filter(d => d['dragclass'] === "awaitfeedback");
     const awaitFeedbackArrayRef = document.getElementById("awaitFeedback");
+    forLoopCards(awaitFeedbackArrayRef, awaitFeedbackArray, "No tasks Await Feedback")
 
-    awaitFeedbackArrayRef.innerHTML = '';
-    for (let index = 0; index < awaitFeedbackArray.length; index++) {
-        const element = awaitFeedbackArray[index]
-        awaitFeedback.innerHTML += renderCard(element);}
-    if (awaitFeedbackArray.length <= 0) {
-    awaitFeedback.innerHTML = '<div class="placeholderDragContainer">No tasks Await Feedback</div>'}
+    // awaitFeedbackArrayRef.innerHTML = '';
+    // for (let index = 0; index < awaitFeedbackArray.length; index++) {
+    //     const element = awaitFeedbackArray[index]
+    //     awaitFeedback.innerHTML += renderCard(element);}
+    // if (awaitFeedbackArray.length <= 0) {
+      
+    // awaitFeedback.innerHTML = '<div class="placeholderDragContainer">No tasks Await Feedback</div>'}
 }
 
 // function für die Category in Progress
 function updateHTMLDone(cardFromFirebase) {
     let doneArray = cardFromFirebase.filter(d => d['dragclass'] === "done");
     const donesRef = document.getElementById("done");
+    forLoopCards(donesRef, doneArray, "No tasks To Do")
 
-    donesRef.innerHTML = '';
-    for (let index = 0; index < doneArray.length; index++) {
-        const element = doneArray[index]
-        donesRef.innerHTML += renderCard(element);
-   }  
-   if (doneArray.length <= 0) {
-    donesRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'
-   }
+  //   donesRef.innerHTML = '';
+  //   for (let index = 0; index < doneArray.length; index++) {
+  //       const element = doneArray[index]
+  //       donesRef.innerHTML += renderCard(element);
+  // //  }  
+  //  if (doneArray.length <= 0) {
+  //   donesRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'
+  //  }
 }
 
 function dragoverHandler(ev) {
@@ -140,4 +161,31 @@ function moveTo(newdragclass) {
   
     task.dragclass = newdragclass;
     loadDetails(cardFromFirebase)
+}
+
+function showDialog(targetDragClass) {
+    fetchSVGs();
+    addTaskButton();
+    addSubtask();
+    enterSubtask();
+    enableSubmit();
+
+      const dialog = document.getElementById("addTaskDialog");
+      dialog.showModal();
+  //   document.getElementById("addTaskDialog").showModal();
+  //     dialog.addEventListener("click", e => {
+  //   if (e.target === dialog) 
+  //   dialog.close();
+
+
+  dialog.dataset.dragclass = targetDragClass;
+  // });
+    
+}
+
+function  closeDialog(){
+        const dialog = document.getElementById("addTaskDialog");
+    clearInput()
+    dialog.close();
+      
 }

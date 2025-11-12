@@ -10,12 +10,20 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
     <link rel="stylesheet" href="../styles/board.css">
-    <link rel="stylesheet" href="../styles/overlayCard.css">
-  
-    <script src="../components/js/summary_header.js" defer></script>
+
+    <script src="../scripts/summary_header.js"></script>
     <script src="../scripts/board.js" defer></script>
-    <script src="../scripts/search.js" defer></script>
-    <script src="../scripts/overlayCard.js" defer></script>
+    <script src="../scripts/search.js"></script>
+
+    <script src="../scripts/template/template.js"></script>
+    <script src="../scripts//template/template_funktion.js"></script>
+    <script src="../scripts/addTaskScript.js"></script>
+    <script src="../scripts/calender.js"></script>
+    <script src="../scripts/api.js"></script>
+
+    <link rel="stylesheet" href="../styles/addTaskStyle.css">
+    
+
 
 </head>
 <body onload="initBoard()">
@@ -24,7 +32,7 @@
       <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
       <div class="sidebar-content">
         <div class="sidebar-links-container">
-          <a class="sidebar-links" href="#">
+          <a class="sidebar-links" href="./addTask.html">
             <img src="../assets/svg/icons_page/add_task.svg">
             Add Task
           </a>
@@ -32,7 +40,7 @@
             <img src="../assets/svg/icons_page/summary.svg">
             Summary
           </a>
-          <a class="sidebar-links" href="#">
+          <a class="sidebar-links" href="/board.html">
             <img src="../assets/svg/icons_page/board.svg">
             Board
           </a>
@@ -48,7 +56,7 @@
       </div>
     </nav>
     <div class="center-wrap">
-      <header class="header-template">
+            <header class="header-template">
         <h2>Kanban Project Management Tool</h2>
         <div class="profile-section">
           <a href="../components/html/help.html" >
@@ -83,7 +91,7 @@
                   <div class="search_results" id="searchResults"></div>
                 </div>
 
-                <button class="addTaskButton">Add task
+                <button class="addTaskButton" onclick="showDialog('todo')">Add task
                     <img src="../assets/svg/add.svg" alt="Plus symbol">
                 </button>
               </div>
@@ -93,18 +101,18 @@
             <div>
                   <div class="singleDragContainerHeader">
                       <h3>To do</h3>
-                      <button class="addTask">
+                      <button class="addTask" onclick="showDialog('todo')">
                           <img src="../assets/svg/add.svg" alt="Plus symbol">
                       </button>
                   </div>
                   <div class="singleDragContainer" id="todo" ondrop="moveTo('todo')" ondragover="dragoverHandler(event)">
-                  </div> 
+                  </div>  
               </div>
 
               <div>    
                   <div class="singleDragContainerHeader">
                       <h3>In progress</h3>
-                      <button class="addTask">
+                      <button class="addTask" onclick="showDialog('inprogress')">
                           <img src="../assets/svg/add.svg" alt="Plus symbol">
                       </button>
                   </div>
@@ -115,7 +123,7 @@
               <div> 
                   <div class="singleDragContainerHeader">
                       <h3>Await feedback</h3>
-                      <button class="addTask">
+                      <button class="addTask" onclick="showDialog('awaitfeedback')">
                           <img src="../assets/svg/add.svg" alt="Plus symbol">
                       </button>
                   </div>
@@ -131,13 +139,17 @@
                   </div>
               </div>
           </section>
+
+          <dialog class="dialogWindow" id="addTaskDialog">
+            <div class="addTaskDialogContainer">
+              <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
+              <div id="addTaskAtBoardPage"></div>
+            </div>
+            
+          </dialog>
         </div>
+        
       </main>
-
-      <div id="overlay" class="d_none" onclick="toggleOverlay()">
-        <div id="overlay_card" onclick="stopOverlayClose(event)"></div>
-      </div>
-
-
+    
 </body>
 </html>
