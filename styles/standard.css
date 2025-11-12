@@ -114,6 +114,7 @@ footer {
   padding: 80px;
   overflow-y: auto;
   max-height: calc(100vh - 100px - 48px);
+  width: 100%;
 }
 
 .scroll_layout::-webkit-scrollbar {
