@@ -35,7 +35,7 @@ function clearInput() {
 
   selectedPriority = "";
   document.querySelectorAll('.priority-btn').forEach(btn => btn.classList.remove('active'));
-
+  document.getElementById("submit").disabled = true
 clearSubtask()
 clearContact()
 }

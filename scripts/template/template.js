@@ -101,10 +101,9 @@ function renderaddTask() {
                     <button type="submit" disabled id="submit" class="btn btn_create dpf_cc">Create Task
                         <img class="checkSvg" src="../assets/svg/check.svg" alt="">
                     </button>
+                </div>
             </div>
         </form>
-
-        </div>
     </main>
     <div class="feedbackAddTask dnone" id="feedback">
         <span>Task added to board</span>
@@ -191,10 +190,10 @@ function renderCalender() {
                     <button type="button" class="tag" onclick="pickDate(2)">in 2 days</button>
                 </div>
                 <div class="monthSelector">
-                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1)"><i class="icons change180">➜</i></button>
+                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1)"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt=""></button>
                     <span class="monthName" id="month">Oktober</span>
                     <span class="monthName" id="year">2025</span>
-                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1)"><i class="icons">➜</i></button>
+                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1)"><img src="../assets/svg/chevron_arrow.svg" alt=""></button>
                 </div>
             </div> 
             <div class="datepickerCalender">
