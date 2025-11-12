@@ -1,0 +1,259 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.content_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.content_header_right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.content_col {
+  display: flex;
+  gap: 32px;
+}
+
+.dnone{
+  display: none;
+}
+
+h1{
+  font-size: 3.75rem;
+  font-weight: 700;
+}
+
+h3{
+  color: #42526E;
+  font-weight: 700;
+  font-style: bold;
+  font-size: 20px;
+}
+
+.inputSearch {
+  border-radius: 10px;
+  width: 312px;
+  height: 48px;
+  border: 1px solid black;
+}
+
+.addTaskButton {
+  background-color: #2a3647;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.addTaskButton img {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
+}
+
+.addTask {
+  padding: 3px;
+  border: 2px solid #2a3647;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 100%;
+}
+
+/* erstmal um einen button zu haben */
+.addTask img { 
+  height: 14px;
+  width: 14px;
+}
+
+.singleDragContainerHeader{
+  width: 244px;
+  height: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.singleDragContainer{
+  width: 252px;
+  /* background-color: rgba(165, 165, 165, 0.445); */
+  max-height: 650px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.border{
+  padding:0px 64px ;
+}
+
+/* ################################# Card ################################### */
+
+.card{
+  width: 252px;
+  border-radius: 24px;
+  background-color: white;
+}
+
+.cardBorder{
+  padding: 16px;
+  gap: 24px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.card_category {
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+  width: max-content;
+}
+
+.card_content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user_story{
+  background-color: #0038FF;
+  border-radius: 8px;
+}
+
+.technical_task{
+  background-color: #1FD7C1;
+  border-radius: 8px;
+}
+
+.card_title{
+  font-weight: 700;
+  line-height: 120%;
+  min-height: 40px;
+  color: #2a3647;
+}
+
+.card_description{
+  font-weight: 400;
+  line-height: 120%;
+  min-height: 40px;
+  color: #A8A8A8;
+}
+
+.subtask{ 
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.subtask_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 220px;
+}
+
+.subtaskProgressBar{
+  width: 128px;
+  height: 8px;
+  background-color: #F4F4F4;
+  border-radius: 8px;
+}
+
+.subtaskProgressBarCalc{
+  /* hier muss der Progress Balken durch eine Variable mit den erstellten Subtask berechnet werden  */
+  width: calc(128px / 2); 
+  height: 8px;
+  background-color: #4589FF;
+  border-radius: 8px;
+}
+
+.cardFooter{
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact img{
+  height: 32px;
+  width: 32px;
+}
+
+.priorität img{
+  height: 32px;
+  width: 32px;
+}
+
+.placeholderDragContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E7E7E7;
+  color: #A8A8A8;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  width: 246px;
+  height: 48px;
+  border: 1px dashed #A8A8A8;
+  border-radius: 10px;
+}
+
+.search_container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search_input {
+  width: 300px;
+  height: 48px;
+  padding: 8px 16px;
+  border: 1px solid #D1D1D1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search_input::placeholder {
+  color: #D1D1D1;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.search_icon {
+  position: absolute;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/svg/search.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.search_icon::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 30px;
+  background-color: #D1D1D1;
+}

@@ -109,3 +109,13 @@ footer {
     opacity: 0;
   }
 }
+
+.scroll_layout {
+  padding: 80px;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px - 48px);
+}
+
+.scroll_layout::-webkit-scrollbar {
+  display: none;
+}
