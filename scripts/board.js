@@ -18,12 +18,12 @@ function initBoard() {
 
 function renderCard (element) {
   return`
-    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')">
+    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" onclick="openOverlay('${element.id}')">
       <div class="cardBorder"> 
-        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g, '')}" id="cardCategrory">${element.category}
+        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}
         </div>
         <div class="card_content">
-            <div class="card_title" id="cardTitle">${element.title}?
+            <div class="card_title" id="cardTitle">${element.title}
             </div>
         <div class="card_description" id="cardDescription">${element.description}
         </div>

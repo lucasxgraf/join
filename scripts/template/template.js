@@ -1,9 +1,10 @@
 
 function renderaddTask() {
   return `
-  <main class="border overflow-y">
+  <main>
+        <div class="scroll_layout">
+        <h1>Add Task</h1>
         <form id="taskForm">
-            <h1>Add Task</h1>
             <section>
                 <div class="add-task-container">
                     <div class="task-input-container">
@@ -55,29 +56,26 @@ function renderaddTask() {
                                 <div id="iconContact" class="dpf gap8"></div>
                             </div>
                         </div>
-                        
 
-                    <div class="input_field">
-                        <label aria-label="Category">Category<span class="req">*</span></label>
-
-                            <div class="custom-category-dropdown" id="categoryDropdown">
-                                <div class="dropdown-header" onclick="toggleDropdown('categoryDropdown')">
-                                    <input class="fontColor cleanInputforDate" id="selectedCategory" placeholder="Select task category">
-                                    <div class="dropdown-arrow" id="dropdownArrow">
-                                        <img src="../assets/img/arrow_drop_down.png" alt="arrow">
+                        <div class="input_field">
+                            <label aria-label="Category">Category<span class="req">*</span></label>
+                                <div class="custom-category-dropdown" id="categoryDropdown">
+                                    <div class="dropdown-header" onclick="toggleDropdown('categoryDropdown')">
+                                        <input class="fontColor cleanInputforDate" id="selectedCategory" placeholder="Select task category">
+                                        <div class="dropdown-arrow" id="dropdownArrow">
+                                            <img src="../assets/img/arrow_drop_down.png" alt="arrow">
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-list" id="categoryDropdownList">
+                                        <div id="labelCategory"></div>
                                     </div>
                                 </div>
-                                <div class="dropdown-list" id="categoryDropdownList">
-                                    <div id="labelCategory"></div>
-                                </div>
-                            </div>
-                        <div id="categoryError" class="error_message"></div>
-                    </div>
-                        
+                            <div id="categoryError" class="error_message"></div>
+                        </div>
 
                         <div class="input_field">
                             <label aria-label="Subtasks">Subtasks</label>
-                              <div class="input-wrapper">
+                                <div class="input-wrapper">
                                 <input 
                                 type="text" 
                                 class="task-input inputBorderColor" 
@@ -87,7 +85,6 @@ function renderaddTask() {
                             </div>
                             <div class="subtask" id="addSubtask"></div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -104,6 +101,8 @@ function renderaddTask() {
                 </div>
             </div>
         </form>
+
+        </div>
     </main>
     <div class="feedbackAddTask dnone" id="feedback">
         <span>Task added to board</span>
