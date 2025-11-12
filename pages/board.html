@@ -145,8 +145,11 @@
               <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
               <div id="addTaskAtBoardPage"></div>
             </div>
-            
           </dialog>
+
+          <div id="overlay" class="d_none" onclick="toggleOverlay()">
+            <div id="overlay_card" onclick="stopOverlayClose(event)"></div>
+          </div>
         </div>
         
       </main>
