@@ -101,7 +101,6 @@ function renderaddTask() {
                 </div>
             </div>
         </form>
-
         </div>
     </main>
     <div class="feedbackAddTask dnone" id="feedback">
