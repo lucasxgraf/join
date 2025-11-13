@@ -1,6 +1,5 @@
 
 let task = [];
-const contact = ["Alex", "Lisa", "Tim", "Lisa", "Tim", "Lisa", "Tim", "Lisa", "Tim", "Lisa", "Tim", "Lisa", "Tim", "Lisa", "Tim"];
 let subtaskArray = [];
 let contactList = [];
 let contactBadge = [];

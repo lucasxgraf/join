@@ -109,11 +109,11 @@ function renderaddTask() {
     </div>`;
 }
 
-function renderContact(i) {
+function renderContact(i, contacFromFirebase) {
     return `<label class="dropdown-item sp_between">
             <div class="dpf_cc gap8">
-                <div id="contactDropdownList_${i}" class="iconConact dpf_cc">${contact[i].slice(0, 2)}  </div>
-                <span id="contactName">${contact[i]}</span>
+                <div id="contactDropdownList_${i}" class="iconConact dpf_cc">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
+                <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
             </div>
                 <input type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
             </label>`;

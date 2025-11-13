@@ -20,27 +20,21 @@ function renderCard (element) {
   return`
     <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" onclick="openOverlay('${element.id}')">
       <div class="cardBorder"> 
-        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}
-        </div>
-        <div class="card_content">
-            <div class="card_title" id="cardTitle">${element.title}
-            </div>
-        <div class="card_description" id="cardDescription">${element.description}
-        </div>
-      </div>
-      <div class="subtask_container">
-        <div class="subtaskProgressBar">
-          <div class="subtaskProgressBarCalc">
+        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
+          <div class="card_content">
+              <div class="card_title" id="cardTitle">${element.title}</div>
+              <div class="card_description" id="cardDescription">${element.description}
           </div>
         </div>
-        <div class="subtask">1/${element.subtask?.length} Subtastk
+      <div class="subtask_container">
+        <div class="subtaskProgressBar">
+          <div class="subtaskProgressBarCalc"></div>
         </div>
+        <div class="subtask">1/${element.subtask?.length} Subtastk</div>
       </div>
       <div class="cardFooter">
-        <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt="">
-        </div>
-        <div class="priorität" id="cardPriorität"><img src="../assets/svg/priority_symblos/low.svg" alt="">
-        </div>
+        <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""></div>
+        <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
       </div>
     </div>
   `
@@ -50,6 +44,7 @@ async function loadTasks() {
   try {
     const response = await fetch(`${BASE_URL}addTask.json`); // .json für Firebase-Endpunkt
     const data = await response.json();
+    
 
     // Firebase gibt Objekte zurück → in Array umwandeln
     if (data) {

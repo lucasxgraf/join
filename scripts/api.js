@@ -1,4 +1,5 @@
 const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+let contacFromFirebase = [];
 
 async function postData(path="addTask.json", data={task}) {
   let response = await fetch(BASE_URL + path,{
@@ -9,6 +10,26 @@ async function postData(path="addTask.json", data={task}) {
    return response.json();
 }
 
+// async function fetchContact(path="contacts/contactlist.json",) {
+//   let fetchRes = await fetch(BASE_URL + path)
+//   let data = await fetchRes.json();
+
+//   contacFromFirebase.push(data)
+// }
+
+async function fetchContact(path = "contacts/contactlist.json") {
+  const fetchRes = await fetch(BASE_URL + path);
+  const data = await fetchRes.json();
+
+  if (data) {
+    contactFromFirebase = Object.entries(data).map(([id, contact]) => ({
+      id: id,
+      ...contact
+      
+    }));
+  }
+  renderContactOnHTML(contactFromFirebase)
+}
 
 async function addTask() {
   let titel = document.getElementById("title");

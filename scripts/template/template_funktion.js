@@ -1,4 +1,5 @@
 function init() { 
+    fetchContact();
     renderInHtml();
     fetchSVGs();
     addTaskButton();
@@ -9,7 +10,7 @@ function init() {
 }
 function renderInHtml() {
     renderaddTaskOnHtml();
-    renderContactOnHTML();
+    // renderContactOnHTML();
     renderCategoryOnHTML();
     initTaskFormEvents();
 
@@ -29,13 +30,16 @@ function renderaddTaskOnHtml() {
 }
 
 
-function renderContactOnHTML() {
+function renderContactOnHTML(contacFromFirebase) {
     const contactRef = document.getElementById("labelContact");
     
-    for (let i = 0; i < contact.length; i++) {
-        contactRef.innerHTML +=  renderContact(i);
+    for (let i = 0; i < contacFromFirebase.length; i++) {
+        contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);
         applyContactColors(i);
     }
+    console.log(contacFromFirebase[0].name.firstname);
+    console.log(contacFromFirebase[0].name.secondname);
+    
 }
 
 function renderCategoryOnHTML() {
@@ -50,6 +54,7 @@ function addTaskButton() {
   const input = document.getElementById("subtaskReadOut");
   input.addEventListener("input", renderSubtaskButtons);
 }
+
 
 
 
