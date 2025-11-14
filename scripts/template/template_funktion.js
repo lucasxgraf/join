@@ -10,7 +10,6 @@ function init() {
 }
 function renderInHtml() {
     renderaddTaskOnHtml();
-    // renderContactOnHTML();
     renderCategoryOnHTML();
     initTaskFormEvents();
 
@@ -35,10 +34,7 @@ function renderContactOnHTML(contacFromFirebase) {
     
     for (let i = 0; i < contacFromFirebase.length; i++) {
         contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);
-        applyContactColors(i);
     }
-    console.log(contacFromFirebase[0].name.firstname);
-    console.log(contacFromFirebase[0].name.secondname);
     
 }
 

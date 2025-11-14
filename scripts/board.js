@@ -164,6 +164,7 @@ function showDialog(targetDragClass) {
     addSubtask();
     enterSubtask();
     enableSubmit();
+    fetchContact();
 
       const dialog = document.getElementById("addTaskDialog");
       dialog.showModal();

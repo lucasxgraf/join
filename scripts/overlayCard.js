@@ -75,7 +75,7 @@ function showOverlayAssignToContacts(CARD) {
   const OVERLAY_CONTACT = document.getElementById('overlayAssignToContact');
 
   for (let index = 0; index < CARD.contact.length; index++) {
-    const CONTACT = CARD.contact[index];
+    const CONTACT = CARD.contact[index].name;
     
     OVERLAY_CONTACT.innerHTML += `
       <div>

@@ -5,23 +5,6 @@ let contactList = [];
 let contactBadge = [];
 let selectedPriority = '';
 let category = ["Technical Task", "User Story",];
-let contactColors = [  
-"#FF5EB3",
-"#FF7A00",
-"#6E52FF",
-"#9327FF",
-"#00BEE8",
-"#1FD7C1",
-"#FF745E",
-"#FFA35E",
-"#FC71FF",
-"#FFC701",
-"#0038FF",
-"#C3FF2B",
-"#FFE62B",
-"#FF4646",
-"#FFBB2B"
- ];
 
 function clearInput() {
   document.getElementById("title").value = "";
@@ -173,33 +156,26 @@ function fetchSVGs() {
   });
 }
 
-
-function applyContactColors(i) {
-  
-  const badge = document.getElementById(`contactDropdownList_${i}`);
-  const color = contactColors[i % contactColors.length];
-  badge.style.backgroundColor = color;
-}
-
-
 function selectContacts(i, checkbox) {
   let badgeName = contactName[i].innerText // besseren Namen raussuchen
   let badgeEl = document.getElementById(`contactDropdownList_${i}`);
+  let userId = contactFromFirebase[i].userid;
 
-  const alreadyIn = contactBadge.some(b => b.id === badgeEl.id);
-    if (!alreadyIn) {
+  const exists = contactList.some(c => c.id === userId);
 
-    contactBadge.push(badgeEl)
-    
-    contactList.push(badgeName);
+  if (!exists) {
+    contactBadge.push(badgeEl);
 
-  }
-  else {
-    contactList = contactList.filter(name => name !== badgeName);
-    contactBadge = contactBadge.filter(name => name !== badgeEl);
+    contactList.push({
+      name: badgeName,
+      id: userId
+    });
+
+  } else {
+    contactList = contactList.filter(c => c.id !== userId);
+    contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);
   }
 }
-
 
 function iconContactHTML() {
   const iconConact = document.getElementById("iconContact");
@@ -362,9 +338,6 @@ function validateDueDate() {
   }
   return true;
 }
-
-// document.getElementById("title").addEventListener("input", enableSubmit);
-// document.getElementById("duedate").addEventListener("input", enableSubmit);
 
 function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
