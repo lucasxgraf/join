@@ -8,7 +8,7 @@ let category = ["Technical Task", "User Story",];
 
 function clearInput() {
   document.getElementById("title").value = "";
-  document.getElementById("discription").value = "";
+  document.getElementById("description").value = "";
   document.getElementById("duedate").value = "";
   task = [];
 
@@ -99,7 +99,7 @@ function addSubtask() {
   const value = readout.value.trim();
   if (value === "" || subtaskArray.length >= 5) return;
 
-  subtaskArray.push(value);
+  subtaskArray.push({ title: value, completed: false });  
   subtask(addSubtaskContainer, subtaskArray);
   readout.value = "";
 }
@@ -209,7 +209,6 @@ function iconContactHTML() {
 // }
 
 function deleteTask(i){
-
   const addSubtask = document.getElementById("addSubtask");
   subtaskArray.splice(i, 1);
   subtask(addSubtask, subtaskArray);
@@ -227,10 +226,9 @@ function editSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   const containerEditSubtask = document.getElementById(`containerEditSubtask-${i}`)
 
-
     taskOutput.classList.toggle("dnone");
     containerEditSubtask.classList.toggle("dnone")
-    editInputSubtask.value = subtaskArray[i];
+    editInputSubtask.value = subtaskArray[i].title;
     editInputSubtask.focus();   
       editInputSubtask.onblur = (e) => {
 
@@ -257,7 +255,7 @@ function addEditSubtask(i) {
   
 
   if (newValue !== null && newValue.trim() !== "") {
-    subtaskArray[i] = newValue.trim();
+    subtaskArray[i] = { title: newValue.trim(), completed: false };
     subtask(document.getElementById("addSubtask"), subtaskArray);
   }
 
@@ -374,9 +372,8 @@ function validateForm() {
 }
 
 function sendFeedback() {
-const feedbackRef = document.getElementById("feedback")
-feedbackRef.classList.remove("dnone");
-feedbackRef.classList.add("dpf");
-feedbackRef.classList.remove("dnone");
-
+  const feedbackRef = document.getElementById("feedback")
+  feedbackRef.classList.remove("dnone");
+  feedbackRef.classList.add("dpf");
+  feedbackRef.classList.remove("dnone");
 }

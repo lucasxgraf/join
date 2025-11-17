@@ -27,13 +27,13 @@ async function fetchContact(path = "contacts/contactlist.json") {
 
 async function addTask() {
   let titel = document.getElementById("title");
-  let discription = document.getElementById("discription");
+  let description = document.getElementById("description");
   let date = document.getElementById("duedate");
   let category = document.getElementById("selectedCategory")
 
   const newTask = {
     "title": titel.value,
-    "description": discription.value,
+    "description": description.value,
     "date": date.value || date.innerText,
     "subtask": subtaskArray,
     "priority": selectedPriority,

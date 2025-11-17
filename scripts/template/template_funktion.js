@@ -6,8 +6,8 @@ function init() {
     addSubtask();
     enterSubtask();
     enableSubmit();
-   
 }
+
 function renderInHtml() {
     renderaddTaskOnHtml();
     renderCategoryOnHTML();

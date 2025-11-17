@@ -14,8 +14,8 @@ function renderaddTask() {
                             <div id="titleError" class="error_message"></div>
                         </div>
                         <div class="input_field">
-                            <label aria-label="Title">Discription</label>
-                            <textarea id="discription" class="task-input inputBorderColor" placeholder="Enter a description"></textarea>
+                            <label aria-label="Title">Description</label>
+                            <textarea id="description" class="task-input inputBorderColor" placeholder="Enter a description"></textarea>
                         </div>
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
@@ -115,7 +115,7 @@ function renderContact(i, contacFromFirebase) {
                 <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
                 <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
             </div>
-                <input type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
+                <input class="checkbox" type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
             </label>`;
 }
 
@@ -127,29 +127,29 @@ function renderCategory(i) {
 }
 
 function subtask(addSubtask, subtaskArray) {
-  addSubtask.innerHTML = "";
-
-  for (let i = 0; i < subtaskArray.length; i++) {
-   
+    addSubtask.innerHTML = "";
+  
+    for (let i = 0; i < subtaskArray.length; i++) {
+      const subtaskTitle = typeof subtaskArray[i] === 'object' ? subtaskArray[i].title : subtaskArray[i];
+     
       addSubtask.innerHTML += `
-
-        <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}">・ ${subtaskArray[i]}
+  
+        <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}">・ ${subtaskTitle}
           <div class="editdeleteBtn">
             <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
             <div class="sepraratorSubtask"></div>
             <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTask(${i})"><img src="../assets/svg/delete.svg" alt="arrow"></button>
           </div>
         </div>
-
+  
         <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtask-${i}">
-          <input id="editInputSubtask-${i}" class="stylingInput" >
+          <input id="editInputSubtask-${i}" class="stylingInput" value="${subtaskTitle}">
           <div class="dpf_cc">
             <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtask(${i})"><img src="../assets/svg/delete.svg" alt="pancel"></button>
             <div class="sepraratorSubtask"></div>
             <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtask(${i})"><img src="../assets/svg/check.svg" alt="arrow"></button>
           </div>
-        </div>
-`
+        </div>`;
     }
   }
 
@@ -170,9 +170,7 @@ function renderSubtaskButtons() {
       <div class="sepraratorSubtask"></div>
       <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtask()" id="cancelBtn">
         <img src="../assets/svg/check.svg" alt="check">
-      </button>
-
-    `;
+      </button>`;
   }
 }
 

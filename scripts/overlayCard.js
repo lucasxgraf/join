@@ -73,31 +73,43 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
 
 function showOverlayAssignToContacts(CARD) {
   const OVERLAY_CONTACT = document.getElementById('overlayAssignToContact');
+  if (!OVERLAY_CONTACT) 
+    return;
+  
+  const CONTACTS = Array.isArray(CARD.contact) ? CARD.contact : [];
+  OVERLAY_CONTACT.innerHTML = '';
+  
+  if (CONTACTS.length === 0) 
+  return;
 
-  for (let index = 0; index < CARD.contact.length; index++) {
-    const CONTACT = CARD.contact[index].name;
-    
+  CONTACTS.forEach(contact => {
     OVERLAY_CONTACT.innerHTML += `
       <div>
-          <div id="overlayCardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""> ${CONTACT}
-          </div>
+        <div id="overlayCardContact">
+          <img src="../assets/img/profile_badges/anja_schulze.png" alt=""> ${contact.name}
+        </div>
       </div>
     `;
-  }
+  });
 }
 
 function showOverlaySubtasks(CARD) {
   const OVERLAY_SUBTASK = document.getElementById('overlaySubtask');
+  if (!OVERLAY_SUBTASK)  
+    return;
+  
+  const SUBTASKS = getSubtasksArray(CARD.subtask);
+  OVERLAY_SUBTASK.innerHTML = '';
+  
+  if (SUBTASKS.length === 0) 
+    return;
 
-  for (let index = 0; index < CARD.subtask.length; index++) {
-    const SUBTASK = CARD.subtask[index];
-    
+    SUBTASKS.forEach(st => {
     OVERLAY_SUBTASK.innerHTML += `
       <div class="overlay_card_single_subtask">
-        <input type="checkbox" id="overlaySubtaskCheckbox"/>
-        <div> ${SUBTASK}
-        </div>
+        <input type="checkbox" ${st.completed ? 'checked' : ''}/>
+        <div>${st.title}</div>
       </div>
     `;
-  }
+  });
 }

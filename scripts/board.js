@@ -16,28 +16,33 @@ function initBoard() {
 //     }
 // }
 
-function renderCard (element) {
-  return`
-    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" onclick="openOverlay('${element.id}')">
+function renderCard(element) {
+  const subtasks = getSubtasksArray(element.subtask);
+  const total = subtasks.length;
+  const done = calcCompleted(subtasks);
+  const progress = calcProgress(subtasks);
+
+  return `
+    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
       <div class="cardBorder"> 
         <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
-          <div class="card_content">
-              <div class="card_title" id="cardTitle">${element.title}</div>
-              <div class="card_description" id="cardDescription">${element.description}
+        <div class="card_content">
+          <div class="card_title" id="cardTitle">${element.title}</div>
+          <div class="card_description" id="cardDescription">${element.description}</div>
+        </div>
+        <div class="subtask_container">
+          <div class="subtaskProgressBar">
+            <div class="subtaskProgressBarCalc" style="width:${progress}%"></div>
           </div>
+          <div class="subtask">${done}/${total} Subtask</div>
         </div>
-      <div class="subtask_container">
-        <div class="subtaskProgressBar">
-          <div class="subtaskProgressBarCalc"></div>
+        <div class="cardFooter">
+          <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""></div>
+          <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
         </div>
-        <div class="subtask">1/${element.subtask?.length} Subtastk</div>
-      </div>
-      <div class="cardFooter">
-        <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""></div>
-        <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
       </div>
     </div>
-  `
+  `;
 }
 
 async function loadTasks() {
@@ -45,7 +50,6 @@ async function loadTasks() {
     const response = await fetch(`${BASE_URL}addTask.json`); // .json für Firebase-Endpunkt
     const data = await response.json();
     
-
     // Firebase gibt Objekte zurück → in Array umwandeln
     if (data) {
       cardFromFirebase = Object.entries(data).map(([id, task]) => ({
@@ -148,7 +152,18 @@ function dragoverHandler(ev) {
 }
 
 function startDrag(id) {
-    dragElementId = id;  
+    dragElementId = id;
+    const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
+    if (ELEMENT) {
+      ELEMENT.classList.add('dragging');
+    }
+}
+
+function stopDrag(id) {
+  const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
+  if (ELEMENT) {
+    ELEMENT.classList.remove('dragging');
+  }
 }
 
 function moveTo(newdragclass) {
@@ -180,8 +195,21 @@ function showDialog(targetDragClass) {
 }
 
 function  closeDialog(){
-        const dialog = document.getElementById("addTaskDialog");
+    const dialog = document.getElementById("addTaskDialog");
     clearInput()
     dialog.close();
-      
+}
+
+function getSubtasksArray(subtask) {
+  if (Array.isArray(subtask)) return subtask;
+  return [];
+}
+
+function calcCompleted(subtasks) {
+  return subtasks.filter(s => s.completed).length;
+}
+
+function calcProgress(subtasks) {
+  if (subtasks.length === 0) return 0;
+  return (calcCompleted(subtasks) / subtasks.length) * 100;
 }

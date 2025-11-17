@@ -422,10 +422,10 @@ input[type="checkbox"] {
     background-position: center;
 }
 
-input[type="checkbox"]:hover {
+/* input[type="checkbox"]:hover {
     filter: brightness(0) invert(1);
 
-}
+} */
 
 input[type="checkbox"]:checked{
     background-image: url(../assets/svg/check_btn_checked.svg);
@@ -434,9 +434,14 @@ input[type="checkbox"]:checked{
     background-repeat: no-repeat;
 }
 
-input[type="checkbox"]:checked:hover{
+.checkbox:hover,
+.checkbox_checked:hover {
     filter: brightness(0) invert(1);
 }
+
+/* input[type="checkbox"]:checked:hover{
+    filter: brightness(0) invert(1);
+} */
 
 .iconButtonsForImg{
   background: none;      
