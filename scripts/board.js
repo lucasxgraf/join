@@ -1,26 +1,20 @@
 let cardFromFirebase = [];
 let dragElementId = "";
-// const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+let contacts_from_firebase = {};
 
-function initBoard() {
-    loadTasks()
+async function initBoard() {
+    await loadContacts();
+    await loadTasks();
     renderInHtml();
-
 }
-
-// function renderCardinBoard() {
-//     const TodoRef = document.getElementById("todo");
-    
-//     for (let i = 0; i < cardFromFirebase.length; i++) {
-//         TodoRef.innerHTML +=  renderCard(i);      
-//     }
-// }
 
 function renderCard(element) {
   const SUBTASKS = getSubtasksArray(element.subtask);
   const TOTAL = SUBTASKS.length;
   const DONE = calcCompleted(SUBTASKS);
   const PROGRESS = calcProgress(SUBTASKS);
+  const contacts_html = renderContactBadges(element.contact || []);
+
 
   return `
     <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
@@ -34,12 +28,14 @@ function renderCard(element) {
           <div class="subtaskProgressBar">
             <div class="subtaskProgressBarCalc" style="width:${PROGRESS}%"></div>
           </div>
-          <div class="subtask">${DONE}/${TOTAL} Subtask</div>
+          <div class="subtask">${DONE}/${TOTAL} Subtasks</div>
         </div>
         <div class="cardFooter">
-          <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""></div>
+          <div class="contact_badges" id="cardContact">
+            ${contacts_html}
+          </div>
           <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
-        </div>
+      </div>
       </div>
     </div>
   `;
@@ -71,7 +67,18 @@ function loadDetails(cardFromFirebase) {
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
+}
 
+async function loadContacts() {
+  try {
+    const response = await fetch(`${BASE_URL}contacts/contactlist.json`);
+    const data = await response.json();
+    if (data) {
+      contacts_from_firebase = data;
+    }
+  } catch (error) {
+    console.error('fehler beim laden der kontakte:', error);
+  }
 }
 
 function forLoopCards(ref, array , placeholdertext) {
@@ -213,4 +220,49 @@ function calcProgress(subtasks) {
   if (subtasks.length === 0) 
     return 0;
   return (calcCompleted(subtasks) / subtasks.length) * 100;
+}
+
+function getInitials(name_obj) {
+  if (!name_obj) return '??';
+  const first = name_obj.firstname || '';
+  const second = name_obj.secondname || '';
+  if (!first && !second) return '??';
+  return `${first[0] || ''}${second[0] || ''}`.toUpperCase();
+}
+
+function renderContactBadges(contact_array) {
+  if (!contact_array || contact_array.length === 0) {
+    return '<div class="no_contacts">No contacts assigned</div>';
+  }
+
+  const max_visible = 3;
+  let html = '';
+
+  for (let i = 0; i < Math.min(contact_array.length, max_visible); i++) {
+    const contact_entry = contact_array[i];
+    const contact_id = contact_entry.id;
+    const contact_data = contacts_from_firebase[contact_id];
+
+    if (!contact_data) continue;
+
+    const initials = getInitials(contact_data.name);
+    const color = contact_data.color || '#2a3647';
+
+    html += `
+      <div class="contact_badge" style="background-color:${color}">
+        ${initials}
+      </div>
+    `;
+  }
+
+  if (contact_array.length > max_visible) {
+    const remaining = contact_array.length - max_visible;
+    html += `
+      <div class="contact_badge contact_badge_more">
+        +${remaining}
+      </div>
+    `;
+  }
+
+  return html;
 }

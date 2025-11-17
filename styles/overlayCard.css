@@ -11,7 +11,6 @@
   left: 50%;
   transform: translate(-50%,-50%);
   width: 520px;
-  min-height: 800px;
   max-height: 950px;
   overflow: auto;
   background: #fff;
@@ -55,6 +54,8 @@
 .overlay_card_description{
   font-size: 1.25rem;
   color: black;
+  max-height: 75px;
+  overflow-y: auto;
 }
 
 .overlay_card_due_date_container,
@@ -106,7 +107,7 @@
 }
 
 .overlay_card_assigned_to_layout{
-  max-height: 175px;
+  max-height: 130px;
   overflow-y: auto;
 }
 
@@ -166,4 +167,35 @@ input[type="checkbox"]:checked {
   width: 1px;
   height: 30px;
   background-color: #D1D1D1;
+}
+
+.overlay_contact_badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.overlay_contact_initials {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay_contact_name {
+  font-size: 1.25rem;
+  color: black;
+}
+
+.overlay_no_contacts{
+  color: #2A3647;
+  gap: 16px;
+  padding: 0 16px;
 }

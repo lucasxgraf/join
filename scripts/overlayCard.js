@@ -55,7 +55,8 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
 
     <div class="overlay_card_assigned_to_container">
       <span>Assigned To:</span>
-      <div id="overlayAssignToContact" class="overlay_card_assigned_to_layout"></div>
+      <div id="overlayAssignToContact" class="overlay_card_assigned_to_layout">  
+      </div>
     </div>
 
     <div class="overlay_card_subtasks_container">
@@ -73,24 +74,34 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
 
 function showOverlayAssignToContacts(CARD) {
   const OVERLAY_CONTACT = document.getElementById('overlayAssignToContact');
-  if (!OVERLAY_CONTACT) 
-    return;
-  
-  const CONTACTS = Array.isArray(CARD.contact) ? CARD.contact : [];
   OVERLAY_CONTACT.innerHTML = '';
-  
-  if (CONTACTS.length === 0) 
-  return;
+  const contact_array = CARD.contact || [];
+  OVERLAY_CONTACT.innerHTML = renderOverlayContactBadges(contact_array);
+}
 
-  CONTACTS.forEach(contact => {
-    OVERLAY_CONTACT.innerHTML += `
-      <div>
-        <div id="overlayCardContact">
-          <img src="../assets/img/profile_badges/anja_schulze.png" alt=""> ${contact.name}
+function renderOverlayContactBadges(contact_array) {
+  if (!contact_array || contact_array.length === 0)
+    return '<div class="overlay_no_contacts">No contacts assigned</div>';
+
+  let html = '';
+  for (let i = 0; i < contact_array.length; i++) {
+    const contact_entry = contact_array[i];
+    const contact_id = contact_entry.id;
+    const contact_data = contacts_from_firebase[contact_id];
+    if (!contact_data) 
+      continue;
+    const initials = getInitials(contact_data.name);
+    const color = contact_data.color || '#2a3647';
+    html += `
+      <div class="overlay_contact_badge">
+        <div class="overlay_contact_initials" style="background-color:${color}">${initials}</div>
+        <div class="overlay_contact_name">
+          ${contact_data.name.firstname} ${contact_data.name.secondname}
         </div>
       </div>
     `;
-  });
+  }
+  return html;
 }
 
 function showOverlaySubtasks(CARD) {
