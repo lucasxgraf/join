@@ -95,21 +95,58 @@ function showOverlayAssignToContacts(CARD) {
 
 function showOverlaySubtasks(CARD) {
   const OVERLAY_SUBTASK = document.getElementById('overlaySubtask');
-  if (!OVERLAY_SUBTASK)  
-    return;
+  if (!OVERLAY_SUBTASK) return;
   
   const SUBTASKS = getSubtasksArray(CARD.subtask);
   OVERLAY_SUBTASK.innerHTML = '';
   
-  if (SUBTASKS.length === 0) 
-    return;
+  if (SUBTASKS.length === 0) return;
 
-    SUBTASKS.forEach(st => {
+  SUBTASKS.forEach((st, index) => {
     OVERLAY_SUBTASK.innerHTML += `
       <div class="overlay_card_single_subtask">
-        <input type="checkbox" ${st.completed ? 'checked' : ''}/>
+        <input type="checkbox" 
+               onclick="toggleSubtaskCompleted('${CARD.id}', ${index})" 
+               ${st.completed ? 'checked' : ''}/>
         <div>${st.title}</div>
       </div>
     `;
   });
+}
+
+async function toggleSubtaskCompleted(cardId, index) {
+  const card = cardFromFirebase.find(c => c.id === cardId);
+  if (!card) return;
+
+  const subtasks = getSubtasksArray(card.subtask);
+  if (!subtasks[index]) return;
+
+  subtasks[index].completed = !subtasks[index].completed;
+  card.subtask = subtasks;
+
+  await saveSubtasksToFirebase(cardId, subtasks);
+  loadDetails(cardFromFirebase);
+  refreshOverlay(card);
+}
+
+async function saveSubtasksToFirebase(cardId, subtasks) {
+  try {
+    const url = `${BASE_URL}addTask/${cardId}.json`;
+    await fetch(url, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subtask: subtasks })
+    });
+  } catch (error) {
+    console.error('Fehler beim Speichern der Subtasks:', error);
+  }
+}
+
+function refreshOverlay(card) {
+  const overlayCard = document.getElementById('overlay_card');
+  if (!overlayCard) return;
+
+  renderOverlayCard(card, overlayCard);
+  showOverlayAssignToContacts(card);
+  showOverlaySubtasks(card);
 }

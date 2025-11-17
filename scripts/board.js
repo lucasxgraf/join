@@ -17,10 +17,10 @@ function initBoard() {
 // }
 
 function renderCard(element) {
-  const subtasks = getSubtasksArray(element.subtask);
-  const total = subtasks.length;
-  const done = calcCompleted(subtasks);
-  const progress = calcProgress(subtasks);
+  const SUBTASKS = getSubtasksArray(element.subtask);
+  const TOTAL = SUBTASKS.length;
+  const DONE = calcCompleted(SUBTASKS);
+  const PROGRESS = calcProgress(SUBTASKS);
 
   return `
     <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
@@ -32,9 +32,9 @@ function renderCard(element) {
         </div>
         <div class="subtask_container">
           <div class="subtaskProgressBar">
-            <div class="subtaskProgressBarCalc" style="width:${progress}%"></div>
+            <div class="subtaskProgressBarCalc" style="width:${PROGRESS}%"></div>
           </div>
-          <div class="subtask">${done}/${total} Subtask</div>
+          <div class="subtask">${DONE}/${TOTAL} Subtask</div>
         </div>
         <div class="cardFooter">
           <div class="contact" id="cardContact"><img src="../assets/img/profile_badges/anja_schulze.png" alt=""></div>
@@ -191,7 +191,6 @@ function showDialog(targetDragClass) {
 
   dialog.dataset.dragclass = targetDragClass;
   // });
-    
 }
 
 function  closeDialog(){
@@ -201,7 +200,8 @@ function  closeDialog(){
 }
 
 function getSubtasksArray(subtask) {
-  if (Array.isArray(subtask)) return subtask;
+  if (Array.isArray(subtask)) 
+    return subtask;
   return [];
 }
 
@@ -210,6 +210,7 @@ function calcCompleted(subtasks) {
 }
 
 function calcProgress(subtasks) {
-  if (subtasks.length === 0) return 0;
+  if (subtasks.length === 0) 
+    return 0;
   return (calcCompleted(subtasks) / subtasks.length) * 100;
 }
