@@ -13,7 +13,7 @@ function clearInput() {
   task = [];
 
   const categoryInput = document.getElementById("selectedCategory");
-  categoryInput.value = "Select task category";
+  categoryInput.value = "";
 
   changePriority("medium")
   document.getElementById("submit").disabled = true
@@ -327,7 +327,8 @@ function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
   const categorySelect = document.getElementById("selectedCategory").value.trim();
   const titleInput = document.getElementById("title").value.trim();
-  const allFilled = categorySelect && titleInput && duedateInput
+  const allFilled = categorySelect && titleInput && duedateInput 
+  
 
   if (allFilled) {
     document.getElementById("submit").disabled = false
