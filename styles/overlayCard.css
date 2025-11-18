@@ -107,7 +107,7 @@
 }
 
 .overlay_card_assigned_to_layout{
-  max-height: 130px;
+  max-height: 135px;
   overflow-y: auto;
 }
 
@@ -155,15 +155,30 @@ input[type="checkbox"]:checked {
   padding: 7px 16px;
 }
 
-.overlay_card_footer{
+.overlay_card_footer {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 16px;
   align-items: center;
   color: #2a3647;
 }
 
-.overlay_card_footer_seperator{
+.overlay_card_footer button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.1s ease, color 0.1s ease, fill 0.1s ease;
+}
+
+.overlay_card_footer button:hover,
+.overlay_card_footer button:hover svg path {
+  color: rgb(41, 171, 226);
+  transform: scale(1.1);
+  fill: rgb(41, 171, 226) !important;
+}
+
+.overlay_card_footer_separator{
   width: 1px;
   height: 30px;
   background-color: #D1D1D1;

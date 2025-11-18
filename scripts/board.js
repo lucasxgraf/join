@@ -13,7 +13,7 @@ function renderCard(element) {
   const TOTAL = SUBTASKS.length;
   const DONE = calcCompleted(SUBTASKS);
   const PROGRESS = calcProgress(SUBTASKS);
-  const contacts_html = renderContactBadges(element.contact || []);
+  const CONTACTS = renderContactBadges(element.contact || []);
 
 
   return `
@@ -32,7 +32,7 @@ function renderCard(element) {
         </div>
         <div class="cardFooter">
           <div class="contact_badges" id="cardContact">
-            ${contacts_html}
+            ${CONTACTS}
           </div>
           <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
       </div>
@@ -43,12 +43,12 @@ function renderCard(element) {
 
 async function loadTasks() {
   try {
-    const response = await fetch(`${BASE_URL}addTask.json`); // .json für Firebase-Endpunkt
-    const data = await response.json();
+    const RESPONSE = await fetch(`${BASE_URL}addTask.json`); // .json für Firebase-Endpunkt
+    const DATA = await RESPONSE.json();
     
     // Firebase gibt Objekte zurück → in Array umwandeln
-    if (data) {
-      cardFromFirebase = Object.entries(data).map(([id, task]) => ({
+    if (DATA) {
+      cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
     id: id,
     ...task
   }));
@@ -71,10 +71,10 @@ function loadDetails(cardFromFirebase) {
 
 async function loadContacts() {
   try {
-    const response = await fetch(`${BASE_URL}contacts/contactlist.json`);
-    const data = await response.json();
-    if (data) {
-      contacts_from_firebase = data;
+    const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
+    const DATA = await RESPONSE.json();
+    if (DATA) {
+      contacts_from_firebase = DATA;
     }
   } catch (error) {
     console.error('fehler beim laden der kontakte:', error);
@@ -85,8 +85,8 @@ function forLoopCards(ref, array , placeholdertext) {
 
       ref.innerHTML = '';
     for (let index = 0; index < array.length; index++) {
-        const element = array[index]
-        ref.innerHTML += renderCard(element);
+        const ELEMENT = array[index]
+        ref.innerHTML += renderCard(ELEMENT);
     }
     if (array.length <= 0) {
     ref.innerHTML = `<div class="placeholderDragContainer">${placeholdertext}</div>`} 
@@ -94,27 +94,27 @@ function forLoopCards(ref, array , placeholdertext) {
 
 function updateHTMLToDo(cardFromFirebase) {
     let todoArray = cardFromFirebase.filter(d => d['dragclass'] === "todo");
-    const todoRef = document.getElementById("todo");
-    forLoopCards(todoRef, todoArray, "No tasks To Do") 
+    const TODO_REF = document.getElementById("todo");
+    forLoopCards(TODO_REF, todoArray, "No tasks To Do") 
 }
 
 function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
-    const inprogressRef = document.getElementById("inProgress");
-    forLoopCards(inprogressRef, inprogressArray, "No tasks In Progress")
+    const INPROGRESS_REF = document.getElementById("inProgress");
+    forLoopCards(INPROGRESS_REF, inprogressArray, "No tasks In Progress")
 }
 
 function updateHTMLawaitFeedback(cardFromFirebase) {
     let awaitFeedbackArray = cardFromFirebase.filter(d => d['dragclass'] === "awaitfeedback");
-    const awaitFeedbackArrayRef = document.getElementById("awaitFeedback");
-    forLoopCards(awaitFeedbackArrayRef, awaitFeedbackArray, "No tasks Await Feedback")
+    const AWAIT_FEEDBACK_REF = document.getElementById("awaitFeedback");
+    forLoopCards(AWAIT_FEEDBACK_REF, awaitFeedbackArray, "No tasks Await Feedback")
 
 }
 
 function updateHTMLDone(cardFromFirebase) {
     let doneArray = cardFromFirebase.filter(d => d['dragclass'] === "done");
-    const donesRef = document.getElementById("done");
-    forLoopCards(donesRef, doneArray, "No tasks To Do")
+    const DONE_REF = document.getElementById("done");
+    forLoopCards(DONE_REF, doneArray, "No tasks To Do")
 }
 
 function dragoverHandler(ev) {
@@ -137,9 +137,9 @@ function stopDrag(id) {
 }
 
 function moveTo(newdragclass) {
-    const task = cardFromFirebase.find(t => t.id === dragElementId);
+    const TASK = cardFromFirebase.find(t => t.id === dragElementId);
   
-    task.dragclass = newdragclass;
+    TASK.dragclass = newdragclass;
     loadDetails(cardFromFirebase)
 }
 
@@ -151,24 +151,23 @@ function showDialog(targetDragClass) {
     enableSubmit();
     fetchContact();
 
-const overlay = document.getElementById("addTaskOverlay");
-const dialog = document.getElementById("addTaskDialog");
-dialog.dataset.dragclass = targetDragClass;
+    const OVERLAY = document.getElementById("addTaskOverlay");
+    const DIALOG = document.getElementById("addTaskDialog");
+    DIALOG.dataset.dragclass = targetDragClass;
 
-overlay.classList.toggle("dnone");
+    OVERLAY.classList.toggle("dnone");
 
-  setTimeout(() => {
-    dialog.classList.add("show");
-  }, 10);
+      setTimeout(() => {
+        DIALOG.classList.add("show");
+      }, 10);
 }
 
 function closeDialog() {
-  const overlay = document.getElementById("addTaskOverlay");
-  const dialog = document.getElementById("addTaskDialog");
+  const OVERLAY = document.getElementById("addTaskOverlay");
+  const DIALOG = document.getElementById("addTaskDialog");
 
-  dialog.classList.toggle("show");
-  overlay.classList.toggle("dnone");
-
+  DIALOG.classList.toggle("show");
+  OVERLAY.classList.toggle("dnone");
 
   clearInput();
 }
@@ -191,10 +190,10 @@ function calcProgress(subtasks) {
 
 function getInitials(name_obj) {
   if (!name_obj) return '??';
-  const first = name_obj.firstname || '';
-  const second = name_obj.secondname || '';
-  if (!first && !second) return '??';
-  return `${first[0] || ''}${second[0] || ''}`.toUpperCase();
+  const FIRST = name_obj.firstname || '';
+  const SECOND = name_obj.secondname || '';
+  if (!FIRST && !SECOND) return '??';
+  return `${FIRST[0] || ''}${SECOND[0] || ''}`.toUpperCase();
 }
 
 function renderContactBadges(contact_array) {
@@ -202,31 +201,31 @@ function renderContactBadges(contact_array) {
     return '<div class="no_contacts">No contacts assigned</div>';
   }
 
-  const max_visible = 3;
+  const MAX_VISIBLE = 3;
   let html = '';
 
-  for (let i = 0; i < Math.min(contact_array.length, max_visible); i++) {
-    const contact_entry = contact_array[i];
-    const contact_id = contact_entry.id;
-    const contact_data = contacts_from_firebase[contact_id];
+  for (let i = 0; i < Math.min(contact_array.length, MAX_VISIBLE); i++) {
+    const CONTACT_ENTRY = contact_array[i];
+    const CONTACT_ID = CONTACT_ENTRY.id;
+    const CONTACT_DATA = contacts_from_firebase[CONTACT_ID];
 
-    if (!contact_data) continue;
+    if (!CONTACT_DATA) continue;
 
-    const initials = getInitials(contact_data.name);
-    const color = contact_data.color || '#2a3647';
+    const INITIALS = getInitials(CONTACT_DATA.name);
+    const COLOR = CONTACT_DATA.color || '#2a3647';
 
     html += `
-      <div class="contact_badge" style="background-color:${color}">
-        ${initials}
+      <div class="contact_badge" style="background-color:${COLOR}">
+        ${INITIALS}
       </div>
     `;
   }
 
-  if (contact_array.length > max_visible) {
-    const remaining = contact_array.length - max_visible;
+  if (contact_array.length > MAX_VISIBLE) {
+    const REMAINING = contact_array.length - MAX_VISIBLE;
     html += `
       <div class="contact_badge contact_badge_more">
-        +${remaining}
+        +${REMAINING}
       </div>
     `;
   }
