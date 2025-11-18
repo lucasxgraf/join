@@ -6,6 +6,7 @@ function init() {
     addSubtask();
     enterSubtask();
     enableSubmit();
+    changePriority("medium")
 }
 
 function renderInHtml() {

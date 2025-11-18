@@ -10,7 +10,7 @@ function renderaddTask() {
                     <div class="task-input-container">
                         <div class="input_field">
                             <label aria-label="title">Title<span class="req">*</span></label>
-                            <input type="text" id="title" class="task-input inputBorderColor" required placeholder="Enter a title">
+                            <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title">
                             <div id="titleError" class="error_message"></div>
                         </div>
                         <div class="input_field">
@@ -153,9 +153,9 @@ function subtask(addSubtask, subtaskArray) {
     }
   }
 
-
 function renderSubtaskButtons() {
   const input = document.getElementById("subtaskReadOut");
+  
   const buttonContainer = document.getElementById("inputButtons");
   const value = input.value.trim();
 

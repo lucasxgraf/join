@@ -15,8 +15,7 @@ function clearInput() {
   const categoryInput = document.getElementById("selectedCategory");
   categoryInput.value = "Select task category";
 
-  selectedPriority = "";
-  document.querySelectorAll('.priority-btn').forEach(btn => btn.classList.remove('active'));
+  changePriority("medium")
   document.getElementById("submit").disabled = true
 clearSubtask()
 clearContact()
@@ -101,6 +100,7 @@ function addSubtask() {
 
   subtaskArray.push({ title: value, completed: false });  
   subtask(addSubtaskContainer, subtaskArray);
+  document.getElementById("inputButtons").innerHTML = ""
   readout.value = "";
 }
 
@@ -112,28 +112,14 @@ function enterSubtask() {
   }}); 
 }
 
-// ######################################################################
-function changePriority(priority) {
-  // Alle Buttons finden
-  const buttons = document.querySelectorAll('.priority-btn');
 
-  // Den passenden Button anhand der ID finden
+function changePriority(priority) {
+  const buttons = document.querySelectorAll('.priority-btn');
   const button = document.getElementById(`${priority}Btn`);
 
-  // Wenn der angeklickte Button schon aktiv ist → deaktivieren
-  if (button.classList.contains('active')) {
-    button.classList.remove('active');
-    selectedPriority = '';
-    return;
-  }
-
-  // Alle anderen deaktivieren
   buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Diesen aktivieren
   button.classList.add('active');
 
-  // Den gewählten Wert speichern
   selectedPriority = priority;
 }
 
