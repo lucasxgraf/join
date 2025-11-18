@@ -142,12 +142,14 @@
             </div>
             </section>
 
-          <dialog class="dialogWindow" id="addTaskDialog">
-            <div class="addTaskDialogContainer">
-              <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
-              <div id="addTaskAtBoardPage"></div>
+            <div class="dnone" id="addTaskOverlay" onclick="closeDialog()">
+              <div class="dialogWindow" id="addTaskDialog" onclick="event.stopPropagation()">
+                <div class="addTaskDialogContainer">
+                  <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
+                  <div id="addTaskAtBoardPage"></div>
+                </div>
+              </div>
             </div>
-          </dialog>
 
           <div id="overlay" class="d_none" onclick="toggleOverlay()">
             <div id="overlay_card" onclick="stopOverlayClose(event)"></div>

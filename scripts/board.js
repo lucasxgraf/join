@@ -92,36 +92,16 @@ function forLoopCards(ref, array , placeholdertext) {
     ref.innerHTML = `<div class="placeholderDragContainer">${placeholdertext}</div>`} 
 }
 
-
-// function für die todo in Progress
 function updateHTMLToDo(cardFromFirebase) {
     let todoArray = cardFromFirebase.filter(d => d['dragclass'] === "todo");
     const todoRef = document.getElementById("todo");
-
-    // todoRef.innerHTML = '';
-    // for (let index = 0; index < todoArray.length; index++) {
-    //     const element = todoArray[index]
-    //     todoRef.innerHTML += renderCard(element);
-    // }
-    forLoopCards(todoRef, todoArray, "No tasks To Do")
-    // if (todoArray.length <= 0) {
-    // todoRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'} 
-    
+    forLoopCards(todoRef, todoArray, "No tasks To Do") 
 }
-// function für die Category in Progress
+
 function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
     const inprogressRef = document.getElementById("inProgress");
-
-  //   inprogressRef.innerHTML = '';
-  //   for (let index = 0; index < inprogressArray.length; index++) {
-  //       const element = inprogressArray[index]
-  //       inprogressRef.innerHTML += renderCard(element);
-  //  } 
-
     forLoopCards(inprogressRef, inprogressArray, "No tasks In Progress")
-    // if (inprogressArray.length <= 0) {
-    // inprogressRef.innerHTML = '<div class="placeholderDragContainer">No tasks In Progress</div>'} 
 }
 
 function updateHTMLawaitFeedback(cardFromFirebase) {
@@ -129,29 +109,12 @@ function updateHTMLawaitFeedback(cardFromFirebase) {
     const awaitFeedbackArrayRef = document.getElementById("awaitFeedback");
     forLoopCards(awaitFeedbackArrayRef, awaitFeedbackArray, "No tasks Await Feedback")
 
-    // awaitFeedbackArrayRef.innerHTML = '';
-    // for (let index = 0; index < awaitFeedbackArray.length; index++) {
-    //     const element = awaitFeedbackArray[index]
-    //     awaitFeedback.innerHTML += renderCard(element);}
-    // if (awaitFeedbackArray.length <= 0) {
-      
-    // awaitFeedback.innerHTML = '<div class="placeholderDragContainer">No tasks Await Feedback</div>'}
 }
 
-// function für die Category in Progress
 function updateHTMLDone(cardFromFirebase) {
     let doneArray = cardFromFirebase.filter(d => d['dragclass'] === "done");
     const donesRef = document.getElementById("done");
     forLoopCards(donesRef, doneArray, "No tasks To Do")
-
-  //   donesRef.innerHTML = '';
-  //   for (let index = 0; index < doneArray.length; index++) {
-  //       const element = doneArray[index]
-  //       donesRef.innerHTML += renderCard(element);
-  // //  }  
-  //  if (doneArray.length <= 0) {
-  //   donesRef.innerHTML = '<div class="placeholderDragContainer">No tasks To Do</div>'
-  //  }
 }
 
 function dragoverHandler(ev) {
@@ -188,22 +151,26 @@ function showDialog(targetDragClass) {
     enableSubmit();
     fetchContact();
 
-      const dialog = document.getElementById("addTaskDialog");
-      dialog.showModal();
-  //   document.getElementById("addTaskDialog").showModal();
-  //     dialog.addEventListener("click", e => {
-  //   if (e.target === dialog) 
-  //   dialog.close();
+const overlay = document.getElementById("addTaskOverlay");
+const dialog = document.getElementById("addTaskDialog");
+dialog.dataset.dragclass = targetDragClass;
 
+overlay.classList.toggle("dnone");
 
-  dialog.dataset.dragclass = targetDragClass;
-  // });
+  setTimeout(() => {
+    dialog.classList.add("show");
+  }, 10);
 }
 
-function  closeDialog(){
-    const dialog = document.getElementById("addTaskDialog");
-    clearInput()
-    dialog.close();
+function closeDialog() {
+  const overlay = document.getElementById("addTaskOverlay");
+  const dialog = document.getElementById("addTaskDialog");
+
+  dialog.classList.toggle("show");
+  overlay.classList.toggle("dnone");
+
+
+  clearInput();
 }
 
 function getSubtasksArray(subtask) {

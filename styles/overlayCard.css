@@ -1,4 +1,4 @@
-#overlay {
+#overlay, #addTaskOverlay {
   position: fixed;
   inset: 0;
   background: #0000004d;

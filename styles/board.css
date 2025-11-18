@@ -162,6 +162,8 @@ h3{
   line-height: 120%;
   min-height: 40px;
   color: #A8A8A8;
+  max-height: 80px;
+  overflow: auto;
 }
 
 .subtask{ 
@@ -264,17 +266,21 @@ h3{
   background-color: #D1D1D1;
 }
 
-.dialogWindow{
-  position: fixed;
-  height: 870px;
-  width: 1116px;
-  border-radius: 30px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f6f7f8;
-  border: none;
+.dialogWindow {
+    position: fixed;
+    height: 870px;
+    width: 1116px;
+    border-radius: 30px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateX(100vw);
+    border: none;
+    background-color: #f6f7f8;
+    transition: transform 0.20s ease;
+}
 
+.dialogWindow.show {
+    transform: translate(-50%, -50%) translateX(0);
 }
 
 .addTaskDialogContainer{
