@@ -142,9 +142,9 @@ async function toggleSubtaskCompleted(cardId, index) {
 
 async function saveSubtasksToFirebase(cardId, subtasks) {
   try {
-    const url = `${BASE_URL}addTask/${cardId}.json`;
+    const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
     await fetch(url, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ subtask: subtasks })
     });

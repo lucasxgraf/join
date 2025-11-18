@@ -36,21 +36,17 @@ function pickDate(offsetDays = 0) {
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
 
-  // Das ausgewählte Datum im gewünschten Format
   selectedDate = `${day}/${month}/${year}`;
 
-  // Falls du das Input-Feld #duedate weiterhin nutzt:
   const inputDate = document.getElementById("duedate");
   if (inputDate) {
     inputDate.value = selectedDate;
   }
-
-  // Kalender schließen (optional)
   const calender = document.getElementById("calender");
   if (calender) {
     calender.innerHTML = "";
   }
-
+  enableSubmit()
 }
 
 
