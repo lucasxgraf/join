@@ -136,11 +136,22 @@ function stopDrag(id) {
   }
 }
 
-function moveTo(newdragclass) {
-    const TASK = cardFromFirebase.find(t => t.id === dragElementId);
+async function moveTo(newdragclass) {
+  const task = cardFromFirebase.find(t => t.id === dragElementId);
+  if (!task) return;
   
-    TASK.dragclass = newdragclass;
-    loadDetails(cardFromFirebase)
+  task.dragclass = newdragclass;
+  
+  try {
+      await fetch(`${BASE_URL}addTask/${dragElementId}/dragclass.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json'},
+          body: `"${newdragclass}"`
+      });
+      loadDetails(cardFromFirebase);
+  } catch (error) {
+      console.error('Fehler beim Verschieben der Karte:', error);
+  }
 }
 
 function showDialog(targetDragClass) {
