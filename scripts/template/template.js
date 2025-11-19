@@ -20,8 +20,9 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
                             <div id="date" class="task-input dpf sp_between inputBackground"  >
-                                    <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
-                                    maxlength="10"  ></input>
+                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
+                                maxlength="10">
+                                </input>
                                 <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
                             </div>
                             <div class="calender" id="calender"></div>

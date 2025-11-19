@@ -77,7 +77,7 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
         Delete
       </button>
         <div class="overlay_card_footer_separator"></div>
-      <button onclick="overlayEditCard()">
+      <button onclick="openOverlayEdit('${CARD.id}')">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <mask id="mask0_75592_9969" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
           <rect x="0.144531" width="24" height="24" fill="currentColor"/>
@@ -237,3 +237,125 @@ function showDeleteToast() {
     toast.remove();
   }, 2000);
 }
+
+
+function openOverlayEdit(cardId) {
+  const OVERLAY = document.getElementById('overlay');
+  const OVERLAY_CARD = document.getElementById('overlay_card');
+  const CARD = cardFromFirebase.find(c => c.id === cardId);
+  if (!OVERLAY || !OVERLAY_CARD || !CARD) 
+    return;
+  disableCurrentOverlay();
+  renderOverlayEditCard(CARD, OVERLAY_CARD);
+  fetchSVGs();
+  changePriority('medium');
+
+  OVERLAY.classList.remove('d_none');
+  document.body.style.overflow = 'hidden';
+}
+
+function disableCurrentOverlay() {
+  const OVERLAY = document.getElementById('overlay');
+  if (!OVERLAY) 
+    return;
+  OVERLAY.classList.add('d_none');
+}
+
+function renderOverlayEditCard(CARD, OVERLAY_CARD) {
+  OVERLAY_CARD.innerHTML = `
+  <button class="overlay_close_btn" onclick="toggleOverlay()">×</button>
+
+  <form>
+    <div class="overlay_edit_form_layout">
+      <label for="overlayEditTitle">
+        <h3>Title</h3>
+      </label>
+      <input id="overlayEditTitle" type="text" name="title" value="${CARD.title||''}"/>
+    </div>
+    <div class="overlay_edit_form_layout">
+      <label for="overlayEditDescription">
+        <h3>Description</h3>
+      </label>
+      <textarea id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
+    </div>
+    <div class="overlay_edit_form_layout">
+      <label aria-label="Date">
+        <h3>Due date</h3>
+      </label>
+      <div id="date" class="task-input dpf sp_between inputBackground">
+        <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
+          maxlength="10">
+        </input>
+        <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+        </button>
+        <div class="calender" id="calender"></div>
+        <div id="dateError" class="error_message"></div>
+      </div>
+    </div>
+  </form>
+
+  <div class="overlay_edit_form_layout">
+    <h3>Priority</h3>
+      <div class="priority-buttons">
+        <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent')">Urgent<span class="urgent_icon"></span></button> 
+        <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium')">Medium <span class="medium_icon"></span></button>
+        <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low')">Low <span class="low_icon"></span></button>
+      </div>
+  </div>
+
+  <div class="overlay_edit_form_layout">
+    <h3>Assigned to</h3>
+      <div class="custom-category-dropdown" id="contactDropdown">
+          <div class="dropdown-header" onclick="toggleDropdown('contactDropdown')">
+              <span>Select contacts to assign</span>
+              <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
+          </div>
+          <div class="dropdown-list" id="categoryDropdownList">
+              <div id="labelContact"></div>
+          </div>
+          <div id="iconContact" class="dpf gap8"></div>
+      </div>
+    </div>
+
+    <div class="overlay_edit_form_layout">
+      <h3>Subtasks</h3>
+        <div class="input-wrapper">
+          <input type="text" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
+          <div id="inputButtons"></div>
+          <div class="subtask" id="addSubtask"></div>
+        </div>
+      </div>
+
+    <button type="submit" id="submit" class="btn btn_create dpf_cc align-self">Ok
+      <img class="checkSvg" src="../assets/svg/check.svg" alt="">
+    </button>
+  `;
+}
+
+function fetchSVGs() {
+  const svgs = [
+    { path: '../assets/svg/priority_symblos/urgent.svg', selector: '#urgentBtnOverlayEdit .urgent_icon' },
+    { path: '../assets/svg/priority_symblos/medium.svg', selector: '#mediumBtnOverlayEdit .medium_icon' },
+    { path: '../assets/svg/priority_symblos/low.svg', selector: '#lowBtnOverlayEdit .low_icon' }
+  ];
+
+  svgs.forEach(svg => {
+    fetch(svg.path)
+      .then(response => response.text())
+      .then(svgContent => {
+        document.querySelector(svg.selector).innerHTML = svgContent;
+      })
+      .catch(error => console.error('Error fetching SVG:', error));
+  });
+}
+
+function changePriority(priority) {
+  const buttons = document.querySelectorAll('.priority-btn');
+  const button = document.getElementById(`${priority}BtnOverlayEdit`);
+
+  buttons.forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
+
+  selectedPriority = priority;
+}
+
