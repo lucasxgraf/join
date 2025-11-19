@@ -57,6 +57,10 @@ body {
   background-color: #f6f7f8;
 }
 
+.align-self{
+  align-self: flex-end;
+}
+
 h1 {
   font-size: 73px;
   margin-bottom: 60px;
@@ -264,7 +268,6 @@ label {
 .low_icon{
   height: 32px;
   width: 32px;
-  
 }
 
 /* Der "aktive" Zustand soll genau so aussehen wie der Hover-Zustand */
@@ -309,11 +312,10 @@ label {
   text-transform: uppercase;
   color: white;
   border: 2px solid white;
-
 }
 .morethan9{
-background-color: white !important;
-border: 1px solid black !important; 
+  background-color: white !important;
+  border: 1px solid black !important; 
 }
 
 .iconConact span {
@@ -325,7 +327,6 @@ border: 1px solid black !important;
   width: 1px;
   height: 30px;
   background-color: #2a3647;
-
 }
 
 .input-wrapper {
@@ -453,7 +454,6 @@ input[type="checkbox"]:checked{
   align-items: center;
   justify-content: center; */
   width: 32px;
-
 }
 
 .hover:hover {
@@ -467,14 +467,14 @@ input[type="checkbox"]:checked{
 }
 
 .subtaskIcon{
-height: 24px;
-width: 24px;
+  height: 24px;
+  width: 24px;
 }
 /* Carlender section test */
 
 .calender{
-display: flex;
-justify-content: end;
+  display: flex;
+  justify-content: end;
 }
 
 .datePicker{
@@ -487,7 +487,7 @@ justify-content: end;
 }
 
 .datepickerTop{
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .btnGroup{
   display: flex;
@@ -554,28 +554,27 @@ transform: rotate(180deg);
 }
 
 .date{
-border: 0;
-padding: 0;
-margin: 4px 0px;
-width: 24px;
-height: 24px;
-display: flex;
-align-items: center;
-justify-content: center;
-border: 0px;
-font-weight: 600;
-border: 2px solid transparent;
-background-color: transparent;
-cursor: pointer;
-color: #2a3647;
-margin-left: 6px;
+  border: 0;
+  padding: 0;
+  margin: 4px 0px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  color: #2a3647;
+  margin-left: 6px;
 }
 .date:hover{
   background-color: #dad8d8;
   border-radius: 50%;
 }
 .date:focus, .dateFaded:focus{
-
   outline: 0;
   background-color: #2a3647;
   border-radius: 50%;
@@ -584,21 +583,21 @@ margin-left: 6px;
 }
 
 .dateFaded{
-border: 0;
-padding: 0;
-margin-top: 4px;
-width: 24px;
-height: 24px;
-display: flex;
-align-items: center;
-justify-content: center;
-border: 0px;
-margin-left: 6px;
-font-weight: 600;
-border: 2px solid transparent;
-background-color: transparent;
-cursor: pointer;
-color: #2a36473f;
+  border: 0;
+  padding: 0;
+  margin-top: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0px;
+  margin-left: 6px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  color: #2a36473f;
 }
 
 button.dateFaded {

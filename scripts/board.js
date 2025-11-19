@@ -15,7 +15,6 @@ function renderCard(element) {
   const PROGRESS = calcProgress(SUBTASKS);
   const CONTACTS = renderContactBadges(element.contact || []);
 
-
   return `
     <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
       <div class="cardBorder"> 
