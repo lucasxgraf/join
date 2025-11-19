@@ -605,14 +605,7 @@ button.dateFaded {
   background-color: white !important;
 }
 
-.feedbackAddTask{
-  background-color: #2A3647;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 64px;
-  padding: 16px;
-  gap: 8px;
-  border-radius: 20px;
+.feedbackAddTaskContainer{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -621,6 +614,16 @@ button.dateFaded {
   animation: overlaySlideUp 2s ease-in-out forwards;
   z-index: 3;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.feedbackAddTask{
+  background-color: #2A3647;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 64px;
+  padding: 16px;
+  gap: 8px;
+  border-radius: 20px;
 }
 
 .feedbackAddTask span {

@@ -103,9 +103,11 @@ function renderaddTask() {
         </form>
         </div>
     </main>
-    <div class="feedbackAddTask dnone" id="feedback">
-        <span>Task added to board</span>
-        <img src="../assets/svg/icons_page/board.svg" alt="">
+    <div class="feedbackAddTaskContainer dnone" id="feedback">
+        <div class="feedbackAddTask">
+            <span>Task added to board</span>
+            <img src="../assets/svg/icons_page/board.svg" alt="">
+        </div>
     </div>`;
 }
 

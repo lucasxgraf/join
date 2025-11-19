@@ -361,6 +361,9 @@ function validateForm() {
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
-  feedbackRef.classList.add("dpf");
-  feedbackRef.classList.remove("dnone");
+  setTimeout(() => {
+  feedbackRef.classList.add("dnone");
+}, 2000);
+
+
 }
