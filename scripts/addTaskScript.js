@@ -23,7 +23,6 @@ clearContact()
 
 
 function clearSubtask() {
-
   subtaskArray = [];
   const addSubtaskContainer = document.getElementById("addSubtask");
   if (addSubtaskContainer) addSubtask(addSubtaskContainer, subtaskArray);
@@ -42,7 +41,6 @@ function clearContact() {
     checkbox.checked = false;
     iconContactHTML()
   });
-
 }
 
 function toggleDropdown(selector) {
@@ -52,9 +50,7 @@ function toggleDropdown(selector) {
   if (selector === "contact") {
     renderIcon();
   }
-
   if (isOpen) {
-     
     function handleClickOutside(e) {
       if (!dropdown.contains(e.target)) {
         dropdown.classList.remove("open");
@@ -81,14 +77,11 @@ function changeCategory(selection) {
     const span = selection.querySelector("span");
     text = span ? span.innerText.trim() : selection.innerText.trim();
   }
-
   if (input && text) {
     input.value = text;
   }
-  
   toggleDropdown('categoryDropdown');
   enableSubmit()
-  
 }
 
 
@@ -96,7 +89,8 @@ function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
   const addSubtaskContainer = document.getElementById("addSubtask");
   const value = readout.value.trim();
-  if (value === "" || subtaskArray.length >= 5) return;
+  if (value === "" || subtaskArray.length >= 5) 
+    return;
 
   subtaskArray.push({ title: value, completed: false });  
   subtask(addSubtaskContainer, subtaskArray);
@@ -151,12 +145,10 @@ function selectContacts(i, checkbox) {
 
   if (!exists) {
     contactBadge.push(badgeEl);
-
     contactList.push({
       name: badgeName,
       id: userId
     });
-
   } else {
     contactList = contactList.filter(c => c.id !== userId);
     contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);
@@ -168,7 +160,6 @@ function iconContactHTML() {
   const visibleBadges = contactBadge.slice(0, 9);
   iconConact.innerHTML = ""; 
 
-
   visibleBadges.forEach(badge => {
     iconConact.appendChild(badge.cloneNode(true));
   });
@@ -179,12 +170,9 @@ function iconContactHTML() {
     // moreBadge.style.backgroundColor = "#ffffff";
     // moreBadge.innerHTML = `<span>+${contactBadge.length - 9}</span>`;
     // iconConact.appendChild(moreBadge);
-
    iconConact.innerHTML += `<div class="iconConact dpf_cc morethan9"><span>+${contactBadge.length - 9}</span></div>`
   }
 }
-
-
 // function toggleContactDropdown() {
 //   const dropdown = document.getElementById("contactDropdown");
 //   dropdown.classList.toggle("open");
@@ -200,29 +188,26 @@ function deleteTask(i){
   subtask(addSubtask, subtaskArray);
 }
 
-
 function cleanInput() {
   let input = document.getElementById("subtaskReadOut")
   input.value = "";  
 }
-
 
 function editSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   const containerEditSubtask = document.getElementById(`containerEditSubtask-${i}`)
 
-    taskOutput.classList.toggle("dnone");
-    containerEditSubtask.classList.toggle("dnone")
-    editInputSubtask.value = subtaskArray[i].title;
-    editInputSubtask.focus();   
-      editInputSubtask.onblur = (e) => {
-
-    // wenn Fokus auf einen Button im Container geht → nicht abbrechen
-    if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
-      return;
-    }
-    cancelEditSubtask(i);
+  taskOutput.classList.toggle("dnone");
+  containerEditSubtask.classList.toggle("dnone")
+  editInputSubtask.value = subtaskArray[i].title;
+  editInputSubtask.focus();   
+  editInputSubtask.onblur = (e) => {
+  // wenn Fokus auf einen Button im Container geht → nicht abbrechen
+  if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
+    return;
+  }
+  cancelEditSubtask(i);
   }
 
   };
@@ -238,13 +223,11 @@ function cancelEditSubtask(i) {
 function addEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   const newValue = editInputSubtask.value;
-  
 
   if (newValue !== null && newValue.trim() !== "") {
     subtaskArray[i] = { title: newValue.trim(), completed: false };
     subtask(document.getElementById("addSubtask"), subtaskArray);
   }
-
   else{ (editInputSubtask.value === "") 
   subtaskArray.splice(i, 1);
   subtask(document.getElementById("addSubtask"), subtaskArray) 
@@ -264,7 +247,6 @@ function clearEditSubtask(i) {
   }
 }
 
-
 // Hilfsfunktionen für die Überprüfung von inputs
 function showError(elementId, message) {
   const el = document.getElementById(elementId);
@@ -277,8 +259,8 @@ function clearErrors() {
 
 function error (){
   let isValid = true;
-
   const titleInput = document.getElementById("title");
+
   if (titleInput.value.trim() === "") {
     showError("titleError", "This field is required."); // zeigt im titleError-div
     isValid = false;
@@ -298,19 +280,18 @@ function error (){
   }
 }
 
-
-
 function validateDueDate() {
   const duedateInput = document.getElementById("duedate");
   const value = duedateInput.value.trim();
 
   if (value === "") {
-
     showError("dateError", "This field is required.");
     return false;
   }
+
   duedateInput.classList.remove("error");
   const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+
   if (!dateRegex.test(value)) {
     showError("dateError", "Please select a valid date format DD/MM/YYYY.");
     return false;
@@ -329,7 +310,6 @@ function enableSubmit() {
   const titleInput = document.getElementById("title").value.trim();
   const allFilled = categorySelect && titleInput && duedateInput 
   
-
   if (allFilled) {
     document.getElementById("submit").disabled = false
   }
@@ -345,7 +325,9 @@ function initTaskFormEvents() {
 
   if (!form || !title || !duedate) return;
 
-  form.onsubmit = e => { e.preventDefault(); clearErrors(); if (validateForm()) addTask(); };
+  form.onsubmit = e => { 
+    e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
+  };
   title.oninput = enableSubmit;
   duedate.oninput = enableSubmit;
 }

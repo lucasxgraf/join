@@ -1,10 +1,10 @@
 
 function renderaddTask() {
   return `
-  <main>
+    <main>
         <div class="scroll_layout">
-        <h1>Add Task</h1>
-        <form id="taskForm">
+            <h1>Add Task</h1>
+            <form id="taskForm">
             <section>
                 <div class="add-task-container">
                     <div class="task-input-container">
@@ -20,10 +20,10 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
                             <div id="date" class="task-input dpf sp_between inputBackground"  >
-                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
-                                maxlength="10">
+                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10">
                                 </input>
-                                <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
+                                <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+                                </button>
                             </div>
                             <div class="calender" id="calender"></div>
                             <div id="dateError" class="error_message"></div>
@@ -77,13 +77,9 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Subtasks">Subtasks</label>
                                 <div class="input-wrapper">
-                                <input 
-                                type="text" 
-                                class="task-input inputBorderColor" 
-                                id="subtaskReadOut" 
-                                placeholder="Add new subtask">
-                                <div id="inputButtons"></div>
-                            </div>
+                                    <input type="text" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
+                                    <div id="inputButtons"></div>
+                                </div>
                             <div class="subtask" id="addSubtask"></div>
                         </div>
                     </div>
@@ -101,7 +97,7 @@ function renderaddTask() {
                     </button>
                 </div>
             </div>
-        </form>
+            </form>
         </div>
     </main>
     <div class="feedbackAddTask dnone" id="feedback">
