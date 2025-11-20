@@ -1,12 +1,12 @@
 function init() { 
     fetchContact();
     renderInHtml();
-    fetchSVGs();
+    fetchSVGs("AddTask");
     addTaskButton();
     addSubtask();
     enterSubtask();
     enableSubmit();
-    changePriority("medium")
+    changePriority("medium", "AddTask")
 }
 
 function renderInHtml() {
@@ -30,8 +30,8 @@ function renderaddTaskOnHtml() {
 }
 
 
-function renderContactOnHTML(contacFromFirebase) {
-    const contactRef = document.getElementById("labelContact");
+function renderContactOnHTML(contacFromFirebase, currentId) {
+    const contactRef = document.getElementById(currentId);
     
     for (let i = 0; i < contacFromFirebase.length; i++) {
         contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);

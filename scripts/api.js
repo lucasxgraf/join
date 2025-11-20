@@ -22,7 +22,7 @@ async function fetchContact(path = "contacts/contactlist.json") {
     }));
 
   }
-  renderContactOnHTML(contactFromFirebase)
+  renderContactOnHTML(contactFromFirebase, "labelContact")
 }
 
 async function addTask() {
@@ -40,8 +40,8 @@ async function addTask() {
     "contact": contactList,
     "category": category.value,
     "dragclass": dragclass()
-
-  };
+    
+  };  
   task.push(newTask);
   clearInput()
   enableSubmit()

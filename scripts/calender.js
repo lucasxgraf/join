@@ -65,19 +65,16 @@ function isValidFutureDate(value) {
   return inputDate >= today;
 }
 
-function toggleCalender() {
-  let caldenerOpen = document.getElementById("calender")
+function toggleCalender(currentid) {
+  let caldenerOpen = document.getElementById(currentid)
 
 if (caldenerOpen.innerHTML.trim() === ""){
-  renderCalender()
+  renderCalender(currentid)
 }else{
     caldenerOpen.innerHTML = ""
 
-  }
-  
+  } 
 }
-
-
 // Anzeige beim Laden initialisieren
 function initMonthDisplay() {
   document.getElementById("month").textContent = monthNames[currentMonth];

@@ -107,7 +107,6 @@ label {
 .task-input {
   width: 440px;
   padding: 8px 12px;
-  /* font-size: 16px; */
   border: 1px solid #ccc;
   border-radius: 10px;
   height: 48px;
@@ -133,9 +132,7 @@ label {
   line-height: 120%;
   cursor: pointer;
   transition: background 0.2s;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+
   gap: 8px
 }
 
@@ -143,7 +140,6 @@ label {
   width: 440px;
   height: 40px;
   padding: 8px 12px;
-  /* font-size: 16px; */
   border: 1px solid #ccc;
   border-radius: 4px;
 }
@@ -226,7 +222,6 @@ label {
   align-items: center;
   gap: 24px;
   cursor: pointer;
-  /* font-size: 16px; */
   padding: 6px 16px;
 }
 
@@ -238,7 +233,6 @@ label {
 }
 
 .taskOutput{
-  /* font-size: 16px; */
   padding: 4px;
 }
 
@@ -263,14 +257,6 @@ label {
   gap: 8px;
 }
 
-.priority-btn:hover {
-  color: #fff;
-}
-
-.priority-btn:hover svg {
-  filter: brightness(0) invert(1);
-}
-
 .urgent_icon,
 .medium_icon,
 .low_icon{
@@ -278,13 +264,15 @@ label {
   width: 32px;
 }
 
-/* Der "aktive" Zustand soll genau so aussehen wie der Hover-Zustand */
+.priority-btn:hover,
 .urgent_btn:hover,
 .medium-btn:hover,
-.low_btn:hover {
+.low_btn:hover,
+.priority-btn.active {
   color: #fff;
 } 
 
+.priority-btn:hover svg,
 .urgent_btn:hover svg,
 .medium-btn:hover svg,
 .checkSvg,
@@ -293,22 +281,13 @@ label {
 }
 
 /* Individuelle Hintergrundfarben */
-.urgent_btn:hover { background: #ff3d00; box-shadow: 4px 4px 4px #00000040;}
-.medium-btn:hover { background: #ffa800; box-shadow: 4px 4px 4px #00000040;}
-.low_btn:hover    { background: #7ae229; box-shadow: 4px 4px 4px #00000040;}
-
-.priority-btn.active {
-  color: #fff;
-}
+.urgent_btn:hover, .urgent_btn.active { background: #ff3d00; box-shadow: 4px 4px 4px #00000040;}
+.medium-btn:hover, .medium-btn.active { background: #ffa800; box-shadow: 4px 4px 4px #00000040;}
+.low_btn:hover, .low_btn.active     { background: #7ae229; box-shadow: 4px 4px 4px #00000040;}
 
 .priority-btn.active svg {
   filter: brightness(0) invert(1);
 }
-
-/* Und hier die individuellen Farben, wie beim Hover */
-.urgent_btn.active { background: #ff3d00; box-shadow: 4px 4px 4px #00000040;}
-.medium-btn.active { background: #ffa800; box-shadow: 4px 4px 4px #00000040;}
-.low_btn.active    { background: #7ae229; box-shadow: 4px 4px 4px #00000040;}
 
 .iconConact{
   height: 32px;
@@ -368,8 +347,8 @@ textarea{
 }
 
 .inputBorderColor:not(:placeholder-shown) {
-  border-color: #29ABE2; /* Blau beim Fokussieren */
-  outline: none;
+    border-color: #29ABE2; 
+    outline: none;
 }
 
 .cleanInputforDate{
@@ -411,7 +390,6 @@ textarea{
   border: none;
   outline: none;
   cursor: pointer;
-  /* font-size: 16px; */
   padding: 8px;
 }
 
@@ -431,10 +409,6 @@ input[type="checkbox"] {
     background-position: center;
 }
 
-/* input[type="checkbox"]:hover {
-    filter: brightness(0) invert(1);
-
-} */
 
 input[type="checkbox"]:checked{
     background-image: url(../assets/svg/check_btn_checked.svg);
@@ -448,9 +422,6 @@ input[type="checkbox"]:checked{
     filter: brightness(0) invert(1);
 }
 
-/* input[type="checkbox"]:checked:hover{
-    filter: brightness(0) invert(1);
-} */
 
 .iconButtonsForImg{
   background: none;      
@@ -458,9 +429,6 @@ input[type="checkbox"]:checked{
   padding: 0;            
   margin: 0;
   cursor: pointer;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   width: 32px;
 }
 
@@ -614,14 +582,7 @@ button.dateFaded {
   background-color: white !important;
 }
 
-.feedbackAddTask{
-  background-color: #2A3647;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 64px;
-  padding: 16px;
-  gap: 8px;
-  border-radius: 20px;
+.feedbackAddTaskContainer{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -630,6 +591,16 @@ button.dateFaded {
   animation: overlaySlideUp 2s ease-in-out forwards;
   z-index: 3;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.feedbackAddTask{
+  background-color: #2A3647;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 64px;
+  padding: 16px;
+  gap: 8px;
+  border-radius: 20px;
 }
 
 .feedbackAddTask span {

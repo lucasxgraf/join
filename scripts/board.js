@@ -154,7 +154,7 @@ async function moveTo(newdragclass) {
 }
 
 function showDialog(targetDragClass) {
-    fetchSVGs();
+    fetchSVGs("AddTask");
     addTaskButton();
     addSubtask();
     enterSubtask();

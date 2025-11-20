@@ -15,7 +15,7 @@ function clearInput() {
   const categoryInput = document.getElementById("selectedCategory");
   categoryInput.value = "";
 
-  changePriority("medium")
+  changePriority("medium", "AddTask")
   document.getElementById("submit").disabled = true
 clearSubtask()
 clearContact()
@@ -39,11 +39,11 @@ function clearContact() {
 
     document.querySelectorAll('#contactDropdown input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
-    iconContactHTML()
+    iconContactHTML("iconContact")
   });
 }
 
-function toggleDropdown(selector) {
+function toggleDropdown(selector, currentId) {
   const dropdown = document.getElementById(selector);
   const isOpen = dropdown.classList.toggle("open");
 
@@ -61,7 +61,7 @@ function toggleDropdown(selector) {
     document.addEventListener("click", handleClickOutside);
   }
   if (!isOpen){
-    iconContactHTML()
+    iconContactHTML(currentId)
   }
 }
 
@@ -107,23 +107,25 @@ function enterSubtask() {
 }
 
 
-function changePriority(priority) {
+function changePriority(priority, currentId) {
   const buttons = document.querySelectorAll('.priority-btn');
-  const button = document.getElementById(`${priority}Btn`);
+  const button = document.getElementById(`${priority}Btn${currentId}`);
 
   buttons.forEach(btn => btn.classList.remove('active'));
   button.classList.add('active');
 
   selectedPriority = priority;
+  
+  
 }
 
 // ######################################################################
 
-function fetchSVGs() {
+function fetchSVGs(currentId) {
   const svgs = [
-    { path: '../assets/svg/priority_symblos/urgent.svg', selector: '#urgentBtn .urgent_icon' },
-    { path: '../assets/svg/priority_symblos/Medium.svg', selector: '#mediumBtn .medium_icon' },
-    { path: '../assets/svg/priority_symblos/Low.svg', selector: '#lowBtn .low_icon' }
+    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
+    { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId}  .medium_icon`},
+    { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId}  .low_icon` }
   ];
 
   svgs.forEach(svg => {
@@ -155,32 +157,19 @@ function selectContacts(i, checkbox) {
   }
 }
 
-function iconContactHTML() {
-  const iconConact = document.getElementById("iconContact");
+function iconContactHTML(currentId) {
+  const iconConact = document.getElementById(currentId);
   const visibleBadges = contactBadge.slice(0, 9);
   iconConact.innerHTML = ""; 
 
   visibleBadges.forEach(badge => {
     iconConact.appendChild(badge.cloneNode(true));
   });
-// Hier noch mal den kontakt anpassen mit css
   if (contactBadge.length > 9) { 
-    // const moreBadge = document.createElement("div");
-    // moreBadge.classList.add("iconConact", "dpf_cc");
-    // moreBadge.style.backgroundColor = "#ffffff";
-    // moreBadge.innerHTML = `<span>+${contactBadge.length - 9}</span>`;
-    // iconConact.appendChild(moreBadge);
+
    iconConact.innerHTML += `<div class="iconConact dpf_cc morethan9"><span>+${contactBadge.length - 9}</span></div>`
   }
 }
-// function toggleContactDropdown() {
-//   const dropdown = document.getElementById("contactDropdown");
-//   dropdown.classList.toggle("open");
-
-//   if (!dropdown.classList.contains("open")) {
-//     iconContactHTML();
-//   }
-// }
 
 function deleteTask(i){
   const addSubtask = document.getElementById("addSubtask");
@@ -343,6 +332,9 @@ function validateForm() {
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
-  feedbackRef.classList.add("dpf");
-  feedbackRef.classList.remove("dnone");
+  setTimeout(() => {
+  feedbackRef.classList.add("dnone");
+}, 2000);
+
+
 }
