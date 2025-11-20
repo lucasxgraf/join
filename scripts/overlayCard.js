@@ -11,6 +11,7 @@ function openOverlay(cardId) {
   renderOverlayCard(CARD, OVERLAY_CARD);
   showOverlayAssignToContacts(CARD);
   showOverlaySubtasks(CARD);
+  fetchContact();
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
 }
@@ -247,8 +248,9 @@ function openOverlayEdit(cardId) {
     return;
   disableCurrentOverlay();
   renderOverlayEditCard(CARD, OVERLAY_CARD);
-  fetchSVGs();
-  changePriority('medium');
+  renderContactOnHTML(contactFromFirebase, "labelContactOverlayEdit")
+  fetchSVGs("OverlayEdit");
+  changePriority(CARD.priority, "OverlayEdit");
 
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
@@ -283,12 +285,12 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Due date</h3>
       </label>
       <div id="date" class="task-input dpf sp_between inputBackground">
-        <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
+        <input class="fontColor cleanInputforDate" id="duedate" value="${CARD.date||''}" placeholder="dd/mm/yyyy" 
           maxlength="10">
         </input>
-        <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+        <button type="button" onclick="toggleCalender('calenderOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
         </button>
-        <div class="calender" id="calender"></div>
+        <div class="calender" id="calenderOverlayEdit"></div>
         <div id="dateError" class="error_message"></div>
       </div>
     </div>
@@ -297,23 +299,23 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   <div class="overlay_edit_form_layout">
     <h3>Priority</h3>
       <div class="priority-buttons">
-        <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent')">Urgent<span class="urgent_icon"></span></button> 
-        <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium')">Medium <span class="medium_icon"></span></button>
-        <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low')">Low <span class="low_icon"></span></button>
+        <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent', 'OverlayEdit')">Urgent<span class="urgent_icon"></span></button> 
+        <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','OverlayEdit')">Medium <span class="medium_icon"></span></button>
+        <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','OverlayEdit')">Low <span class="low_icon"></span></button>
       </div>
   </div>
 
   <div class="overlay_edit_form_layout">
     <h3>Assigned to</h3>
-      <div class="custom-category-dropdown" id="contactDropdown">
-          <div class="dropdown-header" onclick="toggleDropdown('contactDropdown')">
+      <div class="custom-category-dropdown" id="contactDropdownOverlayEdit">
+          <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
               <span>Select contacts to assign</span>
               <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
           </div>
           <div class="dropdown-list" id="categoryDropdownList">
-              <div id="labelContact"></div>
+              <div id="labelContactOverlayEdit"></div>
           </div>
-          <div id="iconContact" class="dpf gap8"></div>
+          <div id="iconContactOverlayEdit" class="dpf gap8"></div>
       </div>
     </div>
 
@@ -332,30 +334,4 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   `;
 }
 
-function fetchSVGs() {
-  const svgs = [
-    { path: '../assets/svg/priority_symblos/urgent.svg', selector: '#urgentBtnOverlayEdit .urgent_icon' },
-    { path: '../assets/svg/priority_symblos/medium.svg', selector: '#mediumBtnOverlayEdit .medium_icon' },
-    { path: '../assets/svg/priority_symblos/low.svg', selector: '#lowBtnOverlayEdit .low_icon' }
-  ];
-
-  svgs.forEach(svg => {
-    fetch(svg.path)
-      .then(response => response.text())
-      .then(svgContent => {
-        document.querySelector(svg.selector).innerHTML = svgContent;
-      })
-      .catch(error => console.error('Error fetching SVG:', error));
-  });
-}
-
-function changePriority(priority) {
-  const buttons = document.querySelectorAll('.priority-btn');
-  const button = document.getElementById(`${priority}BtnOverlayEdit`);
-
-  buttons.forEach(btn => btn.classList.remove('active'));
-  button.classList.add('active');
-
-  selectedPriority = priority;
-}
 

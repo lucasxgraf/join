@@ -23,7 +23,7 @@ function renderaddTask() {
                                 <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" 
                                 maxlength="10">
                                 </input>
-                                <button type="button" onclick="toggleCalender()" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
+                                <button type="button" onclick="toggleCalender('calender')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
                             </div>
                             <div class="calender" id="calender"></div>
                             <div id="dateError" class="error_message"></div>
@@ -38,16 +38,16 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Priority">Priority</label>
                             <div class="priority-buttons">
-                                <button type="button" id="urgentBtn" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent')">Urgent<span class="urgent_icon"></span></button> 
-                                <button type="button" id="mediumBtn" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium')">Medium <span class="medium_icon"></span></button>
-                                <button type="button" id="lowBtn" class="low_btn priority-btn dpf_cc" onclick="changePriority('low')">Low <span class="low_icon"></span></button>
+                                <button type="button" id="urgentBtnAddTask" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent','AddTask')">Urgent<span class="urgent_icon"></span></button> 
+                                <button type="button" id="mediumBtnAddTask" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','AddTask')">Medium <span class="medium_icon"></span></button>
+                                <button type="button" id="lowBtnAddTask" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','AddTask')">Low <span class="low_icon"></span></button>
                             </div>
                         </div>
 
                         <div class="input_field">
                             <label aria-label="Assigned_to">Assigned to</label>
                             <div class="custom-category-dropdown" id="contactDropdown">
-                                <div class="dropdown-header" onclick="toggleDropdown('contactDropdown')">
+                                <div class="dropdown-header" onclick="toggleDropdown('contactDropdown', 'iconContact')">
                                     <span>Select contacts to assign</span>
                                     <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
                                 </div>
@@ -177,8 +177,8 @@ function renderSubtaskButtons() {
   }
 }
 
-function renderCalender() {
-  let caldenerOpen = document.getElementById("calender")
+function renderCalender(currentid) {
+  let caldenerOpen = document.getElementById(currentid)
 
   caldenerOpen.innerHTML += 
     `<div class="datePicker">
