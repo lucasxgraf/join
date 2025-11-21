@@ -194,8 +194,7 @@ label {
   font-size: 14px;
 }
 
-.custom-category-dropdown.open,
-.dropdown-arrow {
+.custom-category-dropdown.open .dropdown-arrow {
   transform: rotate(180deg);
 }
 
@@ -212,8 +211,7 @@ label {
   margin-bottom: 8px;
 }
 
-.custom-category-dropdown.open, 
-.dropdown-list {
+.custom-category-dropdown.open .dropdown-list {
   display: block;
 }
 
@@ -231,7 +229,7 @@ label {
   color: white;
 
 }
-
+.taskOutputtest,
 .taskOutput{
   padding: 4px;
 }
@@ -240,7 +238,7 @@ label {
   display: flex;
   flex-direction: column;
 }
-
+.taskOutputtest:hover,
 .taskOutput:hover{
   background-color: #dad8d8;
   cursor: pointer;
@@ -251,6 +249,9 @@ label {
   display: none;
 }
 
+.taskOutputtest:hover
+.editdeleteBtn
+,
 .taskOutput:hover 
 .editdeleteBtn{
   display: flex;

@@ -1,8 +1,10 @@
 const URGENT  = '../assets/svg/priority_symblos/urgent.svg';
 const MEDIUM  = '../assets/svg/priority_symblos/medium.svg';
 const LOW  = '../assets/svg/priority_symblos/low.svg';
+ let SingleCARD = []
 
 function openOverlay(cardId) {
+  SingleCARD = []
   const OVERLAY = document.getElementById('overlay');
   const OVERLAY_CARD = document.getElementById('overlay_card');
   const CARD = cardFromFirebase.find(c => c.id === cardId);
@@ -167,7 +169,7 @@ async function saveSubtasksToFirebase(cardId, subtasks) {
     await fetch(url, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subtask: subtasks })
+      body: JSON.stringify(subtasks) 
     });
   } catch (error) {
     console.error('Fehler beim Speichern der Subtasks:', error);
@@ -244,13 +246,16 @@ function openOverlayEdit(cardId) {
   const OVERLAY = document.getElementById('overlay');
   const OVERLAY_CARD = document.getElementById('overlay_card');
   const CARD = cardFromFirebase.find(c => c.id === cardId);
+  SingleCARD.push(CARD)
   if (!OVERLAY || !OVERLAY_CARD || !CARD) 
     return;
   disableCurrentOverlay();
   renderOverlayEditCard(CARD, OVERLAY_CARD);
   renderContactOnHTML(contactFromFirebase, "labelContactOverlayEdit")
   fetchSVGs("OverlayEdit");
+  subtaskEditOverlay(overlayEditSubtask, CARD.subtask)
   changePriority(CARD.priority, "OverlayEdit");
+  
 
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
@@ -323,9 +328,9 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
       <h3>Subtasks</h3>
         <div class="input-wrapper">
           <input type="text" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
-          <div id="inputButtons"></div>
-          <div class="subtask" id="addSubtask"></div>
+          <div id="inputButtons"></div>      
         </div>
+        <div class="subtask" id="overlayEditSubtask"></div>
       </div>
 
     <button type="submit" id="submit" class="btn btn_create dpf_cc align-self">Ok
@@ -335,3 +340,79 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
 }
 
 
+function subtaskEditOverlay(addSubtask, subtaskArray) {
+    
+    addSubtask.innerHTML = "";
+    
+    for (let i = 0; i < subtaskArray.length; i++) {
+      const subtaskTitle = typeof subtaskArray[i] === 'object' ? subtaskArray[i].title : subtaskArray[i];
+     
+      addSubtask.innerHTML += `
+  
+        <div class="taskOutput dpf_cc sp_between" id="taskOutputtest-${i}">・ ${subtaskTitle}
+          <div class="editdeleteBtn">
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtaskEditOverlay(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
+            <div class="sepraratorSubtask"></div>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTaskEditOverlay(${i})"><img src="../assets/svg/delete.svg" alt="arrow"></button>
+          </div>
+        </div>
+  
+        <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtasktest-${i}">
+          <input id="editInputSubtasktest-${i}" class="stylingInput" value="${subtaskTitle}">
+          <div class="dpf_cc">
+            <button type="button" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/delete.svg" alt="pancel"></button>
+            <div class="sepraratorSubtask"></div>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtaskEditOverlay(${i})"><img src="../assets/svg/check.svg" alt="arrow"></button>
+          </div>
+        </div>`;
+    }
+  }
+
+function editSubtaskEditOverlay(i) {
+  const subtaskArray = SingleCARD[0].subtask;
+
+  const taskOutput = document.getElementById(`taskOutputtest-${i}`);
+  const editInputSubtask = document.getElementById(`editInputSubtasktest-${i}`);
+  const containerEditSubtask = document.getElementById(`containerEditSubtasktest-${i}`);
+
+  taskOutput.classList.toggle("dnone");
+  containerEditSubtask.classList.toggle("dnone")
+  editInputSubtask.value = subtaskArray[i].title;
+  editInputSubtask.focus();   
+  editInputSubtask.onblur = (e) => {
+  if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
+    return;
+  }
+  cancelEditSubtaskkEditOverlay(i);
+}};
+
+  function cancelEditSubtaskkEditOverlay(i) {
+  const taskOutput = document.getElementById(`taskOutputEditOverlay-${i}`);
+  const container = document.getElementById(`containerEditSubtask-${i}`);
+
+  container.classList.add("dnone");
+  taskOutput.classList.remove("dnone");
+} 
+
+function deleteTaskEditOverlay(i){
+  singlesubtaskarray = SingleCARD[0].subtask
+    
+  const addSubtask = document.getElementById("overlayEditSubtask");
+  singlesubtaskarray.splice(i, 1);
+  subtaskEditOverlay(addSubtask, singlesubtaskarray);
+}
+
+function addEditSubtaskEditOverlay(i) {
+  const subtaskArray = SingleCARD[0].subtask;
+  const editInputSubtask = document.getElementById(`editInputSubtasktest-${i}`);
+  const newValue = editInputSubtask.value;
+
+  if (newValue !== null && newValue.trim() !== "") {
+    subtaskArray[i] = { title: newValue.trim(), completed: false };
+    subtask(document.getElementById("overlayEditSubtask"), subtaskArray);
+  }
+  else{ (editInputSubtask.value === "") 
+  subtaskArray.splice(i, 1);
+  subtask(document.getElementById("overlayEditSubtask"), subtaskArray) 
+  }
+}
