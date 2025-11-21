@@ -129,12 +129,18 @@ function renderOverlayContactBadges(contact_array) {
 
 function showOverlaySubtasks(CARD) {
   const OVERLAY_SUBTASK = document.getElementById('overlaySubtask');
+  const CONTAINER = document.querySelector('.overlay_card_subtasks_container');
   if (!OVERLAY_SUBTASK) return;
   
   const SUBTASKS = getSubtasksArray(CARD.subtask);
   OVERLAY_SUBTASK.innerHTML = '';
   
-  if (SUBTASKS.length === 0) return;
+  if (SUBTASKS.length === 0) {
+    if (CONTAINER) CONTAINER.style.display = 'none';
+    return;
+  }
+  
+  if (CONTAINER) CONTAINER.style.display = '';
 
   SUBTASKS.forEach((st, index) => {
     OVERLAY_SUBTASK.innerHTML += `

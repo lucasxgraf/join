@@ -19,6 +19,7 @@ body {
 .content_col {
   display: flex;
   gap: 32px;
+  align-items: stretch;
 }
 
 .dnone{
@@ -95,7 +96,7 @@ h3{
 .singleDragContainer{
   width: 252px;
   /* background-color: rgba(165, 165, 165, 0.445); */
-  height: 650px;
+  min-height: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -289,13 +290,13 @@ h3{
 }
 
 .closeButtonaddTaskContainer{
-position: relative;
-top: 64px;
-left: 1044px;
-width: 32px;
-height: 32px;
-border:none;
-cursor: pointer;
+  position: relative;
+  top: 64px;
+  left: 1044px;
+  width: 32px;
+  height: 32px;
+  border:none;
+  cursor: pointer;
 }
 
 .closeButtonaddTaskContainer:hover{
@@ -346,3 +347,16 @@ cursor: pointer;
   color: #a8a8a8;
 }
 
+.card-placeholder {
+  width: 100%;
+  min-height: 250px;
+  border-radius: 24px;
+  background-color: transparent;
+  border: 2px dashed #A8A8A8;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.card.dragging {
+  opacity: 0.6;
+}

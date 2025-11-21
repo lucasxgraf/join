@@ -194,7 +194,8 @@ label {
   font-size: 14px;
 }
 
-.custom-category-dropdown.open .dropdown-arrow {
+.custom-category-dropdown.open
+.dropdown-arrow {
   transform: rotate(180deg);
 }
 
@@ -211,7 +212,8 @@ label {
   margin-bottom: 8px;
 }
 
-.custom-category-dropdown.open .dropdown-list {
+.custom-category-dropdown.open
+.dropdown-list {
   display: block;
 }
 
