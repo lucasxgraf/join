@@ -1,6 +1,7 @@
 let cardFromFirebase = [];
 let dragElementId = "";
 let contacts_from_firebase = {};
+let currentPlaceholder = null;
 
 async function initBoard() {
     await loadContacts();
@@ -23,12 +24,14 @@ function renderCard(element) {
           <div class="card_title" id="cardTitle">${element.title}</div>
           <div class="card_description" id="cardDescription">${element.description}</div>
         </div>
+        ${TOTAL > 0 ? `
         <div class="subtask_container">
           <div class="subtaskProgressBar">
             <div class="subtaskProgressBarCalc" style="width:${PROGRESS}%"></div>
           </div>
           <div class="subtask">${DONE}/${TOTAL} Subtasks</div>
         </div>
+        ` : ''}
         <div class="cardFooter">
           <div class="contact_badges" id="cardContact">
             ${CONTACTS}
@@ -116,8 +119,47 @@ function updateHTMLDone(cardFromFirebase) {
     forLoopCards(DONE_REF, doneArray, "No tasks To Do")
 }
 
+function removePlaceholder() {
+  if (currentPlaceholder) {
+    currentPlaceholder.remove();
+    currentPlaceholder = null;
+  }
+  
+  document.querySelectorAll('.singleDragContainer').forEach(container => {
+    const textPlaceholder = container.querySelector('.placeholderDragContainer');
+    if (textPlaceholder) {
+      textPlaceholder.style.display = '';
+    }
+  });
+}
+
+function createPlaceholderPreview(container) {
+  const existingPlaceholder = container.querySelector('#drag-placeholder');
+  
+  if (!existingPlaceholder) {
+    const placeholderPreview = document.createElement('div');
+    placeholderPreview.className = 'card-placeholder';
+    placeholderPreview.id = 'drag-placeholder';
+    
+    const textPlaceholder = container.querySelector('.placeholderDragContainer');
+    if (textPlaceholder) {
+      textPlaceholder.classList.add('d_none');
+    } 
+    
+    container.appendChild(placeholderPreview);
+    currentPlaceholder = placeholderPreview;
+  }
+}
+
 function dragoverHandler(ev) {
   ev.preventDefault();
+  const container = ev.currentTarget;
+
+  if (!currentPlaceholder || currentPlaceholder.parentNode !== container) {
+    removePlaceholder();
+  }
+
+  createPlaceholderPreview(container);
 }
 
 function startDrag(id) {
@@ -133,6 +175,7 @@ function stopDrag(id) {
   if (ELEMENT) {
     ELEMENT.classList.remove('dragging');
   }
+  removePlaceholder();
 }
 
 async function moveTo(newdragclass) {
