@@ -458,7 +458,8 @@ input[type="checkbox"]:checked{
 
 .datePicker{
   height: 360px;
-  max-width: 300px;
+  max-width: 320px;
+  min-width: 290px;
   background-color:  white;
   border-radius: 10px;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0,2);
@@ -472,12 +473,13 @@ input[type="checkbox"]:checked{
 .btnGroup{
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin-bottom: 1rem;
   margin-top: - 0.5rem;
+  gap: 8px;
 }
 
 .tag{
-  margin-right: 0.5rem;
   margin-top: 0.5rem;
   background-color: #dad8d8;
   border-radius: 10px;
