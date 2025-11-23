@@ -1,7 +1,7 @@
 const URGENT  = '../assets/svg/priority_symblos/urgent.svg';
 const MEDIUM  = '../assets/svg/priority_symblos/medium.svg';
 const LOW  = '../assets/svg/priority_symblos/low.svg';
- let SingleCARD = []
+let SingleCARD = []
 
 function openOverlay(cardId) {
   SingleCARD = []
@@ -265,9 +265,35 @@ function openOverlayEdit(cardId) {
   subtaskEditOverlay(document.getElementById("overlayEditSubtask"), subtaskArray);
   
   changePriority(CARD.priority, "OverlayEdit");
+  preselectContactsInOverlay(CARD);
 
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
+}
+
+function preselectContactsInOverlay(card) {
+  setTimeout(() => {
+    const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
+    const cardContacts = card.contact || [];
+    
+    contactBadge = [];
+    
+    checkboxes.forEach((checkbox, index) => {
+      const contact = contactFromFirebase[index];
+      const isSelected = cardContacts.some(c => c.id === contact.userid);
+      checkbox.checked = isSelected;
+      
+      if (isSelected) {
+        const badge = document.createElement('div');
+        badge.className = 'iconConact dpf_cc';
+        badge.style.backgroundColor = contact.color;
+        badge.innerHTML = `<span>${getInitials(contact.name)}</span>`;
+        contactBadge.push(badge);
+      }
+    });
+    
+    iconContactHTML("iconContactOverlayEdit");
+  }, 100);
 }
 
 function disableCurrentOverlay() {
@@ -498,14 +524,16 @@ async function saveEditedCardToFirebase() {
   const cardId = SingleCARD[0].id;
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
-  const date = document.getElementById("duedate").value;
+  const date = document.getElementById("duedateOverlayEdit").value;
+  
+  const selectedContacts = getSelectedContactsFromOverlay();
   
   const updatedCard = {
     title: title,
     description: description,
     date: date,
     priority: selectedPriority,
-    contact: SingleCARD[0].contact,
+    contact: selectedContacts,
     subtask: SingleCARD[0].subtask,
     category: SingleCARD[0].category,
     dragclass: SingleCARD[0].dragclass
@@ -524,4 +552,21 @@ async function saveEditedCardToFirebase() {
   } catch (error) {
     console.error('Fehler beim Speichern:', error);
   }
+}
+
+function getSelectedContactsFromOverlay() {
+  const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
+  const selectedContacts = [];
+  
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const contact = contactFromFirebase[index];
+      selectedContacts.push({
+        name: `${contact.name.firstname} ${contact.name.secondname}`,
+        id: contact.userid
+      });
+    }
+  });
+  
+  return selectedContacts;
 }
