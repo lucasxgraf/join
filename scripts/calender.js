@@ -28,7 +28,8 @@ function checkDate(duedateInput) {
 
 // }
 
-function pickDate(offsetDays = 0) {
+function pickDate(offsetDays = 0, displayid, currentid) {
+  
   const today = new Date();
   today.setDate(today.getDate() + offsetDays);
 
@@ -38,14 +39,15 @@ function pickDate(offsetDays = 0) {
 
   selectedDate = `${day}/${month}/${year}`;
 
-  const inputDate = document.getElementById("duedate");
+  const inputDate = document.getElementById(displayid);
   if (inputDate) {
     inputDate.value = selectedDate;
   }
-  const calender = document.getElementById("calender");
+  const calender = document.getElementById(currentid);
   if (calender) {
-    calender.innerHTML = "";
+    closeCalender(currentid)
   }
+
   enableSubmit()
 }
 
@@ -65,23 +67,28 @@ function isValidFutureDate(value) {
   return inputDate >= today;
 }
 
-function toggleCalender(currentid) {
+function toggleCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
 
 if (caldenerOpen.innerHTML.trim() === ""){
-  renderCalender(currentid)
+  renderCalender(currentid, displayid)
 }else{
-    caldenerOpen.innerHTML = ""
-
+    closeCalender(currentid)
   } 
 }
-// Anzeige beim Laden initialisieren
+
+function closeCalender (currentid) {
+ let calenderCloseRef = document.getElementById(currentid)
+ calenderCloseRef.innerHTML = ""
+}
+
+
 function initMonthDisplay() {
   document.getElementById("month").textContent = monthNames[currentMonth];
   document.getElementById("year").textContent = currentYear;
 }
 
-function changeMonth(direction) {
+function changeMonth(direction, currentid, displayid) {
   currentMonth += direction;
 
   if (currentMonth > 11) {
@@ -95,11 +102,11 @@ function changeMonth(direction) {
   document.getElementById("month").textContent = monthNames[currentMonth];
   document.getElementById("year").textContent = currentYear;
 
-  renderCalendarDays(currentMonth, currentYear);
+  renderCalendarDays(currentMonth, currentYear, currentid, displayid);
 
 }
 
-function renderCalendarDays(month, year) {
+function renderCalendarDays(month, year, currentid, displayid) {
   const grid = document.getElementById("calenderDays");
   grid.innerHTML = "";
   const today = new Date(); today.setHours(0,0,0,0);
@@ -112,12 +119,12 @@ function renderCalendarDays(month, year) {
     const date = new Date(year, month, d);
     const btn = document.createElement("button");
     btn.textContent = d; btn.type = "button";
-    handleDayButton(btn, date, today, d, month, year);
+    handleDayButton(btn, date, today, d, month, year, currentid, displayid);
     grid.appendChild(btn);
   }
 }
 
-function handleDayButton(btn, date, today, d, month, year) {
+function handleDayButton(btn, date, today, d, month, year, currentid, displayid) {
   const isPast = date < today;
   const isToday = date.toDateString() === today.toDateString();
 
@@ -127,8 +134,8 @@ function handleDayButton(btn, date, today, d, month, year) {
 
   btn.onclick = () => {
     const val = `${String(d).padStart(2,"0")}/${String(month+1).padStart(2,"0")}/${year}`;
-    document.getElementById("duedate").value = val;
-    document.getElementById("calender").innerHTML = "";
+    document.getElementById(displayid).value = val;
+    closeCalender(currentid)
     enableSubmit() 
   };
 }

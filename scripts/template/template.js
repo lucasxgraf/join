@@ -22,7 +22,7 @@ function renderaddTask() {
                             <div id="date" class="task-input dpf sp_between inputBackground"  >
                                 <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10">
                                 </input>
-                                <button type="button" onclick="toggleCalender('calender')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
+                                <button type="button" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
                             </div>
                             <div class="calender" id="calender"></div>
                             <div id="dateError" class="error_message"></div>
@@ -172,22 +172,26 @@ function renderSubtaskButtons() {
   }
 }
 
-function renderCalender(currentid) {
+function renderCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
+  
+  
 
   caldenerOpen.innerHTML += 
     `<div class="datePicker">
             <div class="datepickerTop">
                 <div class="btnGroup">
-                    <button type="button" class="tag" onclick="pickDate(0)">Today</button>
-                    <button type="button" class="tag" onclick="pickDate(1)">Tomorrow</button>
-                    <button type="button" class="tag" onclick="pickDate(2)">in 2 days</button>
+                    <button type="button" class="tag" onclick="pickDate(0, '${displayid}', '${currentid}')">Today</button>
+                    <button type="button" class="tag" onclick="pickDate(1, '${displayid}', '${currentid}')">Tomorrow</button>
+                    <button type="button" class="tag" onclick="pickDate(2, '${displayid}', '${currentid}')">in 2 days</button>
                 </div>
                 <div class="monthSelector">
-                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1)"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt=""></button>
-                    <span class="monthName" id="month">Oktober</span>
-                    <span class="monthName" id="year">2025</span>
-                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1)"><img src="../assets/svg/chevron_arrow.svg" alt=""></button>
+                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1, '${currentid}', '${displayid}')"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt=""></button>
+                    <div>
+                        <span class="monthName" id="month">Oktober</span>
+                        <span class="monthName" id="year">2025</span>
+                        </div>
+                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt=""></button>
                 </div>
             </div> 
             <div class="datepickerCalender">
@@ -207,5 +211,5 @@ function renderCalender(currentid) {
   currentYear = today.getFullYear();
 
   initMonthDisplay();
-  renderCalendarDays(currentMonth, currentYear);  
+  renderCalendarDays(currentMonth, currentYear, currentid, displayid);  
 }

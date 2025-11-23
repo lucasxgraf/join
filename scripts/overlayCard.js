@@ -296,10 +296,10 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Due date</h3>
       </label>
       <div id="date" class="task-input dpf sp_between inputBackground">
-        <input class="fontColor cleanInputforDate" id="duedate" value="${CARD.date||''}" placeholder="dd/mm/yyyy" 
+        <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" placeholder="dd/mm/yyyy" 
           maxlength="10">
         </input>
-        <button type="button" onclick="toggleCalender('calenderOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+        <button type="button" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
         </button>
         <div class="calender" id="calenderOverlayEdit"></div>
         <div id="dateError" class="error_message"></div>
