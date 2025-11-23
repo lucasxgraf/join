@@ -246,3 +246,11 @@ form select {
   font-size: 1rem;
   padding: 8px 16px;
 }
+
+#inputButtonsEditOverlay {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
