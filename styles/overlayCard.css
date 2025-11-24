@@ -247,6 +247,16 @@ form select {
   padding: 8px 16px;
 }
 
+/* 
+#overlayEditDescription{
+  min-height: 36px;
+  scrollbar-width: none;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: both;
+} */
+
 #inputButtonsEditOverlay {
   position: absolute;
   right: 10px;
