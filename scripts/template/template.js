@@ -19,7 +19,7 @@ function renderaddTask() {
                         </div>
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
-                            <div id="date" class="task-input dpf sp_between inputBackground"  >
+                            <div id="date" class="task-input dpf sp_between inputBackground inputWrapper"  >
                                 <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10">
                                 </input>
                                 <button type="button" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
@@ -46,8 +46,8 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Assigned_to">Assigned to</label>
                             <div class="custom-category-dropdown" id="contactDropdown">
-                                <div class="dropdown-header" onclick="toggleDropdown('contactDropdown', 'iconContact')">
-                                    <span>Select contacts to assign</span>
+                                <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
+                                     <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
                                     <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
                                 </div>
                                 <div class="dropdown-list" id="categoryDropdownList">
@@ -60,8 +60,8 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Category">Category<span class="req">*</span></label>
                                 <div class="custom-category-dropdown" id="categoryDropdown">
-                                    <div class="dropdown-header" onclick="toggleDropdown('categoryDropdown')">
-                                        <input class="fontColor cleanInputforDate" id="selectedCategory" placeholder="Select task category">
+                                    <div class="dropdown-header inputWrapper" onclick="toggleDropdown('categoryDropdown')">
+                                        <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
                                         <div class="dropdown-arrow" id="dropdownArrow">
                                             <img src="../assets/img/arrow_drop_down.png" alt="arrow">
                                         </div>

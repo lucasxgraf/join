@@ -19,6 +19,7 @@ function clearInput() {
   document.getElementById("submit").disabled = true
 clearSubtask()
 clearContact()
+updateAssignedInput()
 }
 
 
@@ -155,6 +156,17 @@ function selectContacts(i, checkbox) {
     contactList = contactList.filter(c => c.id !== userId);
     contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);
   }
+  updateAssignedInput();
+}
+
+function updateAssignedInput() {
+  const input = document.getElementById("selectedAssigned");
+
+  if (contactList.length === 0) {
+
+    input.value = "";
+  } else 
+    input.value = "Select contacts to assign";
 }
 
 function iconContactHTML(currentId) {
@@ -166,7 +178,6 @@ function iconContactHTML(currentId) {
     iconConact.appendChild(badge.cloneNode(true));
   });
   if (contactBadge.length > 9) { 
-
    iconConact.innerHTML += `<div class="iconConact dpf_cc morethan9"><span>+${contactBadge.length - 9}</span></div>`
   }
 }

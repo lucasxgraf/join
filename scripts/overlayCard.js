@@ -13,7 +13,6 @@ function openOverlay(cardId) {
   renderOverlayCard(CARD, OVERLAY_CARD);
   showOverlayAssignToContacts(CARD);
   showOverlaySubtasks(CARD);
-  fetchContact();
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
 }
@@ -312,19 +311,19 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
       <label for="overlayEditTitle">
         <h3>Title</h3>
       </label>
-      <input id="overlayEditTitle" type="text" name="title" value="${CARD.title||''}"/>
+      <input id="overlayEditTitle" class="inputBorderColor" type="text" name="title" value="${CARD.title||''}"/>
     </div>
     <div class="overlay_edit_form_layout">
       <label for="overlayEditDescription">
         <h3>Description</h3>
       </label>
-      <textarea id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
+      <textarea class="inputBorderColor" id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
     </div>
     <div class="overlay_edit_form_layout">
       <label aria-label="Date">
         <h3>Due date</h3>
       </label>
-      <div id="date" class="task-input dpf sp_between inputBackground">
+      <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
         <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" placeholder="dd/mm/yyyy" 
           maxlength="10">
         </input>

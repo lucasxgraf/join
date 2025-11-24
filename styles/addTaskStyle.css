@@ -343,17 +343,6 @@ textarea{
   max-height: 440px;
 }
 
-
-.inputBorderColor:focus{
-  outline:none ;
-  border: 2px solid #29ABE2;
-}
-
-.inputBorderColor:not(:placeholder-shown) {
-    border-color: #29ABE2; 
-    outline: none;
-}
-
 .cleanInputforDate{
   border-style: none;
   font-size: 18px;
@@ -381,7 +370,7 @@ textarea{
 .closeSvg{
   filter: invert(77%) sepia(55%) saturate(5018%) hue-rotate(165deg) brightness(93%) contrast(89%);
 }
-
+#selectedAssigned
 #selectedCategory {
   pointer-events: none; 
   user-select: none;      
@@ -394,6 +383,7 @@ textarea{
   outline: none;
   cursor: pointer;
   padding: 8px;
+  width: 100%;
 }
 
 .containerEditSubtask{
@@ -401,30 +391,6 @@ textarea{
   background-color: white;
   border-bottom: 2px solid #29ABE2;
 }
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 19px;
-    height: 19px;
-    background-image: url(../assets/svg/check_btn.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-
-input[type="checkbox"]:checked{
-    background-image: url(../assets/svg/check_btn_checked.svg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.checkbox:hover,
-.checkbox_checked:hover {
-    filter: brightness(0) invert(1);
-}
-
 
 .iconButtonsForImg{
   background: none;      

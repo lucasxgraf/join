@@ -7,6 +7,7 @@ async function initBoard() {
     await loadContacts();
     await loadTasks();
     renderInHtml();
+    fetchContact();
 }
 
 function renderCard(element) {
@@ -202,7 +203,6 @@ function showDialog(targetDragClass) {
     addSubtask();
     enterSubtask();
     enableSubmit();
-    fetchContact();
 
     const OVERLAY = document.getElementById("addTaskOverlay");
     const DIALOG = document.getElementById("addTaskDialog");
