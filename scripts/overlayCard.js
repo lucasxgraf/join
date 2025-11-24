@@ -257,7 +257,7 @@ function openOverlayEdit(cardId) {
   disableCurrentOverlay();
   renderOverlayEditCard(CARD, OVERLAY_CARD);
   
-  renderContactOnHTML(contactFromFirebase, "labelContactOverlayEdit")
+  renderContactOnHTMLOverlayEdit(contactFromFirebase, "labelContactOverlayEdit");
   fetchSVGs("OverlayEdit");
   
   const subtaskArray = getSubtasksArray(CARD.subtask);
@@ -268,31 +268,6 @@ function openOverlayEdit(cardId) {
 
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
-}
-
-function preselectContactsInOverlay(card) {
-  setTimeout(() => {
-    const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
-    const cardContacts = card.contact || [];
-    
-    contactBadge = [];
-    
-    checkboxes.forEach((checkbox, index) => {
-      const contact = contactFromFirebase[index];
-      const isSelected = cardContacts.some(c => c.id === contact.userid);
-      checkbox.checked = isSelected;
-      
-      if (isSelected) {
-        const badge = document.createElement('div');
-        badge.className = 'iconConact dpf_cc';
-        badge.style.backgroundColor = contact.color;
-        badge.innerHTML = `<span>${getInitials(contact.name)}</span>`;
-        contactBadge.push(badge);
-      }
-    });
-    
-    iconContactHTML("iconContactOverlayEdit");
-  }, 100);
 }
 
 function disableCurrentOverlay() {
@@ -373,6 +348,84 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   `;
 }
 
+//Edit Overlay Assigned To
+function renderContactOnHTMLOverlayEdit(contactFromFirebase, currentId) {
+  const contactRef = document.getElementById(currentId);
+  contactRef.innerHTML = "";
+  
+  for (let i = 0; i < contactFromFirebase.length; i++) {
+    contactRef.innerHTML += `
+    <label class="dropdown-item sp_between">
+      <div class="dpf_cc gap8">
+        <div id="contactDropdownListEdit_${i}" class="iconConact dpf_cc" style="background-color: ${contactFromFirebase[i].color}">${contactFromFirebase[i].name.firstname.slice(0, 1)}${contactFromFirebase[i].name.secondname.slice(0, 1)}</div>
+        <span>${contactFromFirebase[i].name.firstname} ${contactFromFirebase[i].name.secondname}</span>
+      </div>
+      <input class="checkbox" type="checkbox" onchange="selectContactsOverlayEdit(${i}, this)">
+    </label>`;
+  }
+}
+
+function selectContactsOverlayEdit(i, checkbox) {
+  const contact = contactFromFirebase[i];
+  
+  if (checkbox.checked) {
+    const badge = document.createElement('div');
+    badge.className = 'iconConact dpf_cc';
+    badge.style.backgroundColor = contact.color;
+    badge.innerHTML = `<span>${contact.name.firstname.slice(0, 1)}${contact.name.secondname.slice(0, 1)}</span>`;
+    badge.dataset.userId = contact.userid;
+    contactBadge.push(badge);
+  } else {
+    contactBadge = contactBadge.filter(b => b.dataset.userId !== contact.userid);
+  }
+  
+  iconContactHTML("iconContactOverlayEdit");
+}
+
+function preselectContactsInOverlay(card) {
+  setTimeout(() => {
+    const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
+    const cardContacts = card.contact || [];
+    
+    contactBadge = [];
+    
+    checkboxes.forEach((checkbox, index) => {
+      const contact = contactFromFirebase[index];
+      const isSelected = cardContacts.some(c => c.id === contact.userid);
+      checkbox.checked = isSelected;
+      
+      if (isSelected) {
+        const badge = document.createElement('div');
+        badge.className = 'iconConact dpf_cc';
+        badge.style.backgroundColor = contact.color;
+        badge.innerHTML = `<span>${getInitials(contact.name)}</span>`;
+        badge.dataset.userId = contact.userid;
+        contactBadge.push(badge);
+      }
+    });
+    
+    iconContactHTML("iconContactOverlayEdit");
+  }, 100);
+}
+
+function getSelectedContactsFromOverlay() {
+  const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
+  const selectedContacts = [];
+  
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const contact = contactFromFirebase[index];
+      selectedContacts.push({
+        name: `${contact.name.firstname} ${contact.name.secondname}`,
+        id: contact.userid
+      });
+    }
+  });
+  
+  return selectedContacts;
+}
+
+//Edit Overlkay Subtasks
 function renderSubtaskButtonsEditOverlay(event) {
   const input = event ? event.target : document.getElementById("subtaskReadOutEditOverlay");
   const buttonContainer = document.getElementById("inputButtonsEditOverlay");
@@ -385,16 +438,16 @@ function renderSubtaskButtonsEditOverlay(event) {
 
   buttonContainer.innerHTML = "";
 
-if (value !== "") {
-  buttonContainer.innerHTML = `
-    <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInputEditOverlay()" id="addBtn">
-      <img src="../assets/svg/close.svg" alt="cancel">
-    </button>
-    <div class="sepraratorSubtask"></div>
-    <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtaskEditOverlay()" id="cancelBtn">
-      <img src="../assets/svg/check.svg" alt="check">
-    </button>`;
-}
+  if (value !== "") {
+    buttonContainer.innerHTML = `
+      <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInputEditOverlay()" id="addBtn">
+        <img src="../assets/svg/close.svg" alt="cancel">
+      </button>
+      <div class="sepraratorSubtask"></div>
+      <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtaskEditOverlay()" id="cancelBtn">
+        <img src="../assets/svg/check.svg" alt="check">
+      </button>`;
+  }
 }
 
 function cleanInputEditOverlay() {
@@ -432,7 +485,6 @@ function subtaskEditOverlay(addSubtask, subtaskArray) {
     const subtaskTitle = typeof subtaskArray[i] === 'object' ? subtaskArray[i].title : subtaskArray[i];
    
     addSubtask.innerHTML += `
-
       <div class="taskOutput dpf_cc sp_between" id="taskOutputEditOverlay-${i}">・ ${subtaskTitle}
         <div class="editdeleteBtn">
           <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtaskEditOverlay(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
@@ -519,6 +571,7 @@ function addEditSubtaskEditOverlay(i) {
   }
 }
 
+//Edit Overlay Ok-Button
 async function saveEditedCardToFirebase() {
   const cardId = SingleCARD[0].id;
   const title = document.getElementById("overlayEditTitle").value;
@@ -551,21 +604,4 @@ async function saveEditedCardToFirebase() {
   } catch (error) {
     console.error('Fehler beim Speichern:', error);
   }
-}
-
-function getSelectedContactsFromOverlay() {
-  const checkboxes = document.querySelectorAll('#labelContactOverlayEdit input[type="checkbox"]');
-  const selectedContacts = [];
-  
-  checkboxes.forEach((checkbox, index) => {
-    if (checkbox.checked) {
-      const contact = contactFromFirebase[index];
-      selectedContacts.push({
-        name: `${contact.name.firstname} ${contact.name.secondname}`,
-        id: contact.userid
-      });
-    }
-  });
-  
-  return selectedContacts;
 }
