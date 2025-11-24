@@ -10,7 +10,7 @@ function renderaddTask() {
                     <div class="task-input-container">
                         <div class="input_field">
                             <label aria-label="title">Title<span class="req">*</span></label>
-                            <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title">
+                            <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title" onblur="validateInput('titleError', 'title', 'title')" oninput="enableSubmit()">
                             <div id="titleError" class="error_message"></div>
                         </div>
                         <div class="input_field">
@@ -19,13 +19,13 @@ function renderaddTask() {
                         </div>
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
-                            <div id="date" class="task-input dpf sp_between inputBackground inputWrapper"  >
-                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10">
+                            <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
+                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="enableSubmit()">
                                 </input>
-                                <button type="button" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
+                                <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
                             </div>
-                            <div class="calender" id="calender"></div>
                             <div id="dateError" class="error_message"></div>
+                            <div class="calender" id="calender"></div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Category">Category<span class="req">*</span></label>
                                 <div class="custom-category-dropdown" id="categoryDropdown">
-                                    <div class="dropdown-header inputWrapper" onclick="toggleDropdown('categoryDropdown')">
+                                    <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
                                         <div class="dropdown-arrow" id="dropdownArrow">
                                             <img src="../assets/img/arrow_drop_down.png" alt="arrow">
@@ -91,7 +91,7 @@ function renderaddTask() {
                     <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
                         <img class="closeSvg" src="../assets/svg/close.svg" alt="">
                     </button>
-                    <button type="submit" disabled id="submit" class="btn btn_create dpf_cc">Create Task
+                    <button type="submit" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
                         <img class="checkSvg" src="../assets/svg/check.svg" alt="">
                     </button>
                 </div>

@@ -160,3 +160,7 @@ input[type="checkbox"]:checked{
     outline: none;
 }
 
+.errorBorder {
+  border-color: red !important;
+  outline: none;
+}

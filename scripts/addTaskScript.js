@@ -51,21 +51,24 @@ function toggleDropdown(selector, currentId) {
   if (selector === "contact") {
     renderIcon();
   }
+
   if (isOpen) {
     function handleClickOutside(e) {
       if (!dropdown.contains(e.target)) {
         dropdown.classList.remove("open");
         document.removeEventListener("click", handleClickOutside);
-        iconContactHTML()
+
+        if (currentId) iconContactHTML(currentId);
       }
     }
     document.addEventListener("click", handleClickOutside);
   }
-  if (!isOpen){
-    iconContactHTML(currentId)
+
+  if (!isOpen) {
+    // Nur wenn currentId existiert!!
+    if (currentId) iconContactHTML(currentId);
   }
 }
-
 
 function changeCategory(selection) {
   let text = "";
@@ -80,11 +83,10 @@ function changeCategory(selection) {
   }
   if (input && text) {
     input.value = text;
+    enableSubmit()
   }
   toggleDropdown('categoryDropdown');
-  enableSubmit()
 }
-
 
 function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
@@ -107,7 +109,6 @@ function enterSubtask() {
   }}); 
 }
 
-
 function changePriority(priority, currentId) {
   const buttons = document.querySelectorAll('.priority-btn');
   const button = document.getElementById(`${priority}Btn${currentId}`);
@@ -116,11 +117,7 @@ function changePriority(priority, currentId) {
   button.classList.add('active');
 
   selectedPriority = priority;
-  
-  
 }
-
-// ######################################################################
 
 function fetchSVGs(currentId) {
   const svgs = [
@@ -128,7 +125,6 @@ function fetchSVGs(currentId) {
     { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId}  .medium_icon`},
     { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId}  .low_icon` }
   ];
-
   svgs.forEach(svg => {
     fetch(svg.path)
       .then(response => response.text())
@@ -136,11 +132,10 @@ function fetchSVGs(currentId) {
         document.querySelector(svg.selector).innerHTML = svgContent;
       })
       .catch(error => console.error('Error fetching SVG:', error));
-  });
-}
+  })};
 
 function selectContacts(i, checkbox) {
-  let badgeName = contactName[i].innerText // besseren Namen raussuchen
+  let badgeName = contactName[i].innerText
   let badgeEl = document.getElementById(`contactDropdownList_${i}`);
   let userId = contactFromFirebase[i].userid;
 
@@ -161,7 +156,6 @@ function selectContacts(i, checkbox) {
 
 function updateAssignedInput() {
   const input = document.getElementById("selectedAssigned");
-
   if (contactList.length === 0) {
 
     input.value = "";
@@ -208,9 +202,7 @@ function editSubtask(i) {
     return;
   }
   cancelEditSubtask(i);
-  }
-
-  };
+  }};
 
 function cancelEditSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
@@ -236,7 +228,6 @@ function addEditSubtask(i) {
 
 function clearEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
-
   if (editInputSubtask.value === "") {
   subtaskArray.splice(i, 1);
   subtask(document.getElementById("addSubtask"), subtaskArray) 
@@ -247,7 +238,6 @@ function clearEditSubtask(i) {
   }
 }
 
-// Hilfsfunktionen für die Überprüfung von inputs
 function showError(elementId, message) {
   const el = document.getElementById(elementId);
   if (el) el.textContent = message;
@@ -257,38 +247,9 @@ function clearErrors() {
   document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
 }
 
-function error (){
-  let isValid = true;
-  const titleInput = document.getElementById("title");
-
-  if (titleInput.value.trim() === "") {
-    showError("titleError", "This field is required."); // zeigt im titleError-div
-    isValid = false;
-  }
-    if (!validateDueDate()) {
-    isValid = false;
-  }
-
-  const categorySelect = document.getElementById("selectedCategory");
-  if (categorySelect.value.trim() === "") {
-    showError("categoryError", "This field is required."); // zeigt im titleError-div
-    isValid = false;
-  }
-
-  if (isValid) {
-    addTask()
-  }
-}
-
 function validateDueDate() {
   const duedateInput = document.getElementById("duedate");
   const value = duedateInput.value.trim();
-
-  if (value === "") {
-    showError("dateError", "This field is required.");
-    return false;
-  }
-
   duedateInput.classList.remove("error");
   const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
@@ -308,13 +269,13 @@ function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
   const categorySelect = document.getElementById("selectedCategory").value.trim();
   const titleInput = document.getElementById("title").value.trim();
-  const allFilled = categorySelect && titleInput && duedateInput 
-  
+  const allFilled = categorySelect && titleInput && duedateInput
+
   if (allFilled) {
     document.getElementById("submit").disabled = false
   }
   else{
-  document.getElementById("submit").disabled = true
+    document.getElementById("submit").disabled = true
   }
 }
 
@@ -323,13 +284,15 @@ function initTaskFormEvents() {
   const title = document.getElementById("title");
   const duedate = document.getElementById("duedate");
 
-  if (!form || !title || !duedate) return;
+  if (!form || !title || !duedate.value) return;
 
   form.onsubmit = e => { 
     e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
   };
-  title.oninput = enableSubmit;
-  duedate.oninput = enableSubmit;
+}
+
+function keepFocusOnDate(e) {
+  e.preventDefault(); 
 }
 
 function validateForm() {
@@ -340,12 +303,26 @@ function validateForm() {
   return ok;
 }
 
+
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
   setTimeout(() => {
   feedbackRef.classList.add("dnone");
 }, 2000);
+}
 
+function validateInput(displayid, currentId, inputFrame) {
+  const input = document.getElementById(currentId);
+  const output = document.getElementById(displayid)
+  const borderError = document.getElementById(inputFrame)
 
+  if (input.value.trim() === "") {
+    output.innerHTML = "This field is required."
+    borderError.classList.add('errorBorder');
+  }
+  else{
+    output.innerHTML = ""
+    borderError.classList.remove('errorBorder');
+  }
 }

@@ -47,7 +47,6 @@ function pickDate(offsetDays = 0, displayid, currentid) {
   if (calender) {
     closeCalender(currentid)
   }
-
   enableSubmit()
 }
 
@@ -71,15 +70,16 @@ function toggleCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
 
 if (caldenerOpen.innerHTML.trim() === ""){
-  renderCalender(currentid, displayid)
+  renderCalender(currentid, displayid) 
 }else{
     closeCalender(currentid)
-  } 
+  }
 }
 
 function closeCalender (currentid) {
  let calenderCloseRef = document.getElementById(currentid)
  calenderCloseRef.innerHTML = ""
+ validateInput('dateError', 'duedate', 'date') 
 }
 
 
