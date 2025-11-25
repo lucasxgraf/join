@@ -91,7 +91,7 @@ function changeCategory(selection) {
 function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
   const addSubtaskContainer = document.getElementById("addSubtask");
-  const value = readout.value.trim();
+  const value = readout.value.trim().toLowerCase();
   if (value === "" || subtaskArray.length >= 5) 
     return;
 
@@ -197,7 +197,6 @@ function editSubtask(i) {
   editInputSubtask.value = subtaskArray[i].title;
   editInputSubtask.focus();   
   editInputSubtask.onblur = (e) => {
-  // wenn Fokus auf einen Button im Container geht → nicht abbrechen
   if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
     return;
   }

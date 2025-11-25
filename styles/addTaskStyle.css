@@ -110,6 +110,7 @@ label {
   border: 1px solid #ccc;
   border-radius: 10px;
   height: 48px;
+  font-size: 16px;
 }
 
 .separator {
@@ -234,6 +235,7 @@ label {
 .taskOutputtest,
 .taskOutput{
   padding: 4px;
+  height: 32px;
 }
 
 .subtask{

@@ -336,7 +336,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
     <div class="overlay_edit_form_layout">
       <h3>Subtasks</h3>
         <div class="input-wrapper">
-          <input type="text" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
+          <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
           <div id="inputButtonsEditOverlay"></div>      
         </div>
         <div class="subtask" id="overlayEditSubtask"></div>
@@ -459,7 +459,7 @@ function cleanInputEditOverlay() {
 function addSubtaskEditOverlay() {
   const readout = document.getElementById("subtaskReadOutEditOverlay");
   const addSubtaskContainer = document.getElementById("overlayEditSubtask");
-  const value = readout.value.trim();
+  const value = readout.value.trim().toLowerCase();;
   
   if (!SingleCARD[0].subtask) {
     SingleCARD[0].subtask = [];
@@ -485,7 +485,7 @@ function subtaskEditOverlay(addSubtask, subtaskArray) {
     const subtaskTitle = typeof subtaskArray[i] === 'object' ? subtaskArray[i].title : subtaskArray[i];
    
     addSubtask.innerHTML += `
-      <div class="taskOutput dpf_cc sp_between" id="taskOutputEditOverlay-${i}">・ ${subtaskTitle}
+      <div class="taskOutput dpf_cc sp_between" id="taskOutputEditOverlay-${i}" ondblclick="editSubtaskEditOverlay(${i})">・ ${subtaskTitle}
         <div class="editdeleteBtn">
           <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtaskEditOverlay(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
           <div class="sepraratorSubtask"></div>

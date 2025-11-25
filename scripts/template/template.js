@@ -76,7 +76,7 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Subtasks">Subtasks</label>
                                 <div class="input-wrapper">
-                                    <input type="text" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
+                                    <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
                                     <div id="inputButtons"></div>
                                 </div>
                             <div class="subtask" id="addSubtask"></div>
@@ -132,7 +132,7 @@ function subtask(addSubtask, subtaskArray) {
      
       addSubtask.innerHTML += `
   
-        <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}">・ ${subtaskTitle}
+        <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}" ondblclick="editSubtask(${i})">・ ${subtaskTitle}
           <div class="editdeleteBtn">
             <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
             <div class="sepraratorSubtask"></div>
@@ -174,9 +174,6 @@ function renderSubtaskButtons() {
 
 function renderCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
-  
-  
-
   caldenerOpen.innerHTML += 
     `<div class="datePicker">
             <div class="datepickerTop">
