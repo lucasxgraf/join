@@ -360,12 +360,3 @@ h3{
 .card.dragging {
   opacity: 0.6;
 }
-
-#calenderOverlayEdit {
-    position: fixed;
-    left: calc(229px - 40px);
-    top: 460px;
-    z-index: 2;
-    border: 1px solid #A8A8A8;
-    border-radius: 10px;
-}

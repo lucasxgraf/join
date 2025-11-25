@@ -306,7 +306,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         </button>
         <div class="calender" id="calenderOverlayEdit"></div>
         <div id="dateError" class="error_message"></div>
-      </div>
+        </div>
     </div>
   </form>
 
