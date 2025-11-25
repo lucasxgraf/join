@@ -48,6 +48,7 @@ function pickDate(offsetDays = 0, displayid, currentid) {
     closeCalender(currentid)
   }
   enableSubmit()
+  inputDate.focus()
 }
 
 
@@ -72,14 +73,19 @@ function toggleCalender(currentid, displayid) {
 if (caldenerOpen.innerHTML.trim() === ""){
   renderCalender(currentid, displayid) 
 }else{
-    closeCalender(currentid)
+    closeCalender(currentid, displayid)
   }
 }
 
-function closeCalender (currentid) {
+function closeCalender (currentid, displayid) {
  let calenderCloseRef = document.getElementById(currentid)
  calenderCloseRef.innerHTML = ""
- validateInput('dateError', 'duedate', 'date') 
+
+if (currentid === "calenderOverlayEdit") {
+  validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')
+}
+else
+ validateInput('dateError', 'duedate', 'date')
 }
 
 

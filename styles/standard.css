@@ -154,7 +154,7 @@ input[type="checkbox"]:checked{
 }
 
 .focusNotInput,
-.inputWrapper:has(input:not(:placeholder-shown)),
+.inputWrapper:has(input:not(:placeholder-shown)), 
 .inputBorderColor:not(:placeholder-shown) {
     border-color: #29ABE2; 
     outline: none;

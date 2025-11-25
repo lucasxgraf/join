@@ -21,8 +21,13 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 24px;
   scrollbar-width: none;
+}
+
+.OverlayEditContainer{
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .overlay_card_header{
@@ -208,7 +213,7 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 6px;
 }
 
 .overlay_edit_form_layout{
@@ -228,18 +233,21 @@ form textarea,
 form select {
   border: solid 1px rgba(209, 209, 209, 1);
   border-radius: 10px;
-  height: 32px;
   width: 100%;
   font-size: 1rem;
   padding: 8px 16px;
+}
+#overlayEditTitle {
+  height: 48px;
 }
 
 #overlayEditDescription {
   resize: none;
   overflow: hidden;
-  min-height: 40px;
+  min-height: 80px;
   field-sizing: content;
   height: auto;
+  margin-bottom: 16px;
 }
 
 #inputButtonsEditOverlay {
@@ -250,7 +258,7 @@ form select {
   align-items: center;
 }
 
-#date {
+#dateOverlayEdit {
   position: relative;
 }
 
