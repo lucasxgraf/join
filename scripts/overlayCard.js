@@ -265,6 +265,7 @@ function openOverlayEdit(cardId) {
   
   changePriority(CARD.priority, "OverlayEdit");
   preselectContactsInOverlay(CARD);
+  checkEditOverlayInput();
 
   OVERLAY.classList.remove('d_none');
   document.body.style.overflow = 'hidden';
@@ -285,11 +286,11 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
     <div class="overlay_edit_form_layout">
       <label for="overlayEditTitle">
         <h3>Title</h3>
-      </label> 
-      <div>  
-        <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" value="${CARD.title||''}"/>
+      </label>
+      <div>
+        <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" oninput="checkEditOverlayInput()" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" value="${CARD.title||''}"/>
         <div id="titleErrorEditOverlay" class="error_message"></div>
-      </div> 
+      </div>
     </div>
     <div class="overlay_edit_form_layout">
       <label for="overlayEditDescription">
@@ -301,17 +302,17 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
       <label aria-label="Date">
         <h3>Due date</h3>
       </label>
-      <div> 
+      <div>
         <div id="dateOverlayEdit" class="task-input dpf sp_between inputBackground inputWrapper">
-          <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" placeholder="dd/mm/yyyy" 
+          <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" placeholder="dd/mm/yyyy" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); checkEditOverlayInput()"
             maxlength="10">
           </input>
           <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
-          </button> 
+          </button>
           <div class="calender" id="calenderOverlayEdit"></div>
         </div>
           <div id="dateErrorEditOverlay" class="error_message"></div>
-        </div> 
+        </div>
     </div>
   </form>
 
@@ -319,7 +320,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
     <div class="overlay_edit_form_layout">
       <h3>Priority</h3>
         <div class="priority-buttons">
-          <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent', 'OverlayEdit')">Urgent<span class="urgent_icon"></span></button> 
+          <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent', 'OverlayEdit')">Urgent<span class="urgent_icon"></span></button>
           <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','OverlayEdit')">Medium <span class="medium_icon"></span></button>
           <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','OverlayEdit')">Low <span class="low_icon"></span></button>
         </div>
@@ -343,16 +344,46 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Subtasks</h3>
           <div class="input-wrapper">
             <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
-            <div id="inputButtonsEditOverlay"></div>      
+            <div id="inputButtonsEditOverlay"></div>
           </div>
           <div class="subtask" id="overlayEditSubtask"></div>
         </div>
 
-      <button type="button" onclick="saveEditedCardToFirebase()" id="submitEditOverlay" class="btn btn_create dpf_cc align-self">Ok
+      <button type="button" disabled onclick="saveEditedCardToFirebase()" id="submitEditOverlay" class="btn btn_create dpf_cc align-self">Ok
         <img class="checkSvg" src="../assets/svg/check.svg" alt="">
       </button>
   </div>
-  `;
+  `
+}
+
+function validateEditedForm(dateInputId) {
+  const dateInput = document.getElementById(dateInputId);
+  const dateError = document.getElementById('dateErrorEditOverlay');
+  const dateWrapper = document.getElementById('dateOverlayEdit');
+  const titleInput = document.getElementById('overlayEditTitle');
+  const titleError = document.getElementById('titleErrorEditOverlay');
+
+  let isValid = true;
+
+  if (titleInput.value.trim() === "") {
+    titleError.innerHTML = "This field is required.";
+    titleInput.classList.add('errorBorder');
+    isValid = false;
+  } else {
+    titleError.innerHTML = "";
+    titleInput.classList.remove('errorBorder');
+  }
+
+  if (dateInput.value.trim() === "") {
+    dateError.innerHTML = "This field is required.";
+    dateWrapper.classList.add('errorBorder');
+    isValid = false;
+  } else {
+    dateError.innerHTML = "";
+    dateWrapper.classList.remove('errorBorder');
+  }
+
+  return isValid;
 }
 
 //Edit Overlay Assigned To
@@ -578,15 +609,72 @@ function addEditSubtaskEditOverlay(i) {
   }
 }
 
+//Edit Overlay Validation Functions
+function showErrorOverlay(elementId, message) {
+  const el = document.getElementById(elementId);
+  if (el) el.textContent = message;
+}
+
+function clearErrorsOverlay() {
+  const dateError = document.getElementById('dateErrorEditOverlay');
+  const titleError = document.getElementById('titleErrorEditOverlay');
+  if (dateError) dateError.textContent = '';
+  if (titleError) titleError.textContent = '';
+}
+
+function validateDueDateOverlay() {
+  const duedateInput = document.getElementById("duedateOverlayEdit");
+  const dateWrapper = document.getElementById("dateOverlayEdit");
+  const value = duedateInput.value.trim();
+  dateWrapper.classList.remove("errorBorder");
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+
+  if (!dateRegex.test(value)) {
+    showErrorOverlay("dateErrorEditOverlay", "Please select a valid date format DD/MM/YYYY.");
+    dateWrapper.classList.add('errorBorder');
+    return false;
+  }
+
+  if (!isValidFutureDate(value)) {
+    showErrorOverlay("dateErrorEditOverlay", "The date must be today or in the future.");
+    dateWrapper.classList.add('errorBorder');
+    return false;
+  }
+  return true;
+}
+
+function validateEditedForm() {
+  clearErrorsOverlay();
+  let isValid = true;
+
+  const titleInput = document.getElementById('overlayEditTitle');
+  if (titleInput.value.trim() === "") {
+    showErrorOverlay('titleErrorEditOverlay', "This field is required.");
+    titleInput.classList.add('errorBorder');
+    isValid = false;
+  } else {
+    titleInput.classList.remove('errorBorder');
+  }
+
+  if (!validateDueDateOverlay()) {
+    isValid = false;
+  }
+
+  return isValid;
+}
+
 //Edit Overlay Ok-Button
 async function saveEditedCardToFirebase() {
+  if (!validateEditedForm()) {
+    return;
+  }
   const cardId = SingleCARD[0].id;
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
-  
+
   const selectedContacts = getSelectedContactsFromOverlay();
-  
+
   const updatedCard = {
     title: title,
     description: description,
@@ -605,10 +693,37 @@ async function saveEditedCardToFirebase() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedCard)
     });
-    
+
     toggleOverlay();
     location.reload();
   } catch (error) {
     console.error('Fehler beim Speichern:', error);
   }
+}
+
+function checkEditOverlayInput() {
+  let button = document.getElementById ("submitEditOverlay")
+  let titleInput = document.getElementById("overlayEditTitle").value.trim();
+  let dueDate = document.getElementById("duedateOverlayEdit").value.trim();
+
+  const allFilled = titleInput && dueDate
+
+  if (allFilled) {
+    button.disabled = false
+  }
+  else{
+    button.disabled = true
+  }
+}
+  
+function filterDateInput(id) {
+  let input = document.getElementById(id);
+  if (!input) return;
+  else{
+  input.value = input.value.replace(/[^0-9\/]/g, "");
+  return true
+  }
+
+  
+  
 }

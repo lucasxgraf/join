@@ -20,7 +20,7 @@ function renderaddTask() {
                         <div class="input_field">
                             <label aria-label="Date">Due date<span class="req">*</span></label>
                             <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
-                                <input class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="enableSubmit()">
+                                <input type="text" class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); enableSubmit()">
                                 </input>
                                 <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
                             </div>
