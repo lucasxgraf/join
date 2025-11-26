@@ -5,7 +5,7 @@ let currentPlaceholder = null;
 
 async function initBoard() {
     await loadContacts();
-    await loadTasks();
+    await loadTasks("board");
     renderInHtml();
     fetchContact();
 }

@@ -15,10 +15,11 @@
     <script src="../scripts/summary.js"></script>
     <script type="module" src="../scripts/firebase_auth.js" defer></script>
     <script src="../components/js/summary_header.js"></script>
+    <script src="../scripts/summary.js"></script>
     <script src="../scripts/api.js"></script>
 </head>
 
-<body>
+<body onload="inittest()">
     <div class="upper-container">
         <nav>
           <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
@@ -91,14 +92,14 @@
                             <div class="card-to-do" id="todoCard">
                                 <span><img src="../assets/svg/pencil_default.svg" id="iconToDo"></span>
                                 <div class="card-info">
-                                    <span class="card-font" id="todoNumber">1</span>
+                                    <span class="card-font" id="todoNumber">#</span>
                                     <span class="task-category" id="taskToDo">To-Do</span>
                                 </div>
                             </div>
                             <div class="card-done" id="doneCard">
                                 <span><img src="../assets/svg/check_default.svg" id="iconDone"></span>
                                 <div class="card-info">
-                                    <span class="card-font" id="doneNumber">1</span>
+                                    <span class="card-font" id="doneNumber">#</span>
                                     <span class="task-category" id="taskDone">Done</span>
                                 </div>
                             </div>
@@ -107,7 +108,7 @@
                             <div class="long-card-left">
                                 <img src="../assets/svg/urgent_icon.svg">
                                 <div class="card-info">
-                                    <span class="card-font" id="urgentNumber">1</span>
+                                    <span class="card-font" id="urgentNumber">#</span>
                                     <span class="task-category" id="taskUrgent">Urgent</span>
                                 </div>
                             </div>
@@ -119,15 +120,15 @@
                         </div>
                         <div class="three-cards-row">
                             <div class="task-board-container" id="taskBoard">
-                                <span class="three-card-number" id="taskBoardNumber">5</span>
+                                <span class="three-card-number" id="taskBoardNumber">#</span>
                                 <span class="three-card-subline" id="taskBoardText">Tasks in Board</span>
                             </div>
                             <div class="task-progress-container" id="taskProgress">
-                                <span class="three-card-number" id="taskProgressNumber">2</span>
+                                <span class="three-card-number" id="taskProgressNumber">#</span>
                                 <span class="three-card-subline" id="taskProgressText">Tasks in Progress</span>
                             </div>
                             <div class="feedback-container" id="feedback">
-                                <span class="three-card-number" id="feedbackNumber">2</span>
+                                <span class="three-card-number" id="feedbackNumber">#</span>
                                 <span class="three-card-subline" id="feedbackText">Awaiting Feedback</span>
                             </div>
                         </div>
