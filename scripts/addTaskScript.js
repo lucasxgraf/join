@@ -246,19 +246,33 @@ function clearErrors() {
   document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
 }
 
-function validateDueDate() {
-  const duedateInput = document.getElementById("duedate");
+function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId = null) {
+  const duedateInput = document.getElementById(inputId);
   const value = duedateInput.value.trim();
   duedateInput.classList.remove("error");
+
+  if (wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    if (wrapper) wrapper.classList.remove("errorBorder");
+  }
+
   const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
   if (!dateRegex.test(value)) {
-    showError("dateError", "Please select a valid date format DD/MM/YYYY.");
+    showError(errorId, "Please select a valid date format DD/MM/YYYY.");
+    if (wrapperId) {
+      const wrapper = document.getElementById(wrapperId);
+      if (wrapper) wrapper.classList.add('errorBorder');
+    }
     return false;
   }
 
   if (!checkDate(duedateInput)) {
-    showError("dateError", "The date must be today or in the future.");
+    showError(errorId, "The date must be today or in the future.");
+    if (wrapperId) {
+      const wrapper = document.getElementById(wrapperId);
+      if (wrapper) wrapper.classList.add('errorBorder');
+    }
     return false;
   }
   return true;

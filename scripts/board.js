@@ -10,78 +10,11 @@ async function initBoard() {
     fetchContact();
 }
 
-function renderCard(element) {
-  const SUBTASKS = getSubtasksArray(element.subtask);
-  const TOTAL = SUBTASKS.length;
-  const DONE = calcCompleted(SUBTASKS);
-  const PROGRESS = calcProgress(SUBTASKS);
-  const CONTACTS = renderContactBadges(element.contact || []);
-
-  return `
-    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
-      <div class="cardBorder"> 
-        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
-        <div class="card_content">
-          <div class="card_title" id="cardTitle">${element.title}</div>
-          <div class="card_description" id="cardDescription">${element.description}</div>
-        </div>
-        ${TOTAL > 0 ? `
-        <div class="subtask_container">
-          <div class="subtaskProgressBar">
-            <div class="subtaskProgressBarCalc" style="width:${PROGRESS}%"></div>
-          </div>
-          <div class="subtask">${DONE}/${TOTAL} Subtasks</div>
-        </div>
-        ` : ''}
-        <div class="cardFooter">
-          <div class="contact_badges" id="cardContact">
-            ${CONTACTS}
-          </div>
-          <div class="overlay_card_priority_img overlay_card_priority_img_${(element.priority||'').toLowerCase()}"></div>
-      </div>
-      </div>
-    </div>
-  `;
-}
-
-async function loadTasks() {
-  try {
-    const RESPONSE = await fetch(`${BASE_URL}addTask.json`); // .json für Firebase-Endpunkt
-    const DATA = await RESPONSE.json();
-    
-    // Firebase gibt Objekte zurück → in Array umwandeln
-    if (DATA) {
-      cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
-    id: id,
-    ...task
-  }));
-      console.log("Task geladen:", cardFromFirebase);
-    } else {
-      console.warn("Keine Task gefunden.");
-    }
-  } catch (error) {
-    console.error("Fehler beim Laden der Task:", error);
-  }
- loadDetails(cardFromFirebase)
-}
-
 function loadDetails(cardFromFirebase) {
      updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
-}
-
-async function loadContacts() {
-  try {
-    const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
-    const DATA = await RESPONSE.json();
-    if (DATA) {
-      contacts_from_firebase = DATA;
-    }
-  } catch (error) {
-    console.error('fehler beim laden der kontakte:', error);
-  }
 }
 
 function forLoopCards(ref, array , placeholdertext) {
@@ -177,24 +110,6 @@ function stopDrag(id) {
     ELEMENT.classList.remove('dragging');
   }
   removePlaceholder();
-}
-
-async function moveTo(newdragclass) {
-  const task = cardFromFirebase.find(t => t.id === dragElementId);
-  if (!task) return;
-  
-  task.dragclass = newdragclass;
-  
-  try {
-      await fetch(`${BASE_URL}addTask/${dragElementId}/dragclass.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json'},
-          body: `"${newdragclass}"`
-      });
-      loadDetails(cardFromFirebase);
-  } catch (error) {
-      console.error('Fehler beim Verschieben der Karte:', error);
-  }
 }
 
 function showDialog(targetDragClass) {
