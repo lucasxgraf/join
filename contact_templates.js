@@ -1,0 +1,46 @@
+function addformTemplate(index) {
+    return `<div class="add-contact-form slide-in" id="add-Form">
+            <div class="text-form" style="background-color: #2A3647; width: 40%;">
+                <img class="margin-left36" src="/assets/logos/Join logo vector.svg" style="height: 50px; width: 50px;">
+                <h1 class="margin-left36 c-white">Add Contact</h1>
+                <h3 class="margin-left36 c-white" style="font-weight: 400;">Tasks are better with a team!</h3>
+                <div class="margin-left36 divider-small"></div>
+            </div>
+            <div style="display: flex; width: 60%; align-items: center;">
+            <img style="margin-left: 72px;" src="/assets/svg/default_contact_profilepicture.svg">
+            <div class="add-form">
+                <img src="/assets/icons/close_icon_default.svg" id="x-button-form" onclick="closeForm(event)">
+                <div id="group-name"><input type="text" placeholder="Name" id="input-name"><img style="margin-left: -36px; margin-bottom: -6px;;" src="/assets/svg/person_input.svg"></div>
+                <div id="group-mail"><input type="text" placeholder="E-Mail" id="input-mail"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/mail.svg"></div>
+                <div id="group-phone"><input type="text" placeholder="Phone" id="input-phone"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/call.svg"></div>
+                <div style="display: flex; gap: 16px;">
+                    <button style="width: 80px" id="cancel-contact" onclick="closeForm(event)">Cancel<img src="/assets/icons/icon_cancel.svg" id="cancel-contact-img"></button>
+                    <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Create contact<img src="/assets/icons/check_createcontact.svg"></button>
+                </div>
+            </div>
+        </div>
+    </div>`
+}
+
+function editContactTemplate(index) {
+    return `<div class="add-contact-form slide-in" id="edit-Form">
+            <div class="text-form" style="background-color: #2A3647; width: 40%;">
+                <img class="margin-left36" src="/assets/logos/Join logo vector.svg" style="height: 50px; width: 50px;">
+                <h1 class="margin-left36 c-white">Edit Contact</h1>
+                <div class="margin-left36 divider-small"></div>
+            </div>
+            <div style="display: flex; width: 60%; align-items: center;">
+            <button class="big-contact-picture" style ="background-color: ${contacts[index]["color"]}; margin-left: 72px;">${contactPictureLetters(index)}</button>
+            <div class="add-form">
+                <img src="/assets/icons/close_icon_default.svg" id="x-button-form" onclick="closeForm(event)">
+                <div id="group-name"><input type="text" placeholder="Name" id="input-name"><img style="margin-left: -36px; margin-bottom: -6px;;" src="/assets/svg/person_input.svg"></div>
+                <div id="group-mail"><input type="text" placeholder="E-Mail" id="input-mail"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/mail.svg"></div>
+                <div id="group-phone"><input type="text" placeholder="Phone" id="input-phone"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/call.svg"></div>
+                <div style="display: flex; gap: 16px;">
+                    <button style="width: 80px" id="cancel-contact" onclick="closeForm(event)">Delete<img src="/assets/icons/icon_cancel.svg" id="cancel-contact-img"></button>
+                    <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Save<img src="/assets/icons/check_createcontact.svg"></button>
+                </div>
+            </div>
+        </div>
+    </div>`
+}

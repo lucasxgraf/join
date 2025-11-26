@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/styles/standard.css">
     <link rel="stylesheet" href="/contacts.css">
     <script src="/contacts.js"></script>
-    
+    <script src="/contact_templates.js"></script>
 </head>
 <body onload="init()">
     <div class="upper-container">
@@ -62,12 +62,13 @@
             </div>
           </div>
 
-          <main>
+          <main id="main">
+            <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
             <div class="content">
                 <div class="contact-list">
-                  <button class="add-contact">
+                  <button class="add-contact" onclick="addContactEvent(event)">
                     Add new contact
-                    <img src="/assets/svg/person_add.svg">
+                    <img class="add-button-img" src="/assets/svg/person_add.svg">
                   </button>
                   <ul class="list" id="contact_list">
                   </ul>
@@ -78,9 +79,11 @@
                         <div class="divider"></div>
                         <h2>Better with a team</h2>
                     </div>
+                    <div class="contact-content" id="contact_content"></div>
                 </div>
             </div>
           </main>
     <script src="/header_sidebar/summary_header.js"></script>
+    <script src="/contact_event.js"></script>
 </body>
 </html>
