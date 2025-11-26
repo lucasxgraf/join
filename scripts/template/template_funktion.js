@@ -26,7 +26,6 @@ function renderaddTaskOnHtml() {
     else{
     addTaskRef.innerHTML += renderaddTask()
     }
-    
 }
 
 
@@ -36,7 +35,6 @@ function renderContactOnHTML(contacFromFirebase, currentId) {
     for (let i = 0; i < contacFromFirebase.length; i++) {
         contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);
     }
-    
 }
 
 function renderCategoryOnHTML() {

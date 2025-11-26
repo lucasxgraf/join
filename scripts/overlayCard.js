@@ -279,79 +279,81 @@ function disableCurrentOverlay() {
 
 function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   OVERLAY_CARD.innerHTML = `
-  <button class="overlay_close_btn" onclick="toggleOverlay()">×</button>
+  <div>
+    <button class="overlay_close_btn" onclick="toggleOverlay()">×</button>
 
-  <form>
-    <div class="overlay_edit_form_layout">
-      <label for="overlayEditTitle">
-        <h3>Title</h3>
-      </label> 
-      <div>  
-        <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" value="${CARD.title||''}"/>
-        <div id="titleErrorEditOverlay" class="error_message"></div>
-      </div> 
-    </div>
-    <div class="overlay_edit_form_layout">
-      <label for="overlayEditDescription">
-        <h3>Description</h3>
-      </label>
-      <textarea class="inputBorderColor" placeholder="Enter a description" id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
-    </div>
-    <div class="overlay_edit_form_layout">
-      <label aria-label="Date">
-        <h3>Due date</h3>
-      </label>
-      <div> 
-        <div id="dateOverlayEdit" class="task-input dpf sp_between inputBackground inputWrapper">
-          <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" placeholder="dd/mm/yyyy" 
-            maxlength="10">
-          </input>
-          <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
-          </button> 
-          <div class="calender" id="calenderOverlayEdit"></div>
-        </div>
-          <div id="dateErrorEditOverlay" class="error_message"></div>
+    <form>
+      <div class="overlay_edit_form_layout">
+        <label for="overlayEditTitle">
+          <h3>Title</h3>
+        </label> 
+        <div>  
+          <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" value="${CARD.title||''}"/>
+          <div id="titleErrorEditOverlay" class="error_message"></div>
         </div> 
-    </div>
-  </form>
+      </div>
+      <div class="overlay_edit_form_layout">
+        <label for="overlayEditDescription">
+          <h3>Description</h3>
+        </label>
+        <textarea class="inputBorderColor" placeholder="Enter a description" id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
+      </div>
+      <div class="overlay_edit_form_layout">
+        <label aria-label="Date">
+          <h3>Due date</h3>
+        </label>
+        <div> 
+          <div id="dateOverlayEdit" class="task-input dpf sp_between inputWrapper">
+            <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" placeholder="dd/mm/yyyy" 
+              maxlength="10">
+            </input>
+            <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+            </button> 
+            <div class="calender" id="calenderOverlayEdit"></div>
+          </div>
+            <div id="dateErrorEditOverlay" class="error_message"></div>
+        </div> 
+      </div>
+    </form>
 
-  <div class="OverlayEditContainer">
-    <div class="overlay_edit_form_layout">
-      <h3>Priority</h3>
-        <div class="priority-buttons">
-          <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent', 'OverlayEdit')">Urgent<span class="urgent_icon"></span></button> 
-          <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','OverlayEdit')">Medium <span class="medium_icon"></span></button>
-          <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','OverlayEdit')">Low <span class="low_icon"></span></button>
-        </div>
-    </div>
-
-    <div class="overlay_edit_form_layout">
-      <h3>Assigned to</h3>
-        <div class="custom-category-dropdown" id="contactDropdownOverlayEdit">
-            <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
-                <span>Select contacts to assign</span>
-                <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
-            </div>
-            <div class="dropdown-list" id="categoryDropdownList">
-                <div id="labelContactOverlayEdit"></div>
-            </div>
-            <div id="iconContactOverlayEdit" class="dpf gap8"></div>
-        </div>
+    <div class="OverlayEditContainer">
+      <div class="overlay_edit_form_layout">
+        <h3>Priority</h3>
+          <div class="priority-buttons">
+            <button type="button" id="urgentBtnOverlayEdit" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent', 'OverlayEdit')">Urgent<span class="urgent_icon"></span></button> 
+            <button type="button" id="mediumBtnOverlayEdit" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','OverlayEdit')">Medium <span class="medium_icon"></span></button>
+            <button type="button" id="lowBtnOverlayEdit" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','OverlayEdit')">Low <span class="low_icon"></span></button>
+          </div>
       </div>
 
       <div class="overlay_edit_form_layout">
-        <h3>Subtasks</h3>
-          <div class="input-wrapper">
-            <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
-            <div id="inputButtonsEditOverlay"></div>      
+        <h3>Assigned to</h3>
+          <div class="custom-category-dropdown" id="contactDropdownOverlayEdit">
+              <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
+                  <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
+                  <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
+              </div>
+              <div class="dropdown-list" id="categoryDropdownList">
+                  <div id="labelContactOverlayEdit"></div>
+              </div>
+              <div id="iconContactOverlayEdit" class="dpf gap8"></div>
           </div>
-          <div class="subtask" id="overlayEditSubtask"></div>
         </div>
 
-      <button type="button" onclick="saveEditedCardToFirebase()" id="submitEditOverlay" class="btn btn_create dpf_cc align-self">Ok
-        <img class="checkSvg" src="../assets/svg/check.svg" alt="">
-      </button>
-  </div>
+        <div class="overlay_edit_form_layout">
+          <h3>Subtasks</h3>
+            <div class="input-wrapper">
+              <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
+              <div id="inputButtonsEditOverlay"></div>      
+            </div>
+            <div class="subtask" id="overlayEditSubtask"></div>
+          </div>
+
+        <button type="button" onclick="saveEditedCardToFirebase()" id="submitEditOverlay" class="btn btn_create dpf_cc align-self">Ok
+          <img class="checkSvg" src="../assets/svg/check.svg" alt="">
+        </button>
+      </div>
+    </div>
   `;
 }
 
@@ -432,7 +434,7 @@ function getSelectedContactsFromOverlay() {
   return selectedContacts;
 }
 
-//Edit Overlkay Subtasks
+//Edit Overlay Subtasks
 function renderSubtaskButtonsEditOverlay(event) {
   const input = event ? event.target : document.getElementById("subtaskReadOutEditOverlay");
   const buttonContainer = document.getElementById("inputButtonsEditOverlay");
@@ -584,7 +586,6 @@ async function saveEditedCardToFirebase() {
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
-  
   const selectedContacts = getSelectedContactsFromOverlay();
   
   const updatedCard = {

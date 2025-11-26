@@ -3,7 +3,7 @@ function renderaddTask() {
   return `
     <main>
         <div class="scroll_layout">
-            <h1>Add Task</h1>
+            <h1 class="content_header">Add Task</h1>
             <form id="taskForm">
             <section>
                 <div class="add-task-container">
