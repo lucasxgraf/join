@@ -121,14 +121,14 @@ async function overlayDeleteCard() {
       await deleteTaskFromFirebase(CARD.id);
       showDeleteToast();
       toggleOverlay();
-      await loadTasks();
+      await loadTasks("board");
     }
     return;
   }
   await deleteTaskFromFirebase(CARD_ID);
   showDeleteToast();
   toggleOverlay();
-  await loadTasks();
+  await loadTasks("board");
 }
 
 function openOverlayEdit(cardId) {

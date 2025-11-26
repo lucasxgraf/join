@@ -1,4 +1,8 @@
-greetingTime();
+
+ function inittest() {
+    loadTasks("summary") 
+    greetingTime();
+}
 
 function greetingTime() {
 let greeting = document.getElementById('timeGreeting');
@@ -22,6 +26,56 @@ const hour = now.getHours();
             break;
     }
 }
+function splitCardsByStatus(cards) {
+  const todo = [];
+  const done = [];
+  const inProgress = [];
+  const awaitFeedback = [];
+
+  for (let card of cards) {     
+    switch (card.dragclass) {      
+      case "todo":
+        todo.push(card);
+        break;
+      case "done":
+        done.push(card);
+        break;
+      case "inprogress":
+        inProgress.push(card);
+        break;
+      case "awaitfeedback":
+        awaitFeedback.push(card);
+        break;
+    }
+  }
+  updateSummary(todo, done, inProgress, awaitFeedback)
+}
+function countUrgentPriority(cards) {
+ const urgentRef = document.getElementById("urgentNumber")
+  let counter = 0;
+
+  for (let card of cards) {          
+    if (card.priority === "urgent") { 
+      counter++;
+    }
+  }
+    urgentRef.innerHTML = counter
+}
+
+function updateSummary(todo, done, inProgress, awaitFeedback) {
+   const todoRef = document.getElementById("todoNumber")
+   const doneRef = document.getElementById("doneNumber")
+   const taskProgressNumberRef = document.getElementById("taskProgressNumber")
+   const feedbackNumberRef = document.getElementById("feedbackNumber")
+   const taskBoardNumberRef = document.getElementById("taskBoardNumber")
+   
+    todoRef.innerHTML = todo.length;
+    doneRef.innerHTML = done.length;
+    taskProgressNumberRef.innerHTML = inProgress.length;
+    feedbackNumberRef.innerHTML = awaitFeedback.length;
+
+    taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
+}
 
 window.addEventListener("DOMContentLoaded", hoverTwoCardsEvent);
 window.addEventListener("DOMContentLoaded", hoverlongCard);
@@ -311,3 +365,4 @@ function resetfeedback() {
     number.style.color = "#2A3647";
     text.style.color = "#2A3647";
 }
+
