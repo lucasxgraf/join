@@ -28,134 +28,134 @@
 
 <body onload="initBoard()">
     <div class="upper-container">
-    <nav>
-      <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
-      <div class="sidebar-content">
-        <div class="sidebar-links-container">
-          <a class="sidebar-links" href="./summary.html">
-            <img src="../assets/svg/icons_page/summary.svg">
-            Summary
-          </a>
-          <a class="sidebar-links" href="./addTask.html">
-            <img src="../assets/svg/icons_page/add_task.svg">
-            Add Task
-          </a>
-          <a class="sidebar-links" href="./board.html">
-            <img src="../assets/svg/icons_page/board.svg">
-            Board
-          </a>
-          <a class="sidebar-links" href="./contacts.html">
-            <img src="../assets/svg/icons_page/contacts.svg">
-            Contacts
-          </a>
-        </div>
-        <div class="sidebar-bottom">
-          <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
-          <a href="../components/html/legalNotice.html">Legal notice</a>
-        </div>
-      </div>
-    </nav>
-    <div class="center-wrap">
-      <header>
-        <div class="header_content">
-          <h2>Kanban Project Management Tool</h2>
-          <div class="profile-section">
-            <a href="../components/html/help.html" >
-              <button class="help-icon"><img src="../assets/svg/help_small.svg"></button>
+      <nav>
+        <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+        <div class="sidebar-content">
+          <div class="sidebar-links-container">
+            <a class="sidebar-links" href="./summary.html">
+              <img src="../assets/svg/icons_page/summary.svg">
+              Summary
             </a>
-            <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+            <a class="sidebar-links" href="./addTask.html">
+              <img src="../assets/svg/icons_page/add_task.svg">
+              Add Task
+            </a>
+            <a class="sidebar-links" href="./board.html">
+              <img src="../assets/svg/icons_page/board.svg">
+              Board
+            </a>
+            <a class="sidebar-links" href="./contacts.html">
+              <img src="../assets/svg/icons_page/contacts.svg">
+              Contacts
+            </a>
+          </div>
+          <div class="sidebar-bottom">
+            <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+            <a href="../components/html/legalNotice.html">Legal notice</a>
           </div>
         </div>
-      </header>
-
-      <div class="dropdown-menu-container" id="dropDownMenu">
-        <div class="dropdown-menu">
-          <a href="../components/html/legalNotice.html">
-            <button>Legal Notice</button>
-          </a>
-          <a href="../components/html/privacyPolicy.html">
-            <button>Privacy Policy</button>
-          </a>
-          <a>
-            <button onclick="logoutUser()">Log out</button>
-          </a>
-        </div>
-      </div> 
-
-      <main>
-        <div class="scroll_layout">
-          <div class="content_header">
-              <h1>Board</h1>
-              <div class="content_header_right">
-                <div class="search_container">
-                  <input type="text" class="search_input" placeholder="Find Task" id="searchInput">
-                  <span class="search_icon"></span>
-                  <div class="search_results" id="searchResults"></div>
-                </div>
-
-                <button class="addTaskButton" onclick="showDialog('todo')">Add task
-                    <img src="../assets/svg/add.svg" alt="Plus symbol">
-                </button>
-              </div>
+      </nav>
+      <div class="center-wrap">
+        <header>
+          <div class="header_content">
+            <h2>Kanban Project Management Tool</h2>
+            <div class="profile-section">
+              <a href="../components/html/help.html" >
+                <button class="help-icon"><img src="../assets/svg/help_small.svg"></button>
+              </a>
+              <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
             </div>
+          </div>
+        </header>
 
-            <section class="content_col">
-            <div>
-              <div class="singleDragContainerHeader">
-                  <h3>To do</h3>
-                  <button class="addTask" onclick="showDialog('todo')">
+        <div class="dropdown-menu-container" id="dropDownMenu">
+          <div class="dropdown-menu">
+            <a href="../components/html/legalNotice.html">
+              <button>Legal Notice</button>
+            </a>
+            <a href="../components/html/privacyPolicy.html">
+              <button>Privacy Policy</button>
+            </a>
+            <a>
+              <button onclick="logoutUser()">Log out</button>
+            </a>
+          </div>
+        </div> 
+
+        <main>
+          <div class="scroll_layout">
+            <div class="content_header">
+                <h1>Board</h1>
+                <div class="content_header_right">
+                  <div class="search_container">
+                    <input type="text" class="search_input" placeholder="Find Task" id="searchInput">
+                    <span class="search_icon"></span>
+                    <div class="search_results" id="searchResults"></div>
+                  </div>
+
+                  <button class="addTaskButton" onclick="showDialog('todo')">Add task
                       <img src="../assets/svg/add.svg" alt="Plus symbol">
                   </button>
+                </div>
               </div>
-              <div class="singleDragContainer" id="todo" ondrop="moveTo('todo')" ondragover="dragoverHandler(event)">
-              </div>  
-            </div>
 
-              <div>    
+              <section class="content_col">
+              <div>
                 <div class="singleDragContainerHeader">
-                    <h3>In progress</h3>
-                    <button class="addTask" onclick="showDialog('inprogress')">
+                    <h3>To do</h3>
+                    <button class="addTask" onclick="showDialog('todo')">
                         <img src="../assets/svg/add.svg" alt="Plus symbol">
                     </button>
                 </div>
-                <div class="singleDragContainer" id="inProgress" ondrop="moveTo('inprogress')" ondragover="dragoverHandler(event)">
+                <div class="singleDragContainer" id="todo" ondrop="moveTo('todo')" ondragover="dragoverHandler(event)">
+                </div>  
+              </div>
+
+                <div>    
+                  <div class="singleDragContainerHeader">
+                      <h3>In progress</h3>
+                      <button class="addTask" onclick="showDialog('inprogress')">
+                          <img src="../assets/svg/add.svg" alt="Plus symbol">
+                      </button>
+                  </div>
+                  <div class="singleDragContainer" id="inProgress" ondrop="moveTo('inprogress')" ondragover="dragoverHandler(event)">
+                  </div>
+                </div>
+
+                <div> 
+                  <div class="singleDragContainerHeader">
+                    <h3>Await feedback</h3>
+                    <button class="addTask" onclick="showDialog('awaitfeedback')">
+                        <img src="../assets/svg/add.svg" alt="Plus symbol">
+                    </button>
+                  </div>
+                  <div class="singleDragContainer" id="awaitFeedback" ondrop="moveTo('awaitfeedback')" ondragover="dragoverHandler(event)">
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="singleDragContainerHeader">
+                    <h3>Done</h3>
+                  </div>
+                  <div class="singleDragContainer" id="done" ondrop="moveTo('done')" ondragover="dragoverHandler(event)">
+                  </div>
+              </div>
+              </section>
+
+              <div class="dnone" id="addTaskOverlay" onclick="closeDialog()">
+                <div class="dialogWindow" id="addTaskDialog" onclick="event.stopPropagation()">
+                  <div class="addTaskDialogContainer">
+                    <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
+                    <div id="addTaskAtBoardPage"></div>
+                  </div>
                 </div>
               </div>
 
-              <div> 
-                <div class="singleDragContainerHeader">
-                  <h3>Await feedback</h3>
-                  <button class="addTask" onclick="showDialog('awaitfeedback')">
-                      <img src="../assets/svg/add.svg" alt="Plus symbol">
-                  </button>
-                </div>
-                <div class="singleDragContainer" id="awaitFeedback" ondrop="moveTo('awaitfeedback')" ondragover="dragoverHandler(event)">
-                </div>
-              </div>
-              
-              <div>
-                <div class="singleDragContainerHeader">
-                  <h3>Done</h3>
-                </div>
-                <div class="singleDragContainer" id="done" ondrop="moveTo('done')" ondragover="dragoverHandler(event)">
-                </div>
+            <div id="overlay" class="d_none" onclick="toggleOverlay()">
+              <div id="overlay_card" onclick="stopOverlayClose(event)"></div>
             </div>
-            </section>
-
-            <div class="dnone" id="addTaskOverlay" onclick="closeDialog()">
-              <div class="dialogWindow" id="addTaskDialog" onclick="event.stopPropagation()">
-                <div class="addTaskDialogContainer">
-                  <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt=""></button>
-                  <div id="addTaskAtBoardPage"></div>
-                </div>
-              </div>
-            </div>
-
-          <div id="overlay" class="d_none" onclick="toggleOverlay()">
-            <div id="overlay_card" onclick="stopOverlayClose(event)"></div>
           </div>
-        </div>
-      </main>
-    
+        </main>
+    </div>
 </body>
 </html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="shortcut icon" href="../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
+   
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
+    <link rel="stylesheet" href="../styles/summary.css">
+
+    <script type="module" src="../scripts/firebase_auth.js" defer></script>
+    <script src="../components/js/summary_header.js"></script>
+    <script src="../scripts/api.js"></script>
+</head>
+
+<body>
+    <div class="upper-container">
+        <nav>
+          <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+          <div class="sidebar-content">
+            <div class="sidebar-links-container">
+              <a class="sidebar-links" href="./summary.html">
+                <img src="../assets/svg/icons_page/summary.svg">
+                Summary
+              </a>
+              <a class="sidebar-links" href="./addTask.html">
+                <img src="../assets/svg/icons_page/add_task.svg">
+                Add Task
+              </a>
+              <a class="sidebar-links" href="./board.html">
+                <img src="../assets/svg/icons_page/board.svg">
+                Board
+              </a>
+              <a class="sidebar-links" href="./contacts.html">
+                <img src="../assets/svg/icons_page/contacts.svg">
+                Contacts
+              </a>
+            </div>
+            <div class="sidebar-bottom">
+              <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+              <a href="../components/html/legalNotice.html">Legal notice</a>
+            </div>
+          </div>
+        </nav>
+        <div class="center-wrap">
+          <header>
+            <div class="header_content">
+              <h2>Kanban Project Management Tool</h2>
+              <div class="profile-section">
+                <a href="../components/html/help.html" >
+                  <button class="help-icon"><img src="../assets/svg/help_small.svg"></button>
+                </a>
+                <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+              </div>
+            </div>
+          </header>
+          <div class="dropdown-menu-container" id="dropDownMenu">
+            <div class="dropdown-menu">
+              <a href="../components/html/legalNotice.html">
+                <button>Legal Notice</button>
+              </a>
+              <a href="../components/html/privacyPolicy.html">
+                <button>Privacy Policy</button>
+              </a>
+              <a>
+                <button onclick="logoutUser()">Log out</button>
+              </a>
+            </div>
+          </div> 
+
+        <main>
+            <div class="scroll_layout">         
+                <div style="display: flex;">   
+                    <div>  
+                        <div class="headlines">
+                            <h1>Join 360</h1>
+                            <div class="blue-divider"></div>
+                            <h2 class="join-subline">Key Metrics at a Glance</h2>
+                        </div>
+                        <div class="two-cards">
+                            <div class="card-to-do" id="todoCard">
+                                <span><img src="../assets/svg/pencil_default.svg" id="iconToDo"></span>
+                                <div class="card-info">
+                                    <span class="card-font" id="todoNumber">1</span>
+                                    <span class="task-category" id="taskToDo">To-Do</span>
+                                </div>
+                            </div>
+                            <div class="card-done" id="doneCard">
+                                <span><img src="../assets/svg/check_default.svg" id="iconDone"></span>
+                                <div class="card-info">
+                                    <span class="card-font" id="doneNumber">1</span>
+                                    <span class="task-category" id="taskDone">Done</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="long-card" id="longCard">
+                            <span><img src="../assets/svg/urgent_icon.svg"></span>
+                            <div class="card-info">
+                                    <span class="card-font" id="urgentNumber">1</span>
+                                    <span class="task-category" id="taskUrgent">Urgent</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="urgent-info">
+                                <span id="dateText" class="date">date</span>
+                                <span id="dateSubline" class="date-subline">Upcoming Deadline</span>
+                            </div>
+                        </div>
+                        <div class="three-cards-row">
+                            <div class="task-board-container" id="taskBoard">
+                                <span class="three-card-number" id="taskBoardNumber">5</span>
+                                <span class="three-card-subline" id="taskBoardText">Tasks in Board</span>
+                            </div>
+                            <div class="task-progress-container" id="taskProgress">
+                                <span class="three-card-number" id="taskProgressNumber">2</span>
+                                <span class="three-card-subline" id="taskProgressText">Tasks in Progress</span>
+                            </div>
+                            <div class="feedback-container" id="feedback">
+                                <span class="three-card-number" id="feedbackNumber">2</span>
+                                <span class="three-card-subline" id="feedbackText">Awaiting Feedback</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="greetings">
+                        <span id="timeGreeting">Good morning,</span>
+                        <span id="userGreeting">Sofia Müller</span>
+                    </div>
+                </div>     
+            </div>
+        </main>
+</body>
+</html>
