@@ -156,11 +156,11 @@ function selectContacts(i, checkbox) {
 
 function updateAssignedInput() {
   const input = document.getElementById("selectedAssigned");
+  
   if (contactList.length === 0) {
-
     input.value = "";
   } else 
-    input.value = "Select contacts to assign";
+    input.value = "Select contacts to assign";   
 }
 
 function iconContactHTML(currentId) {

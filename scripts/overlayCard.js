@@ -289,7 +289,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
           <h3>Title</h3>
         </label> 
         <div>  
-          <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" value="${CARD.title||''}"/>
+          <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" oninput="checkEditOverlayInput()" value="${CARD.title||''}"/>
           <div id="titleErrorEditOverlay" class="error_message"></div>
         </div> 
       </div>
@@ -305,7 +305,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         </label>
         <div> 
           <div id="dateOverlayEdit" class="task-input dpf sp_between inputWrapper">
-            <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" placeholder="dd/mm/yyyy" 
+            <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); checkEditOverlayInput()" placeholder="dd/mm/yyyy" 
               maxlength="10">
             </input>
             <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
@@ -331,7 +331,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Assigned to</h3>
           <div class="custom-category-dropdown" id="contactDropdownOverlayEdit">
               <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
-                  <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
+                  <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
               </div>
               <div class="dropdown-list" id="categoryDropdownList">
@@ -406,7 +406,7 @@ function renderContactOnHTMLOverlayEdit(contactFromFirebase, currentId) {
 
 function selectContactsOverlayEdit(i, checkbox) {
   const contact = contactFromFirebase[i];
-  
+  const PlaceholderRef = document.getElementById("selectedAssignedEditOverlay")
   if (checkbox.checked) {
     const badge = document.createElement('div');
     badge.className = 'iconConact dpf_cc';
@@ -414,8 +414,11 @@ function selectContactsOverlayEdit(i, checkbox) {
     badge.innerHTML = `<span>${contact.name.firstname.slice(0, 1)}${contact.name.secondname.slice(0, 1)}</span>`;
     badge.dataset.userId = contact.userid;
     contactBadge.push(badge);
+    PlaceholderRef.value = "Select contacts to assign";   
+
   } else {
     contactBadge = contactBadge.filter(b => b.dataset.userId !== contact.userid);
+    PlaceholderRef.value = "";   
   }
   
   iconContactHTML("iconContactOverlayEdit");
