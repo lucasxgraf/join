@@ -4,60 +4,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join - Help</title>
-  <link rel="shortcut icon" href="../assets/img/logo/join_logo.png" type="image/x-icon"/>
+  <title>Join - Privacy policy</title>
+  <link rel="shortcut icon" href="../../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
 
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../styles/standard.css">
-  <link rel="stylesheet" href="../header_sidebar/headbar_sidebar.css">
-  <link rel="stylesheet" href="../styles/legalNotice_privacyPolicy_help.css">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../styles/standard.css">
+  <link rel="stylesheet" href="../../components/css/headbar_sidebar.css">
+  <link rel="stylesheet" href="../../components/css/legalNotice_privacyPolicy_help.css">
 
-  <script type="module" src="../scripts/firebase_auth.js" defer></script>
-  <script src="../header_sidebar/summary_header.js"></script>
+  <script type="module" src="../../scripts/firebase_auth.js" defer></script>
+  <script src="../../components/js/summary_header.js"></script>
 </head>
 
 <body class="template">
   <div class="upper-container">
-    <nav>
-      <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+<nav>
+      <img class="sidebar-logo" src="../../assets/img/logo/join_logo_vector.svg">
       <div class="sidebar-content">
         <div class="sidebar-links-container">
-          <a class="sidebar-links" href="#">
-            <img src="../assets/svg/icons_page/add_task.svg">
-            Add Task
-          </a>
-          <a class="sidebar-links" href="#">
-            <img src="../assets/svg/icons_page/summary.svg">
+          <a class="sidebar-links" href="./summary.html">
+            <img src="../../assets/svg/icons_page/summary.svg">
             Summary
           </a>
-          <a class="sidebar-links" href="#">
-            <img src="../assets/svg/icons_page/board.svg">
+          <a class="sidebar-links" href="../../pages/addTask.html">
+            <img src="../../assets/svg/icons_page/add_task.svg">
+            Add Task
+          </a>
+          <a class="sidebar-links" href="../../pages/board.html">
+            <img src="../../assets/svg/icons_page/board.svg">
             Board
           </a>
-          <a class="sidebar-links" href="#">
-            <img src="../assets/svg/icons_page/contacts.svg">
+          <a class="sidebar-links" href="./contacts.html">
+            <img src="../../assets/svg/icons_page/contacts.svg">
             Contacts
           </a>
         </div>
         <div class="sidebar-bottom">
-          <a href="../privacyPolicy/privacyPolicy.html">Privacy Policy</a>
-          <a href="../legalNotice/legalNotice.html">Legal notice</a>
+          <a href="./privacyPolicy.html">Privacy Policy</a>
+          <a href="./legalNotice.html">Legal notice</a>
         </div>
       </div>
     </nav>
     <div class="center-wrap">
-      <header class="header-template">
+      <header>
+        <div class="header_content">
           <h2>Kanban Project Management Tool</h2>
           <div class="profile-section">
+            <a href="../components/html/help.html" >
+              <button class="help-icon"><img src="../../assets/svg/help_small.svg"></button>
+            </a>
             <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
           </div>
+        </div>
       </header>
       <div class="dropdown-menu-container" id="dropDownMenu">
         <div class="dropdown-menu">
-          <a href="../legalNotice/legalNotice.html">
+          <a href="./legalNotice.html">
             <button>Legal Notice</button>
           </a>
-          <a href="../privacyPolicy/privacyPolicy.html">
+          <a href="./privacyPolicy.html">
             <button>Privacy Policy</button>
           </a>
           <a>
@@ -69,7 +74,7 @@
         <div class="scroll_layout">
           <div class="help_header">
             <h1>Help</h1>
-            <button onclick="history.back()"><img src="../assets/svg/arrow.svg" alt="go back arrow"/></button>
+            <button onclick="history.back()"><img src="../../assets/svg/arrow.svg" alt="go back arrow"/></button>
           </div>
           <p>Welcome to the help page for <span>Join</span>, your guide to using our kanban project management tool. Here, we'll provide an overview of what Join is, how it can benefit you, and how to use it.</p>
           <h2>What is Join?</h2>

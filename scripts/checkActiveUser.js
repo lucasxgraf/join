@@ -1,4 +1,4 @@
-import { getCurrentUser, logoutUser } from './scripts/firebase_auth.js';
+import { getCurrentUser, logoutUser } from '../scripts/firebase_auth.js';
 
 // Prüft ob User eingeloggt ist -> Wird auf geschützten Seiten aufgerufen
 
@@ -11,9 +11,7 @@ async function checkUser() {
 }
 
 // Logout Funktion -> Wird vom Logout Button aufgerufen
-function logout() {
-  logoutUser();
-}
+logoutUser();
 
 // Automatisch beim Laden der Seite prüfen
 checkUser();

@@ -65,12 +65,25 @@ document.addEventListener("click", function (event) {
 function initSignUpButtonState() {
   if (!SIGN_BTN_REGISTER || !PRIVACY_CHECKBOX) 
     return;
+  
   const UPDATE_SIGN_BTN_REGISTER = () => {
-    SIGN_BTN_REGISTER.disabled = !PRIVACY_CHECKBOX.checked;
+    const allFieldsFilled = 
+      SIGNUP_NAME_INPUT.value.trim() !== "" &&
+      SIGNUP_EMAIL_INPUT.value.trim() !== "" &&
+      SIGNUP_PSW_INPUT.value !== "" &&
+      SIGNUP_CONF_PSW_INPUT.value !== "" &&
+      PRIVACY_CHECKBOX.checked;
+    
+    SIGN_BTN_REGISTER.disabled = !allFieldsFilled;
     SIGN_BTN_REGISTER.classList.toggle("disabled_btn", SIGN_BTN_REGISTER.disabled);
   };
+  
   UPDATE_SIGN_BTN_REGISTER();
   PRIVACY_CHECKBOX.addEventListener("change", UPDATE_SIGN_BTN_REGISTER);
+  SIGNUP_NAME_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
+  SIGNUP_EMAIL_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
+  SIGNUP_PSW_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
+  SIGNUP_CONF_PSW_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
 }
 
 // Prüft ob Passwörter übereinstimmen

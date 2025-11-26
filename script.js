@@ -59,3 +59,4 @@ function fadeInElement(selector, delay = 1000) {
     ELEMENT.style.animation = "fadeIn 3s forwards";
   }, delay);
 }
+
