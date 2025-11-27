@@ -16,6 +16,17 @@ header {
     padding: 80px 80px 0;
 }
 
+.content-layout{
+    display: flex;
+    gap: 32px;
+}
+
+.content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 h1 {
     margin-bottom: 0;
     font-size: 3.25rem;
@@ -95,7 +106,6 @@ button {
     text-align: center;
     padding-right: 0;
     color: #29ABE2;
-    font-family: Inter;
     font-weight: 700;
     font-size: 18px;
 }
@@ -126,12 +136,10 @@ button {
     border-radius: 30px 0 30px 30px;
     height: 200px;
     width: 150px;
-    
 }
 
 .dropdown-menu button {
     border: 0;
-    font-family: Inter;
     color: #CDCDCD;
     cursor: pointer;
     font-size: 16px;
@@ -161,13 +169,15 @@ button {
 .headlines {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 30px;
-    justify-content: center;
-    margin-bottom: 48px;
+    margin-bottom:24px
 }
 
 .two-cards {
     display: flex;
+    justify-content: space-between;
+    gap: 24px;
 }
 
 .card-to-do {
@@ -188,7 +198,6 @@ button {
     width: 250px;
     background-color: white;
     border-radius: 30px;
-    margin-left: 32px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     gap: 30px;
@@ -198,13 +207,11 @@ button {
 }
 
 .card-font {
-    font-family: Inter;
     font-weight: 700;
     font-size: 64px;
 }
 
 .task-category {
-    font-family: Inter;
     font-weight: 400;
     font-size: 20px;
 }
@@ -229,14 +236,12 @@ button {
 
 .long-card {
     background-color: white;
-    width: 532px;
+    width: 100%;
     height: 150px;
-    margin-top: 25px;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    gap: 40px;
-    justify-content: center;
+    justify-content: space-evenly;
     transition: all 0.1s ease;
 }
 
@@ -246,8 +251,12 @@ button {
     transform: translate(10px, 5px) scale(1.05);
 }
 
+.long-card-left{
+    display: flex;
+    gap: 10px;
+}
+
 .date-subline {
-    font-family: Inter;
     font-weight: 400;
     font-size: 16px;
 }
@@ -259,7 +268,6 @@ button {
 }
 
 .date {
-    font-family: Inter;
     font-weight: 700;
     font-size: 21px;
     text-align: center;
@@ -272,9 +280,8 @@ button {
 }
 
 .three-cards-row {
-    margin-top: 25px;
     display: flex;
-    gap: 32px;
+    justify-content: space-between;
 }
 
 .task-board-container {
@@ -331,14 +338,12 @@ button {
 }
 
 .three-card-number {
-    font-family: Inter;
     font-weight: 600;
     font-size: 64px;
     color: #2A3647;
 }
 
 .three-card-subline {
-    font-family: Inter;
     font-weight: 400;
     color: #2A3647;
 }
@@ -350,14 +355,15 @@ button {
 
 .greetings {
     display: flex;
-    flex: 1 1 0;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: column;  
+    flex-grow: 1;
 }
 
-.greetings span {
-    font-family: Inter;
+.content-right{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
 #timeGreeting {

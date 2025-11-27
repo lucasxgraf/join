@@ -15,6 +15,8 @@
     <script type="module" src="../scripts/summary.js"></script>
     <script src="../scripts/calender.js"></script>
     <script src="../scripts/login.js"></script>
+    <script src="../script.js"></script>
+    <script src="../scripts/summary.js"></script>
     <script type="module" src="../scripts/firebase_auth.js" defer></script>
     <script src="../components/js/summary_header.js"></script>
 </head>
@@ -76,13 +78,18 @@
 
         <main>
             <div class="scroll_layout">         
-                <div style="display: flex;">   
-                    <div>  
-                        <div class="headlines">
-                            <h1>Join 360</h1>
-                            <div class="blue-divider"></div>
-                            <h2 class="join-subline">Key Metrics at a Glance</h2>
-                        </div>
+                    <div class="headlines">
+                        <h1>Join 360</h1>
+                        <div class="blue-divider"></div>
+                        <h2 class="join-subline">Key Metrics at a Glance</h2>
+                    </div>
+                      
+                    
+
+
+                    <div class="content-layout">
+
+                    <div class="content-left">
                         <div class="two-cards">
                             <div class="card-to-do" id="todoCard">
                                 <span><img src="../assets/svg/pencil_default.svg" id="iconToDo"></span>
@@ -100,10 +107,12 @@
                             </div>
                         </div>
                         <div class="long-card" id="longCard">
-                            <span><img src="../assets/svg/urgent_icon.svg"></span>
-                            <div class="card-info">
+                            <div class="long-card-left">
+                                <img src="../assets/svg/urgent_icon.svg">
+                                <div class="card-info">
                                     <span class="card-font" id="urgentNumber">0</span>
                                     <span class="task-category" id="taskUrgent">Urgent</span>
+                                </div>
                             </div>
                             <div class="divider"></div>
                             <div class="urgent-info">
@@ -126,12 +135,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="greetings">
-                        <span id="timeGreeting"></span>
-                        <span id="userGreeting">Sofia Müller</span>
+
+                        <div class="greetings">
+                            <div class="content-right">
+                                <span id="timeGreeting">Good morning,</span>
+                                <span id="userGreeting">Sofia Müller</span>
+                            </div>
+                        </div>
+
+
+
+
+
+
                     </div>
-                </div>     
             </div>
         </main>
-</body>
+    </body>
 </html>
