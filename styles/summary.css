@@ -16,63 +16,17 @@ header {
     padding: 80px 80px 0;
 }
 
-.content-layout{
+.headlines {
     display: flex;
-    gap: 32px;
-}
-
-.content-left {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom:24px
 }
 
 h1 {
     margin-bottom: 0;
     font-size: 3.25rem;
-}
-
-.sidebar {
-    background-color: #2A3647;
-    height: 100vh;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-logo {
-    margin-top: 64px;
-    height: 108px;
-    margin-bottom: 64px;
-}
-
-.next-page {
-    gap: 20px;
-    margin-bottom: 64px;
-}
-
-.next-page img {
-    width: 200px;
-}
-
-.add-task:hover, 
-.board:hover, 
-.contacts:hover {
-    background-color:#2A3D59;
-    cursor: pointer;
-}
-
-button {
-    background-color: transparent;
-    padding-left: 0;
-}
-
-.summary, 
-.add-task, 
-.board, 
-.contacts {
-    width: 200px;
-    border: 0;
 }
 
 .blue-divider {
@@ -83,95 +37,19 @@ button {
 
 .join-subline {
     font-weight: 400;
-    font-size: 27px;
+    font-size: 1.875rem;
     text-wrap: nowrap;
 }
 
-.help-icon {
-    border: 0;
+.content-layout{
+    display: flex;
+    gap: 32px;
 }
 
-.help-icon:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.profile {
-    border-radius: 50%;
-    border-color: #2A3647;
-    width: 64px;
-    height: 64px;
-    border-width: 4px;
-    border-style: solid;
-    text-align: center;
-    padding-right: 0;
-    color: #29ABE2;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.profile:hover {
-    cursor: pointer;
-    background-color: #E1E6EC;
-}
-
-.dropdown-menu-container {
-    display: none;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    margin-right: 16px;
-    text-align: center;
-    position: absolute;
-    right: 0;
-
-}
-
-.dropdown-menu {
+.main-content-left {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #2A3647;
-    border-radius: 30px 0 30px 30px;
-    height: 200px;
-    width: 150px;
-}
-
-.dropdown-menu button {
-    border: 0;
-    color: #CDCDCD;
-    cursor: pointer;
-    font-size: 16px;
-    text-wrap: nowrap;
-    padding: 13px;
-}
-
-.dropdown-menu button:hover {
-    background-color: #2A3D59;
-}
-
-.header-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.header-wrap h2 {
-    margin-left: 64px;
-}
-
-.center-wrap {
-    flex-direction: column;
-    width: 100%;
-}
-
-.headlines {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 30px;
-    margin-bottom:24px
+    gap: 24px;
 }
 
 .two-cards {
@@ -180,7 +58,12 @@ button {
     gap: 24px;
 }
 
-.card-to-do {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-first-row{
     height: 150px;
     width: 250px;
     background-color: white;
@@ -193,27 +76,40 @@ button {
     transition: all 0.1s ease;
 }
 
-.card-done {
-    height: 150px;
-    width: 250px;
-    background-color: white;
-    border-radius: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.1s ease;
+.card-first-row:hover{
+    background-color: #2A3647;
+    cursor: pointer;
+    transform: translate(10px, -5px) scale(1.05);
+    color: white;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.card-font {
-    font-weight: 700;
-    font-size: 64px;
+#iconToDo {
+    width: 70px;
+    height: 70px;
+    background-image: url('../assets/svg/pencil_default.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
 }
 
-.task-category {
-    font-weight: 400;
-    font-size: 20px;
+.card-first-row:hover #iconToDo {
+    background-image: url('../assets/svg/pencil_hover.svg');
+}
+
+#iconDone {
+    width: 70px;
+    height: 70px;
+    background-image: url('../assets/svg/check_default.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+}
+
+.card-first-row:hover #iconDone {
+    background-image: url('../assets/svg/check_hover.svg');
 }
 
 .card-info {
@@ -222,19 +118,16 @@ button {
     text-align: center;
 }
 
-.card-to-do:hover {
-    background-color: #2A3647;
-    cursor: pointer;
-    transform: translate(10px, -5px) scale(1.05);
+.card-font {
+    font-weight: 700;
+    font-size: 3.75rem;
 }
 
-.card-done:hover {
-    background-color: #2A3647;
-    cursor: pointer;
-    transform: translate(-10px, -5px) scale(1.05);
+.task-category {
+    font-size: 1.25rem;
 }
 
-.long-card {
+.card-second-row {
     background-color: white;
     width: 100%;
     height: 150px;
@@ -245,32 +138,17 @@ button {
     transition: all 0.1s ease;
 }
 
-.long-card:hover {
+.card-second-row:hover {
     background-color: #2A3647;
     cursor: pointer;
-    transform: translate(10px, 5px) scale(1.05);
+    transform: translate(10px, -5px) scale(1.05);
+    color: white;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.long-card-left{
+.card-second-row-left{
     display: flex;
-    gap: 10px;
-}
-
-.date-subline {
-    font-weight: 400;
-    font-size: 16px;
-}
-
-.urgent-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.date {
-    font-weight: 700;
-    font-size: 21px;
-    text-align: center;
+    gap: 24px;
 }
 
 .divider {
@@ -279,12 +157,24 @@ button {
     background-color: #E2E6EC;
 }
 
+.card-second-row-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.date {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
 .three-cards-row {
     display: flex;
     justify-content: space-between;
 }
 
-.task-board-container {
+.card-third-row {
     width: 156px;
     height: 150px;
     background-color: white;
@@ -296,71 +186,27 @@ button {
     transition: all 0.1s ease;
 }
 
-.task-board-container:hover {
+.card-third-row:hover{
     transform: translate(10px, -5px) scale(1.05);
     background-color: #2A3647;
-}
-
-.task-progress-container {
-    width: 156px;
-    height: 150px;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.1s ease;
-}
-
-.task-progress-container:hover {
-    transform: scale(1.05);
-    background-color: #2A3647;
     cursor: pointer;
+    color: white;
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.feedback-container {
-    width: 156px;
-    height: 150px;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.1s ease;
-}
-
-.feedback-container:hover {
-    transform: translate(-10px, -5px) scale(1.05);
-    background-color: #2A3647;
-    cursor: pointer;
-}
-
-.three-card-number {
+.card-third-row-number {
     font-weight: 600;
-    font-size: 64px;
-    color: #2A3647;
+    font-size: 3.75rem;
 }
 
-.three-card-subline {
-    font-weight: 400;
-    color: #2A3647;
-}
-
-.content {
-    flex: 1 1 0;
-    padding-left: 70px;
-}
-
-.greetings {
+.main-content-right {
     display: flex;
     justify-content: center;
     flex-direction: column;  
     flex-grow: 1;
 }
 
-.content-right{
+.greetings{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -369,7 +215,7 @@ button {
 #timeGreeting {
    font-weight: 500;
    color: #2A3647;
-   font-size: 47px;
+   font-size: 48px;
 }
 
 #userGreeting {

@@ -91,7 +91,6 @@ document.addEventListener("click", function (event) {
   }
 });
 
-
 // Behandelt Login Form Submit
 async function handleLoginSubmit(event) {
   event.preventDefault();
@@ -106,7 +105,7 @@ async function handleLoginSubmit(event) {
   // Login mit Firebase Auth
   const RESULT = await loginUser(EMAIL, PASSWORD);
   if (RESULT.success) {
-    window.location.href = "/join/pages/summary.html";
+    window.location.href = "pages/summary.html";
   } else {
     showLoginError(RESULT.error);
   }
@@ -117,7 +116,7 @@ async function handleGuestLogin() {
   const RESULT = await loginAsGuest();
   
   if (RESULT.success) {
-    window.location.href = "/join/pages/summary.html";
+    window.location.href = "pages/summary.html";
   } else {
     alert("Guest login failed. Please try again.");
   }
