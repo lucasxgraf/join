@@ -104,6 +104,11 @@ function watchAuthState() {
   });
 }
 
+function onAuthChange(callback) {
+  // Gibt die Unsubscribe-Funktion zurück, falls du die Subscription abbestellen willst
+  return onAuthStateChanged(AUTH, callback);
+}
+
 // Prüft ob ein User eingeloggt ist (für geschützte Seiten)
 function getCurrentUser() {
   return new Promise((resolve) => {
@@ -160,6 +165,7 @@ export {
   watchAuthState,
   getCurrentUser,
   getUserData,
+  onAuthChange
 };
 
 window.logoutUser = logoutUser;

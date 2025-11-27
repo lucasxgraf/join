@@ -1,8 +1,24 @@
+import { getUserData, onAuthChange } from './firebase_auth.js';
 
-function inittest() {
+async function inittest() {
+    setupGreetingListener()
     loadTasks("summary")
     greetingTime();
 }
+
+function setupGreetingListener() {
+    // onAuthChange liefert user (oder null) bei jeder Änderung
+    onAuthChange(async (user) => {
+      const userGreetingElement = document.getElementById('userGreeting');
+      if (!user) {
+        userGreetingElement.textContent = '';
+        return;
+      }
+      // hole zusätzliche Daten aus DB (falls vorhanden)
+      const userData = await getUserData(user.uid);
+      userGreetingElement.textContent = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
+    });
+  }
 
 const today = new Date();
 const todo = [];
@@ -114,3 +130,7 @@ function updateSummary(todo, done, inProgress, awaitFeedback) {
 
     taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    inittest();
+  });

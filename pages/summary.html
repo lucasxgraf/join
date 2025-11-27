@@ -11,15 +11,14 @@
     <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
     <link rel="stylesheet" href="../styles/summary.css">
     
-    <script type="module" src="../scripts/summary.js"></script>
+    <script type="module" src="../scripts/summary.js" defer></script>
     <script src="../script.js"></script>
     <script src="../scripts/calender.js"></script>
     <script src="../components/js/summary_header.js"></script>
     <script src="../scripts/api.js"></script>
-    <script type="module" src="../scripts/firebase_auth.js" defer></script>
 </head>
 
-<body onload="inittest()">
+<body>
     <div class="upper-container">
         <nav>
           <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
@@ -143,8 +142,8 @@
                 </section>
                 <section class="main-content-right">
                     <div class="greetings">
-                        <span id="timeGreeting">Good morning,</span>
-                        <span id="userGreeting">Sofia Müller</span>
+                        <span id="timeGreeting"></span>
+                        <span id="userGreeting"></span>
                     </div>
                 </section>
             </div>
