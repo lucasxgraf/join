@@ -135,8 +135,6 @@ async function loadContacts() {
 async function loadTasks(ref) {
     const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
     const DATA = await RESPONSE.json();
-    
-
     if (DATA) {
       cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
     id: id,

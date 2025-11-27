@@ -14,20 +14,6 @@ function checkDate(duedateInput) {
   return true;
 }
 
-// villeicht für den Responisv mode geeignet?
-// function pickDateResponsiv() {
-//   const today = new Date(); // aktuelles Datum holen
-//   const year = today.getFullYear();
-//   const month = String(today.getMonth() + 1).padStart(2, '0'); // Monat (0–11) → +1 und mit führender Null
-//   const day = String(today.getDate()).padStart(2, '0'); // Tag mit führender Null
-//   let inputDate = document.getElementById("duedate")
-//   const dateString = `${day}/${month}/${year}`;
-  
-//   inputDate.value = ""
-//   inputDate.value = dateString;
-
-// }
-
 function pickDate(offsetDays = 0, displayid, currentid) {
   
   const today = new Date();
@@ -50,7 +36,6 @@ function pickDate(offsetDays = 0, displayid, currentid) {
   enableSubmit()
   inputDate.focus()
 }
-
 
 function isValidFutureDate(value) {
   const parts = value.split("/");
@@ -104,12 +89,9 @@ function changeMonth(direction, currentid, displayid) {
     currentMonth = 11;
     currentYear--;
 }
-
   document.getElementById("month").textContent = monthNames[currentMonth];
   document.getElementById("year").textContent = currentYear;
-
   renderCalendarDays(currentMonth, currentYear, currentid, displayid);
-
 }
 
 function renderCalendarDays(month, year, currentid, displayid) {

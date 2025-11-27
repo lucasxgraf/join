@@ -1,30 +1,7 @@
 
-import { getCurrentUser, getUserData } from './firebase_auth.js';
-
-async function inittest() {
-    await displayUserName();
+function inittest() {
     loadTasks("summary")
     greetingTime();
-}
-
-async function displayUserName() {
-    try {
-        const user = await getCurrentUser();
-        if (user) {
-            const userData = await getUserData(user.uid);
-            const userGreetingElement = document.getElementById('userGreeting');
-
-            if (userData && userData.name) {
-                userGreetingElement.textContent = userData.name;
-            } else if (user.displayName) {
-                userGreetingElement.textContent = user.displayName;
-            } else if (user.isAnonymous) {
-                userGreetingElement.textContent = "Guest";
-            }
-        }
-    } catch (error) {
-        console.error("Error loading user name:", error);
-    }
 }
 
 const today = new Date();

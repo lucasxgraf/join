@@ -31,7 +31,6 @@ function clearSubtask() {
   addSubtaskContainer.innerHTML = ""
 }
 
-
 function clearContact() {
   contactList = [];
   contactBadge = [];
@@ -47,28 +46,19 @@ function clearContact() {
 function toggleDropdown(selector, currentId) {
   const dropdown = document.getElementById(selector);
   const isOpen = dropdown.classList.toggle("open");
-
   if (selector === "contact") {
-    renderIcon();
-  }
+    renderIcon();};
 
   if (isOpen) {
     function handleClickOutside(e) {
       if (!dropdown.contains(e.target)) {
         dropdown.classList.remove("open");
         document.removeEventListener("click", handleClickOutside);
-
-        if (currentId) iconContactHTML(currentId);
-      }
-    }
-    document.addEventListener("click", handleClickOutside);
-  }
-
+        if (currentId) iconContactHTML(currentId);}}
+    document.addEventListener("click", handleClickOutside);}
   if (!isOpen) {
-    // Nur wenn currentId existiert!!
     if (currentId) iconContactHTML(currentId);
-  }
-}
+  }}
 
 function changeCategory(selection) {
   let text = "";
@@ -120,11 +110,9 @@ function changePriority(priority, currentId) {
 }
 
 function fetchSVGs(currentId) {
-  const svgs = [
-    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
-    { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId}  .medium_icon`},
-    { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId}  .low_icon` }
-  ];
+  const svgs = [{ path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
+                { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId}  .medium_icon`},
+                { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId}  .low_icon` }];
   svgs.forEach(svg => {
     fetch(svg.path)
       .then(response => response.text())
@@ -138,14 +126,11 @@ function selectContacts(i, checkbox) {
   let badgeName = contactName[i].innerText
   let badgeEl = document.getElementById(`contactDropdownList_${i}`);
   let userId = contactFromFirebase[i].userid;
-
   const exists = contactList.some(c => c.id === userId);
 
   if (!exists) {
     contactBadge.push(badgeEl);
-    contactList.push({
-      name: badgeName,
-      id: userId
+    contactList.push({name: badgeName, id: userId
     });
   } else {
     contactList = contactList.filter(c => c.id !== userId);
@@ -198,8 +183,7 @@ function editSubtask(i) {
   editInputSubtask.focus();   
   editInputSubtask.onblur = (e) => {
   if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
-    return;
-  }
+    return;}
   cancelEditSubtask(i);
   }};
 
@@ -247,6 +231,7 @@ function clearErrors() {
 }
 
 function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId = null) {
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
   const duedateInput = document.getElementById(inputId);
   const value = duedateInput.value.trim();
   duedateInput.classList.remove("error");
@@ -256,23 +241,25 @@ function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId =
     if (wrapper) wrapper.classList.remove("errorBorder");
   }
 
-  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+  const isValid = duedateError(dateRegex, value, duedateInput, wrapperId, errorId);
+  return isValid;
+}
+
+function duedateError(dateRegex, value, duedateInput, wrapperId, errorId) {
+  const addErrorBorder = () => {
+    if (wrapperId) {
+      document.getElementById(wrapperId)?.classList.add('errorBorder');
+    }};
 
   if (!dateRegex.test(value)) {
     showError(errorId, "Please select a valid date format DD/MM/YYYY.");
-    if (wrapperId) {
-      const wrapper = document.getElementById(wrapperId);
-      if (wrapper) wrapper.classList.add('errorBorder');
-    }
+    addErrorBorder();
     return false;
   }
 
   if (!checkDate(duedateInput)) {
     showError(errorId, "The date must be today or in the future.");
-    if (wrapperId) {
-      const wrapper = document.getElementById(wrapperId);
-      if (wrapper) wrapper.classList.add('errorBorder');
-    }
+    addErrorBorder();
     return false;
   }
   return true;
@@ -322,7 +309,7 @@ function sendFeedback() {
   feedbackRef.classList.remove("dnone");
   setTimeout(() => {
   feedbackRef.classList.add("dnone");
-}, 2000);
+  }, 2000);
 }
 
 function validateInput(displayid, currentId, inputFrame) {
