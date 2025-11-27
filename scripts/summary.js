@@ -12,6 +12,7 @@ function setupGreetingListener() {
         return;
       }
       const userData = await window.getUserData(user.uid);
+      getInitialsFromUser(userData);
       userGreetingElement.textContent = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
     });
   }
@@ -125,6 +126,18 @@ function updateSummary(todo, done, inProgress, awaitFeedback) {
     feedbackNumberRef.innerHTML = awaitFeedback.length;
 
     taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
+}
+
+function getInitialsFromUser(name) {
+    const words = name.name.trim().split(/\s+/);
+    const iconHeaderInitials = document.getElementById("profilePicture");
+    
+    const initials = words
+      .filter(word => word.length > 0)
+      .map(word => word[0].toUpperCase())
+      .join('');
+    
+    iconHeaderInitials.innerHTML = initials;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

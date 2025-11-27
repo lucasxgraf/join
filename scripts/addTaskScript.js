@@ -308,8 +308,10 @@ function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
   setTimeout(() => {
-  feedbackRef.classList.add("dnone");
+    feedbackRef.classList.add("dnone");
+    window.location.href = "board.html";
   }, 2000);
+  
 }
 
 function validateInput(displayid, currentId, inputFrame) {
