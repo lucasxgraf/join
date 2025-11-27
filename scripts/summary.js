@@ -1,5 +1,3 @@
-import { getUserData, onAuthChange } from './firebase_auth.js';
-
 async function inittest() {
     setupGreetingListener()
     loadTasks("summary")
@@ -7,15 +5,13 @@ async function inittest() {
 }
 
 function setupGreetingListener() {
-    // onAuthChange liefert user (oder null) bei jeder Änderung
-    onAuthChange(async (user) => {
+    window.onAuthChange(async (user) => {
       const userGreetingElement = document.getElementById('userGreeting');
       if (!user) {
         userGreetingElement.textContent = '';
         return;
       }
-      // hole zusätzliche Daten aus DB (falls vorhanden)
-      const userData = await getUserData(user.uid);
+      const userData = await window.getUserData(user.uid);
       userGreetingElement.textContent = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
     });
   }

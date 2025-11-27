@@ -157,15 +157,22 @@ function getErrorMessage(errorCode) {
   return errorMessages[errorCode] || 'An error occurred. Please try again.';
 }
 
-export { 
-  signUpUser, 
-  loginUser, 
+export {
+  signUpUser,
+  loginUser,
   loginAsGuest,
-  logoutUser, 
+  logoutUser,
   watchAuthState,
   getCurrentUser,
   getUserData,
   onAuthChange
 };
 
+window.signUpUser = signUpUser;
+window.loginUser = loginUser;
+window.loginAsGuest = loginAsGuest;
 window.logoutUser = logoutUser;
+window.watchAuthState = watchAuthState;
+window.getCurrentUser = getCurrentUser;
+window.getUserData = getUserData;
+window.onAuthChange = onAuthChange;
