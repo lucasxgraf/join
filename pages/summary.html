@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="../styles/summary.css">
 
     <script src="../script.js"></script>
-    <script src="../scripts/summary.js"></script>
+    <!-- <script src="../scripts/summary.js"></script> -->
     <script type="module" src="../scripts/firebase_auth.js" defer></script>
     <script src="../components/js/summary_header.js"></script>
-    <script src="../scripts/summary.js"></script>
     <script src="../scripts/api.js"></script>
+    <script src="../scripts/firebase_auth.js"></script>
 </head>
 
 <body onload="inittest()">
@@ -76,77 +76,77 @@
 
         <main>
             <div class="scroll_layout">         
-                    <div class="headlines">
-                        <h1>Join 360</h1>
-                        <div class="blue-divider"></div>
-                        <h2 class="join-subline">Key Metrics at a Glance</h2>
-                    </div>
-                      
-                    
+                <div class="headlines">
+                    <h1>Join 360</h1>
+                    <div class="blue-divider"></div>
+                    <h2 class="join-subline">Key Metrics at a Glance</h2>
+                </div>
+                <div class="content-layout">
 
-
-                    <div class="content-layout">
-
-                    <div class="content-left">
-                        <div class="two-cards">
-                            <div class="card-to-do" id="todoCard">
-                                <span><img src="../assets/svg/pencil_default.svg" id="iconToDo"></span>
+                <section class="main-content-left">
+                    <div class="two-cards">
+                        <a href="./board.html">
+                            <div class="card-first-row" id="todoCard">
+                                <span id="iconToDo"></span>
                                 <div class="card-info">
-                                    <span class="card-font" id="todoNumber">#</span>
+                                    <span class="card-font" id="todoNumber"></span>
                                     <span class="task-category" id="taskToDo">To-Do</span>
                                 </div>
                             </div>
-                            <div class="card-done" id="doneCard">
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-first-row" id="doneCard">
                                 <span><img src="../assets/svg/check_default.svg" id="iconDone"></span>
                                 <div class="card-info">
-                                    <span class="card-font" id="doneNumber">#</span>
+                                    <span class="card-font" id="doneNumber"></span>
                                     <span class="task-category" id="taskDone">Done</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="long-card" id="longCard">
-                            <div class="long-card-left">
+                        </a>
+                    </div>
+                    <a href="./board.html">
+                    <div class="card-second-row" id="longCard">
+                            <div class="card-second-row-left">
                                 <img src="../assets/svg/urgent_icon.svg">
                                 <div class="card-info">
-                                    <span class="card-font" id="urgentNumber">#</span>
+                                    <span class="card-font" id="urgentNumber"></span>
                                     <span class="task-category" id="taskUrgent">Urgent</span>
                                 </div>
                             </div>
                             <div class="divider"></div>
-                            <div class="urgent-info">
+                            <div class="card-second-row-right">
                                 <span id="dateText" class="date">date</span>
-                                <span id="dateSubline" class="date-subline">Upcoming Deadline</span>
+                                <span id="dateSubline">Upcoming Deadline</span>
                             </div>
                         </div>
-                        <div class="three-cards-row">
-                            <div class="task-board-container" id="taskBoard">
-                                <span class="three-card-number" id="taskBoardNumber">#</span>
-                                <span class="three-card-subline" id="taskBoardText">Tasks in Board</span>
+                    </a>
+                    <div class="three-cards-row">
+                        <a href="./board.html">
+                            <div class="card-third-row" id="taskBoard">
+                                <span class="card-third-row-number" id="taskBoardNumber"></span>
+                                <span id="taskBoardText">Tasks in Board</span>
                             </div>
-                            <div class="task-progress-container" id="taskProgress">
-                                <span class="three-card-number" id="taskProgressNumber">#</span>
-                                <span class="three-card-subline" id="taskProgressText">Tasks in Progress</span>
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-third-row" id="taskProgress">
+                                <span class="card-third-row-number" id="taskProgressNumber"></span>
+                                <span id="taskProgressText">Tasks in Progress</span>
                             </div>
-                            <div class="feedback-container" id="feedback">
-                                <span class="three-card-number" id="feedbackNumber">#</span>
-                                <span class="three-card-subline" id="feedbackText">Awaiting Feedback</span>
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-third-row" id="feedback">
+                                <span class="card-third-row-number" id="feedbackNumber"></span>
+                                <span id="feedbackText">Awaiting Feedback</span>
                             </div>
-                        </div>
+                        </a>
                     </div>
-
-                        <div class="greetings">
-                            <div class="content-right">
-                                <span id="timeGreeting">Good morning,</span>
-                                <span id="userGreeting">Sofia Müller</span>
-                            </div>
-                        </div>
-
-
-
-
-
-
+                </section>
+                <section class="main-content-right">
+                    <div class="greetings">
+                        <span id="timeGreeting">Good morning,</span>
+                        <span id="userGreeting">Sofia Müller</span>
                     </div>
+                </section>
             </div>
         </main>
     </body>

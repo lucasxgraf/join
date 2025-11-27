@@ -81,7 +81,7 @@ async function loginAsGuest() {
 async function logoutUser() {
   try {
     await signOut(AUTH);
-    window.location.replace("../../index.html");
+    window.location.replace("../index.html");
   } catch (error) {
     console.error("Logout Error:", error);
   }
