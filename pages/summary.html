@@ -11,16 +11,12 @@
     <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
     <link rel="stylesheet" href="../styles/summary.css">
     
-    <script src="../scripts/api.js"></script>
     <script type="module" src="../scripts/summary.js"></script>
-    <script src="../scripts/calender.js"></script>
-    <script src="../scripts/login.js"></script>
     <script src="../script.js"></script>
-    <!-- <script src="../scripts/summary.js"></script> -->
-    <script type="module" src="../scripts/firebase_auth.js" defer></script>
+    <script src="../scripts/calender.js"></script>
     <script src="../components/js/summary_header.js"></script>
     <script src="../scripts/api.js"></script>
-    <script src="../scripts/firebase_auth.js"></script>
+    <script type="module" src="../scripts/firebase_auth.js" defer></script>
 </head>
 
 <body onload="inittest()">
@@ -91,7 +87,7 @@
                     <div class="two-cards">
                         <a href="./board.html">
                             <div class="card-first-row" id="todoCard">
-                                <span id="iconToDo"></span>
+                                <div id="iconToDo"></div>
                                 <div class="card-info">
                                     <span class="card-font" id="todoNumber"></span>
                                     <span class="task-category" id="taskToDo">To-Do</span>
@@ -100,7 +96,7 @@
                         </a>
                         <a href="./board.html">
                             <div class="card-first-row" id="doneCard">
-                                <span><img src="../assets/svg/check_default.svg" id="iconDone"></span>
+                                <div id="iconDone"></div>
                                 <div class="card-info">
                                     <span class="card-font" id="doneNumber"></span>
                                     <span class="task-category" id="taskDone">Done</span>

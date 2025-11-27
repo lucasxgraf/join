@@ -105,7 +105,7 @@ async function handleLoginSubmit(event) {
   // Login mit Firebase Auth
   const RESULT = await loginUser(EMAIL, PASSWORD);
   if (RESULT.success) {
-    window.location.href = "../pages/summary.html";
+    window.location.href = "pages/summary.html";
   } else {
     showLoginError(RESULT.error);
   }
@@ -116,7 +116,7 @@ async function handleGuestLogin() {
   const RESULT = await loginAsGuest();
   
   if (RESULT.success) {
-    window.location.href = "../pages/summary.html";
+    window.location.href = "pages/summary.html";
   } else {
     alert("Guest login failed. Please try again.");
   }
