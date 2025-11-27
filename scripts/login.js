@@ -114,7 +114,7 @@ async function handleLoginSubmit(event) {
 // Behandelt Guest Login
 async function handleGuestLogin() {
   const RESULT = await loginAsGuest();
-
+  
   if (RESULT.success) {
     window.location.href = "../pages/summary.html";
   } else {

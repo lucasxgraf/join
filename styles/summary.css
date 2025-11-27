@@ -214,3 +214,8 @@ a {
     font-weight: 700;
     font-size: 64px;
 }
+
+.expired {
+  color: #FF3D00;
+  font-weight: bold;
+}

@@ -1,13 +1,45 @@
 
- function inittest() {
-    loadTasks("summary") 
+import { getCurrentUser, getUserData } from './firebase_auth.js';
+
+async function inittest() {
+    await displayUserName();
+    loadTasks("summary")
     greetingTime();
 }
 
+async function displayUserName() {
+    try {
+        const user = await getCurrentUser();
+        if (user) {
+            const userData = await getUserData(user.uid);
+            const userGreetingElement = document.getElementById('userGreeting');
+
+            if (userData && userData.name) {
+                userGreetingElement.textContent = userData.name;
+            } else if (user.displayName) {
+                userGreetingElement.textContent = user.displayName;
+            } else if (user.isAnonymous) {
+                userGreetingElement.textContent = "Guest";
+            }
+        }
+    } catch (error) {
+        console.error("Error loading user name:", error);
+    }
+}
+
+const today = new Date();
+  const todo = [];
+  const done = [];
+  const inProgress = [];
+  const awaitFeedback = [];
+  let counter = 0;
+  const urgentCards = [];
+  let nearest = null;
+
+
 function greetingTime() {
-let greeting = document.getElementById('timeGreeting');
-const now = new Date();
-const hour = now.getHours();
+    let greeting = document.getElementById('timeGreeting');
+    const hour = today.getHours();
     switch (true) {
         case (hour < 11):
         greeting.textContent = "Good Morning,"        
@@ -27,39 +59,66 @@ const hour = now.getHours();
     }
 }
 function splitCardsByStatus(cards) {
-  const todo = [];
-  const done = [];
-  const inProgress = [];
-  const awaitFeedback = [];
-
-  for (let card of cards) {     
-    switch (card.dragclass) {      
-      case "todo":
-        todo.push(card);
-        break;
-      case "done":
-        done.push(card);
-        break;
-      case "inprogress":
-        inProgress.push(card);
-        break;
-      case "awaitfeedback":
-        awaitFeedback.push(card);
-        break;
-    }
-  }
-  updateSummary(todo, done, inProgress, awaitFeedback)
+  const statusMap = {
+    todo: todo,
+    done: done,
+    inprogress: inProgress,
+    awaitfeedback: awaitFeedback
+  };
+  cards.forEach(card => statusMap[card.dragclass]?.push(card));
+  updateSummary(todo, done, inProgress, awaitFeedback);
 }
 function countUrgentPriority(cards) {
  const urgentRef = document.getElementById("urgentNumber")
-  let counter = 0;
 
   for (let card of cards) {          
     if (card.priority === "urgent") { 
       counter++;
-    }
-  }
+      urgentCards.push(card);
+    }}
     urgentRef.innerHTML = counter
+    upcomingDeadline(urgentCards)
+}
+
+function upcomingDeadline(urgentCards) {
+  const dateRef = document.getElementById("dateText");
+
+ if (!urgentCards || urgentCards.length === 0) {
+    dateRef.innerHTML = "No urgent tasks";
+    return;
+  }
+  dateRef.innerHTML = calculationUpComingDeadline(urgentCards);
+}
+
+function calculationUpComingDeadline(urgentCards) {
+  today.setHours(0,0,0,0);
+  for (let card of urgentCards) {
+    if (!card.date) continue;
+
+    let parts = card.date.split("/");
+    let dateObj = new Date(parts[2], parts[1] - 1, parts[0]);
+    dateObj.setHours(0,0,0,0);
+
+    if (nearest === null || dateObj.getTime() < nearest.getTime()) {
+      nearest = dateObj;
+    }}
+   return howNearest(nearest, today)
+}
+
+function howNearest(nearest, today) {
+    if (!nearest) return null;
+
+  let day = nearest.getDate();
+  let month = monthNames[nearest.getMonth()];
+  let year = nearest.getFullYear();
+  const dateString = `${month} ${day}, ${year}`
+  const isPast = nearest.getTime() < today.getTime();
+
+  if (isPast) {
+    return `<span class="expired">${dateString}</span>`;
+  } else {
+    return `${dateString}`;
+  }
 }
 
 function updateSummary(todo, done, inProgress, awaitFeedback) {
