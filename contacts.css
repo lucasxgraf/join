@@ -31,14 +31,19 @@
     margin-bottom: 32px;
 }
 
+.textbox h2 {
+    font-weight: 400;
+}
+
 .contact-informations h1 {
     font-size: 54px;
 }
 
 .divider {
     height: 54px;
-    width: 2px;
+    width: 3px;
     background-color: #29ABE2;
+    border-radius: 10px;
 }
 
 ul li::marker {
@@ -179,7 +184,6 @@ ul li::marker {
     display: flex;
     flex-direction: column;
     margin-left: 72px;
-    gap: 24px;
 }
 
 .add-form input {
@@ -274,6 +278,15 @@ ul li::marker {
     margin-top: 50px;
 }
 
+.informations h2 {
+    margin-bottom: 48px;
+    font-weight: 400;
+}
+
+.informations p {
+    margin-bottom: 20px;
+}
+
 .info-content {
     display: flex;
     flex-direction: column;
@@ -283,15 +296,18 @@ ul li::marker {
     font-size: 48px;
     font-weight: 500;
     text-wrap-mode: nowrap;
+    margin-bottom: 8px;
 }
 
 .slide-in {
-  opacity: 0;
-  transform: translateX(300px);
   animation: slideIn 0.1s ease-in forwards;
 }
 
 @keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(300px);
+  }
   to {
     opacity: 1;
     transform: translateX(0);
@@ -300,9 +316,78 @@ ul li::marker {
 
 #alert-name {
     font-size: 16px;
-    color: red;
+    color: #ff3d00;
+    margin: 0;
+    max-width: 280px;
+}
+
+#alert-mail {
+    font-size: 16px;
+    color: #ff3d00;
+    margin: 0;
+    max-width: 280px;
+}
+
+#alert-phone {
+    font-size: 16px;
+    color: #ff3d00;
+    margin: 0;
+    max-width: 280px;
 }
 
 .disable-x-scroll {
     overflow-x: hidden;
+}
+
+.alert {
+    border-radius: 30px;
+    background-color: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    bottom: -236px;
+    z-index: 2000;
+    width: 250px;
+    height: 80px;
+    border-color: transparent;
+    color: white;
+}
+
+.alert p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.slide-rtl {
+  position: relative;
+  animation: slide-in-out 1s ease-in-out forwards;
+  transform: translateX(300px);
+}
+
+@keyframes slide-in-out {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(-500px); /* komplett im Bild */
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(-500px); /* weiter in die Seite hinein */
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-500px); /* dort stehen bleiben */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%); /* wieder raus */
+    opacity: 0;
+  }
+}
+
+#group-name, #group-mail, #group-phone {
+    margin-bottom: 32px;
 }

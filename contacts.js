@@ -2,8 +2,6 @@ let CONTACT_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase
 
 let contacts = [];
 
-let contactID = [];
-
 const COLORS = [
   "#FF7A00", "#FF5EB3", "#6E52FF", 
   "#9327FF", "#00BEE8", "#1FD7C1", 
@@ -17,6 +15,7 @@ await fetchContacts();
 //algorithm();
 //renderContacts();
 renderContactList()
+//bodyClickClose()
 }
 
 async function fetchContacts() {
@@ -28,33 +27,6 @@ async function fetchContacts() {
         contactData.id = id;   // ID INS OBJEKT EINTRAGEN
         contacts.push(contactData);
     }
-}
-
-function renderContacts(letter) {
-    let contactListContent = document.getElementById(`${letter}`);
-    contactListContent.innerHTML = "";
-    for (let index = 0; index < contacts.length; index++) {
-        if (letter == contacts[index]["name"]["firstname"][0]) {
-            contactListContent.innerHTML += `<div class="contact" onclick="showContact(${index}, '${letter}')">
-            <button class="contact-picture" style ="${getRandomColor()}">${contactPictureLetters(index)}</button><div><p>${checkRenderContactsName(letter, index)}</p><p class="small-email">${checkRenderContactsEmail(letter, index)}</p></div>
-            </div>`;
-        }        
-    }
-    contactClick();
-}
-
-
-function algorithm() {
-    contacts.sort();
-    let letter = "";
-    contacts.forEach(contact => {
-    if (letter !== contact.name.firstname[0]) {
-            letter = contact.name.firstname[0];
-            document.getElementById('contact_list').innerHTML += `<div class="letter">${letter}</div><div class="contact-line"></div>
-            <div id="${letter}"></div>`;
-        renderContacts(letter);
-        }
-    })
 }
 
 function checkRenderContactsName(letter, index) {
@@ -74,42 +46,23 @@ function contactPictureLetters(index) {
     return name.firstname[0] + name.secondname[0];
 }
 
-//function getRandomColor() {
- // let r = Math.floor(Math.random() * 256);
- // let g = Math.floor(Math.random() * 256);
- // let b = Math.floor(Math.random() * 256);
- // let brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-//  if (brightness > 200 || brightness < 50) {
-  //  return getRandomColor();
-  //}
- // return "background-color:" + " " + `rgb(${r}, ${g}, ${b})`;
-//}
-
 function showContact(index, letter) {
     if (document.getElementById('showContent' + index)) {
         return
     }
     let content = document.getElementById('contact_content');
-    content.innerHTML = `<div class="info-content slide-in" id="showContent${index}">
-    <div style="display: flex; gap: 48px">
-    <button class="big-contact-picture" style ="background-color: ${contacts[index]["color"]};">${contactPictureLetters(index)}</button>
-    <div style="display: flex; flex-direction: column;">
-        <h2 class="fullname">${contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"]}</h2>
-         <div class="contact-icons">
-                <img id="edit" src="/assets/svg/edit_contact_icon_default.svg" onclick="editContactEvent(${index})">
-                <img id="delete" src="/assets/svg/delete_contact_icon_default.svg">
-         </div>
-    </div>
-    </div>
-    <div class="informations">
-        <h2>Contact Information</h2>
-        <p>Email</p>
-        <p>${contacts[index]["mail"]}</p>
-        <p>Phone</p>
-        <p>${contacts[index]["tel"]}</p>
-    </div>
-    </div>
-    `
+    content.innerHTML = showContactTemplate(index);
+    showContentXOverflowHidden(index)
+    hoverEdit();
+    hoverDelete();
+}
+
+function showContactAfterEdit(index) {
+    let content = document.getElementById('contact_content');
+    content.innerHTML = showContactAfterEditTemplate(index);
+    let contactCard = document.getElementById(contacts[index].id);
+    contactCard.style.backgroundColor = "#2A3647";
+    contactCard.style.color = "white";
     hoverEdit();
     hoverDelete();
 }
@@ -121,7 +74,13 @@ function addContactEvent(event) {
     let popupBlack = document.getElementById('popupBackground');
     popupBlack.classList.toggle("popup-overlay")
     form.innerHTML += addformTemplate(index);
+    addXOverflowHidden();
     hoverCancel();
+}
+
+function showNoContact() {
+    let content = document.getElementById('contact_content')
+    content.innerHTML = "";
 }
 
 function closeForm(event) {
@@ -161,10 +120,23 @@ async function addContact(event) {
     console.log("Kontakt hinzugefügt:", responseToJSON);
     closeForm(event);
     contacts = [];
-    init();
+    await init();
+    let newIndex = getContactIndexByFullName(iName);
+    if (newIndex !== -1) {
+    showContactAfterEdit(newIndex);
+    addContactAlert()
+    hoverEdit();
+    hoverDelete();
+    }
     } catch(error) {
         console.error("Fehler beim Speichern:", error);
     }
+}
+
+function addContactAlert() {
+    let content = document.getElementById('contact_content');
+    content.innerHTML += contactAddedAlert();
+    alertxOverflowHidden()
 }
 
 function returnJSONDATA(iName, iMail, iPhone, firstname, secondname) {
@@ -178,7 +150,6 @@ function returnJSONDATA(iName, iMail, iPhone, firstname, secondname) {
         tel: iPhone
     };
 }
-
 //--------------------------------------------------------------------------------------
 function sortContacts() {
   contacts.sort((a, b) =>
@@ -216,7 +187,7 @@ function renderGroupHeader(listEl, letter) {
 function appendContact(listEl, letter, contact, index) {
   const groupEl = document.getElementById(`group-${letter}`);
   groupEl.innerHTML += `
-    <div class="contact" onclick="showContact(${index}, '${letter}')">
+    <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, '${letter}')">
       <button class="contact-picture" style="background-color: ${contact.color}">
         ${contactPictureLetters(index)}
       </button>
@@ -226,7 +197,6 @@ function appendContact(listEl, letter, contact, index) {
       </div>
     </div>`;
 }
-
 
 function getRandomColor() {
   const randomIndex = Math.floor(Math.random() * COLORS.length);
@@ -248,55 +218,35 @@ function popupClickClose() {
 }
 
 async function formCheck(index, event) {
-    let alertName = document.getElementById('alert-name');
-    let alertMail = document.getElementById('alert-mail');
-    let alertPhone = document.getElementById('alert-phone');
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    if (alertName || alertMail || alertPhone) {
-        alertMail?.remove();
-        alertName?.remove();
-        alertPhone?.remove();
-    }
-    if (iPhone.length > 2 && iMail.length > 2 && iName.length > 2) {
-        if (nameCheck(iName) == true &&
-            mailCheck(iMail) == true &&
-            phoneCheck(iPhone) == true) {
-                if (document.getElementById('add-Form')) {
-                    await addContact(event);
-                }
-                if (document.getElementById('edit-Form')) {
-                    await editContact(index);
-                }
-        } else {
-            if (!nameCheck(iName)) {
-                showError(
-                    'group-name', 'alert-name', 'This field is required. Example for name: Max Mustermann'
-                );
-            }
-            if (!mailCheck(iMail)) {
-                showError(
-                    'group-mail', 'alert-mail', 'This field is required. Example for e-mail: John-Smith@test.com'
-                );
-            }
-            if (!phoneCheck(iPhone)) {
-                showError(
-                    'group-phone', 'alert-phone', 'This field is required. Example for phone number: +4917612345678'
-                );
-            }
-        }
-    } else {
-        showError(
-                    'group-name', 'alert-name', 'This field is required. Example for name: Max Mustermann'
-                );
-        showError(
-                    'group-mail', 'alert-mail', 'This field is required. Example for e-mail: John-Smith@test.com'
-                );
-        showError(
-                    'group-phone', 'alert-phone', 'This field is required. Example for phone number: +4917612345678'
-                );
-    }
+  clearAlerts();
+  const { name, mail, phone } = getFormValues();
+  const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
+  if (!nameValid)  showError('group-name','alert-name','This field is required. Example for name: Max Mustermann');
+  if (!mailValid)  showError('group-mail','alert-mail','This field is required. Example for e-mail: John-Smith@test.com');
+  if (!phoneValid) showError('group-phone','alert-phone','This field is required. Example for phone number: +4917612345678');
+  if (!nameValid || !mailValid || !phoneValid) return;
+  if (document.getElementById('add-Form'))  await addContact(event);
+  if (document.getElementById('edit-Form')) await editContact(index);
+}
+
+function clearAlerts() {
+  document.getElementById('alert-name')?.remove();
+  document.getElementById('alert-mail')?.remove();
+  document.getElementById('alert-phone')?.remove();
+}
+
+function getFormValues() {
+  const name  = document.getElementById('input-name').value;
+  const mail  = document.getElementById('input-mail').value;
+  const phone = document.getElementById('input-phone').value;
+  return { name, mail, phone };
+}
+
+function getValidity({ name, mail, phone }) {
+  const nameValid  = name.length  > 2 && nameCheck(name);
+  const mailValid  = mail.length  > 2 && mailCheck(mail);
+  const phoneValid = phone.length > 2 && phoneCheck(phone);
+  return { nameValid, mailValid, phoneValid };
 }
 
 function validName(iName) {
@@ -349,6 +299,7 @@ function showError(groupId, alertId, message) {
     alert.innerText = message;
     alert.setAttribute("id", alertId);
     group.appendChild(alert);
+    group.style = "margin-bottom: 0;"
 }
 
 function editContactEvent(index) {
@@ -357,6 +308,7 @@ function editContactEvent(index) {
     let popupBlack = document.getElementById('popupBackground');
     popupBlack.classList.toggle("popup-overlay")
     form.innerHTML += editContactTemplate(index);
+    editXOverflowHidden();
     let inputName = document.getElementById('input-name');
     let inputMail = document.getElementById('input-mail');
     let inputPhone = document.getElementById('input-phone');
@@ -392,7 +344,8 @@ async function editContact(index) {
     console.log("Kontakt bearbeitet:", response);
     closeForm();
     contacts = [];
-    init();
+    await init();
+    showContactAfterEdit(index);
 } catch (err) {
     console.error('Failed to edit contact:', err);
     alert('Could not save contact. See console for details.');
@@ -400,5 +353,29 @@ async function editContact(index) {
 }
 
 async function deleteContact(index) {
-    
+    let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
+    try {
+        let response = await fetch(url, {
+        method: 'DELETE'
+    });
+    console.log("Kontakt gelöscht");
+    closeForm();
+    contacts = [];
+    await init();
+    showNoContact();
+} catch (err) {
+    console.error('Failed to delete contact:', err);
+    alert('Could not delete contact. See console for details.');
 }
+}
+
+function getContactIndexByFullName(fullName) {
+    return contacts.findIndex(contact => {
+        let full = `${contact.name.firstname} ${contact.name.secondname}`
+            .trim()
+            .toLowerCase();
+
+        return full === fullName.trim().toLowerCase();
+    });
+}
+

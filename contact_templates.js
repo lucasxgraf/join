@@ -1,5 +1,5 @@
 function addformTemplate(index) {
-    return `<div class="add-contact-form slide-in" id="add-Form">
+    return `<div class="add-contact-form" id="add-Form">
             <div class="text-form" style="background-color: #2A3647; width: 40%;">
                 <img class="margin-left36" src="/assets/logos/Join logo vector.svg" style="height: 50px; width: 50px;">
                 <h1 class="margin-left36 c-white">Add Contact</h1>
@@ -23,7 +23,7 @@ function addformTemplate(index) {
 }
 
 function editContactTemplate(index) {
-    return `<div class="add-contact-form slide-in" id="edit-Form">
+    return `<div class="add-contact-form" id="edit-Form">
             <div class="text-form" style="background-color: #2A3647; width: 40%;">
                 <img class="margin-left36" src="/assets/logos/Join logo vector.svg" style="height: 50px; width: 50px;">
                 <h1 class="margin-left36 c-white">Edit Contact</h1>
@@ -37,10 +37,60 @@ function editContactTemplate(index) {
                 <div id="group-mail"><input type="text" placeholder="E-Mail" id="input-mail"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/mail.svg"></div>
                 <div id="group-phone"><input type="text" placeholder="Phone" id="input-phone"><img style="margin-left: -36px; margin-bottom: -6px;" src="/assets/svg/call.svg"></div>
                 <div style="display: flex; gap: 16px;">
-                    <button style="width: 80px" id="cancel-contact" onclick="closeForm(event)">Delete<img src="/assets/icons/icon_cancel.svg" id="cancel-contact-img"></button>
+                    <button style="width: 80px" id="cancel-contact" onclick="deleteContact(${index})">Delete<img src="/assets/icons/icon_cancel.svg" id="cancel-contact-img"></button>
                     <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Save<img src="/assets/icons/check_createcontact.svg"></button>
                 </div>
             </div>
         </div>
     </div>`
+}
+
+function showContactTemplate(index) {
+    return `<div class="info-content" id="showContent${index}">
+    <div style="display: flex; gap: 48px">
+    <button class="big-contact-picture" style ="background-color: ${contacts[index]["color"]};">${contactPictureLetters(index)}</button>
+    <div style="display: flex; flex-direction: column;">
+        <h2 class="fullname">${contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"]}</h2>
+         <div class="contact-icons">
+                <img id="edit" src="/assets/svg/edit_contact_icon_default.svg" onclick="editContactEvent(${index})">
+                <img id="delete" src="/assets/svg/delete_contact_icon_default.svg" onclick="deleteContact(${index})">
+         </div>
+    </div>
+    </div>
+    <div class="informations">
+        <h2>Contact Information</h2>
+        <p style="font-weight: 700">Email</p>
+        <p style="color: #007CEE">${contacts[index]["mail"]}</p>
+        <p style="font-weight: 700">Phone</p>
+        <p>${contacts[index]["tel"]}</p>
+    </div>
+    </div>
+    `
+}
+
+function showContactAfterEditTemplate(index) {
+    return `<div class="info-content" id="showContent${index}">
+    <div style="display: flex; gap: 48px">
+    <button class="big-contact-picture" style ="background-color: ${contacts[index]["color"]};">${contactPictureLetters(index)}</button>
+    <div style="display: flex; flex-direction: column;">
+        <h2 class="fullname">${contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"]}</h2>
+         <div class="contact-icons">
+                <img id="edit" src="/assets/svg/edit_contact_icon_default.svg" onclick="editContactEvent(${index})">
+                <img id="delete" src="/assets/svg/delete_contact_icon_default.svg" onclick="deleteContact(${index})">
+         </div>
+    </div>
+    </div>
+    <div class="informations">
+        <h2>Contact Information</h2>
+        <p style="font-weight: 700">Email</p>
+        <p style="color: #007CEE">${contacts[index]["mail"]}</p>
+        <p style="font-weight: 700">Phone</p>
+        <p>${contacts[index]["tel"]}</p>
+    </div>
+    </div>
+    `
+}
+
+function contactAddedAlert() {
+    return `<div class="alert slide-rtl" id="create-contact-alert"><p>Contact successfully created</p></div>`
 }
