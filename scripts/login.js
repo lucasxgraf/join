@@ -41,8 +41,24 @@ function skipSplashIfNeeded() {
   if (SKIP && LOGO) {
     LOGO.style.animation = "none";
     LOGO.style.transform = "translate(0, 0) scale(1)";
-    LOGO.style.top = "56px";
-    LOGO.style.left = "56px";
+    LOGO.style.top = "24px";
+    LOGO.style.left = "24px";
+    
+    // Overlay sofort ausblenden bei Skip
+    const BG_OVERLAY = document.querySelector(".bg_overlay_responsive");
+    if (BG_OVERLAY) {
+      BG_OVERLAY.style.display = "none";
+    }
+    
+    // Logo für mobile Version anpassen
+    const joinImage = document.querySelector('.join_image');
+    joinImage.style.content = 'url("./assets/img/logo/join_logo.png")';
+    if (window.innerWidth <= 475) {
+      LOGO.style.top = "24px";
+      LOGO.style.left = "24px";
+      LOGO.style.height = "80px";
+      LOGO.style.width = "64px";
+    }
   }
 }
 

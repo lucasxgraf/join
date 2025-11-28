@@ -4,8 +4,8 @@ body {
 
 .join_image {
   position: absolute;
-  top: 56px;
-  left: 56px;
+  top: 24px;
+  left: 24px;
 }
 
 .sign_card {
@@ -202,3 +202,17 @@ input[type="checkbox"]:hover {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .sign_card {
+    width: 90%;
+    padding: 32px 16px;
+  }
+
+  .join_image {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 64px;
+    height: 80px;
+  }
+}

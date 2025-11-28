@@ -59,7 +59,6 @@ footer {
 
 .terms_conditions {
   margin-bottom: 30px;
-  font-size: 0.8rem;
 }
 
 .terms_conditions a {
@@ -123,28 +122,28 @@ footer {
 }
 
 input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    border: none !important;
-    cursor: pointer;
-    width: 19px;
-    height: 19px;
-    background-image: url(../assets/svg/check_btn.svg);
-    background-repeat: no-repeat;
-    background-position: center;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none !important;
+  cursor: pointer;
+  width: 19px;
+  height: 19px;
+  background-image: url(../assets/svg/check_btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 
 input[type="checkbox"]:checked{
-    background-image: url(../assets/svg/check_btn_checked.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
+  background-image: url(../assets/svg/check_btn_checked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .checkbox:hover,
 .checkbox_checked:hover {
-    filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .focusWithInput,
@@ -157,8 +156,8 @@ input[type="checkbox"]:checked{
 .focusNotInput,
 .inputWrapper:has(input:not(:placeholder-shown)), 
 .inputBorderColor:not(:placeholder-shown) {
-    border-color: #29ABE2 !important;
-    outline: none;
+  border-color: #29ABE2 !important;
+  outline: none;
 }
 
 .errorBorder {
