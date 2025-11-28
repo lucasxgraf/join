@@ -20,34 +20,58 @@
 </head>
 <body class="template" onload="init()">
 
-<div class="upper-container">
+  <div class="upper-container">
     <nav>
-      <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
-      <div class="sidebar-content">
-        <div class="sidebar-links-container">
-          <a class="sidebar-links" href="./summary.html">
-            <img src="../assets/svg/icons_page/summary.svg">
+      <div class="navContainer">
+        <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
+        <div class="sidebar-content">
+          <div class="sidebar-links-container">
+            <a class="sidebar-links" href="./summary.html">
+              <img src="../assets/svg/icons_page/summary.svg">
+              Summary
+            </a>
+            <a class="sidebar-links" href="./addTask.html">
+              <img src="../assets/svg/icons_page/add_task.svg">
+              Add Task
+            </a>
+            <a class="sidebar-links" href="./board.html">
+              <img src="../assets/svg/icons_page/board.svg">
+              Board
+            </a>
+            <a class="sidebar-links" href="./contacts.html">
+              <img src="../assets/svg/icons_page/contacts.svg">
+              Contacts
+            </a>
+          </div>
+          <div class="sidebar-bottom">
+            <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+            <a href="../components/html/legalNotice.html">Legal notice</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navResponsivContainer dnone">
+        <div class="ResponisvBorder">
+          <a class="singleResponisvContainer" href="./summary.html">
+            <img class="reposnivIcon" src="../assets/svg/icons_page/summary.svg">
             Summary
           </a>
-          <a class="sidebar-links" href="./addTask.html">
-            <img src="../assets/svg/icons_page/add_task.svg">
+          <a class="singleResponisvContainer" href="./addTask.html">
+            <img class="reposnivIcon" src="../assets/svg/icons_page/add_task.svg">
             Add Task
           </a>
-          <a class="sidebar-links" href="./board.html">
-            <img src="../assets/svg/icons_page/board.svg">
+          <a class="singleResponisvContainer" href="./board.html">
+            <img class="reposnivIcon" src="../assets/svg/icons_page/board.svg">
             Board
           </a>
-          <a class="sidebar-links" href="./contacts.html">
-            <img src="../assets/svg/icons_page/contacts.svg">
-            Contacts
+          <a class="singleResponisvContainer" href="./contacts.html">
+            <img class="reposnivIcon" src="../assets/svg/icons_page/contacts.svg">
+             Contacts
           </a>
-        </div>
-        <div class="sidebar-bottom">
-          <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
-          <a href="../components/html/legalNotice.html">Legal notice</a>
         </div>
       </div>
     </nav>
+
     <div class="center-wrap">
       <header>
         <div class="header_content">
@@ -75,3 +99,5 @@
         </div>
       </div> 
       <div id="addTaskTemplate"></div>
+    </div> 
+  </div> 
