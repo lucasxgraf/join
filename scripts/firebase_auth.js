@@ -61,7 +61,9 @@ async function saveUserToDatabase(uid, name, email) {
 async function loginUser(email, password) {
   try {
     const USER_CREDENTAIL = await signInWithEmailAndPassword(AUTH, email, password);
-    return { success: true, user: USER_CREDENTAIL.user };
+    const userData = await getUserData(USER_CREDENTAIL.user.uid);
+    localStorage.setItem("headerName", userData.name);
+    return { success: true, user: USER_CREDENTAIL.user};
   } catch (error) {
     return { success: false, error: getErrorMessage(error.code) };
   }
@@ -71,6 +73,7 @@ async function loginUser(email, password) {
 async function loginAsGuest() {
   try {
     const USER_CREDENTAIL = await signInAnonymously(AUTH);
+    localStorage.setItem("headerName", "Guest");
     return { success: true, user: USER_CREDENTAIL.user };
   } catch (error) {
     return { success: false, error: getErrorMessage(error.code) };
@@ -80,6 +83,7 @@ async function loginAsGuest() {
 // Loggt den aktuellen User aus
 async function logoutUser() {
   try {
+    localStorage.removeItem("headerName");
     await signOut(AUTH);
     window.location.replace("../index.html");
   } catch (error) {
@@ -176,3 +180,4 @@ window.watchAuthState = watchAuthState;
 window.getCurrentUser = getCurrentUser;
 window.getUserData = getUserData;
 window.onAuthChange = onAuthChange;
+

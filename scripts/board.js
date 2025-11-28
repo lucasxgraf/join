@@ -4,6 +4,7 @@ let contacts_from_firebase = {};
 let currentPlaceholder = null;
 
 async function initBoard() {
+    getInitialsFromUser()
     await loadContacts();
     await loadTasks("board");
     renderInHtml();

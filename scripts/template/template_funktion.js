@@ -1,4 +1,5 @@
-function init() { 
+function init() {
+    getInitialsFromUser()
     fetchContact();
     renderInHtml();
     fetchSVGs("AddTask");
@@ -7,6 +8,7 @@ function init() {
     enterSubtask();
     enableSubmit();
     changePriority("medium", "AddTask")
+    
 }
 
 function renderInHtml() {
