@@ -1,3 +1,13 @@
+const today = new Date();
+const todo = [];
+const done = [];
+const inProgress = [];
+const awaitFeedback = [];
+let counter = 0;
+const urgentCards = [];
+let nearest = null;
+
+
 async function inittest() {
     setupGreetingListener()
     loadTasks("summary")
@@ -12,19 +22,11 @@ function setupGreetingListener() {
         return;
       }
       const userData = await window.getUserData(user.uid);
-      getInitialsFromUser(userData);
       userGreetingElement.textContent = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
+      getInitialsFromUser()
     });
   }
 
-const today = new Date();
-const todo = [];
-const done = [];
-const inProgress = [];
-const awaitFeedback = [];
-let counter = 0;
-const urgentCards = [];
-let nearest = null;
 
 
 function greetingTime() {
@@ -128,17 +130,7 @@ function updateSummary(todo, done, inProgress, awaitFeedback) {
     taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
 }
 
-function getInitialsFromUser(name) {
-    const words = name.name.trim().split(/\s+/);
-    const iconHeaderInitials = document.getElementById("profilePicture");
-    
-    const initials = words
-      .filter(word => word.length > 0)
-      .map(word => word[0].toUpperCase())
-      .join('');
-    
-    iconHeaderInitials.innerHTML = initials;
-}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     inittest();
