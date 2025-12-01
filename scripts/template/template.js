@@ -2,7 +2,7 @@
 function renderaddTask() {
   return `
     <main>
-        <div class="scroll_layout">
+        <div class="scroll_layout_dialog">
             <h1 class="content_header">Add Task</h1>
             <form id="taskForm">
             <section>
@@ -85,9 +85,12 @@ function renderaddTask() {
                 </div>
             </section>
 
-            <div class="reqContainer dpf">
-              <span class="req">*</span>This field is required</span>
-            </div>
+           <div class="reqContainer dpf">
+              <div>
+                <span class="req">*</span>This field is required</span>
+              </div>
+               <div></div>
+           </div>
                     
 
             <div class="footer_Add_Task">
