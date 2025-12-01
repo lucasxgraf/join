@@ -229,9 +229,8 @@ label {
 }
 
 .reqContainer{
-  justify-content: flex-start;
   width: 100%;
-  padding-left: 16px;
+  padding-left: clamp(0rem, 95vw, 6rem);
   
 }
 
@@ -603,9 +602,6 @@ button.dateFaded {
 
 @media (max-width: 1250px) {
   .scroll_layout {
-    padding: 24px;
-  }
-  .scroll_layout {
     padding: 24px 24px 0px !important;
 }
 
@@ -624,25 +620,38 @@ button.dateFaded {
   padding: 8px;
   font-size: 18px;
 }
-
 }
 
 @media (max-width: 749px) {
   section {
-    flex-direction: column;
-    gap: 0px;
-    justify-content: center;
+  flex-direction: column;
+  gap: 0px;
+  justify-content: center;
 }
-.scroll_layout{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-height: 600px;
+.scroll_layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: calc(100vh - 100px - 90px);
 }
 #taskForm{
-display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.task-input-container{
+gap: 0px;
+}
+
+.error_message{
+  margin-bottom: 4px;
+}
+
+#contactDropdown,
+.priority-buttons,
+textarea{
+  margin-bottom: 18px;
 }
 textarea,
 .custom-category-dropdown,
@@ -652,6 +661,10 @@ textarea,
   .priority-btn {
   width: 120px;
   padding: 16px 16px
+}
+
+.separator{
+  display: none;
 }
 
 .priority-buttons {
@@ -674,11 +687,11 @@ textarea,
     bottom: 1px;
 }
 h1{
-  font-size: 3.5rem !important;
+  font-size: 2.5rem !important;
 }
-    .scroll_layout {
-      padding: 0px !important;
-    }
+.scroll_layout {
+  padding: 0px !important;
+}
 }
 
 @media (max-width: 420px) {
