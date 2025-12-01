@@ -220,8 +220,8 @@ label {
   background-color: #2A3647;
   border-radius: 8px;
   color: white;
-
 }
+
 .taskOutputtest,
 .taskOutput{
   padding: 4px;
@@ -238,6 +238,7 @@ label {
   display: flex;
   flex-direction: column;
 }
+
 .taskOutputtest:hover,
 .taskOutput:hover{
   background-color: #dad8d8;
@@ -250,8 +251,7 @@ label {
 }
 
 .taskOutputtest:hover
-.editdeleteBtn
-,
+.editdeleteBtn,
 .taskOutput:hover 
 .editdeleteBtn{
   display: flex;
@@ -284,7 +284,7 @@ label {
 /* Individuelle Hintergrundfarben */
 .urgent_btn:hover, .urgent_btn.active { background: #ff3d00; box-shadow: 4px 4px 4px #00000040;}
 .medium-btn:hover, .medium-btn.active { background: #ffa800; box-shadow: 4px 4px 4px #00000040;}
-.low_btn:hover, .low_btn.active     { background: #7ae229; box-shadow: 4px 4px 4px #00000040;}
+.low_btn:hover, .low_btn.active { background: #7ae229; box-shadow: 4px 4px 4px #00000040;}
 
 .priority-btn.active svg {
   filter: brightness(0) invert(1);
@@ -301,6 +301,7 @@ label {
   color: white;
   border: 2px solid white;
 }
+
 .morethan9{
   background-color: white !important;
   border: 1px solid black !important; 
@@ -487,7 +488,8 @@ textarea{
   display: grid;
   grid-template-columns: repeat(7,1fr);
 }
-.day, date{
+.day,
+date{
   justify-self: center;
 }
 
@@ -523,7 +525,8 @@ textarea{
   border-radius: 50%;
 }
 
-.date:focus, .dateFaded:focus{
+.date:focus,
+.dateFaded:focus{
   outline: 0;
   background-color: #2a3647;
   border-radius: 50%;
@@ -563,6 +566,7 @@ button.dateFaded {
   z-index: 3;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
+
 .feedbackAddTask{
   background-color: #2A3647;
   display: flex;
@@ -603,23 +607,26 @@ button.dateFaded {
 @media (max-width: 1250px) {
   .scroll_layout {
     padding: 24px 24px 0px !important;
+  }
+
+  .priority-btn {
+      font-size: 16px;
+  }
 }
 
-.priority-btn {
-    font-size: 16px;
-}
-}
 @media (max-width: 949px) {
-.navContainer{
-  display: none !important;
-}
-.navResponsivContainer{
-  display: flex !important;
-}
-.btn{
-  padding: 8px;
-  font-size: 18px;
-}
+  .navContainer{
+    display: none !important;
+  }
+
+  .navResponsivContainer{
+    display: flex !important;
+  }
+
+  .btn{
+    padding: 8px;
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 749px) {
@@ -628,12 +635,14 @@ button.dateFaded {
   gap: 0px;
   justify-content: center;
 }
+
 .scroll_layout {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-height: calc(100vh - 100px - 90px);
 }
+
 #taskForm{
   display: flex;
   flex-direction: column;
@@ -653,11 +662,13 @@ gap: 0px;
 textarea{
   margin-bottom: 18px;
 }
+
 textarea,
 .custom-category-dropdown,
 .task-input {
   width: clamp(18.5rem, 90vw, 36rem);
-}
+  }
+
   .priority-btn {
   width: 120px;
   padding: 16px 16px
@@ -667,38 +678,41 @@ textarea,
   display: none;
 }
 
-.priority-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-.footer_Add_Task {
-    padding-top: 24px;
-    width: 100%;
-}
-.reqContainer{
-  padding-left: 0px;
-  padding-top: 8px;
-}
+  .priority-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer_Add_Task {
+      padding-top: 24px;
+      width: 100%;
+  }
+
+  .reqContainer{
+    padding-left: 0px;
+    padding-top: 8px;
+  }
 }
 
 @media (max-width: 520px) {
   .footer_Add_Task {
     position: sticky;
     bottom: 1px;
-}
-h1{
-  font-size: 2.5rem !important;
-}
-.scroll_layout {
-  padding: 0px !important;
-}
+  }
+
+  h1{
+    font-size: 3.5rem !important;
+  }
+  
+  .scroll_layout {
+    padding: 0px !important;
+  }
 }
 
 @media (max-width: 420px) {
-.priority-btn {
-        padding: 4px 4px;
-        width: 95px;
-        font-size: 14px;
+  .priority-btn {
+          padding: 4px 4px;
+          width: 95px;
+          font-size: 14px;
+  }
 }
-}
-
