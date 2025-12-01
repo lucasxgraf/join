@@ -85,8 +85,12 @@ function renderaddTask() {
                 </div>
             </section>
 
+            <div class="reqContainer dpf">
+              <span class="req">*</span>This field is required</span>
+            </div>
+                    
+
             <div class="footer_Add_Task">
-                <span><span class="req">*</span>This field is required</span>
                 <div class="buttons_Add_Task dpf gap8">
                     <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
                         <img class="closeSvg" src="../assets/svg/close.svg" alt="">
