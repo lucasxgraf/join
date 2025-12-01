@@ -383,8 +383,3 @@ h3{
 }
 
 
-@media (max-width: 950px) {
-  .scroll_layout_dialog{
-    padding: 0px 24px;
-  }
-}
