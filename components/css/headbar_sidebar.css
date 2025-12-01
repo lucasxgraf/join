@@ -209,13 +209,14 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-.ResponisvBorder{
+
+.ResponsivBorder{
   display: flex;
   justify-content: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0px 24px;
-  }
+  padding: 0px ;
+}
 
 .navResponsivFooter{
   display: flex;
@@ -223,7 +224,7 @@ button {
   align-items: center;
 }
 
-.singleResponisvContainer{
+.singleResponsivContainer{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,19 +235,21 @@ button {
   width: 120px;
   padding: 8px 24px;
 }
-.singleResponisvContainer:hover {
+
+.singleResponsivContainer:hover {
   background-color: #091931;
   cursor: pointer;
   padding: 14px 16px;
   border-radius: 16px;
 }
 
-.reposnivIcon{
+.resonsivIcon{
   height: 24px;
   width: 24px;
 }
+
 .respLogoContainer{
-display: none;    
+    display: none;    
 }
 
 .respLogo{
@@ -257,34 +260,34 @@ display: none;
     display: none;
 }
 
-@media (max-width: 520px) {
- .ResponisvBorder {
-    padding: 0px;
-}
-.singleResponisvContainer {
-    font-size: 16px;
-    width: 102px;
-    padding: 0px
-}
-}
-
 @media (max-width: 749px){
-header {
-    padding: 0px 37px;
+    header {
+        padding: 0px 37px;
+    }
+
+    header h2 {
+        display: none;
+    }
+
+    .respLogoContainer{
+        display: flex;
+    }
 }
 
-header h2 {
-    display: none;
-}
-.respLogoContainer{
-display: flex;
-}
+@media (max-width: 520px) {
+    .ResponsivBorder {
+        padding: 0px;
+    }
+    .singleResponsivContainer {
+        font-size: 16px;
+        width: 102px;
+        padding: 0px
+    }
 }
 
 @media (max-width: 420px) {
-
-.singleResponisvContainer {
-    font-size: 12px;
-    padding: 0px
-}
+    .singleResponsivContainer {
+        font-size: 12px;
+        padding: 0px
+    }
 }
