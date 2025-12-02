@@ -292,7 +292,7 @@ h3{
     position: fixed;
     max-height: 800px;
     /* width: 1116px; */
-    width: clamp(47rem, 90vw, 69.75rem);
+    width: clamp(19rem, 98vw, 69.75rem);
     border-radius: 30px;
     left: 50%;
     top: 50%;
@@ -307,15 +307,15 @@ h3{
 }
 
 .addTaskDialogContainer{
+    margin: 8px;
     display: flex;
     flex-direction: column;
 }
 
 .closeButtonaddTaskContainer{
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 64px ;
-  padding-right: 32px;
+  position: fixed;
+  top: 64px ;
+  right:  32px;
   border:none;
   cursor: pointer;
 }
@@ -383,3 +383,6 @@ h3{
 }
 
 
+@media (max-width: 799px) {
+
+}
