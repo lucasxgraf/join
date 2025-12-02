@@ -67,6 +67,12 @@ section {
   max-width: 1100px;
 }
 
+h1{
+  font-size: 3.75rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
 .error_message, 
 .req {
   color: red;
@@ -333,8 +339,7 @@ label {
 }
 
 textarea{ 
-  /* max-width: 440px;
-  min-width: 440px; */
+  max-width: 440px;
   width: clamp(20rem, 36.7vw - 20vw 27.5rem);
   min-height: 136px;
   max-height: 440px;
@@ -666,6 +671,9 @@ gap: 0px;
 textarea{
   margin-bottom: 18px;
 }
+textarea{ 
+  max-width: clamp(18.5rem, 90vw, 36rem) !important;
+}
 
 textarea,
 .custom-category-dropdown,
@@ -703,7 +711,7 @@ textarea,
     position: sticky;
     bottom: 1px;
   }
-  
+
   .feedbackAddTask span {
   font-size: 16px;
   }
