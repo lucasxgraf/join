@@ -21,14 +21,6 @@ header h2{
     font-weight: 400;
 }
 
-.navContainer{
-    background-color: #2A3647;
-    height: 100vh;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-}
-
 .upper-container {
     display: flex;
     position: relative;
@@ -231,7 +223,7 @@ button {
   justify-content: center;
   color: white;
   text-decoration: none;
-  width: 120px;
+  max-width: 120px;
   padding: 8px 24px;
 }
 

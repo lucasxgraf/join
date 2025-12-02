@@ -709,7 +709,8 @@ textarea,
 @media (max-width: 520px) {
   .footer_Add_Task {
     position: sticky;
-    bottom: 1px;
+    bottom: 0px;
+    background-color: #f6f7f8;
   }
 
   .feedbackAddTask span {

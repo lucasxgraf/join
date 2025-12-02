@@ -382,7 +382,116 @@ h3{
   opacity: 0.6;
 }
 
+.search_container_responiv{
+  display: none;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+}
+
+.search_input_responsiv{
+  height: 48px;
+  padding: 8px 16px;
+  border: 1px solid #D1D1D1;
+  border-radius: 10px;
+  font-size: 1rem;
+
+}
+
+@media (max-width: 1460px) {
+  .scroll_layout {
+    padding: 80px 24px;
+
+}
+.content_col {
+  gap: 0px
+}
+}
+@media only screen and (max-width: 1275px) {
+  .navContainer {
+    display: none;
+  }
+
+  .navResponsivContainer {
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: 1075px) {
+  .content_col {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .content_header,
+.singleDragContainerHeader,
+.content_col {
+  width: 100%;
+  }
+h3{
+  font-size: 27px;
+}
+.addTask img {
+    height: 25px;
+    width: 25px;
+}
+.addTask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.placeholderDragContainer {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+  .singleDragContainer{
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    align-items: flex-start;
+  }
+}
+
 
 @media (max-width: 799px) {
+  .search_container_responiv{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+  }
 
+  .search_input_responsiv{
+    width: 100%;
+  }
+  
+  .addTaskSpan,
+  .search_container{
+    display: none;
+  }
+  h1 {
+    margin: 0px;
+  }
+  .addTaskButton {
+    padding: 3px;
+
+}
+.closeButtonaddTaskContainer {
+    top: 8px;
+    right: 8px;
+}
+}
+
+@media (max-width: 350px) {
+.content_header{
+justify-content: flex-start;
+}
+h1{
+  font-size: 3rem !important;
+}
 }
