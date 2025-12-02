@@ -212,10 +212,10 @@ button {
 
 .ResponsivBorder{
   display: flex;
-  justify-content: center;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0px ;
+  padding: 0 24px;
 }
 
 .navResponsivFooter{
@@ -231,7 +231,6 @@ button {
   justify-content: center;
   color: white;
   text-decoration: none;
-  font-size: 16px;
   width: 120px;
   padding: 8px 24px;
 }
@@ -239,7 +238,7 @@ button {
 .singleResponsivContainer:hover {
   background-color: #091931;
   cursor: pointer;
-  padding: 14px 16px;
+  height: 80px;
   border-radius: 16px;
 }
 
@@ -272,22 +271,15 @@ button {
     .respLogoContainer{
         display: flex;
     }
+
+
 }
 
 @media (max-width: 520px) {
     .ResponsivBorder {
-        padding: 0px;
+        padding: 8px;
     }
     .singleResponsivContainer {
-        font-size: 16px;
-        width: 102px;
-        padding: 0px
-    }
-}
-
-@media (max-width: 420px) {
-    .singleResponsivContainer {
-        font-size: 12px;
         padding: 0px
     }
 }
