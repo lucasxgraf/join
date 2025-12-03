@@ -15,7 +15,7 @@ async function initBoard() {
 }
 
 function loadDetails(cardFromFirebase) {
-     updateHTMLawaitFeedback(cardFromFirebase)
+     updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
@@ -280,4 +280,14 @@ function cleanupMobileDrag() {
     }
   }
   dragElementId = null;
+}
+
+function swapCategoryResponsive() {
+const swapRef = document.getElementById("swapCategory");
+  swapRef.classList.toggle("dnone");
+
+}
+
+function toggleSwapCategory(event) {
+  event.stopPropagation();
 }

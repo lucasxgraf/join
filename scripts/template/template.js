@@ -224,10 +224,14 @@ function renderCard(element) {
 
   return `
     <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')" ontouchstart="handleTouchStart(event, '${element.id}')"
-     ontouchmove="handleTouchMove(event)"
-     ontouchend="handleTouchEnd(event, '${element.id}')">
+     ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event, '${element.id}')">
       <div class="cardBorder"> 
-        <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
+        <div class="card_header_responsive">
+          <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
+          <button class="card_header_swap_icon" onclick="toggleSwapCategory(event)">
+            <img src="../assets/svg/swap_mobile.svg" id="swapCategory">
+          </button>
+        </div>
         <div class="card_content">
           <div class="card_title" id="cardTitle">${element.title}</div>
           <div class="card_description" id="cardDescription">${element.description}</div>
@@ -249,6 +253,20 @@ function renderCard(element) {
       </div>
     </div>
   `;
+}
+
+function renderSwapDropDown() {
+  return `
+  <div class="dropdown-menu-container" id=">
+  <div class="dropdown-menu">
+    <span>Move to</span>
+    <button>To Do</button>
+    <button>To Do</button>
+    <button>To Do</button>
+    <button>To Do</button>
+  </div>
+</div>
+  `
 }
 
 function renderOverlayCard(CARD, OVERLAY_CARD) {
