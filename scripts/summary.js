@@ -9,46 +9,73 @@ let nearest = null;
 
 
 async function inittest() {
+  greetingTime();
     setupGreetingListener()
     loadTasks("summary")
-    greetingTime();
 }
 
 function setupGreetingListener() {
     window.onAuthChange(async (user) => {
       const userGreetingElement = document.getElementById('userGreeting');
+      
       if (!user) {
         userGreetingElement.textContent = '';
         return;
       }
+      
       const userData = await window.getUserData(user.uid);
-      userGreetingElement.textContent = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
-      getInitialsFromUser()
+      const userName = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
+      userGreetingElement.textContent = userName;
+      
+      if (window.innerWidth <= 575) {
+        showMobileGreeting(userName);
+      }
+      
+      getInitialsFromUser();
     });
-  }
+}
 
-
+function showMobileGreeting(userName) {
+  const overlayElement = document.getElementById('welcome_message');
+  const timeGreetingOverlay = document.getElementById('timeGreeting_overlay');
+  const userGreetingOverlay = document.getElementById('userGreeting_overlay');
+  
+  const greetingText = greetingTime();
+  
+  timeGreetingOverlay.textContent = greetingText;
+  userGreetingOverlay.textContent = userName;
+  overlayElement.classList.remove('dnone');
+  
+  setTimeout(() => {
+    overlayElement.classList.add('dnone');
+  }, 3000);
+}
 
 function greetingTime() {
     let greeting = document.getElementById('timeGreeting');
-    const hour = today.getHours();
+    const hour = new Date().getHours();
+    let greetingText = "Good Morning,";
+    
     switch (true) {
-        case (hour < 11):
-        greeting.textContent = "Good Morning,"        
+        case (hour >= 4 && hour < 11):
+            greetingText = "Good Morning,";
             break;
-        case (hour < 18):
-        greeting.textContent = "Good Afternoon,"        
+        case (hour >= 11 && hour < 18):
+            greetingText = "Good Afternoon,";
             break;
-        case (hour < 21):
-        greeting.textContent = "Good Evening,"        
+        case (hour >= 18 && hour < 21):
+            greetingText = "Good Evening,";
             break;
-        case (hour < 4):
-        greeting.textContent = "Good Night,"        
+        case (hour >= 21 || hour < 4):
+            greetingText = "Good Night,";
             break;
         default:
-            greeting.textContent = "Good Morning,"
+            greetingText = "Good Morning,";
             break;
     }
+    
+    greeting.textContent = greetingText;
+    return greetingText;
 }
 
 function splitCardsByStatus(cards) {
@@ -77,7 +104,7 @@ function countUrgentPriority(cards) {
 function upcomingDeadline(urgentCards) {
   const dateRef = document.getElementById("dateText");
 
- if (!urgentCards || urgentCards.length === 0) {
+  if (!urgentCards || urgentCards.length === 0) {
     dateRef.innerHTML = "No urgent tasks";
     return;
   }
@@ -129,8 +156,6 @@ function updateSummary(todo, done, inProgress, awaitFeedback) {
 
     taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     inittest();

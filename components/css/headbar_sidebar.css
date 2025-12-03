@@ -266,7 +266,7 @@ button {
 
 @media (max-width: 520px) {
   .ResponsivBorder {
-    padding: 8px;
+    padding: 0px 8px;
   }
 
   .singleResponsivContainer {
