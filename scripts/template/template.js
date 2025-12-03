@@ -3,7 +3,7 @@ function renderaddTask() {
   return `
     <main>
         <div class="scroll_layout">
-            <h1 class="content_header">Add Task</h1>
+            <h1 class="content_header content_header_addTask_responsiv">Add Task</h1>
             <form id="taskForm">
             <section>
                 <div class="add-task-container">
@@ -223,7 +223,9 @@ function renderCard(element) {
   const CONTACTS = renderContactBadges(element.contact || []);
 
   return `
-    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')">
+    <div class="card" draggable="true" ondragstart="startDrag('${element.id}')" ondragend="stopDrag('${element.id}')" onclick="openOverlay('${element.id}')" ontouchstart="handleTouchStart(event, '${element.id}')"
+     ontouchmove="handleTouchMove(event)"
+     ontouchend="handleTouchEnd(event, '${element.id}')">
       <div class="cardBorder"> 
         <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
         <div class="card_content">

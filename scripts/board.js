@@ -2,6 +2,9 @@ let cardFromFirebase = [];
 let dragElementId = "";
 let contacts_from_firebase = {};
 let currentPlaceholder = null;
+let clonedCard = null;
+let longPressTimer = null;
+let touchStartPos = null;
 
 async function initBoard() {
     getInitialsFromUser()
@@ -12,7 +15,7 @@ async function initBoard() {
 }
 
 function loadDetails(cardFromFirebase) {
-     updateHTMLToDo(cardFromFirebase)
+     updateHTMLawaitFeedback(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
@@ -37,13 +40,13 @@ function updateHTMLToDo(cardFromFirebase) {
 
 function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
-    const INPROGRESS_REF = document.getElementById("inProgress");
+    const INPROGRESS_REF = document.getElementById("inprogress");
     forLoopCards(INPROGRESS_REF, inprogressArray, "No tasks In Progress")
 }
 
 function updateHTMLawaitFeedback(cardFromFirebase) {
     let awaitFeedbackArray = cardFromFirebase.filter(d => d['dragclass'] === "awaitfeedback");
-    const AWAIT_FEEDBACK_REF = document.getElementById("awaitFeedback");
+    const AWAIT_FEEDBACK_REF = document.getElementById("awaitfeedback");
     forLoopCards(AWAIT_FEEDBACK_REF, awaitFeedbackArray, "No tasks Await Feedback")
 
 }
@@ -201,4 +204,80 @@ function renderContactBadges(contact_array) {
   }
 
   return html;
+}
+
+function handleTouchStart(e, id) {
+const LONG_PRESS_DURATION = 500;
+  const touch = e.touches[0];
+  touchStartPos = { x: touch.clientX, y: touch.clientY };
+  
+  longPressTimer = setTimeout(() => {
+    e.preventDefault();
+    startDrag(id);
+    createMobileClone(e.target.closest('.card'));
+  }, LONG_PRESS_DURATION);
+}
+
+function createMobileClone(card) {
+  const rect = card.getBoundingClientRect();
+  
+  clonedCard = card.cloneNode(true);
+  clonedCard.classList.add('mobile-clone');
+  clonedCard.style.width = card.offsetWidth + 'px';
+  clonedCard.style.left = rect.left + 'px';
+  clonedCard.style.top = rect.top + 'px';
+  document.body.appendChild(clonedCard);
+  
+  card.classList.add('card-dragging');
+}
+
+function handleTouchMove(e, id) {
+  e.preventDefault();
+  if (!clonedCard) return;
+  
+  const touch = e.touches[0];
+  const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
+  const container = elements.find(el => el.classList.contains('singleDragContainer'));
+  
+  clonedCard.style.left = (touch.clientX - 0) + 'px';
+  clonedCard.style.top = (touch.clientY - 0) + 'px';
+  
+  if (container) {
+    dragoverHandler({ preventDefault: () => {}, currentTarget: container });
+  }
+}
+
+function handleTouchEnd(e, id) {
+  clearTimeout(longPressTimer);
+  longPressTimer = null;
+  
+  if (!clonedCard) return;
+  
+  e.preventDefault();
+  
+  const touch = e.changedTouches[0];
+  const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
+  const container = elements.find(el => el.classList.contains('singleDragContainer'));
+  
+  if (container && container.id) {
+    moveTo(container.id);
+  }
+  
+  cleanupMobileDrag();
+  stopDrag(id);
+}
+
+function cleanupMobileDrag() {
+  if (clonedCard) {
+    clonedCard.remove();
+    clonedCard = null;
+  }
+  
+  const card = document.querySelector(`[ondragstart*="${dragElementId}"]`);
+  if (dragElementId) {
+    if (card) {
+      card.classList.remove('card-dragging');
+    }
+  }
+  dragElementId = null;
 }
