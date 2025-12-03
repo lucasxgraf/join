@@ -69,12 +69,12 @@ ol li::marker {
   font-weight: 700;
 }
 
-ol h3{
+ol h3 {
   font-size: 24px;
   padding-left: 32px;
 }
 
-ol p{
+ol p {
   padding-left: 32px;
 }
 
@@ -107,25 +107,25 @@ span {
     font-size: 1.25rem;
   }
 
-  .navContainer{
+  .navContainer {
     display: none !important;
   }
 
-  .navResponsivContainer{
+  .navResponsivContainer {
     display: flex !important;
-    height: 80px; 
+    height: 80px;
   }
 
-  .ResponsivBorder{
+  .ResponsivBorder {
     padding: 0 16px;
   }
 
-  .responsive_links_container{
+  .responsive_links_container {
     display: flex;
     gap: 16px;
   }
 
-  .singleResponsivContainer{
+  .singleResponsivContainer {
     width: auto;
   }
-  }
+}
