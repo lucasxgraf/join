@@ -14,8 +14,10 @@ async function init() {
 await fetchContacts();
 //algorithm();
 //renderContacts();
-renderContactList()
-//bodyClickClose()
+renderContactList();
+bodyClickClose();
+contactClick();
+windowMobile()
 }
 
 async function fetchContacts() {
@@ -58,6 +60,7 @@ function showContact(index, letter) {
 }
 
 function showContactAfterEdit(index) {
+    if (window.matchMedia("(max-width: 950px)").matches) {showContactAfterEditMobile(index); return; }
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactAfterEditTemplate(index);
     let contactCard = document.getElementById(contacts[index].id);
@@ -67,37 +70,9 @@ function showContactAfterEdit(index) {
     hoverDelete();
 }
 
-function addContactEvent(event) {
-    event.stopPropagation();
-    let index = undefined;
-    let form = document.getElementById('main');
-    let popupBlack = document.getElementById('popupBackground');
-    popupBlack.classList.toggle("popup-overlay")
-    form.innerHTML += addformTemplate(index);
-    addXOverflowHidden();
-    hoverCancel();
-}
-
 function showNoContact() {
     let content = document.getElementById('contact_content')
     content.innerHTML = "";
-}
-
-function closeForm(event) {
-    event?.stopPropagation();
-    hoverEdit();
-    hoverDelete();
-    let popupBlack = document.getElementById('popupBackground');
-    let addForm = document.getElementById('add-Form');
-    let editForm = document.getElementById('edit-Form');
-    if (addForm) {
-        addForm.remove();
-        popupBlack.classList.toggle("popup-overlay");
-    }
-    if (editForm) {
-        editForm.remove();
-        popupBlack.classList.toggle("popup-overlay");
-    }
 }
 
 async function addContact(event) {
@@ -107,7 +82,7 @@ async function addContact(event) {
     let iPhone = document.getElementById('input-phone').value;
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
-    const data = returnJSONDATA(iName, iMail, iPhone, firstname, secondname);
+    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
     try {
     let response = await fetch("https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist.json", {
         method: 'POST',
@@ -116,15 +91,13 @@ async function addContact(event) {
         },
         body: JSON.stringify(data)
     });
-    let responseToJSON = await response.json();
-    console.log("Kontakt hinzugefügt:", responseToJSON);
     closeForm(event);
     contacts = [];
     await init();
     let newIndex = getContactIndexByFullName(iName);
     if (newIndex !== -1) {
-    showContactAfterEdit(newIndex);
-    addContactAlert()
+    if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
+    if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
     hoverEdit();
     hoverDelete();
     }
@@ -139,9 +112,27 @@ function addContactAlert() {
     alertxOverflowHidden()
 }
 
-function returnJSONDATA(iName, iMail, iPhone, firstname, secondname) {
+function addMobileContactAlert() {
+    let contactList = document.getElementById('contactlist');
+    contactList.innerHTML += contactMobileAddedAlert();
+    alertxOverflowHidden()
+}
+
+function returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname) {
     return {
         color: getRandomColor(),
+        mail: iMail,
+        name: {
+            firstname: firstname || "",
+            secondname: secondname || ""
+        },
+        tel: iPhone
+    };
+}
+
+function returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname) {
+    return {
+        color: contactColor,
         mail: iMail,
         name: {
             firstname: firstname || "",
@@ -191,7 +182,7 @@ function appendContact(listEl, letter, contact, index) {
       <button class="contact-picture" style="background-color: ${contact.color}">
         ${contactPictureLetters(index)}
       </button>
-      <div>
+      <div style="margin-right: 24px;">
         <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
         <p class="small-email">${contact.mail}</p>
       </div>
@@ -215,6 +206,8 @@ function popupClickClose() {
         editForm.remove();
         popupBlack.classList.toggle("popup-overlay");
     }
+    if (!window.matchMedia("(max-width: 950px)").matches) {contactClick()};
+    windowMobile();
 }
 
 async function formCheck(index, event) {
@@ -303,7 +296,7 @@ function showError(groupId, alertId, message) {
 }
 
 function editContactEvent(index) {
-    //event.stopPropagation();
+    if (window.matchMedia("(max-width: 930px)").matches) {editContactEventMobile(index); return;} 
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');
     popupBlack.classList.toggle("popup-overlay")
@@ -322,24 +315,18 @@ async function editContact(index) {
     let iName = document.getElementById('input-name').value;
     let iMail = document.getElementById('input-mail').value;
     let iPhone = document.getElementById('input-phone').value;
+    let contactColor = contacts[index]["color"];
     let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
+    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
     try {
         let response = await fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-        color: contacts[index].color,
-        mail: iMail,
-        name: {
-            firstname: firstname || "",
-            secondname: secondname || ""
-        },
-        tel: iPhone
-    })
+        body: JSON.stringify(data)
     });
     console.log("Kontakt bearbeitet:", response);
     closeForm();
@@ -362,10 +349,9 @@ async function deleteContact(index) {
     closeForm();
     contacts = [];
     await init();
-    showNoContact();
+    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
 } catch (err) {
     console.error('Failed to delete contact:', err);
-    alert('Could not delete contact. See console for details.');
 }
 }
 
@@ -379,3 +365,14 @@ function getContactIndexByFullName(fullName) {
     });
 }
 
+function clearContacts() {
+    let contactContent = document.getElementById('contact_content');
+    contactContent.innerHTML = "";
+    contacts.forEach(contact => {
+                let id = document.getElementById(contact.id);
+                if (id) {
+                    id.style.backgroundColor = "";
+                    id.style.color = "";
+                }
+            });
+}

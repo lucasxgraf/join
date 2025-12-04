@@ -339,19 +339,27 @@ ul li::marker {
     overflow-x: hidden;
 }
 
+.disable-y-scroll {
+    overflow-y: hidden !important;
+}
+
 .alert {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
     border-radius: 30px;
     background-color: #2A3647;
     display: flex;
     align-items: center;
     justify-content: center;
     border-style: solid;
-    bottom: -236px;
     z-index: 2000;
     width: 250px;
     height: 80px;
     border-color: transparent;
     color: white;
+    pointer-events: none; /* optional: nicht anklickbar */
 }
 
 .alert p {
@@ -360,9 +368,7 @@ ul li::marker {
 }
 
 .slide-rtl {
-  position: relative;
   animation: slide-in-out 1s ease-in-out forwards;
-  transform: translateX(300px);
 }
 
 @keyframes slide-in-out {
@@ -371,15 +377,15 @@ ul li::marker {
     opacity: 0;
   }
   20% {
-    transform: translateX(-500px); /* komplett im Bild */
+    transform: translateX(-30%); /* komplett im Bild */
     opacity: 1;
   }
   40% {
-    transform: translateX(-500px); /* weiter in die Seite hinein */
+    transform: translateX(-30%); /* weiter in die Seite hinein */
     opacity: 1;
   }
   80% {
-    transform: translateX(-500px); /* dort stehen bleiben */
+    transform: translateX(-30%); /* dort stehen bleiben */
     opacity: 1;
   }
   100% {

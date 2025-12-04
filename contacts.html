@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="/header_sidebar/headbar_sidebar.css">
     <link rel="stylesheet" href="/styles/standard.css">
     <link rel="stylesheet" href="/contacts.css">
+    <link rel="stylesheet" href="/responsive.css">
     <script src="/contacts.js"></script>
+    <script src="/responsive.js"></script>
     <script src="/contact_templates.js"></script>
 </head>
 <body onload="init()">
-    <div class="upper-container">
+    <div class="upper-container" id="upperContainer">
         <nav>
           <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg">
           <div class="sidebar-content">
@@ -65,19 +67,22 @@
           <main id="main">
             <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
             <div class="content">
-                <div class="contact-list">
+                <div class="contact-list" id="contactlist">
                   <button class="add-contact" onclick="addContactEvent(event)">
                     Add new contact
+                    <img class="add-button-img" src="/assets/svg/person_add.svg">
+                  </button>
+                  <button class="mobile-add-contact" onclick="addContactEvent(event)">
                     <img class="add-button-img" src="/assets/svg/person_add.svg">
                   </button>
                   <ul class="list" id="contact_list">
                   </ul>
                 </div>
                 <div class="contact-informations" id="contact-side">
-                    <div class="textbox">
+                    <div class="textbox" id="contact-headline">
                         <h1>Contacts</h1>
                         <div class="divider"></div>
-                        <h2>Better with a team</h2>
+                        <h2><span class="underline">Better wit</span>h a team</h2>
                     </div>
                     <div class="contact-content" id="contact_content"></div>
                 </div>
