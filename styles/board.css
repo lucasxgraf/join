@@ -121,11 +121,26 @@ h3 {
   flex-direction: column;
 }
 
+.card_header_responsive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .card_category {
   color: white;
   padding: 4px 16px;
   border-radius: 8px;
   width: max-content;
+}
+
+.card_header_swap_icon{
+  cursor: pointer;
+  display: none;
+}
+
+.card_header_swap_icon img{
+  height: 24px;
 }
 
 .card_content {
@@ -433,6 +448,10 @@ h3 {
   .singleDragContainerHeader,
   .content_col {
     width: 100%;
+  }
+
+  .card_header_swap_icon{
+    display: block;
   }
 
   h3 {
