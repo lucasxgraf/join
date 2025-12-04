@@ -287,38 +287,38 @@ function cleanupMobileDrag() {
 
 function toggleSwapCategory(event, taskId) {
   event.stopPropagation();
- 
-  
-  const button = event.currentTarget;
-  const card = button.closest('.card');
-  
-  let dropdown = card.querySelector('.swap-dropdown');
+  const card = event.currentTarget.closest('.card');
+  const dropdown = card.querySelector('.swap-dropdown');
   
   if (dropdown) {
     dropdown.remove();
-    isSwapOpen = false; 
+    isSwapOpen = false;
     return;
   }
   
+  createSwapDropdown(card, taskId);
+}
+
+function createSwapDropdown(card, taskId) {
   closeAllSwapDropdowns();
-  
-  dropdown = document.createElement('div');
+  const task = cardFromFirebase.find(t => t.id === taskId);
+  const dropdown = document.createElement('div');
   dropdown.className = 'swap-dropdown';
-  dropdown.innerHTML = renderSwapDropDown(taskId);
+  dropdown.innerHTML = renderSwapDropDown(taskId, task?.dragclass);
   card.appendChild(dropdown);
-  
-  function handleClickOutside(e) {
+  isSwapOpen = true;
+  setupDropdownClickOutside(dropdown, card.querySelector('.card_header_swap_icon'));
+}
+
+function setupDropdownClickOutside(dropdown, button) {
+  const handleClickOutside = (e) => {
     if (!dropdown.contains(e.target) && !button.contains(e.target)) {
       dropdown.remove();
+      isSwapOpen = false;
       document.removeEventListener('click', handleClickOutside);
     }
-    isSwapOpen = false; 
-  }
-  
-  setTimeout(() => {
-    document.addEventListener('click', handleClickOutside);
-  }, 0);
-isSwapOpen = true; 
+  };
+  setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
 }
 
 function closeAllSwapDropdowns() {

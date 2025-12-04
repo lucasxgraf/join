@@ -311,6 +311,14 @@ a {
     display: flex;
   }
 
+  .help-icon {
+    display: none;
+  }
+
+  .drop-down-menu-only-resp{
+    display: block;
+  }
+
   .headlines{
     flex-direction: column;
     align-items: flex-start;

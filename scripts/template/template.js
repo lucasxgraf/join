@@ -22,7 +22,7 @@ function renderaddTask() {
                             <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
                                 <input type="text" class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); enableSubmit()">
                                 </input>
-                                <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event"></button>
+                                <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="calender icon"></button>
                             </div>
                             <div id="dateError" class="error_message"></div>
                             <div class="calender" id="calender"></div>
@@ -48,7 +48,7 @@ function renderaddTask() {
                             <div class="custom-category-dropdown" id="contactDropdown">
                                 <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
                                      <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
-                                    <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
+                                    <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
                                 </div>
                                 <div class="dropdown-list" id="categoryDropdownList">
                                     <div id="labelContact"></div>
@@ -63,7 +63,7 @@ function renderaddTask() {
                                     <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
                                         <div class="dropdown-arrow" id="dropdownArrow">
-                                            <img src="../assets/img/arrow_drop_down.png" alt="arrow">
+                                            <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon">
                                         </div>
                                     </div>
                                     <div class="dropdown-list" id="categoryDropdownList">
@@ -93,10 +93,10 @@ function renderaddTask() {
             <div class="footer_Add_Task">
                 <div class="buttons_Add_Task dpf gap8">
                     <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
-                        <img class="closeSvg" src="../assets/svg/close.svg" alt="">
+                        <img class="closeSvg" src="../assets/svg/close.svg" alt="close icon">
                     </button>
                     <button type="submit" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
-                        <img class="checkSvg" src="../assets/svg/check.svg" alt="">
+                        <img class="checkSvg" src="../assets/svg/check.svg" alt="check icon">
                     </button>
                 </div>
             </div>
@@ -106,7 +106,7 @@ function renderaddTask() {
     <div class="feedbackAddTaskContainer dnone" id="feedback">
         <div class="feedbackAddTask">
             <span>Task added to board</span>
-            <img class="feedbackIcon" src="../assets/svg/icons_page/board.svg" alt="">
+            <img class="feedbackIcon" src="../assets/svg/icons_page/board.svg" alt="board icon">
         </div>
     </div>`;
 }
@@ -138,18 +138,18 @@ function subtask(addSubtask, subtaskArray) {
   
         <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}" ondblclick="editSubtask(${i})">・ ${subtaskTitle}
           <div class="editdeleteBtn">
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pencil, edit icon"></button>
             <div class="sepraratorSubtask"></div>
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTask(${i})"><img src="../assets/svg/delete.svg" alt="arrow"></button>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
           </div>
         </div>
   
         <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtask-${i}">
           <input id="editInputSubtask-${i}" class="stylingInput" value="${subtaskTitle}">
           <div class="dpf_cc">
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtask(${i})"><img src="../assets/svg/delete.svg" alt="pancel"></button>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
             <div class="sepraratorSubtask"></div>
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtask(${i})"><img src="../assets/svg/check.svg" alt="arrow"></button>
+            <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtask(${i})"><img src="../assets/svg/check.svg" alt="check icon"></button>
           </div>
         </div>`;
     }
@@ -167,11 +167,11 @@ function renderSubtaskButtons() {
     buttonContainer.innerHTML = `
 
       <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInput()" id="addBtn">
-        <img src="../assets/svg/close.svg" alt="cancel">
+        <img src="../assets/svg/close.svg" alt="close icon">
       </button>
       <div class="sepraratorSubtask"></div>
       <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtask()" id="cancelBtn">
-        <img src="../assets/svg/check.svg" alt="check">
+        <img src="../assets/svg/check.svg" alt="check icon">
       </button>`;
   }
 }
@@ -187,12 +187,12 @@ function renderCalender(currentid, displayid) {
                     <button type="button" class="tag" onclick="pickDate(2, '${displayid}', '${currentid}')">in 2 days</button>
                 </div>
                 <div class="monthSelector">
-                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1, '${currentid}', '${displayid}')"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt=""></button>
+                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1, '${currentid}', '${displayid}')"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt="chevron left"></button>
                     <div>
                         <span class="monthName" id="month">Oktober</span>
                         <span class="monthName" id="year">2025</span>
                         </div>
-                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt=""></button>
+                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt="chevron right"></button>
                 </div>
             </div> 
             <div class="datepickerCalender">
@@ -229,7 +229,7 @@ function renderCard(element) {
         <div class="card_header_responsive">
           <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
           <button class="card_header_swap_icon" onclick="toggleSwapCategory(event, '${element.id}')">            
-            <img src="../assets/svg/swap_mobile.svg" id="swapCategory">
+            <img src="../assets/svg/swap_mobile.svg" id="swapCategory" alt="swap icon">
           </button>
         </div>
         <div class="card_content">
@@ -255,24 +255,29 @@ function renderCard(element) {
   `;
 }
 
-function renderSwapDropDown(taskId) {
-  return `
-    <div class="dropdown-list_swap">
-      <span>Move to</span>
-      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'todo')">
-        To Do
-      </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'inprogress')">
-        In Progress
-      </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'awaitfeedback')">
-        Await Feedback
-      </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'done')">
-        Done
-      </button>
-    </div>
-  `;
+function renderSwapDropDown(taskId, currentDragClass) {
+  const columns = [
+    { value: 'todo', label: 'To Do' },
+    { value: 'inprogress', label: 'In Progress' },
+    { value: 'awaitfeedback', label: 'Await Feedback' },
+    { value: 'done', label: 'Done' }
+  ];
+  
+  const filteredColumns = columns.filter(col => col.value !== currentDragClass);
+  
+  let columnSwapCategory = '<div class="dropdown-list_swap"><span class="dropdown-header-text">Move To</span>';
+  
+  filteredColumns.forEach(col => {
+    columnSwapCategory += `
+      <div class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', '${col.value}')">
+        <span>${col.label}</span>
+      </div>
+    `;
+  });
+  
+  columnSwapCategory += '</div>';
+  
+  return columnSwapCategory;
 }
 
 function renderOverlayCard(CARD, OVERLAY_CARD) {
@@ -392,7 +397,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
             <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); checkEditOverlayInput()" placeholder="dd/mm/yyyy" 
               maxlength="10">
             </input>
-            <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="event">
+            <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calenderOverlayEdit','duedateOverlayEdit')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="calender icon">
             </button> 
             <div class="calender" id="calenderOverlayEdit"></div>
           </div>
@@ -416,7 +421,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
           <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
               <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
-                  <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
+                  <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
               </div>
               <div class="dropdown-list" id="categoryDropdownList">
                   <div id="labelContactOverlayEdit"></div>
@@ -435,7 +440,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
           </div>
 
       <button type="button" disabled onclick="saveEditedCardToFirebase()" id="submitEditOverlay" class="btn btn_create dpf_cc align-self">Ok
-        <img class="checkSvg" src="../assets/svg/check.svg" alt="">
+        <img class="checkSvg" src="../assets/svg/check.svg" alt="check icon">
       </button>
   </div>
   `
@@ -450,18 +455,18 @@ function subtaskEditOverlay(addSubtask, subtaskArray) {
     addSubtask.innerHTML += `
       <div class="taskOutput dpf_cc sp_between" id="taskOutputEditOverlay-${i}" ondblclick="editSubtaskEditOverlay(${i})">・ ${subtaskTitle}
         <div class="editdeleteBtn">
-          <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtaskEditOverlay(${i})"><img src="../assets/svg/edit.svg" alt="pancel"></button>
+          <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtaskEditOverlay(${i})"><img src="../assets/svg/edit.svg" alt="pancil, edit icon"></button>
           <div class="sepraratorSubtask"></div>
-          <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTaskEditOverlay(${i})"><img src="../assets/svg/delete.svg" alt="arrow"></button>
+          <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTaskEditOverlay(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
         </div>
       </div>
 
       <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtaskEditOverlay-${i}">
         <input id="editInputSubtaskEditOverlay-${i}" class="stylingInput" value="${subtaskTitle}">
         <div class="dpf_cc">
-          <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtaskEditOverlay(${i})"><img src="../assets/svg/delete.svg" alt="pancel"></button>
+          <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtaskEditOverlay(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
           <div class="sepraratorSubtask"></div>
-          <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtaskEditOverlay(${i})"><img src="../assets/svg/check.svg" alt="arrow"></button>
+          <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtaskEditOverlay(${i})"><img src="../assets/svg/check.svg" alt="check icon"></button>
         </div>
       </div>`;
   }
@@ -482,11 +487,11 @@ function renderSubtaskButtonsEditOverlay(event) {
   if (value !== "") {
     buttonContainer.innerHTML = `
       <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInputEditOverlay()" id="addBtn">
-        <img src="../assets/svg/close.svg" alt="cancel">
+        <img src="../assets/svg/close.svg" alt="close icon">
       </button>
       <div class="sepraratorSubtask"></div>
       <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtaskEditOverlay()" id="cancelBtn">
-        <img src="../assets/svg/check.svg" alt="check">
+        <img src="../assets/svg/check.svg" alt="check icon">
       </button>`;
   }
 }
