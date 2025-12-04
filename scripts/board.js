@@ -15,7 +15,7 @@ async function initBoard() {
 }
 
 function loadDetails(cardFromFirebase) {
-     updateHTMLawaitFeedback(cardFromFirebase)
+     updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
