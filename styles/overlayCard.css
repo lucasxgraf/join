@@ -12,6 +12,7 @@
   left: 50%;
   transform: translate(-50%,-50%);
   max-height: calc(100vh - 50px);
+  width: clamp(18rem, 95vw, 30rem);
   overflow: auto;
   background: #fff;
   color: #000;

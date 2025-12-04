@@ -646,6 +646,26 @@ button.dateFaded {
 }
 
 @media (max-width: 799px) {
+  header {
+    padding: 0px 37px;
+  }
+
+  header h2 {
+    display: none;
+  }
+
+  .respLogoContainer {
+    display: flex;
+  }
+
+  .help-icon {
+    display: none;
+  }
+
+  .drop-down-menu-only-resp{
+    display: block;
+  }
+
   section {
     flex-direction: column;
     gap: 0px;
