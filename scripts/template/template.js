@@ -257,18 +257,18 @@ function renderCard(element) {
 
 function renderSwapDropDown(taskId) {
   return `
-    <div class="dropdown-list">
+    <div class="dropdown-list_swap">
       <span>Move to</span>
-      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'todo')">
+      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'todo')">
         To Do
       </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'inprogress')">
+      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'inprogress')">
         In Progress
       </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'awaitfeedback')">
+      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'awaitfeedback')">
         Await Feedback
       </button>
-      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'done')">
+      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', 'done')">
         Done
       </button>
     </div>

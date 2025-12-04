@@ -5,6 +5,7 @@ let currentPlaceholder = null;
 let clonedCard = null;
 let longPressTimer = null;
 let touchStartPos = null;
+let isSwapOpen = false;
 
 async function initBoard() {
     getInitialsFromUser()
@@ -117,6 +118,8 @@ function stopDrag(id) {
 }
 
 function showDialog(targetDragClass) {
+
+  if (isSwapOpen) return;
     changePriority("medium", "AddTask")
     fetchSVGs("AddTask");
     addTaskButton();
@@ -284,6 +287,7 @@ function cleanupMobileDrag() {
 
 function toggleSwapCategory(event, taskId) {
   event.stopPropagation();
+ 
   
   const button = event.currentTarget;
   const card = button.closest('.card');
@@ -292,6 +296,7 @@ function toggleSwapCategory(event, taskId) {
   
   if (dropdown) {
     dropdown.remove();
+    isSwapOpen = false; 
     return;
   }
   
@@ -307,18 +312,22 @@ function toggleSwapCategory(event, taskId) {
       dropdown.remove();
       document.removeEventListener('click', handleClickOutside);
     }
+    isSwapOpen = false; 
   }
   
   setTimeout(() => {
     document.addEventListener('click', handleClickOutside);
   }, 0);
+isSwapOpen = true; 
 }
 
 function closeAllSwapDropdowns() {
   document.querySelectorAll('.swap-dropdown').forEach(dropdown => dropdown.remove());
+  isSwapOpen = false;
 }
 
-async function swapToColumn(taskId, newDragClass) {
+async function swapToColumn(event, taskId, newDragClass) {
+  event.stopPropagation();
   dragElementId = taskId;
   await moveTo(newDragClass);
   closeAllSwapDropdowns();

@@ -7,6 +7,8 @@ function openOverlay(cardId) {
   SingleCARD = []
   const OVERLAY = document.getElementById('overlay');
   const OVERLAY_CARD = document.getElementById('overlay_card');
+
+  if (isSwapOpen) return;
   const CARD = cardFromFirebase.find(c => c.id === cardId);
   if (!OVERLAY || !OVERLAY_CARD || !CARD) 
     return;
