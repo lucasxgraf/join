@@ -388,7 +388,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
           <h3>Due date</h3>
         </label>
         <div> 
-          <div id="dateOverlayEdit" class="task-input dpf sp_between inputWrapper">
+          <div id="dateOverlayEdit" class="task-input-editoverlay dpf sp_between inputWrapper">
             <input class="fontColor cleanInputforDate" id="duedateOverlayEdit" value="${CARD.date||''}" onblur="validateInput('dateErrorEditOverlay', 'duedateOverlayEdit', 'dateOverlayEdit')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); checkEditOverlayInput()" placeholder="dd/mm/yyyy" 
               maxlength="10">
             </input>
@@ -413,7 +413,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
 
       <div class="overlay_edit_form_layout">
         <h3>Assigned to</h3>
-          <div class="custom-category-dropdown" id="contactDropdownOverlayEdit">
+          <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
               <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow"></div>
@@ -428,7 +428,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <div class="overlay_edit_form_layout">
           <h3>Subtasks</h3>
             <div class="input-wrapper">
-              <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
+              <input type="text" maxlength="35" class="task-input inputBorderColor witdh100" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
               <div id="inputButtonsEditOverlay"></div>      
             </div>
             <div class="subtask" id="overlayEditSubtask"></div>

@@ -170,7 +170,6 @@ label {
   font-weight: 700;
   border: none;
 }
-
 .custom-category-dropdown {
   position: relative;
   width: clamp(20rem, 32.7vw, 27.5rem);

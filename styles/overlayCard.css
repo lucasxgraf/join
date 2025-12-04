@@ -10,8 +10,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 520px;
-  max-height: 950px;
+  max-height: calc(100vh - 50px);
+  max-height: 850px;
   overflow: auto;
   background: #fff;
   color: #000;
@@ -25,6 +25,10 @@
   gap: 24px;
 }
 
+.witdh100{
+  width: 100% !important;
+}
+
 .OverlayEditContainer{
   gap: 24px;
   display: flex;
@@ -35,6 +39,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.task-input-editoverlay{
+  max-width: clamp(18.5rem, 90vw, 36rem);
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 48px;
+  font-size: 16px;
 }
 
 .overlay_card_category{
@@ -121,6 +134,8 @@
   max-height: 135px;
   overflow-y: auto;
 }
+
+
 
 #overlayCardContact {
   height: auto;
@@ -275,4 +290,25 @@ form select{
 #calenderOverlayEdit:not(:empty) {
   border: solid 1px rgba(209, 209, 209, 1);
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+  .overlay_card_title {
+    font-size: 1.788rem;
+  }
+
+  .overlay_card_due_date_container span,
+  .overlay_card_priority_container span,
+  .overlay_card_assigned_to_container span,
+  .overlay_card_subtasks_container span,
+  .overlay_card_priority_layout,
+  .overlay_card_due_date_container,
+  .overlay_contact_name,
+  .overlay_contact_initials,
+  .overlay_card_description {
+    font-size: 1rem;
+  }
+  #overlay_card {
+    padding: 18px 
+  }
 }
