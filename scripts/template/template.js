@@ -228,7 +228,7 @@ function renderCard(element) {
       <div class="cardBorder"> 
         <div class="card_header_responsive">
           <div class="card_category ${element.category.toLowerCase().replace(/\s+/g,'_')}" id="cardCategrory">${element.category}</div>
-          <button class="card_header_swap_icon" onclick="toggleSwapCategory(event)">
+          <button class="card_header_swap_icon" onclick="toggleSwapCategory(event, '${element.id}')">            
             <img src="../assets/svg/swap_mobile.svg" id="swapCategory">
           </button>
         </div>
@@ -255,18 +255,24 @@ function renderCard(element) {
   `;
 }
 
-function renderSwapDropDown() {
+function renderSwapDropDown(taskId) {
   return `
-  <div class="dropdown-menu-container" id=">
-  <div class="dropdown-menu">
-    <span>Move to</span>
-    <button>To Do</button>
-    <button>To Do</button>
-    <button>To Do</button>
-    <button>To Do</button>
-  </div>
-</div>
-  `
+    <div class="dropdown-list">
+      <span>Move to</span>
+      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'todo')">
+        To Do
+      </button>
+      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'inprogress')">
+        In Progress
+      </button>
+      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'awaitfeedback')">
+        Await Feedback
+      </button>
+      <button class="dropdown-item-resp" onclick="swapToColumn('${taskId}', 'done')">
+        Done
+      </button>
+    </div>
+  `;
 }
 
 function renderOverlayCard(CARD, OVERLAY_CARD) {

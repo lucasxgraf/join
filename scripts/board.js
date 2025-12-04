@@ -282,12 +282,44 @@ function cleanupMobileDrag() {
   dragElementId = null;
 }
 
-function swapCategoryResponsive() {
-const swapRef = document.getElementById("swapCategory");
-  swapRef.classList.toggle("dnone");
-
+function toggleSwapCategory(event, taskId) {
+  event.stopPropagation();
+  
+  const button = event.currentTarget;
+  const card = button.closest('.card');
+  
+  let dropdown = card.querySelector('.swap-dropdown');
+  
+  if (dropdown) {
+    dropdown.remove();
+    return;
+  }
+  
+  closeAllSwapDropdowns();
+  
+  dropdown = document.createElement('div');
+  dropdown.className = 'swap-dropdown';
+  dropdown.innerHTML = renderSwapDropDown(taskId);
+  card.appendChild(dropdown);
+  
+  function handleClickOutside(e) {
+    if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+      dropdown.remove();
+      document.removeEventListener('click', handleClickOutside);
+    }
+  }
+  
+  setTimeout(() => {
+    document.addEventListener('click', handleClickOutside);
+  }, 0);
 }
 
-function toggleSwapCategory(event) {
-  event.stopPropagation();
+function closeAllSwapDropdowns() {
+  document.querySelectorAll('.swap-dropdown').forEach(dropdown => dropdown.remove());
+}
+
+async function swapToColumn(taskId, newDragClass) {
+  dragElementId = taskId;
+  await moveTo(newDragClass);
+  closeAllSwapDropdowns();
 }
