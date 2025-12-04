@@ -9,16 +9,16 @@ function renderaddTask() {
                 <div class="add-task-container">
                     <div class="task-input-container">
                         <div class="input_field">
-                            <label aria-label="title">Title<span class="req">*</span></label>
+                            <label for="title" aria-label="title">Title<span class="req">*</span></label>
                             <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title" onblur="validateInput('titleError', 'title', 'title')" oninput="enableSubmit()">
                             <div id="titleError" class="error_message"></div>
                         </div>
                         <div class="input_field">
-                            <label aria-label="Title">Description</label>
+                            <label for="description" aria-label="Title">Description</label>
                             <textarea id="description" class="task-input inputBorderColor" placeholder="Enter a description"></textarea>
                         </div>
                         <div class="input_field">
-                            <label aria-label="Date">Due date<span class="req">*</span></label>
+                            <label for="duedate" aria-label="Date">Due date<span class="req">*</span></label>
                             <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
                                 <input type="text" class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); enableSubmit()">
                                 </input>
@@ -35,7 +35,7 @@ function renderaddTask() {
                 <div class="add-task-container-right">
                     <div class="task-input-container">
                         <div class="input_field">
-                            <label aria-label="Priority">Priority</label>
+                            <label for="urgentBtnAddTask" aria-label="Priority">Priority</label>
                             <div class="priority-buttons">
                                 <button type="button" id="urgentBtnAddTask" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent','AddTask')">Urgent<span class="urgent_icon"></span></button> 
                                 <button type="button" id="mediumBtnAddTask" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','AddTask')">Medium <span class="medium_icon"></span></button>
@@ -44,7 +44,7 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
-                            <label aria-label="Assigned_to">Assigned to</label>
+                            <label for="selectedAssigned" aria-label="Assigned_to">Assigned to</label>
                             <div class="custom-category-dropdown" id="contactDropdown">
                                 <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
                                      <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
@@ -58,7 +58,7 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
-                            <label aria-label="Category">Category<span class="req">*</span></label>
+                            <label for="selectedCategory" aria-label="Category">Category<span class="req">*</span></label>
                                 <div class="custom-category-dropdown" id="categoryDropdown">
                                     <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
@@ -74,7 +74,7 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
-                            <label aria-label="Subtasks">Subtasks</label>
+                            <label for="subtaskReadOut" aria-label="Subtasks">Subtasks</label>
                                 <div class="input-wrapper">
                                     <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
                                     <div id="inputButtons"></div>
@@ -112,7 +112,7 @@ function renderaddTask() {
 }
 
 function renderContact(i, contacFromFirebase) {
-    return `<label class="dropdown-item sp_between">
+    return `<label for="categoryCheckbox${i}" class="dropdown-item sp_between">
             <div class="dpf_cc gap8">
                 <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
                 <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
@@ -123,9 +123,9 @@ function renderContact(i, contacFromFirebase) {
 
 function renderCategory(i) {
   return `
-       <label class="dropdown-item" onclick="changeCategory(this)">
+       <div class="dropdown-item" onclick="changeCategory(this)">
             <span>${category[i]}</span>
-        </label>`;
+        </div>`;
 }
 
 function subtask(addSubtask, subtaskArray) {

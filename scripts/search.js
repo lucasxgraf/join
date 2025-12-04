@@ -1,8 +1,10 @@
 let isSearchActive = false;
 
 function initSearch() {
-    const SEARCH_INPUT = document.getElementById('searchInput');
+    const SEARCH_INPUT = document.getElementById('searchInput')
+    const SEARCH_INPUT_RES = document.getElementById('searchInputResp');
     SEARCH_INPUT.addEventListener('input', handleSearch);
+    SEARCH_INPUT_RES.addEventListener('input', handleSearch);
 }
 
 function handleSearch(event) {
@@ -78,16 +80,16 @@ function resetSearch() {
 
 function clearAllContainers() {
     document.getElementById('todo').innerHTML = '';
-    document.getElementById('inProgress').innerHTML = '';
-    document.getElementById('awaitFeedback').innerHTML = '';
+    document.getElementById('inprogress').innerHTML = '';
+    document.getElementById('awaitfeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
 }
 
 function getContainerId(dragclass) {
     const CONTAINER_MAP = {
         'todo': 'todo',
-        'inprogress': 'inProgress',
-        'awaitfeedback': 'awaitFeedback',
+        'inprogress': 'inprogress',
+        'awaitfeedback': 'awaitfeedback',
         'done': 'done'
     };
     
