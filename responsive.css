@@ -234,21 +234,40 @@
 
 @keyframes slideUpHoldDown {
   0% {
-    transform: translateY(100%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
   20% {
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
   80% {
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
   100% {
-    transform: translateY(100%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
+}
+
+.alert {
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);   /* echte Zentrierung */
+    border-radius: 30px;
+    background-color: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    z-index: 2000;
+    width: 250px;
+    height: 80px;
+    border-color: transparent;
+    color: white;
+    pointer-events: none;
 }
 
 @keyframes slideOutRight {

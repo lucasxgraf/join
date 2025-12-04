@@ -359,7 +359,7 @@ ul li::marker {
     height: 80px;
     border-color: transparent;
     color: white;
-    pointer-events: none; /* optional: nicht anklickbar */
+    pointer-events: none;
 }
 
 .alert p {
