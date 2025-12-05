@@ -14,8 +14,8 @@ function addFormTemplate(index) {
                 <div id="group-mail"><input type="text" placeholder="E-Mail" id="input-mail"><img style="margin-left: -36px; margin-bottom: -6px;" src="../assets/svg/email.svg"></div>
                 <div id="group-phone"><input type="text" placeholder="Phone" id="input-phone"><img style="margin-left: -36px; margin-bottom: -6px;" src="../assets/svg/call.svg"></div>
                 <div style="display: flex; gap: 16px;">
-                    <button style="width: 80px" id="cancel-contact" onclick="closeForm(event)">Cancel<img src="../assets/icons/icon_cancel.svg" id="cancel-contact-img"></button>
-                    <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Create contact<img src="/assets/icons/check_createcontact.svg"></button>
+                    <button style="width: 80px" id="cancel-contact" onclick="closeForm(event)">Cancel<img img src="../assets/svg/close.svg" id="cancel-contact-img"></button>
+                    <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Create contact<img src="../assets/svg/check_white.svg"></button>
                 </div>
             </div>
         </div>

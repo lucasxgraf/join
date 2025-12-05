@@ -7,7 +7,6 @@ let longPressTimer = null;
 let touchStartPos = null;
 let isSwapOpen = false;
 
-
 async function initBoard() {
     getInitialsFromUser()
     await loadContacts();
@@ -199,22 +198,26 @@ function getInitials(name_obj) {
 function renderContactBadges(contact_array) {
   const MAX_VISIBLE = 3;
   let html = '';
+
   if (!contact_array || contact_array.length === 0) {
     return '<div class="no_contacts">No contacts assigned</div>';
   }
-  maxContactbadge (contact_array, MAX_VISIBLE, html)
+
+  html += maxContactbadge(contact_array, MAX_VISIBLE);
 
   if (contact_array.length > MAX_VISIBLE) {
     const REMAINING = contact_array.length - MAX_VISIBLE;
     html += `
       <div class="contact_badge contact_badge_more">+${REMAINING}</div>`;
   }
+
   return html;
 };
 
 
- function maxContactbadge(contact_array, MAX_VISIBLE, html) {
-  
+function maxContactbadge(contact_array, MAX_VISIBLE) {
+  let html = '';
+
   for (let i = 0; i < Math.min(contact_array.length, MAX_VISIBLE); i++) {
     const CONTACT_ENTRY = contact_array[i];
     const CONTACT_ID = CONTACT_ENTRY.id;
@@ -227,7 +230,10 @@ function renderContactBadges(contact_array) {
 
     html += `
       <div class="contact_badge" style="background-color:${COLOR}">${INITIALS}</div>`;
-  }};
+  }
+
+  return html;
+}
 
 
 function handleTouchStart(e, id) {

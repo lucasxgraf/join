@@ -80,6 +80,7 @@ async function saveEditedCardToFirebase() {
     location.reload();
 }
 
+
 function helpForCompositionEdit(cardId, title, description, date, selectedContacts){
     const updatedCard = {
     title: title,
@@ -145,6 +146,7 @@ async function loadContacts() {
       contacts_from_firebase = DATA;
     } 
 }
+
 
 async function loadTasks(ref) {
     const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
