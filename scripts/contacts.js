@@ -1,0 +1,378 @@
+let CONTACT_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts.json"
+
+let contacts = [];
+
+const COLORS = [
+  "#FF7A00", "#FF5EB3", "#6E52FF", 
+  "#9327FF", "#00BEE8", "#1FD7C1", 
+  "#FF745E", "#FFA35E", "#FC71FF",
+  "#FFC701", "#0038FF", "#C3FF2B",
+  "#FFE62B", "#FF4646", "#FFBB2B",
+];
+
+async function init() {
+await fetchContacts();
+//algorithm();
+//renderContacts();
+renderContactList();
+bodyClickClose();
+contactClick();
+windowMobile()
+}
+
+async function fetchContacts() {
+    let response = await fetch(CONTACT_URL);
+    let responseToJSON = await response.json();
+    let contactObj = responseToJSON.contactlist || responseToJSON;
+    for (let id in contactObj) {
+        let contactData = contactObj[id];
+        contactData.id = id;   // ID INS OBJEKT EINTRAGEN
+        contacts.push(contactData);
+    }
+}
+
+function checkRenderContactsName(letter, index) {
+    if (letter == contacts[index]["name"]["firstname"][0]) {
+        return contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
+    }
+}
+
+function checkRenderContactsEmail(letter, index) {
+    if (letter == contacts[index]["name"]["firstname"][0]) {
+        return contacts[index]["mail"];
+    }
+}
+
+function contactPictureLetters(index) {
+    let name = contacts[index]["name"];
+    return name.firstname[0] + name.secondname[0];
+}
+
+function showContact(index, letter) {
+    if (document.getElementById('showContent' + index)) {
+        return
+    }
+    let content = document.getElementById('contact_content');
+    content.innerHTML = showContactTemplate(index);
+    showContentXOverflowHidden(index)
+    hoverEdit();
+    hoverDelete();
+}
+
+function showContactAfterEdit(index) {
+    if (window.matchMedia("(max-width: 950px)").matches) {showContactAfterEditMobile(index); return; }
+    let content = document.getElementById('contact_content');
+    content.innerHTML = showContactAfterEditTemplate(index);
+    let contactCard = document.getElementById(contacts[index].id);
+    contactCard.style.backgroundColor = "#2A3647";
+    contactCard.style.color = "white";
+    hoverEdit();
+    hoverDelete();
+}
+
+function showNoContact() {
+    let content = document.getElementById('contact_content')
+    content.innerHTML = "";
+}
+
+async function addContact(event) {
+    event.stopPropagation();
+    let iName = document.getElementById('input-name').value;
+    let iMail = document.getElementById('input-mail').value;
+    let iPhone = document.getElementById('input-phone').value;
+    let [firstname, ...rest] = iName.trim().split(" ");
+    let secondname = rest.join(" ");
+    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
+    try {
+    let response = await fetch("https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist.json", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    closeForm(event);
+    contacts = [];
+    await init();
+    let newIndex = getContactIndexByFullName(iName);
+    if (newIndex !== -1) {
+    if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
+    if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
+    hoverEdit();
+    hoverDelete();
+    }
+    } catch(error) {
+        console.error("Fehler beim Speichern:", error);
+    }
+}
+
+function addContactAlert() {
+    let content = document.getElementById('contact_content');
+    content.innerHTML += contactAddedAlert();
+    alertxOverflowHidden()
+}
+
+function addMobileContactAlert() {
+    let contactList = document.getElementById('contactlist');
+    contactList.innerHTML += contactMobileAddedAlert();
+    alertxOverflowHidden()
+}
+
+function returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname) {
+    return {
+        color: getRandomColor(),
+        mail: iMail,
+        name: {
+            firstname: firstname || "",
+            secondname: secondname || ""
+        },
+        tel: iPhone
+    };
+}
+
+function returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname) {
+    return {
+        color: contactColor,
+        mail: iMail,
+        name: {
+            firstname: firstname || "",
+            secondname: secondname || ""
+        },
+        tel: iPhone
+    };
+}
+//--------------------------------------------------------------------------------------
+function sortContacts() {
+  contacts.sort((a, b) =>
+    a.name.firstname.localeCompare(
+      b.name.firstname,
+      'de',
+      { sensitivity: 'base' }
+    )
+  );
+}
+
+function renderContactList() {
+  sortContacts();
+  const listEl = document.getElementById('contact_list'); listEl.innerHTML = '';
+  let currentLetter = '';
+  contacts.forEach((contact, index) => {
+    const firstLetter = (contact.name.firstname || '').charAt(0).toUpperCase();
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      renderGroupHeader(listEl, currentLetter);
+    }
+    appendContact(listEl, currentLetter, contact, index);
+  });
+  contactClick();
+}
+
+function renderGroupHeader(listEl, letter) {
+  listEl.innerHTML += `
+    <div class="letter">${letter}</div>
+    <div class="contact-line"></div>
+    <div id="group-${letter}"></div>
+  `;
+}
+
+function appendContact(listEl, letter, contact, index) {
+  const groupEl = document.getElementById(`group-${letter}`);
+  groupEl.innerHTML += `
+    <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, '${letter}')">
+      <button class="contact-picture" style="background-color: ${contact.color}">
+        ${contactPictureLetters(index)}
+      </button>
+      <div style="margin-right: 24px;">
+        <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
+        <p class="small-email">${contact.mail}</p>
+      </div>
+    </div>`;
+}
+
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * COLORS.length);
+  return COLORS[randomIndex];
+}
+
+function popupClickClose() {
+    let popupBlack = document.getElementById('popupBackground');
+    let addForm = document.getElementById('add-Form');
+    let editForm = document.getElementById('edit-Form');
+    if (addForm) {
+        addForm.remove();
+        popupBlack.classList.toggle("popup-overlay");
+    }
+    if (editForm) {
+        editForm.remove();
+        popupBlack.classList.toggle("popup-overlay");
+    }
+    if (!window.matchMedia("(max-width: 950px)").matches) {contactClick()};
+    windowMobile();
+}
+
+async function formCheck(index, event) {
+  clearAlerts();
+  const { name, mail, phone } = getFormValues();
+  const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
+  if (!nameValid)  showError('group-name','alert-name','This field is required. Example for name: Max Mustermann');
+  if (!mailValid)  showError('group-mail','alert-mail','This field is required. Example for e-mail: John-Smith@test.com');
+  if (!phoneValid) showError('group-phone','alert-phone','This field is required. Example for phone number: +4917612345678');
+  if (!nameValid || !mailValid || !phoneValid) return;
+  if (document.getElementById('add-Form'))  await addContact(event);
+  if (document.getElementById('edit-Form')) await editContact(index);
+}
+
+function clearAlerts() {
+  document.getElementById('alert-name')?.remove();
+  document.getElementById('alert-mail')?.remove();
+  document.getElementById('alert-phone')?.remove();
+}
+
+function getFormValues() {
+  const name  = document.getElementById('input-name').value;
+  const mail  = document.getElementById('input-mail').value;
+  const phone = document.getElementById('input-phone').value;
+  return { name, mail, phone };
+}
+
+function getValidity({ name, mail, phone }) {
+  const nameValid  = name.length  > 2 && nameCheck(name);
+  const mailValid  = mail.length  > 2 && mailCheck(mail);
+  const phoneValid = phone.length > 2 && phoneCheck(phone);
+  return { nameValid, mailValid, phoneValid };
+}
+
+function validName(iName) {
+    const trimmed = iName.trim();
+    const pattern = /^[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?\s+[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?$/ 
+    return pattern.test(trimmed);
+}
+
+function nameCheck(iName) {
+    if (!validName(iName)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validMail(iMail) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(iMail.trim());
+}
+
+function mailCheck(iMail) {
+    if (!validMail(iMail)) {
+        return false
+    } else {
+        return true;
+    }
+}
+
+function validPhone(iPhone) {
+    const pattern = /^\+?[0-9][0-9\s\-().]{6,18}$/;
+    return pattern.test(iPhone.trim())
+}
+
+function phoneCheck(iPhone) {
+    if (!validPhone(iPhone)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function showError(groupId, alertId, message) {
+    let group = document.getElementById(groupId)
+    let oldAlert = document.getElementById(alertId);
+    if (oldAlert) {
+        oldAlert.remove();
+    }
+    let alert = document.createElement('p');
+    alert.innerText = message;
+    alert.setAttribute("id", alertId);
+    group.appendChild(alert);
+    group.style = "margin-bottom: 0;"
+}
+
+function editContactEvent(index) {
+    if (window.matchMedia("(max-width: 930px)").matches) {editContactEventMobile(index); return;} 
+    let form = document.getElementById('main');
+    let popupBlack = document.getElementById('popupBackground');
+    popupBlack.classList.toggle("popup-overlay")
+    form.innerHTML += editContactTemplate(index);
+    editXOverflowHidden();
+    let inputName = document.getElementById('input-name');
+    let inputMail = document.getElementById('input-mail');
+    let inputPhone = document.getElementById('input-phone');
+    inputName.value = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
+    inputMail.value = contacts[index]["mail"];
+    inputPhone.value = contacts[index]["tel"];
+    hoverCancel();
+}
+
+async function editContact(index) {
+    let iName = document.getElementById('input-name').value;
+    let iMail = document.getElementById('input-mail').value;
+    let iPhone = document.getElementById('input-phone').value;
+    let contactColor = contacts[index]["color"];
+    let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
+    let [firstname, ...rest] = iName.trim().split(" ");
+    let secondname = rest.join(" ");
+    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
+    try {
+        let response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    console.log("Kontakt bearbeitet:", response);
+    closeForm();
+    contacts = [];
+    await init();
+    showContactAfterEdit(index);
+} catch (err) {
+    console.error('Failed to edit contact:', err);
+    alert('Could not save contact. See console for details.');
+}
+}
+
+async function deleteContact(index) {
+    let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
+    try {
+        let response = await fetch(url, {
+        method: 'DELETE'
+    });
+    console.log("Kontakt gelöscht");
+    closeForm();
+    contacts = [];
+    await init();
+    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
+} catch (err) {
+    console.error('Failed to delete contact:', err);
+}
+}
+
+function getContactIndexByFullName(fullName) {
+    return contacts.findIndex(contact => {
+        let full = `${contact.name.firstname} ${contact.name.secondname}`
+            .trim()
+            .toLowerCase();
+
+        return full === fullName.trim().toLowerCase();
+    });
+}
+
+function clearContacts() {
+    let contactContent = document.getElementById('contact_content');
+    contactContent.innerHTML = "";
+    contacts.forEach(contact => {
+                let id = document.getElementById(contact.id);
+                if (id) {
+                    id.style.backgroundColor = "";
+                    id.style.color = "";
+                }
+            });
+}

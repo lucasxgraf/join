@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="shortcut icon" href="../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
+    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../styles/contacts.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+
+    <script type="module" src="../scripts/firebase_auth.js" defer></script>
+    <script src="../scripts/contacts.js"></script>
+    <script src="../scripts/responsive.js"></script>
+    <script src="../scripts/template/contact_templates.js"></script>
+    <script src="../components/js/summary_header.js"></script>
+</head>
+<body onload="init()">
+    <div class="upper-container">
+      <nav>
+        <div class="navContainer">
+          <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg" alt="join logo">
+          <div class="sidebar-content">
+            <div class="sidebar-links-container">
+              <a class="sidebar-links" href="./summary.html">
+                <img src="../assets/svg/icons_page/summary.svg" alt="summary icon">
+                Summary
+              </a>
+              <a class="sidebar-links" href="./addTask.html">
+                <img src="../assets/svg/icons_page/add_task.svg" alt="add task icon">
+                Add Task
+              </a>
+              <a class="sidebar-links" href="./board.html">
+                <img src="../assets/svg/icons_page/board.svg" alt="board icon">
+                Board
+              </a>
+              <a class="sidebar-links" href="./contacts.html">
+                <img src="../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+                Contacts
+              </a>
+            </div>
+            <div class="sidebar-bottom">
+              <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+              <a href="../components/html/legalNotice.html">Legal notice</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="navResponsivContainer dnone">
+          <div class="ResponsivBorder">
+            <a class="singleResponsivContainer" href="./summary.html">
+              <img class="responsivIcon" src="../assets/svg/icons_page/summary.svg" alt="summary icon">
+              Summary
+            </a>
+            <a class="singleResponsivContainer" href="./addTask.html">
+              <img class="responsivIcon" src="../assets/svg/icons_page/add_task.svg" alt="add task icon">
+              Add Task
+            </a>
+            <a class="singleResponsivContainer" href="./board.html">
+              <img class="responsivIcon" src="../assets/svg/icons_page/board.svg" alt="board icon">
+              Board
+            </a>
+            <a class="singleResponsivContainer" href="./contacts.html">
+              <img class="responsivIcon" src="../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+              Contacts
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    <div class="center-wrap">
+      <header>
+        <div class="header_content">
+          <h2>Kanban Project Management Tool</h2>
+          <div class="respLogoContainer"> <img class="respLogo" src="../assets/img/logo/join_logo.png" alt="join logo"></div>
+          <div class="profile-section">
+            <a href="../components/html/help.html" >
+              <button class="help-icon"><img src="../assets/svg/help_small.svg" alt="help icon"></button>
+            </a>
+            <button class="profile" id="profilePicture" onclick="dropDown(event)"></button>
+          </div>
+        </div>
+      </header>
+
+        <div class="dropdown-menu-container" id="dropDownMenu">
+          <div class="dropdown-menu">
+            <a href="../components/html/help.html" class="drop-down-menu-only-resp">
+              <button>Help</button>
+            </a>
+            <a href="../components/html/legalNotice.html">
+              <button>Legal Notice</button>
+            </a>
+            <a href="../components/html/privacyPolicy.html">
+              <button>Privacy Policy</button>
+            </a>
+            <a>
+              <button onclick="logoutUser()">Log out</button>
+            </a>
+          </div>
+        </div>
+
+          <main id="main">
+            <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
+            <div class="content">
+                <div class="contact-list" id="contactlist">
+                  <button class="add-contact" onclick="addContactEvent(event)">
+                    Add new contact
+                    <img class="add-button-img" src="../assets/svg/person_add.svg">
+                  </button>
+                  <button class="mobile-add-contact" onclick="addContactEvent(event)">
+                    <img class="add-button-img" src="../assets/svg/person_add.svg">
+                  </button>
+                  <ul class="list" id="contact_list">
+                  </ul>
+                </div>
+                <div class="contact-informations" id="contact-side">
+                    <div class="textbox" id="contact-headline">
+                        <h1>Contacts</h1>
+                        <div class="divider"></div>
+                        <h2><span class="underline">Better wit</span>h a team</h2>
+                    </div>
+                    <div class="contact-content" id="contact_content"></div>
+                </div>
+            </div>
+          </main>
+    <script src="/header_sidebar/summary_header.js"></script>
+    <script src="/contact_event.js"></script>
+</body>
+</html>
