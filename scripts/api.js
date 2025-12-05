@@ -165,3 +165,90 @@ else{
   countUrgentPriority(cardFromFirebase)
 }
 };
+
+async function fetchContacts() {
+    let response = await fetch(BASE_URL + "contacts.json");
+    let responseToJSON = await response.json();
+    let contactObj = responseToJSON.contactlist || responseToJSON;
+    for (let id in contactObj) {
+        let contactData = contactObj[id];
+        contactData.id = id;   // ID INS OBJEKT EINTRAGEN
+        contacts.push(contactData);
+    }
+}
+
+
+async function addContact(event) {
+    event.stopPropagation();
+    let iName = document.getElementById('input-name').value;
+    let iMail = document.getElementById('input-mail').value;
+    let iPhone = document.getElementById('input-phone').value;
+    let [firstname, ...rest] = iName.trim().split(" ");
+    let secondname = rest.join(" ");
+    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
+    try {
+    let response = await fetch(BASE_URL + "contacts/contactlist.json", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    closeForm(event);
+    contacts = [];
+    await init();
+    let newIndex = getContactIndexByFullName(iName);
+    if (newIndex !== -1) {
+    if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
+    if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
+    hoverEdit();
+    hoverDelete();
+    }
+    } catch(error) {
+        console.error("Fehler beim Speichern:", error);
+    }
+}
+
+async function editContact(index) {
+    let iName = document.getElementById('input-name').value;
+    let iMail = document.getElementById('input-mail').value;
+    let iPhone = document.getElementById('input-phone').value;
+    let contactColor = contacts[index]["color"];
+    let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+    let [firstname, ...rest] = iName.trim().split(" ");
+    let secondname = rest.join(" ");
+    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
+    try {
+        let response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    console.log("Kontakt bearbeitet:", response);
+    closeForm();
+    contacts = [];
+    await init();
+    showContactAfterEdit(index);
+} catch (err) {
+    console.error('Failed to edit contact:', err);
+    alert('Could not save contact. See console for details.');
+}
+}
+
+async function deleteContact(index) {
+    let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+    try {
+        let response = await fetch(url, {
+        method: 'DELETE'
+    });
+    console.log("Kontakt gelöscht");
+    closeForm();
+    contacts = [];
+    await init();
+    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
+} catch (err) {
+    console.error('Failed to delete contact:', err);
+}
+}

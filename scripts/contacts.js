@@ -1,4 +1,4 @@
-let CONTACT_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts.json"
+
 
 let contacts = [];
 
@@ -18,17 +18,7 @@ renderContactList();
 bodyClickClose();
 contactClick();
 windowMobile()
-}
-
-async function fetchContacts() {
-    let response = await fetch(CONTACT_URL);
-    let responseToJSON = await response.json();
-    let contactObj = responseToJSON.contactlist || responseToJSON;
-    for (let id in contactObj) {
-        let contactData = contactObj[id];
-        contactData.id = id;   // ID INS OBJEKT EINTRAGEN
-        contacts.push(contactData);
-    }
+getInitialsFromUser()
 }
 
 function checkRenderContactsName(letter, index) {
@@ -45,7 +35,7 @@ function checkRenderContactsEmail(letter, index) {
 
 function contactPictureLetters(index) {
     let name = contacts[index]["name"];
-    return name.firstname[0] + name.secondname[0];
+    return name.firstname[0].toUpperCase() + name.secondname[0].toUpperCase();
 }
 
 function showContact(index, letter) {
@@ -75,36 +65,6 @@ function showNoContact() {
     content.innerHTML = "";
 }
 
-async function addContact(event) {
-    event.stopPropagation();
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    let [firstname, ...rest] = iName.trim().split(" ");
-    let secondname = rest.join(" ");
-    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
-    try {
-    let response = await fetch("https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist.json", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    closeForm(event);
-    contacts = [];
-    await init();
-    let newIndex = getContactIndexByFullName(iName);
-    if (newIndex !== -1) {
-    if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
-    if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
-    hoverEdit();
-    hoverDelete();
-    }
-    } catch(error) {
-        console.error("Fehler beim Speichern:", error);
-    }
-}
 
 function addContactAlert() {
     let content = document.getElementById('contact_content');
@@ -309,50 +269,6 @@ function editContactEvent(index) {
     inputMail.value = contacts[index]["mail"];
     inputPhone.value = contacts[index]["tel"];
     hoverCancel();
-}
-
-async function editContact(index) {
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    let contactColor = contacts[index]["color"];
-    let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
-    let [firstname, ...rest] = iName.trim().split(" ");
-    let secondname = rest.join(" ");
-    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
-    try {
-        let response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    console.log("Kontakt bearbeitet:", response);
-    closeForm();
-    contacts = [];
-    await init();
-    showContactAfterEdit(index);
-} catch (err) {
-    console.error('Failed to edit contact:', err);
-    alert('Could not save contact. See console for details.');
-}
-}
-
-async function deleteContact(index) {
-    let url = `https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/contacts/contactlist/${contacts[index].id}.json`;
-    try {
-        let response = await fetch(url, {
-        method: 'DELETE'
-    });
-    console.log("Kontakt gelöscht");
-    closeForm();
-    contacts = [];
-    await init();
-    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
-} catch (err) {
-    console.error('Failed to delete contact:', err);
-}
 }
 
 function getContactIndexByFullName(fullName) {
