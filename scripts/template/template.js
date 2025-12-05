@@ -111,13 +111,14 @@ function renderaddTask() {
     </div>`;
 }
 
+
 function renderContact(i, contacFromFirebase) {
-    return `<label for="categoryCheckbox${i}" class="dropdown-item sp_between">
+  return `<label for="categoryCheckbox${i}" class="dropdown-item sp_between">
             <div class="dpf_cc gap8">
-                <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
-                <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
+              <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
+              <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
             </div>
-                <input class="checkbox" type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
+              <input class="checkbox" type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
             </label>`;
 }
 
@@ -127,6 +128,7 @@ function renderCategory(i) {
             <span>${category[i]}</span>
         </div>`;
 }
+
 
 function subtask(addSubtask, subtaskArray) {
     addSubtask.innerHTML = "";
@@ -153,7 +155,8 @@ function subtask(addSubtask, subtaskArray) {
           </div>
         </div>`;
     }
-  }
+}
+
 
 function renderSubtaskButtons() {
   const input = document.getElementById("subtaskReadOut");
@@ -175,6 +178,7 @@ function renderSubtaskButtons() {
       </button>`;
   }
 }
+
 
 function renderCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
@@ -214,6 +218,7 @@ function renderCalender(currentid, displayid) {
   initMonthDisplay();
   renderCalendarDays(currentMonth, currentYear, currentid, displayid);  
 }
+
 
 function renderCard(element) {
   const SUBTASKS = getSubtasksArray(element.subtask);
@@ -255,6 +260,7 @@ function renderCard(element) {
   `;
 }
 
+
 function renderSwapDropDown(taskId, currentDragClass) {
   const columns = [
     { value: 'todo', label: 'To Do' },
@@ -279,6 +285,7 @@ function renderSwapDropDown(taskId, currentDragClass) {
   
   return columnSwapCategory;
 }
+
 
 function renderOverlayCard(CARD, OVERLAY_CARD) {
   OVERLAY_CARD.innerHTML = `
@@ -345,6 +352,7 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
   `;
 }
 
+
 function showDeleteToast() {
   toast = document.createElement('div');
   toast.innerHTML = `
@@ -366,6 +374,7 @@ function showDeleteToast() {
     toast.remove();
   }, 2000);
 }
+
 
 function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   OVERLAY_CARD.innerHTML = `
@@ -446,6 +455,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   `
 }
 
+
 function subtaskEditOverlay(addSubtask, subtaskArray) {
   addSubtask.innerHTML = "";
   
@@ -472,6 +482,7 @@ function subtaskEditOverlay(addSubtask, subtaskArray) {
   }
 }
 
+
 function renderSubtaskButtonsEditOverlay(event) {
   const input = event ? event.target : document.getElementById("subtaskReadOutEditOverlay");
   const buttonContainer = document.getElementById("inputButtonsEditOverlay");
@@ -495,6 +506,7 @@ function renderSubtaskButtonsEditOverlay(event) {
       </button>`;
   }
 }
+
 
 function renderContactOnHTMLOverlayEdit(contactFromFirebase, currentId) {
   const contactRef = document.getElementById(currentId);

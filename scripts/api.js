@@ -1,5 +1,6 @@
 const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
 let contactFromFirebase = [];
+ 
 
 async function postData(path="addTask.json", data={task}) {
   let response = await fetch(BASE_URL + path,{
@@ -9,6 +10,7 @@ async function postData(path="addTask.json", data={task}) {
   });
    return response.json();
 }
+
 
 async function fetchContact(path = "contacts/contactlist.json") {
   const fetchRes = await fetch(BASE_URL + path);
@@ -20,18 +22,29 @@ async function fetchContact(path = "contacts/contactlist.json") {
       ...contact
       
     }));
-
   }
   renderContactOnHTML(contactFromFirebase, "labelContact")
 }
-// Add Task
+
+
 async function addTask() {
   let titel = document.getElementById("title");
   let description = document.getElementById("description");
   let date = document.getElementById("duedate");
   let category = document.getElementById("selectedCategory")
 
-  const newTask = {
+  const newTask = helpForcomposition (titel, description, date, category) 
+
+  task.push(newTask);
+  clearInput()
+  enableSubmit()
+  sendFeedback()
+  
+  return postData("addTask.json", newTask);
+}
+
+function helpForComposition(titel, description, date, category) {
+    const newTask = {
     "title": titel.value,
     "description": description.value,
     "date": date.value || date.innerText,
@@ -40,66 +53,23 @@ async function addTask() {
     "contact": contactList,
     "category": category.value,
     "dragclass": dragclass()
-    
-  };  
-  task.push(newTask);
-  clearInput()
-  enableSubmit()
-  sendFeedback()
-  
-   return postData("addTask.json", newTask);
+  };
+  return newTask
 }
-// #####################################################################################
-
-function dragclass() {
-  const dragclassRef = document.getElementById("addTaskDialog")?.dataset.dragclass; 
-
-  if (dragclassRef) {
-    return dragclassRef
-  }else {
-   return "todo"
-  }
-
-  
-}
-// Overlay
-async function saveSubtasksToFirebase(cardId, subtasks) {
-    const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
-    await fetch(url, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(subtasks) 
-    });
-}
-
-async function deleteTaskFromFirebase(taskId) {
-    const response = await fetch(`${BASE_URL}addTask/${taskId}.json`, {
-      method: 'DELETE'
-    });
-  } 
 
 async function saveEditedCardToFirebase() {
   if (!validateEditedForm()) {
     return;
   }
-  const cardId = SingleCARD[0].id;
+  const cardId = SingleCARD[0];
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
-
   const selectedContacts = getSelectedContactsFromOverlay();
 
-  const updatedCard = {
-    title: title,
-    description: description,
-    date: date,
-    priority: selectedPriority,
-    contact: selectedContacts,
-    subtask: SingleCARD[0].subtask,
-    category: SingleCARD[0].category,
-    dragclass: SingleCARD[0].dragclass
-  };
-    const url = `${BASE_URL}addTask/${cardId}.json`;
+  
+  const updatedCard = helpForCompositionEdit(cardId, title, description, date, selectedContacts)
+    const url = `${BASE_URL}addTask/${cardId.id}.json`;
     await fetch(url, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -110,6 +80,49 @@ async function saveEditedCardToFirebase() {
     location.reload();
 }
 
+function helpForCompositionEdit(cardId, title, description, date, selectedContacts){
+    const updatedCard = {
+    title: title,
+    description: description,
+    date: date,
+    priority: selectedPriority,
+    contact: selectedContacts,
+    subtask: cardId.subtask,
+    category: cardId.category,
+    dragclass: cardId.dragclass
+  };
+return updatedCard
+}
+
+
+function dragclass() {
+  const dragclassRef = document.getElementById("addTaskDialog")?.dataset.dragclass; 
+
+  if (dragclassRef) {
+    return dragclassRef
+  }else {
+   return "todo"
+  } 
+}
+
+
+async function saveSubtasksToFirebase(cardId, subtasks) {
+    const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
+    await fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(subtasks) 
+    });
+}
+
+
+async function deleteTaskFromFirebase(taskId) {
+    const response = await fetch(`${BASE_URL}addTask/${taskId}.json`, {
+      method: 'DELETE'
+    });
+  } 
+
+  
 async function moveTo(newdragclass) {
   const task = cardFromFirebase.find(t => t.id === dragElementId);
   if (!task) return;
@@ -122,6 +135,7 @@ async function moveTo(newdragclass) {
       });
       loadDetails(cardFromFirebase);
 }
+
 
 async function loadContacts() {
   

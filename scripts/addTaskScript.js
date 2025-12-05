@@ -31,6 +31,7 @@ function clearSubtask() {
   addSubtaskContainer.innerHTML = ""
 }
 
+
 function clearContact() {
   contactList = [];
   contactBadge = [];
@@ -42,6 +43,7 @@ function clearContact() {
     iconContactHTML("iconContact")
   });
 }
+
 
 function toggleDropdown(selector, currentId) {
   const dropdown = document.getElementById(selector);
@@ -59,6 +61,7 @@ function toggleDropdown(selector, currentId) {
   if (!isOpen) {
     if (currentId) iconContactHTML(currentId);
   }}
+
 
 function changeCategory(selection) {
   let text = "";
@@ -78,6 +81,7 @@ function changeCategory(selection) {
   toggleDropdown('categoryDropdown');
 }
 
+
 function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
   const addSubtaskContainer = document.getElementById("addSubtask");
@@ -91,6 +95,7 @@ function addSubtask() {
   readout.value = "";
 }
 
+
 function enterSubtask() {
   document.getElementById("subtaskReadOut").addEventListener("keypress", (event) => {  
   if (event.key === "Enter"){
@@ -98,6 +103,7 @@ function enterSubtask() {
     addSubtask();
   }}); 
 }
+
 
 function changePriority(priority, currentId) {
   const buttons = document.querySelectorAll('.priority-btn');
@@ -108,6 +114,7 @@ function changePriority(priority, currentId) {
 
   selectedPriority = priority;
 }
+
 
 function fetchSVGs(currentId) {
   const svgs = [{ path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
@@ -120,7 +127,8 @@ function fetchSVGs(currentId) {
         document.querySelector(svg.selector).innerHTML = svgContent;
       })
       .catch(error => console.error('Error fetching SVG:', error));
-  })};
+})};
+
 
 function selectContacts(i, checkbox) {
   let badgeName = contactName[i].innerText
@@ -139,6 +147,7 @@ function selectContacts(i, checkbox) {
   updateAssignedInput();
 }
 
+
 function updateAssignedInput() {
   const input = document.getElementById("selectedAssigned");
   
@@ -147,6 +156,7 @@ function updateAssignedInput() {
   } else 
     input.value = "Select contacts to assign";   
 }
+
 
 function iconContactHTML(currentId) {
   const iconConact = document.getElementById(currentId);
@@ -161,16 +171,19 @@ function iconContactHTML(currentId) {
   }
 }
 
+
 function deleteTask(i){
   const addSubtask = document.getElementById("addSubtask");
   subtaskArray.splice(i, 1);
   subtask(addSubtask, subtaskArray);
 }
 
+
 function cleanInput() {
   let input = document.getElementById("subtaskReadOut")
   input.value = "";  
 }
+
 
 function editSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
@@ -187,6 +200,7 @@ function editSubtask(i) {
   cancelEditSubtask(i);
   }};
 
+
 function cancelEditSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
   const container = document.getElementById(`containerEditSubtask-${i}`);
@@ -194,7 +208,8 @@ function cancelEditSubtask(i) {
   container.classList.add("dnone");
   taskOutput.classList.remove("dnone");
 }
-  
+ 
+
 function addEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   const newValue = editInputSubtask.value;
@@ -209,6 +224,7 @@ function addEditSubtask(i) {
   }
 }
 
+
 function clearEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   if (editInputSubtask.value === "") {
@@ -221,14 +237,17 @@ function clearEditSubtask(i) {
   }
 }
 
+
 function showError(elementId, message) {
   const el = document.getElementById(elementId);
   if (el) el.textContent = message;
 }
 
+
 function clearErrors() {
   document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
 }
+
 
 function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId = null) {
   const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -244,6 +263,7 @@ function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId =
   const isValid = duedateError(dateRegex, value, duedateInput, wrapperId, errorId);
   return isValid;
 }
+
 
 function duedateError(dateRegex, value, duedateInput, wrapperId, errorId) {
   const addErrorBorder = () => {
@@ -265,6 +285,7 @@ function duedateError(dateRegex, value, duedateInput, wrapperId, errorId) {
   return true;
 }
 
+
 function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
   const categorySelect = document.getElementById("selectedCategory").value.trim();
@@ -279,6 +300,7 @@ function enableSubmit() {
   }
 }
 
+
 function initTaskFormEvents() {
   const form = document.getElementById("taskForm");
   const title = document.getElementById("title");
@@ -291,9 +313,11 @@ function initTaskFormEvents() {
   };
 }
 
+
 function keepFocusOnDate(e) {
   e.preventDefault(); 
 }
+
 
 function validateForm() {
   let ok = true;
@@ -313,6 +337,7 @@ function sendFeedback() {
   }, 2000);
   
 }
+
 
 function validateInput(displayid, currentId, inputFrame) {
   const input = document.getElementById(currentId);

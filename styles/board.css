@@ -100,7 +100,6 @@ h3 {
   padding: 0px 64px;
 }
 
-/* ################################# Card ################################### */
 .card {
   width: 252px;
   border-radius: 24px;
@@ -146,7 +145,6 @@ h3 {
 .card_header_swap_icon img:hover{
 filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%) contrast(93%);
 }
-
 
 .card_content {
   display: flex;
@@ -302,11 +300,9 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
-
 .dialogWindow {
   position: fixed;
   max-height: 800px;
-  /* width: 1116px; */
   width: clamp(19rem, 98vw, 69.75rem);
   border-radius: 30px;
   left: 50%;
@@ -458,12 +454,8 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
 .dropdown-item-resp:hover{
   background-color: #2A3D59;
 }
-
+.card_header_responsive,
 .card {
-  position: relative;
-}
-
-.card_header_responsive {
   position: relative;
 }
 
@@ -542,11 +534,6 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
     width: 100%;
   }
 
-  .addTaskSpan,
-  .search_container {
-    display: none;
-  }
-
   h1 {
     font-size: 2.5rem !important;
     margin: 0px;
@@ -565,16 +552,15 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
     padding: 0px 37px;
   }
 
+  .addTaskSpan,
+  .search_container
+  .help-icon,
   header h2 {
     display: none;
   }
 
   .respLogoContainer {
     display: flex;
-  }
-
-  .help-icon {
-    display: none;
   }
 
   .drop-down-menu-only-resp{

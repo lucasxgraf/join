@@ -7,9 +7,9 @@ function init() {
     addSubtask();
     enterSubtask();
     enableSubmit();
-    changePriority("medium", "AddTask")
-    
+    changePriority("medium", "AddTask") 
 }
+
 
 function renderInHtml() {
     renderaddTaskOnHtml();
@@ -17,6 +17,7 @@ function renderInHtml() {
     initTaskFormEvents();
 
 }
+
 
 function renderaddTaskOnHtml() {
     const addTaskRef = document.getElementById("addTaskTemplate")
@@ -39,6 +40,7 @@ function renderContactOnHTML(contacFromFirebase, currentId) {
     }
 }
 
+
 function renderCategoryOnHTML() {
     const categoryRef = document.getElementById("labelCategory");
     
@@ -46,6 +48,7 @@ function renderCategoryOnHTML() {
         categoryRef.innerHTML +=  renderCategory(i);      
     }
 }
+
 
 function addTaskButton() {
   const input = document.getElementById("subtaskReadOut");

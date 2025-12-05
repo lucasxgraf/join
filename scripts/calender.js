@@ -1,10 +1,10 @@
 const monthNames = [
   "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+  "July", "August", "September", "October", "November", "December"];
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth(); // 0–11
 let currentYear = currentDate.getFullYear();
+
 
 function checkDate(duedateInput) {
   if (!isValidFutureDate(duedateInput.value)) {
@@ -13,6 +13,7 @@ function checkDate(duedateInput) {
   }
   return true;
 }
+
 
 function pickDate(offsetDays = 0, displayid, currentid) {
   
@@ -37,6 +38,7 @@ function pickDate(offsetDays = 0, displayid, currentid) {
   inputDate.focus()
 }
 
+
 function isValidFutureDate(value) {
   const parts = value.split("/");
   if (parts.length !== 3) return false;
@@ -51,6 +53,7 @@ function isValidFutureDate(value) {
 
   return inputDate >= today;
 }
+
 
 function toggleCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
@@ -79,6 +82,7 @@ function initMonthDisplay() {
   document.getElementById("year").textContent = currentYear;
 }
 
+
 function changeMonth(direction, currentid, displayid) {
   currentMonth += direction;
 
@@ -93,6 +97,7 @@ function changeMonth(direction, currentid, displayid) {
   document.getElementById("year").textContent = currentYear;
   renderCalendarDays(currentMonth, currentYear, currentid, displayid);
 }
+
 
 function renderCalendarDays(month, year, currentid, displayid) {
   const grid = document.getElementById("calenderDays");
@@ -111,6 +116,7 @@ function renderCalendarDays(month, year, currentid, displayid) {
     grid.appendChild(btn);
   }
 }
+
 
 function handleDayButton(btn, date, today, d, month, year, currentid, displayid) {
   const isPast = date < today;

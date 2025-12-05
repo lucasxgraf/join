@@ -7,6 +7,7 @@ let longPressTimer = null;
 let touchStartPos = null;
 let isSwapOpen = false;
 
+
 async function initBoard() {
     getInitialsFromUser()
     await loadContacts();
@@ -15,12 +16,14 @@ async function initBoard() {
     fetchContact();
 }
 
+
 function loadDetails(cardFromFirebase) {
      updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
      updateHTMLDone(cardFromFirebase)
      updateHTMLawaitFeedback(cardFromFirebase) 
 }
+
 
 function forLoopCards(ref, array , placeholdertext) {
 
@@ -33,17 +36,20 @@ function forLoopCards(ref, array , placeholdertext) {
     ref.innerHTML = `<div class="placeholderDragContainer">${placeholdertext}</div>`} 
 }
 
+
 function updateHTMLToDo(cardFromFirebase) {
     let todoArray = cardFromFirebase.filter(d => d['dragclass'] === "todo");
     const TODO_REF = document.getElementById("todo");
     forLoopCards(TODO_REF, todoArray, "No tasks To Do") 
 }
 
+
 function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
     const INPROGRESS_REF = document.getElementById("inprogress");
     forLoopCards(INPROGRESS_REF, inprogressArray, "No tasks In Progress")
 }
+
 
 function updateHTMLawaitFeedback(cardFromFirebase) {
     let awaitFeedbackArray = cardFromFirebase.filter(d => d['dragclass'] === "awaitfeedback");
@@ -52,11 +58,13 @@ function updateHTMLawaitFeedback(cardFromFirebase) {
 
 }
 
+
 function updateHTMLDone(cardFromFirebase) {
     let doneArray = cardFromFirebase.filter(d => d['dragclass'] === "done");
     const DONE_REF = document.getElementById("done");
     forLoopCards(DONE_REF, doneArray, "No tasks To Do")
 }
+
 
 function removePlaceholder() {
   if (currentPlaceholder) {
@@ -71,6 +79,7 @@ function removePlaceholder() {
     }
   });
 }
+
 
 function createPlaceholderPreview(container) {
   const existingPlaceholder = container.querySelector('#drag-placeholder');
@@ -90,6 +99,7 @@ function createPlaceholderPreview(container) {
   }
 }
 
+
 function dragoverHandler(ev) {
   ev.preventDefault();
   const container = ev.currentTarget;
@@ -101,6 +111,7 @@ function dragoverHandler(ev) {
   createPlaceholderPreview(container);
 }
 
+
 function startDrag(id) {
     dragElementId = id;
     const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
@@ -108,6 +119,7 @@ function startDrag(id) {
       ELEMENT.classList.add('dragging');
     }
 }
+
 
 function stopDrag(id) {
   const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
@@ -117,15 +129,21 @@ function stopDrag(id) {
   removePlaceholder();
 }
 
-function showDialog(targetDragClass) {
 
-  if (isSwapOpen) return;
+function syncforDialog() {
     changePriority("medium", "AddTask")
     fetchSVGs("AddTask");
     addTaskButton();
     addSubtask();
     enterSubtask();
     enableSubmit();
+}
+
+
+function showDialog(targetDragClass) {
+
+  if (isSwapOpen) return;
+    syncforDialog()
 
     const OVERLAY = document.getElementById("addTaskOverlay");
     const DIALOG = document.getElementById("addTaskDialog");
@@ -138,6 +156,7 @@ function showDialog(targetDragClass) {
       }, 10);
 }
 
+
 function closeDialog() {
   const OVERLAY = document.getElementById("addTaskOverlay");
   const DIALOG = document.getElementById("addTaskDialog");
@@ -148,21 +167,25 @@ function closeDialog() {
   clearInput();
 }
 
+
 function getSubtasksArray(subtask) {
   if (Array.isArray(subtask)) 
     return subtask;
   return [];
 }
 
+
 function calcCompleted(subtasks) {
   return subtasks.filter(s => s.completed).length;
 }
+
 
 function calcProgress(subtasks) {
   if (subtasks.length === 0) 
     return 0;
   return (calcCompleted(subtasks) / subtasks.length) * 100;
 }
+
 
 function getInitials(name_obj) {
   if (!name_obj) return '??';
@@ -172,14 +195,26 @@ function getInitials(name_obj) {
   return `${FIRST[0] || ''}${SECOND[0] || ''}`.toUpperCase();
 }
 
+
 function renderContactBadges(contact_array) {
+  const MAX_VISIBLE = 3;
+  let html = '';
   if (!contact_array || contact_array.length === 0) {
     return '<div class="no_contacts">No contacts assigned</div>';
   }
+  maxContactbadge (contact_array, MAX_VISIBLE, html)
 
-  const MAX_VISIBLE = 3;
-  let html = '';
+  if (contact_array.length > MAX_VISIBLE) {
+    const REMAINING = contact_array.length - MAX_VISIBLE;
+    html += `
+      <div class="contact_badge contact_badge_more">+${REMAINING}</div>`;
+  }
+  return html;
+};
 
+
+ function maxContactbadge(contact_array, MAX_VISIBLE, html) {
+  
   for (let i = 0; i < Math.min(contact_array.length, MAX_VISIBLE); i++) {
     const CONTACT_ENTRY = contact_array[i];
     const CONTACT_ID = CONTACT_ENTRY.id;
@@ -191,26 +226,12 @@ function renderContactBadges(contact_array) {
     const COLOR = CONTACT_DATA.color || '#2a3647';
 
     html += `
-      <div class="contact_badge" style="background-color:${COLOR}">
-        ${INITIALS}
-      </div>
-    `;
-  }
+      <div class="contact_badge" style="background-color:${COLOR}">${INITIALS}</div>`;
+  }};
 
-  if (contact_array.length > MAX_VISIBLE) {
-    const REMAINING = contact_array.length - MAX_VISIBLE;
-    html += `
-      <div class="contact_badge contact_badge_more">
-        +${REMAINING}
-      </div>
-    `;
-  }
-
-  return html;
-}
 
 function handleTouchStart(e, id) {
-const LONG_PRESS_DURATION = 500;
+  const LONG_PRESS_DURATION = 500;
   const touch = e.touches[0];
   touchStartPos = { x: touch.clientX, y: touch.clientY };
   
@@ -220,6 +241,7 @@ const LONG_PRESS_DURATION = 500;
     createMobileClone(e.target.closest('.card'));
   }, LONG_PRESS_DURATION);
 }
+
 
 function createMobileClone(card) {
   const rect = card.getBoundingClientRect();
@@ -233,6 +255,7 @@ function createMobileClone(card) {
   
   card.classList.add('card-dragging');
 }
+
 
 function handleTouchMove(e, id) {
   e.preventDefault();
@@ -250,10 +273,10 @@ function handleTouchMove(e, id) {
   }
 }
 
+
 function handleTouchEnd(e, id) {
   clearTimeout(longPressTimer);
   longPressTimer = null;
-  
   if (!clonedCard) return;
   
   e.preventDefault();
@@ -263,12 +286,12 @@ function handleTouchEnd(e, id) {
   const container = elements.find(el => el.classList.contains('singleDragContainer'));
   
   if (container && container.id) {
-    moveTo(container.id);
-  }
-  
+    moveTo(container.id);}
+
   cleanupMobileDrag();
   stopDrag(id);
-}
+};
+
 
 function cleanupMobileDrag() {
   if (clonedCard) {
@@ -285,6 +308,7 @@ function cleanupMobileDrag() {
   dragElementId = null;
 }
 
+
 function toggleSwapCategory(event, taskId) {
   event.stopPropagation();
   const card = event.currentTarget.closest('.card');
@@ -294,10 +318,10 @@ function toggleSwapCategory(event, taskId) {
     dropdown.remove();
     isSwapOpen = false;
     return;
-  }
-  
+  } 
   createSwapDropdown(card, taskId);
 }
+
 
 function createSwapDropdown(card, taskId) {
   closeAllSwapDropdowns();
@@ -310,6 +334,7 @@ function createSwapDropdown(card, taskId) {
   setupDropdownClickOutside(dropdown, card.querySelector('.card_header_swap_icon'));
 }
 
+
 function setupDropdownClickOutside(dropdown, button) {
   const handleClickOutside = (e) => {
     if (!dropdown.contains(e.target) && !button.contains(e.target)) {
@@ -321,10 +346,12 @@ function setupDropdownClickOutside(dropdown, button) {
   setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
 }
 
+
 function closeAllSwapDropdowns() {
   document.querySelectorAll('.swap-dropdown').forEach(dropdown => dropdown.remove());
   isSwapOpen = false;
 }
+
 
 async function swapToColumn(event, taskId, newDragClass) {
   event.stopPropagation();

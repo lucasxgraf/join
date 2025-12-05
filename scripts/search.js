@@ -7,6 +7,7 @@ function initSearch() {
     SEARCH_INPUT_RES.addEventListener('input', handleSearch);
 }
 
+
 function handleSearch(event) {
     const SEARCH_TERM = event.target.value.trim().toLowerCase();
     
@@ -19,6 +20,7 @@ function handleSearch(event) {
     }
 }
 
+
 function filterCards(SEARCH_TERM) {
     const FILTERED_CARDS = cardFromFirebase.filter(card => {
         const CARD_TITLE = String(card.title || card.titel || '').toLowerCase();
@@ -29,6 +31,7 @@ function filterCards(SEARCH_TERM) {
     
     renderFilteredCards(FILTERED_CARDS);
 }
+
 
 function renderFilteredCards(FILTERED_CARDS) {
     clearAllContainers();
@@ -92,7 +95,6 @@ function getContainerId(dragclass) {
         'awaitfeedback': 'awaitfeedback',
         'done': 'done'
     };
-    
     return CONTAINER_MAP[dragclass] || 'todo';
 }
 
