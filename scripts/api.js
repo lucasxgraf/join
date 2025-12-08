@@ -33,7 +33,7 @@ async function addTask() {
   let date = document.getElementById("duedate");
   let category = document.getElementById("selectedCategory")
 
-  const newTask = helpForcomposition (titel, description, date, category) 
+  const newTask = helpForComposition (titel, description, date, category) 
 
   task.push(newTask);
   clearInput()

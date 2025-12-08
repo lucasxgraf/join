@@ -198,19 +198,59 @@ ul li::marker {
     border-radius: 15px;
 }
 
+.text-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 40%;
+    background-color: #2A3647;
+    border-radius: 15px 0 0 15px;
+    gap: 16px;
+    padding: 32px 16px;
+    color: white;
+}
+
+.text-form h1{
+    margin: 0;
+    font-size: 3.5rem;
+    text-align: start;
+}
+
+.text-form span{
+    font-size: 1.25rem;
+}
+
+.add_contact_logo{
+    height: 60px;
+    width: 60px;
+}
+
+.inner-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    gap: 40px;
+}
+
+.inner-form-picture{
+    height: 120px;
+    width: 120px;
+}
+
 .add-form {
     display: flex;
     flex-direction: column;
-    margin-left: 72px;
 }
 
 .add-form input {
-    width: 280px;
-    height: 36px;
-    border-radius: 10px;
-    border-color: #DCDCDC;
-    border-style: solid;
-    padding-left: 10px;
+    border-style: none;
+    width: 100%;
+}
+
+.add-form input:focus-visible {
+    outline: none;
 }
 
 .add-form button {
@@ -219,14 +259,9 @@ ul li::marker {
     border-style: solid;
 }
 
-.text-form {
+.add-contacts-btn{
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-radius: 15px 0 0 15px;
-    justify-content: center;
     gap: 16px;
-    padding: 16px;
 }
 
 .edit_contact_logo{
@@ -245,6 +280,9 @@ ul li::marker {
     align-items: center;
     justify-content: center;
     border-width: 1px;
+    border: 1px solid #2A3647;
+    gap: 4px;
+    padding: 16px;
 }
 
 #cancel-contact:hover {
@@ -252,6 +290,12 @@ ul li::marker {
     color: #29ABE2;
     box-shadow: 0px 9px 8px 1px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%) contrast(93%);
+}
+
+#cancel-contact img {
+    height: 24px;
+    width: 24px;
 }
 
 #create-contact {
@@ -260,8 +304,9 @@ ul li::marker {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 4px;
     border: unset;
+    padding : 16px;
 }
 
 #create-contact:hover {
@@ -439,5 +484,13 @@ ul li::marker {
 }
 
 #group-name, #group-mail, #group-phone {
+    display: flex;
+    justify-content: space-between;
+    width: 280px;
+    height: 36px;
+    border-radius: 10px;
+    border-color: #DCDCDC;
+    border-style: solid;
+    padding: 0 16px;
     margin-bottom: 32px;
 }
