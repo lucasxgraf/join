@@ -64,15 +64,10 @@ function showNoContact() {
 }
 
 
-function addContactAlert() {
+function contactToast(contactText) {
     let content = document.getElementById('contact_content');
-    content.innerHTML += contactAddedAlert();
-    alertxOverflowHidden()
-}
-
-function addMobileContactAlert() {
-    let contactList = document.getElementById('contactlist');
-    contactList.innerHTML += contactMobileAddedAlert();
+    
+    content.innerHTML += getFeedbackContact(contactText);
     alertxOverflowHidden()
 }
 

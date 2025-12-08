@@ -76,6 +76,7 @@ function editContactTemplate(index) {
                     <img src="../assets/svg/call.svg">
                 </div>
                 <div id="errorPhone" class="error_message"></div>
+                
                 <div style="display: flex; gap: 16px;">
                     <button style="width: 80px" id="cancel-contact" onclick="deleteContact(${index})">Delete<img src="../assets/svg/close.svg" id="cancel-contact-img"></button>
                     <button style="width: 160px" id="create-contact" onclick="formCheck(${index}, event)">Save<img src="../assets/svg/check_white.svg"></button>
@@ -194,12 +195,8 @@ function showContactAfterEditTemplate(index) {
     `
 }
 
-function contactAddedAlert() {
-    return `<div class="alert" id="create-contact-alert"><p>Contact successfully created</p></div>`
-}
-
-function contactMobileAddedAlert() {
-    return `<div class="alert" id="create-contact-alert"><p>Contact successfully created</p></div>`
+function getFeedbackContact(contactText) {
+    return `<div class="alert" id="create-contact-alert"><p>${contactText}</p></div>`
 }
 
 function showMobileContactTemplate(index) {
@@ -289,7 +286,7 @@ function mobileEditContactTemplate(index) {
             <button class="edit-contact-picture" style ="background-color: ${contacts[index]["color"]}; margin-left: 72px;">${contactPictureLetters(index)}</button>
             <div class="add-form">
                 <img src="../assets/icons/close_icon_white.svg" id="x-button-form" onclick="closeFormMobile(event)">
-                <div id="group-name"><input type="text" placeholder="Name" id="input-name"><img style="margin-left: -36px; margin-bottom: -6px;;" src="../assets/svg/person_input.svg"></div>
+                <div id="group-name"><input type="text" placeholder="halloName" id="input-name"><img style="margin-left: -36px; margin-bottom: -6px;;" src="../assets/svg/person_input.svg"></div>
                 <div id="group-mail"><input type="text" placeholder="E-Mail" id="input-mail"><img style="margin-left: -36px; margin-bottom: -6px;" src="../assets/svg/mail.svg"></div>
                 <div id="group-phone"><input type="text" placeholder="Phone" id="input-phone"><img style="margin-left: -36px; margin-bottom: -6px;" src="../assets/svg/call.svg"></div>
                 <div style="display: flex; gap: 16px;" class="buttons-addform">
