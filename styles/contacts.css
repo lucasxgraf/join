@@ -400,27 +400,6 @@ ul li::marker {
   }
 }
 
-#alert-name {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
-#alert-mail {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
-#alert-phone {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
 .disable-x-scroll {
     overflow-x: hidden;
 }
@@ -432,7 +411,7 @@ ul li::marker {
 .alert {
     position: fixed;
     left: 50%;
-    bottom: 20px;
+    top: 50%;
     transform: translateX(-50%);
     border-radius: 30px;
     background-color: #2A3647;
@@ -454,28 +433,27 @@ ul li::marker {
 }
 
 .slide-rtl {
-  animation: slide-in-out 1s ease-in-out forwards;
+  animation: overlaySlideUp 2s ease-in-out forwards;
 }
 
 @keyframes slide-in-out {
   0% {
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translate(-50%, 700%);
+    opacity: 1;
   }
+
   20% {
-    transform: translateX(-30%); /* komplett im Bild */
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
-  40% {
-    transform: translateX(-30%); /* weiter in die Seite hinein */
+
+  70% {
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
-  80% {
-    transform: translateX(-30%); /* dort stehen bleiben */
-    opacity: 1;
-  }
+
   100% {
-    transform: translateX(100%); /* wieder raus */
+    transform: translate(-50%, 120%);
     opacity: 0;
   }
 }
@@ -488,10 +466,8 @@ ul li::marker {
     width: 280px;
     height: 36px;
     border-radius: 10px;
-    border-color: #DCDCDC;
-    border-style: solid;
     padding: 0 16px;
-    margin-bottom: 32px;
+    border: solid 1px #dcdcdc;
 }
 
 /* .mobile-menu svg path{

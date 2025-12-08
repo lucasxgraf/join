@@ -197,11 +197,8 @@ async function addContact(event) {
     closeForm(event);
     contacts = [];
     await init();
-    let newIndex = getContactIndexByFullName(iName);
-    if (newIndex !== -1) {
-    if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
-    if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
-    }
+    contactToast("Contact successfully create")
+
     } catch(error) {
         console.error("Fehler beim Speichern:", error);
     }
@@ -216,6 +213,7 @@ async function editContact(index) {
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
     const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
+    console.log(data)
     try {
         let response = await fetch(url, {
         method: 'PUT',
@@ -229,6 +227,7 @@ async function editContact(index) {
     contacts = [];
     await init();
     showContactAfterEdit(index);
+    contactToast("Contact successfully edit")
 } catch (err) {
     console.error('Failed to edit contact:', err);
     alert('Could not save contact. See console for details.');
@@ -241,7 +240,8 @@ async function deleteContact(index) {
         let response = await fetch(url, {
         method: 'DELETE'
     });
-    console.log("Kontakt gelöscht");
+    contactToast("Contact successfully delete")
+    await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
     contacts = [];
     await init();

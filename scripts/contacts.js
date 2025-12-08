@@ -63,15 +63,10 @@ function showNoContact() {
 }
 
 
-function addContactAlert() {
+function contactToast(contactText) {
     let content = document.getElementById('contact_content');
-    content.innerHTML += contactAddedAlert();
-    alertxOverflowHidden()
-}
-
-function addMobileContactAlert() {
-    let contactList = document.getElementById('contactlist');
-    contactList.innerHTML += contactMobileAddedAlert();
+    
+    content.innerHTML += getFeedbackContact(contactText);
     alertxOverflowHidden()
 }
 
@@ -171,9 +166,9 @@ async function formCheck(index, event) {
   clearAlerts();
   const { name, mail, phone } = getFormValues();
   const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
-  if (!nameValid)  showError('group-name','alert-name','This field is required. Example for name: Max Mustermann');
-  if (!mailValid)  showError('group-mail','alert-mail','This field is required. Example for e-mail: John-Smith@test.com');
-  if (!phoneValid) showError('group-phone','alert-phone','This field is required. Example for phone number: +4917612345678');
+  if (!nameValid)  showError('errorName','alert-name','Example for name: Max Mustermann','group-name');
+  if (!mailValid)  showError('errorMail','alert-mail','Example for e-mail: John-Smith@test.com','group-mail');
+  if (!phoneValid) showError('errorPhone','alert-phone','Example for phone number: +4917612345678','group-phone');
   if (!nameValid || !mailValid || !phoneValid) return;
   if (document.getElementById('add-Form'))  await addContact(event);
   if (document.getElementById('edit-Form')) await editContact(index);
@@ -206,9 +201,11 @@ function validName(iName) {
 }
 
 function nameCheck(iName) {
+    let errorBorder = document.getElementById("group-name")
     if (!validName(iName)) {
         return false;
     } else {
+        errorBorder.classList.add('inputWrapper')
         return true;
     }
 }
@@ -219,9 +216,11 @@ function validMail(iMail) {
 }
 
 function mailCheck(iMail) {
+    let errorBorder = document.getElementById("group-mail")
     if (!validMail(iMail)) {
         return false
     } else {
+        errorBorder.classList.add('inputWrapper')
         return true;
     }
 }
@@ -232,19 +231,26 @@ function validPhone(iPhone) {
 }
 
 function phoneCheck(iPhone) {
+    let errorBorder = document.getElementById("group-phone")
     if (!validPhone(iPhone)) {
         return false;
     } else {
+        errorBorder.classList.add('inputWrapper')
         return true;
     }
 }
 
-function showError(groupId, alertId, message) {
+function showError(groupId, alertId, message, erroroborderId) {
+    let errorBorder = document.getElementById(erroroborderId)
     let group = document.getElementById(groupId)
     let oldAlert = document.getElementById(alertId);
+    errorBorder.classList.remove('inputWrapper')
+    errorBorder.classList.add('errorBorder');
     if (oldAlert) {
+        errorBorder.classList.add('inputWrapper:focus-within')
         oldAlert.remove();
     }
+    group.innerHTML = ""
     let alert = document.createElement('p');
     alert.innerText = message;
     alert.setAttribute("id", alertId);
@@ -287,4 +293,20 @@ function clearContacts() {
                     id.style.color = "";
                 }
             });
+}
+
+
+function validateInputContact(displayid, currentId, inputFrame) {
+  const input = document.getElementById(currentId);
+  const output = document.getElementById(displayid)
+  const borderError = document.getElementById(inputFrame)
+
+  if (input.value.trim() === "") {
+    output.innerHTML = "This field is required."
+    borderError.classList.add('errorBorder');
+  }
+  else{
+    output.innerHTML = ""
+    borderError.classList.remove('errorBorder');
+  }
 }
