@@ -14,42 +14,6 @@ function contactClick() {
     });
 }
 
-// function hoverEdit() {
-//     let edit = document.getElementById('edit');
-//     if (edit) {
-//         edit.addEventListener("mouseover", function () {
-//         edit.src = "/assets/svg/edit_contact_icon_hover.svg"
-//     });
-//     edit.addEventListener("mouseout", function () {
-//         edit.src = "/assets/svg/edit_contact_icon_default.svg";
-//     });
-//     }
-// }
-
-// function hoverDelete() {
-//     let del = document.getElementById('delete');
-//     if (del) {
-//         del.addEventListener("mouseover", function () {
-//         del.src = "/assets/svg/delete_contact_icon_hover.svg"
-//     });
-//     del.addEventListener("mouseout", function () {
-//         del.src = "/assets/svg/delete_contact_icon_default.svg"
-//     });
-//     }
-// }
-
-// function hoverCancel() {
-//     let cancel = document.getElementById('cancel-contact-img');
-//     let cancelButton = document.getElementById('cancel-contact');
-//     if (cancelButton) {
-//         cancelButton.addEventListener("mouseover", function () {
-//         cancel.src = "/assets/icons/icon_cancel_hover.svg"
-//     }); cancelButton.addEventListener("mouseout", function () {
-//         cancel.src = "/assets/icons/icon_cancel.svg"
-//     });
-//     }
-// }
-
 function addXOverflowHidden() {
     let popupBody = document.getElementById('popupBackground');
     let form = document.getElementById('add-Form');
@@ -133,13 +97,10 @@ function addContactEvent(event) {
     popupBlack.classList.toggle("popup-overlay")
     form.innerHTML += addFormTemplate(index);
     addXOverflowHidden();
-    hoverCancel();
 }
 
 function closeForm(event) {
     event?.stopPropagation();
-    hoverEdit();
-    hoverDelete();
     let popupBlack = document.getElementById('popupBackground');
     let addForm = document.getElementById('add-Form');
     let editForm = document.getElementById('edit-Form');

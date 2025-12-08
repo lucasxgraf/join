@@ -1,116 +1,35 @@
-@media (max-width: 1400px) {
-
-  /* Hauptbereich etwas kompakter */
-  main {
-    height: calc(100vh - 100px);
-    min-height: 0;
+@media only screen and (max-width: 1265px) {
+  .navContainer {
+    display: none;
   }
 
-  .content {
+  .navResponsivContainer {
     display: flex;
-    width: 100%;
-    flex-wrap: nowrap;
-    min-height: 0;
   }
+}
 
-  /* Kontaktliste etwas schmaler */
-  .contact-list {
-    width: 320px;
-    min-height: 0;
-  }
-
-  /* Rechte Seite bekommt mehr Platz und kleinere Abstände */
+@media only screen and (max-width: 1065px) {
   .contact-informations {
-    width: auto; /* 320px Liste + 64px margin-left + bisschen Puffer */
-    margin-left: 48px;
-    margin-top: 48px;
+    padding: 40px 0 0 40px;
   }
-
-  .textbox {
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .contact-informations h1 {
-    font-size: 42px;
-  }
-
-  .textbox h2 {
-    font-size: 20px;
-  }
-
-  .divider {
-    height: 40px;
-  }
-
-  .fullname {
-    font-size: 36px;
-  }
-
-  .informations {
-    margin-top: 32px;
-  }
-
-  /* Buttons / Formulare leicht verkleinern */
-  .add-contact {
-    width: 260px;
-    font-size: 18px;
-  }
-
-  .add-contact-form {
-    width: 800px;
-    height: 380px;
-    right: 10%;
-    bottom: 25%;
-  }
-
-  .add-form input {
-    width: 260px;
-  }
-
-  /* Kontakt-Content enger zusammen */
-  .contact-content {
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-
-  .big-contact-picture {
-    width: 90px;
-    height: 90px;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .contact-line {
-    width: 260px;
-  }
-
 }
 
-@media (max-width: 1300px) {
-    .add-form {
-        margin-left: 0;
-    }
-
-    .img-ppicture {
-        margin-left: 40px !important;
-    }
-
-    .inner-form {
-        gap: 16px;
-    }
-}
-
-@media (max-width: 1012px) {
-    .fullname {
-        font-size: 30px;
-    }
-}
-
-@media (max-width: 950px) {
+@media only screen and (max-width: 980px) {
     .contact-list {
-    width: 100%;
-    
+    width: 100vw;
+  }
+
+  .list {
+    padding: 0;
+  }
+
+  .letter {
+    padding: 16px;
+  }
+
+  .contact {
+    gap: 16px;
+    padding: 16px;
   }
 
   .m-gap {
@@ -208,7 +127,7 @@
     width: 100px;
     border-radius: 15px 15px 0px 15px;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
     box-shadow: 0px 7px 6px 1px rgba(0, 0, 0, 0.1);
 }
@@ -411,13 +330,9 @@
     }
 }
 
-@media (max-width: 865px) {
-    header h2 {
-    display: none;
-  }
-
-  header {
-    padding: 0px 37px;
+@media only screen and (max-width: 750px) {
+  .contact-list {
+    scrollbar-width: none;
   }
 }
 
@@ -456,10 +371,6 @@
 }
 
 @media (max-width: 470px) {
-    header {
-        padding: 0 25px;
-    }
-
     .add-contact-form {
         width: 300px;
     }

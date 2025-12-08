@@ -1,4 +1,3 @@
-
 .content {
     display: flex;
 }
@@ -16,7 +15,6 @@
 
 .contact-informations {
     display: flex;
-    width: calc(90vw - 600px);
     flex-direction: column;
     padding: 80px 0 0 80px;
 }
@@ -384,7 +382,6 @@ ul li::marker {
 .fullname {
     font-size: 40px;
     font-weight: 500;
-    text-wrap-mode: nowrap;
     margin-bottom: 8px;
 }
 
@@ -483,7 +480,9 @@ ul li::marker {
   }
 }
 
-#group-name, #group-mail, #group-phone {
+#group-name, 
+#group-mail, 
+#group-phone {
     display: flex;
     justify-content: space-between;
     width: 280px;
@@ -493,4 +492,30 @@ ul li::marker {
     border-style: solid;
     padding: 0 16px;
     margin-bottom: 32px;
+}
+
+/* .mobile-menu svg path{
+    color: rgb(41, 171, 226);
+    transform: scale(1.1);
+    fill: rgb(41, 171, 226) !important;
+    cursor: pointer;
+} */
+
+
+.contact-content button:hover,
+.contact-content button:hover svg path {
+    color: rgb(41, 171, 226);
+    transform: scale(1.1);
+    fill: rgb(41, 171, 226) !important;
+    cursor: pointer;
+}
+
+.mobile-popup-menu{
+
+}
+
+#mobile-edit, #mobile-delete {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

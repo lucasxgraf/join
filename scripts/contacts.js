@@ -1,5 +1,3 @@
-
-
 let contacts = [];
 
 const COLORS = [
@@ -44,20 +42,19 @@ function showContact(index, letter) {
     }
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactTemplate(index);
-    showContentXOverflowHidden(index)
-    hoverEdit();
-    hoverDelete();
+    showContentXOverflowHidden(index);
 }
 
 function showContactAfterEdit(index) {
-    if (window.matchMedia("(max-width: 950px)").matches) {showContactAfterEditMobile(index); return; }
+    if (window.matchMedia("(max-width: 950px)").matches) {
+        showContactAfterEditMobile(index);
+        return;
+    }
     let content = document.getElementById('contact_content');
-    content.innerHTML = showContactAfterEditTemplate(index);
+    content.innerHTML = showContactTemplate(index);
     let contactCard = document.getElementById(contacts[index].id);
     contactCard.style.backgroundColor = "#2A3647";
     contactCard.style.color = "white";
-    hoverEdit();
-    hoverDelete();
 }
 
 function showNoContact() {
@@ -268,7 +265,6 @@ function editContactEvent(index) {
     inputName.value = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
     inputMail.value = contacts[index]["mail"];
     inputPhone.value = contacts[index]["tel"];
-    hoverCancel();
 }
 
 function getContactIndexByFullName(fullName) {
