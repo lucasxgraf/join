@@ -403,27 +403,6 @@ ul li::marker {
   }
 }
 
-#alert-name {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
-#alert-mail {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
-#alert-phone {
-    font-size: 16px;
-    color: #ff3d00;
-    margin: 0;
-    max-width: 280px;
-}
-
 .disable-x-scroll {
     overflow-x: hidden;
 }
@@ -489,8 +468,6 @@ ul li::marker {
     width: 280px;
     height: 36px;
     border-radius: 10px;
-    border-color: #DCDCDC;
-    border-style: solid;
     padding: 0 16px;
-    margin-bottom: 32px;
+    border: solid 1px #dcdcdc;
 }

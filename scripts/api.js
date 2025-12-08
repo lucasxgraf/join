@@ -201,8 +201,6 @@ async function addContact(event) {
     if (newIndex !== -1) {
     if (!window.matchMedia("(max-width: 950px)").matches){showContactAfterEdit(newIndex)};
     if (!window.matchMedia("(max-width: 950px)").matches) {addContactAlert()} else addMobileContactAlert();
-    hoverEdit();
-    hoverDelete();
     }
     } catch(error) {
         console.error("Fehler beim Speichern:", error);
@@ -218,6 +216,7 @@ async function editContact(index) {
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
     const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
+    console.log(data)
     try {
         let response = await fetch(url, {
         method: 'PUT',

@@ -146,6 +146,10 @@ input[type="checkbox"]:checked{
   filter: brightness(0) invert(1);
 }
 
+.errorBorder {
+  border-color: red !important;
+  outline: none;
+}
 .focusWithInput,
 .inputWrapper:focus-within, 
 .inputBorderColor:focus{
@@ -157,10 +161,5 @@ input[type="checkbox"]:checked{
 .inputWrapper:has(input:not(:placeholder-shown)), 
 .inputBorderColor:not(:placeholder-shown) {
   border-color: #29ABE2 !important;
-  outline: none;
-}
-
-.errorBorder {
-  border-color: red !important;
   outline: none;
 }

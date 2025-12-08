@@ -43,7 +43,7 @@ function addContactEventMobile(event) {
     popupBlack.classList.toggle("popup-overlay")
     form.innerHTML += addMobileFormTemplate(index);
     addYOverflowHidden();
-    hoverCancel();
+   
 }
 
 function toggleMenu(event) {
@@ -107,7 +107,6 @@ function editContactEventMobile(index) {
     inputName.value = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
     inputMail.value = contacts[index]["mail"];
     inputPhone.value = contacts[index]["tel"];
-    hoverCancel();
 }
 
 function closeFormMobile(event) {
