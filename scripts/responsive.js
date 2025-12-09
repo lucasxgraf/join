@@ -20,7 +20,7 @@ function mobileContactClick(index) {
     contactList.style.display = "none";
     document.querySelector('.contact-informations').style.display = "flex";
     upperHeaderContent.innerHTML += mobileBackButtonTemplate();
-    content.innerHTML = showMobileContactTemplate(index);
+    content.innerHTML = showContactTemplate(index);
     document.getElementById('upperContainer').onclick = () => closeClickMobileMenu();
 }
 
