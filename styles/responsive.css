@@ -110,7 +110,7 @@
 
 @keyframes slideInRight {
   from {
-    transform: translateX(40px);
+    transform: translateX(20px);
     opacity: 0;
   }
   to {

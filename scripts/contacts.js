@@ -338,10 +338,24 @@ function goBackToContactList() {
 function toggleMenu(event) {
     event?.stopPropagation();
     let menuPopup = document.getElementById('mobilePopupMenu');
-    menuPopup.style.display = 'flex';
-    menuPopup.classList.remove('slide-out');
-    void menuPopup.offsetWidth;
+    
+    menuPopup.classList.remove('d_none');
+    menuPopup.classList.add('dpf');
     menuPopup.classList.add('slide-in-mobile-right');
+    
+    setTimeout(() => {
+        document.addEventListener('click', closeMenuOnClickOutside, { once: true });
+    }, 0);
+}
+
+function closeMenuOnClickOutside(event) {
+    let menuPopup = document.getElementById('mobilePopupMenu');
+
+    if (menuPopup && !menuPopup.contains(event.target)) {
+        menuPopup.classList.remove('dpf');
+        menuPopup.classList.add('d_none');
+
+    }
 }
 
 function addYOverflowHidden() {
