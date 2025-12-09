@@ -16,9 +16,12 @@
 
 @media only screen and (min-width: 981px) {
   .contact-list {
-    display: flex;
+    display: flex !important;
   }
   
+  .contact-informations {
+    display: flex !important;
+  }
 }
 
 @media only screen and (max-width: 980px) {  

@@ -13,6 +13,7 @@ await fetchContacts();
 renderContactList();
 bodyClickClose();
 contactClick();
+
 getInitialsFromUser()
 }
 

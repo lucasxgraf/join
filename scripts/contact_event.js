@@ -6,7 +6,7 @@ function contactClick() {
     contacts.forEach(contact => {
         contact.addEventListener('click', function () {
             contacts.forEach(c => c.classList.remove('contact-selected'));
-            this.classList.add('contact-selected');
+            if (window.innerWidth >= 980){this.classList.add('contact-selected')};
         });
     });
 }
