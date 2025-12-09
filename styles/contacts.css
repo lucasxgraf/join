@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 400px;
+    width: 100%;
     min-height: 72px;
     position: sticky;
     top: 0;
@@ -95,6 +95,7 @@ ul li::marker {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 80px;
 }
 
 .contact {
