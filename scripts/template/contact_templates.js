@@ -47,16 +47,18 @@ function showContactTemplate(index) {
                 <a href="tel:${contacts[index]["tel"]}" class="information_contact_phone"> ${contacts[index]["tel"]}
                 </a>
             </span>
-                        <div class="mobile-menu" onclick="toggleMenu(event)"><img src="../assets/svg/three_point_menu.svg"></div>
-            <div class="mobile-popup-menu slide-out dnone" id="mobilePopupMenu" >
+            <div class="mobile-menu" onclick="toggleMenu(event)" id="mobileMenu">
+                <img src="../assets/svg/three_point_menu.svg">
+            </div>
+            <div class="mobile-popup-menu d_none" id="mobilePopupMenu">
                 <button class="responsive-menu-button">
-                    <img id="mobile-edit" src="../assets/svg/edit.svg" onclick="editContactEvent(${index}, event)"><span>Edit</span>
+                    <img id="mobile-edit" src="../assets/svg/edit.svg" onclick="editContactEvent(${index}, event)">
+                    Edit
                 </button>
                 <button class="responsive-menu-button">
-                    <img id="mobile-delete" src="../assets/svg/delete.svg" onclick="deleteContact(${index})"><span>Delete</span>
+                    <img id="mobile-delete" src="../assets/svg/delete.svg" onclick="deleteContact(${index})">
+                    Delete
                 </button>
-                </div
-                <button><img id="mobileBack" src="../assets/svg/arrow_left_.svg"onclick="mobileBack(${index})"></button>
             </div>
         </div>
     </div>

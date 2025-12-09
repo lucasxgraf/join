@@ -88,7 +88,6 @@ ul li::marker {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 72px;
 }
 
 .contact {
@@ -115,10 +114,10 @@ ul li::marker {
 }
 
 .contact-line {
-    width: 300px;
     height: 1px;
     background-color: #D1D1D1;
-    margin: 8px 0;
+    margin: 8px auto;
+    width: 95%;
 }
 
 .contact-picture {
@@ -486,22 +485,28 @@ ul li::marker {
     cursor: pointer;
 }
 
-.mobile-popup-menu{
-    background-color: white;
-    display: flex;
-    flex-direction: column;
+.mobile-menu {
+    display: none;
     position: absolute;
     bottom: 100px;
-    right: 45px;
-    z-index: 200;
+    right: 24px;
+    cursor: pointer;
+}
+
+.mobile-popup-menu{
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 100px;
+    right: 24px;
     height: 100px;
     width: 100px;
     border-radius: 15px 15px 0px 15px;
-    justify-content: center;
-    align-items: center;
     gap: 8px;
     box-shadow: 0px 7px 6px 1px rgba(0, 0, 0, 0.1);
-
 }
 
 .responsive-menu-button{

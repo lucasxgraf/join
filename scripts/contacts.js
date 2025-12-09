@@ -50,7 +50,7 @@ function showContact(index, letter) {
     }
 }
 
-function mobileBack(index) {
+function mobileBack() {
         document.querySelector('.contact-informations').style.display = 'none';
         document.querySelector('.contact-list').style.display = 'flex';
 

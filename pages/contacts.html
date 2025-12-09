@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
     <link rel="shortcut icon" href="../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
-    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
+
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
     <link rel="stylesheet" href="../styles/contacts.css">
     <link rel="stylesheet" href="../styles/responsive.css">
 
@@ -103,29 +105,33 @@
           </div>
         </div>
 
-          <main id="main">
-            <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
-            <div class="content">
-                <div class="contact-list" id="contactlist">
-                  <button class="add-contact" onclick="addContactEvent(event)">
-                    Add new contact
-                    <img class="add-button-img" src="../assets/svg/person_add.svg">
-                  </button>
-                  <button class="mobile-add-contact" onclick="addContactEvent(event)">
-                    <img class="add-button-img" src="../assets/svg/person_add.svg">
-                  </button>
-                  <ul class="list" id="contact_list">
-                  </ul>
-                </div>
-                <div class="contact-informations" id="contact-side">
-                    <div class="textbox" id="contact-headline">
-                        <h1>Contacts</h1>
-                        <div class="divider"></div>
-                        <h2><span class="underline">Better wit</span>h a team</h2>
+        <main id="main">
+          <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
+          <div class="content">
+              <div class="contact-list" id="contactlist">
+                <button class="add-contact" onclick="addContactEvent(event)">
+                  Add new contact
+                  <img class="add-button-img" src="../assets/svg/person_add.svg">
+                </button>
+                <button class="mobile-add-contact" onclick="addContactEvent(event)">
+                  <img class="add-button-img" src="../assets/svg/person_add.svg">
+                </button>
+                <ul class="list" id="contact_list">
+                </ul>
+              </div>
+              <div class="contact-informations" id="contact-side">
+                  <div class="textbox" id="contact-headline">
+                    <h1>Contacts</h1>
+                    <button class="dnone">
+                        <img id="mobileBack" src="../assets/svg/arrow_left_.svg" onclick="mobileBack()">
+                    </button>
+                    <div class="divider"></div>
+                        <h2>Better with a team</h2>
+                        <div class="underline dnone"></div>
                     </div>
-                    <div class="contact-content" id="contact_content"></div>
-                </div>
-            </div>
-          </main>
+                  <div class="contact-content" id="contact_content"></div>
+              </div>
+          </div>
+        </main>
 </body>
 </html>
