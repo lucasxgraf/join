@@ -10,12 +10,9 @@ const COLORS = [
 
 async function init() {
 await fetchContacts();
-//algorithm();
-//renderContacts();
 renderContactList();
 bodyClickClose();
 contactClick();
-// windowMobile()
 getInitialsFromUser()
 }
 
@@ -41,6 +38,7 @@ function showContact(index, letter) {
     if (existingContent) {
         existingContent.remove();
     }
+    
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
@@ -52,20 +50,16 @@ function showContact(index, letter) {
 }
 
 function mobileBack(index) {
+    let existingContent = document.getElementById('showContent' + index);
+    if (existingContent) {
+        existingContent.remove();
+    }
+    
+    if (window.innerWidth <= 980) {
         document.querySelector('.contact-informations').style.display = 'none';
         document.querySelector('.contact-list').style.display = 'flex';
     }
 }
-
-// function showContactAfterEdit(index) {
-//     // if (window.matchMedia("(max-width: 950px)").matches) {showContactAfterEditMobile(index); return; }
-//     let content = document.getElementById('contact_content');
-//     content.innerHTML = showContactAfterEditTemplate(index);
-//     let contactCard = document.getElementById(contacts[index].id);
-//     contactCard.style.backgroundColor = "#2A3647";
-//     contactCard.style.color = "white";
-
-// }
 
 function showNoContact() {
     let content = document.getElementById('contact_content')
@@ -168,8 +162,7 @@ function popupClickClose() {
         editForm.remove();
         popupBlack.classList.toggle("popup-overlay");
     }
-    // if (!window.matchMedia("(max-width: 950px)").matches) {contactClick()};
-    // windowMobile();
+
 }
 
 async function formCheck(index, event) {
@@ -269,7 +262,6 @@ function showError(groupId, alertId, message, erroroborderId) {
 }
 
 function editContactEvent(index) {
-    // if (window.matchMedia("(max-width: 930px)").matches) {editContactEventMobile(index); return;} 
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');
     popupBlack.classList.toggle("popup-overlay")

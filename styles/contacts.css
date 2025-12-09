@@ -433,7 +433,7 @@ ul li::marker {
 }
 
 .slide-rtl {
-  animation: overlaySlideUp 2s ease-in-out forwards;
+  animation: slide-in-out 2s ease-in-out forwards;
 }
 
 @keyframes slide-in-out {
@@ -523,4 +523,18 @@ ul li::marker {
     width: 24px;
     cursor: pointer;
 
+}
+.contact-selected:hover,
+.contact-selected{
+    background-color: #2A3647;
+    color: white;
+}
+
+.error_message {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  min-height: 18px;
+  display: block;
+  height: 14px;
 }
