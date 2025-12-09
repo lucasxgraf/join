@@ -3,14 +3,23 @@
 }
 
 .contact-list {
-    width: 400px;
     display: flex;
     align-items: center;
     background-color: white;
     box-shadow: 3px 0px 8px 1px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     overflow-y: auto;
-    padding-top: 16px;
+}
+
+.contact-list-scroll{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    min-height: 72px;
+    position: sticky;
+    top: 0;
 }
 
 .contact-informations {
@@ -52,7 +61,7 @@ ul li::marker {
 .add-contact {
     background-color: #2A3647;
     font-weight: 700;
-    font-size: 21px;
+    font-size: 1.25rem;
     height: 44px;
     width: 300px;
     display: flex;
@@ -69,11 +78,6 @@ ul li::marker {
 .add-contact:hover {
     cursor: pointer;
     background-color: #29ABE2;
-}
-
-.add-button-img {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .popup-overlay {

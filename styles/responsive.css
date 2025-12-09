@@ -19,7 +19,6 @@
   .contact-list {
     display: flex !important;
   }
-  
 }
 
 @media only screen and (max-width: 980px) {  
