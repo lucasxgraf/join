@@ -109,13 +109,15 @@
           <div id="popupBackground" class="d_none" onclick="popupClickClose()"></div>
           <div class="content">
               <div class="contact-list" id="contactlist">
-                <button class="add-contact" onclick="addContactEvent(event)">
-                  Add new contact
-                  <img class="add-button-img" src="../assets/svg/person_add.svg">
-                </button>
-                <button class="mobile-add-contact" onclick="addContactEvent(event)">
-                  <img class="add-button-img" src="../assets/svg/person_add.svg">
-                </button>
+                <div class="contact-list-scroll">
+                  <button class="add-contact" onclick="addContactEvent(event)">
+                    Add new contact
+                    <img src="../assets/svg/person_add.svg" alt="person add icon">
+                  </button>
+                  <button class="mobile-add-contact dnone" onclick="addContactEvent(event)">
+                    <img src="../assets/svg/person_add.svg" alt="person add icon">
+                  </button>
+                </div>
                 <ul class="list" id="contact_list">
                 </ul>
               </div>
@@ -123,7 +125,7 @@
                   <div class="textbox" id="contact-headline">
                     <h1>Contacts</h1>
                     <button class="dnone">
-                        <img id="mobileBack" src="../assets/svg/arrow_left_.svg" onclick="mobileBack()">
+                        <img id="mobileBack" src="../assets/svg/arrow_left_.svg" onclick="mobileBack()" alt="arrow left icon">
                     </button>
                     <div class="divider"></div>
                         <h2>Better with a team</h2>
