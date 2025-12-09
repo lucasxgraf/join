@@ -69,7 +69,7 @@ function alertxOverflowHidden() {
         document.body.classList.remove('disable-x-scroll');
         alert.remove();
     }, { once: true });
-    windowMobile();
+    // windowMobile();
 }
 
 function bodyClickClose() {
@@ -90,7 +90,7 @@ window.bodyClickClose = bodyClickClose;
 
 function addContactEvent(event) {
     event.stopPropagation();
-    if (window.matchMedia("(max-width: 930px)").matches) {addContactEventMobile(event); return;}
+    // if (window.matchMedia("(max-width: 930px)").matches) {addContactEventMobile(event); return;}
     let index = undefined;
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');
@@ -116,5 +116,5 @@ function closeForm(event) {
     }
     contactClick();
     bodyClickClose();
-    windowMobile();
+    // windowMobile();
 }
