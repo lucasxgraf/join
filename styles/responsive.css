@@ -15,8 +15,9 @@
 }
 
 @media only screen and (min-width: 981px) {
+  .contact-informations,
   .contact-list {
-    display: flex;
+    display: flex !important;
   }
   
 }
@@ -110,7 +111,7 @@
 
 @keyframes slideInRight {
   from {
-    transform: translateX(40px);
+    transform: translateX(20px);
     opacity: 0;
   }
   to {

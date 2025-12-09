@@ -51,12 +51,12 @@ function showContactTemplate(index) {
                 <img src="../assets/svg/three_point_menu.svg">
             </div>
             <div class="mobile-popup-menu d_none" id="mobilePopupMenu">
-                <button class="responsive-menu-button">
-                    <img id="mobile-edit" src="../assets/svg/edit.svg" onclick="editContactEvent(${index}, event)">
+            <button class="responsive-menu-button" onclick="editContactEvent(${index}, event)">
+            <img id="mobile-edit" src="../assets/svg/edit.svg">
                     Edit
                 </button>
-                <button class="responsive-menu-button">
-                    <img id="mobile-delete" src="../assets/svg/delete.svg" onclick="deleteContact(${index})">
+                <button class="responsive-menu-button" onclick="deleteContact(${index})">
+                    <img id="mobile-delete" src="../assets/svg/delete.svg" >
                     Delete
                 </button>
             </div>
