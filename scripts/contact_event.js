@@ -97,12 +97,10 @@ function addContactEvent(event) {
     popupBlack.classList.toggle("popup-overlay")
     form.innerHTML += addFormTemplate(index);
     addXOverflowHidden();
-
 }
 
 function closeForm(event) {
     event?.stopPropagation();
-
     let popupBlack = document.getElementById('popupBackground');
     let addForm = document.getElementById('add-Form');
     let editForm = document.getElementById('edit-Form');

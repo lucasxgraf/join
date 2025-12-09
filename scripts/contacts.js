@@ -1,5 +1,3 @@
-
-
 let contacts = [];
 
 const COLORS = [
@@ -44,8 +42,7 @@ function showContact(index, letter) {
     }
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactTemplate(index);
-    showContentXOverflowHidden(index)
-
+    showContentXOverflowHidden(index);
 }
 
 // function showContactAfterEdit(index) {
