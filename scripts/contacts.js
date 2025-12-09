@@ -43,6 +43,17 @@ function showContact(index, letter) {
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
+    
+    if (window.innerWidth <= 980) {
+        document.querySelector('.contact-informations').style.display = 'block';
+        document.querySelector('.contact-list').style.display = 'none';
+    }
+}
+
+function mobileBack(index) {
+        document.querySelector('.contact-informations').style.display = 'none';
+        document.querySelector('.contact-list').style.display = 'flex';
+
 }
 
 // function showContactAfterEdit(index) {
