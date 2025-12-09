@@ -37,8 +37,9 @@ function contactPictureLetters(index) {
 }
 
 function showContact(index, letter) {
-    if (document.getElementById('showContent' + index)) {
-        return
+    let existingContent = document.getElementById('showContent' + index);
+    if (existingContent) {
+        existingContent.remove();
     }
     let content = document.getElementById('contact_content');
     content.innerHTML = showContactTemplate(index);
@@ -53,7 +54,7 @@ function showContact(index, letter) {
 function mobileBack(index) {
         document.querySelector('.contact-informations').style.display = 'none';
         document.querySelector('.contact-list').style.display = 'flex';
-
+    }
 }
 
 // function showContactAfterEdit(index) {
@@ -318,4 +319,48 @@ function validateInputContact(displayid, currentId, inputFrame) {
     output.innerHTML = ""
     borderError.classList.remove('errorBorder');
   }
+}
+
+
+function replaceOnClickContacts() {
+    contacts.forEach((c, index) => {
+        let contact = document.getElementById(c.id)
+        contact.onclick = () => mobileContactClick(index)
+    });
+   
+}
+
+
+function goBackToContactList() {
+    let content = document.getElementById('contact_content');
+    let contactList = document.getElementById('contactlist');
+    let upperHeaderArrow = document.getElementById('goback-arrow');
+    contactList.style = "";
+    document.querySelector('.contact-informations').style.display = "none";
+    upperHeaderArrow.remove();
+    document.querySelector('.contact-informations').innerHTML = "";
+    document.getElementById('upperContainer').onclick = null;
+}
+
+function toggleMenu(event) {
+    event?.stopPropagation();
+    let menuPopup = document.getElementById('mobilePopupMenu');
+    menuPopup.style.display = 'flex';
+    menuPopup.classList.remove('slide-out');
+    void menuPopup.offsetWidth;
+    menuPopup.classList.add('slide-in-mobile-right');
+}
+
+function addYOverflowHidden() {
+    let popupBody = document.getElementById('popupBackground');
+    let form = document.getElementById('add-Form');
+    document.documentElement.classList.add('disable-y-scroll');
+    document.body.classList.add('disable-y-scroll');
+    void document.body.offsetWidth;
+    form.classList.add("slide-up");
+    form.addEventListener('animationend', () => {
+    document.documentElement.classList.remove('disable-y-scroll');
+    document.body.classList.remove('disable-y-scroll');
+    form.classList.remove('slide-up');}
+);
 }

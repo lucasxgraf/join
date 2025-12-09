@@ -5,11 +5,8 @@ function contactClick() {
     let contacts = document.querySelectorAll('.contact');
     contacts.forEach(contact => {
         contact.addEventListener('click', function () {
-            if (window.matchMedia("(max-width: 950px)").matches) return;
-            contacts.forEach(c => c.style.backgroundColor = "");
-            contacts.forEach(c => c.style.color = "");
-            this.style.backgroundColor = "#2A3647";
-            this.style.color = "white";
+            contacts.forEach(c => c.classList.remove('contact-selected'));
+            this.classList.add('contact-selected');
         });
     });
 }
@@ -69,7 +66,6 @@ function alertxOverflowHidden() {
         document.body.classList.remove('disable-x-scroll');
         alert.remove();
     }, { once: true });
-    // windowMobile();
 }
 
 function bodyClickClose() {
@@ -90,7 +86,6 @@ window.bodyClickClose = bodyClickClose;
 
 function addContactEvent(event) {
     event.stopPropagation();
-    // if (window.matchMedia("(max-width: 930px)").matches) {addContactEventMobile(event); return;}
     let index = undefined;
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');
@@ -114,5 +109,4 @@ function closeForm(event) {
     }
     contactClick();
     bodyClickClose();
-    // windowMobile();
 }
