@@ -9,6 +9,7 @@
     box-shadow: 3px 0px 8px 1px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     overflow-y: auto;
+    width: 450px;
 }
 
 .contact-list-scroll{
@@ -135,7 +136,7 @@ ul li::marker {
     gap: 64px;
     align-items: center;
 }
-
+.big-contact-picture-show,
 .big-contact-picture {
     display: flex;
     align-items: center;
@@ -387,18 +388,29 @@ ul li::marker {
 }
 
 .slide-in {
-  animation: slideIn 0.1s ease-in forwards;
+  animation: slideIn 0.2s ease-in-out forwards ;
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(300px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+.slide-in-dialog {
+  animation: slide-in-dialog 0.3s ease-in-out forwards ;
+}
+@keyframes slide-in-dialog {
+    0% {
+        transform: translate(100vw, -50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
 }
 
 .disable-x-scroll {

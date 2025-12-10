@@ -2,7 +2,7 @@ function showContactTemplate(index) {
     return `
     <div class="info-content" id="showContent${index}">
         <div class="info-content-container">
-            <div class="big-contact-picture" style="background-color:${contacts[index]["color"]};">
+            <div class="big-contact-picture-show" style="background-color:${contacts[index]["color"]};">
                 ${contactPictureLetters(index)}
             </div>
             <div class="info_contact_name">

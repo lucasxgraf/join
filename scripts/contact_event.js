@@ -17,11 +17,11 @@ function addXOverflowHidden() {
     document.documentElement.classList.add('disable-x-scroll');
     document.body.classList.add('disable-x-scroll');
     void document.body.offsetWidth;
-    form.classList.add("slide-in");
+    form.classList.add("slide-in-dialog");
     form.addEventListener('animationend', () => {
     document.documentElement.classList.remove('disable-x-scroll');
     document.body.classList.remove('disable-x-scroll');
-    form.classList.remove('slide-in');}
+    form.classList.remove('slide-in-dialog');}
 );
 }
 
@@ -31,11 +31,11 @@ function editXOverflowHidden() {
     document.documentElement.classList.add('disable-x-scroll');
     document.body.classList.add('disable-x-scroll');
     void document.body.offsetWidth;
-    form.classList.add("slide-in");
+    form.classList.add("slide-in-dialog");
     form.addEventListener('animationend', () => {
     document.documentElement.classList.remove('disable-x-scroll');
     document.body.classList.remove('disable-x-scroll');
-    form.classList.remove('slide-in');}
+    form.classList.remove('slide-in-dialog');}
 );
 }
 
