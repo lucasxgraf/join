@@ -47,12 +47,12 @@ function showContactTemplate(index) {
                 <a href="tel:${contacts[index]["tel"]}" class="information_contact_phone"> ${contacts[index]["tel"]}
                 </a>
             </span>
-            <div class="mobile-menu" onclick="toggleMenu(event)" id="mobileMenu">
+            <button class="mobile-menu" onclick="toggleMenu(event)" id="mobileMenu">
                 <img src="../assets/svg/three_point_menu.svg">
-            </div>
+            </button>
             <div class="mobile-popup-menu d_none" id="mobilePopupMenu">
-                <button class="responsive-menu-button">
-                    <svg id="mobile-edit" onclick="editContactEvent(${index}, event)" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button class="responsive-menu-button" id="mobile-edit" onclick="editContactEvent(${index}, event)">
+                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_75592_9969" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                         <rect x="0.144531" width="24" height="24" fill="currentColor"/>
                         </mask>
@@ -62,7 +62,7 @@ function showContactTemplate(index) {
                     </svg>
                     Edit
                 </button>
-                <button class="responsive-menu-button">
+                <button class="responsive-menu-button" id="mobile-delete" onclick="deleteContact(${index})">
                     <svg id="mobile-delete" onclick="deleteContact(${index})" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <mask id="mask0_75592_9951" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                         <rect x="0.144531" width="24" height="24" fill="#D9D9D9"/>
@@ -89,36 +89,39 @@ function addFormTemplate(index) {
                 <div class="divider-small"></div>
             </div>
             <div class="inner-form">
-            <img class="inner-form-picture" src="../assets/svg/default_contact_profilepicture.svg">
-            <div class="add-form">
-                <img src="../assets/svg/close.svg" id="x-button-form" onclick="closeForm(event)">
-                <div id="group-name" class="inputWrapper">
-                    <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
-                    <img src="../assets/svg/person_input.svg">
-                </div>
-                <div id="errorName" class="error_message"></div>
+                <img class="inner-form-picture" src="../assets/svg/default_contact_profilepicture.svg">
+                <button id="x-button-form" onclick="closeForm(event)">
+                    <img src="../assets/svg/close.svg">
+                </button>
+                <div class="add-form">
+                    <div id="group-name" class="inputWrapper">
+                        <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
+                        <img src="../assets/svg/person_input.svg">
+                    </div>
+                    <div id="errorName" class="error_message"></div>
 
-                <div id="group-mail" class="inputWrapper">
-                    <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
-                    <img src="../assets/svg/email.svg">
-                </div>
-                <div id="errorMail" class="error_message"></div>
+                    <div id="group-mail" class="inputWrapper">
+                        <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
+                        <img src="../assets/svg/email.svg">
+                    </div>
+                    <div id="errorMail" class="error_message"></div>
 
-                <div id="group-phone" class="inputWrapper">
-                    <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
-                    <img src="../assets/svg/call.svg">
-                </div>
-                <div id="errorPhone" class="error_message"></div>
+                    <div id="group-phone" class="inputWrapper">
+                        <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
+                        <img src="../assets/svg/call.svg">
+                    </div>
+                    <div id="errorPhone" class="error_message"></div>
 
-                <div class="add-contacts-btn">
-                    <button id="cancel-contact" onclick="closeForm(event)">
-                        Cancel
-                        <img src="../assets/svg/close.svg" id="cancel-contact-img">
-                    </button>
-                    <button id="create-contact" onclick="formCheck(${index}, event)">
-                        Create contact
-                        <img src="../assets/svg/check_white.svg">
-                    </button>
+                    <div class="add-contacts-btn">
+                        <button id="cancel-contact" onclick="closeForm(event)">
+                            Cancel
+                            <img src="../assets/svg/close.svg" id="cancel-contact-img">
+                        </button>
+                        <button id="create-contact" onclick="formCheck(${index}, event)">
+                            Create contact
+                            <img src="../assets/svg/check_white.svg">
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,7 +142,9 @@ function editContactTemplate(index) {
                     ${contactPictureLetters(index)}
                 </button>
                 <div class="add-form">
-                    <img src="../assets/svg/close.svg" id="x-button-form" onclick="closeForm(event)">
+                    <button id="x-button-form" onclick="closeForm(event)">
+                        <img src="../assets/svg/close.svg">
+                    </button>
                     <div id="group-name" class="inputWrapper">
                         <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
                         <img src="../assets/svg/person_input.svg">

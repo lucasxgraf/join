@@ -472,14 +472,6 @@ ul li::marker {
 
 }
 
-.contact-content button:hover,
-.contact-content button:hover svg path {
-    color: rgb(41, 171, 226);
-    transform: scale(1.1);
-    fill: rgb(41, 171, 226) !important;
-    cursor: pointer;
-}
-
 .mobile-menu {
     display: none;
     position: absolute;
@@ -536,4 +528,22 @@ ul li::marker {
   min-height: 18px;
   display: block;
   height: 14px;
+}
+
+.mobile-add-contact {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    bottom: 120px;
+    right: 24px;
+    cursor: pointer;
+}
+
+.mobile-add-contact:hover {
+    content: url("../assets/svg/person_add_circle_blue.svg");
+    transform: scale(1.1);
+}
+
+.mobile-menu img:hover{
+    content: url("../assets/svg/three_point_menu_blue.svg");
 }

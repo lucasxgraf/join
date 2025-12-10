@@ -79,31 +79,9 @@
     bottom: 10%;
   }
 
-  .mobile-menu{
-    display: flex;
+  #x-button-form img {
+    content: url('../assets/svg/close_white.svg');
   }
-
-  .mobile-add-contact {
-    background-color: #2A3647;
-    font-size: 21px;
-    height: 50px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100%;
-    position: fixed;
-    z-index: 100;
-    border: unset;
-    bottom: 120px;
-    right: 32px;
-    box-shadow: 0px 7px 6px 1px rgba(0, 0, 0, 0.1);
-}
-
-.mobile-add-contact:hover {
-    cursor: pointer;
-    background-color: #29ABE2;
-}
 
 .slide-in-mobile-right {
   animation: slideInRight 0.4s ease-out forwards;
@@ -298,14 +276,6 @@
 }
 }
 
-@media (max-width: 880px) {
-    #goback-arrow {
-        margin-left: 0;
-        position: absolute;
-        right: 5px;
-    }
-}
-
 @media only screen and (max-width: 749px) {
   .contact-list {
     scrollbar-width: none;
@@ -339,6 +309,10 @@
 
   .contact-icons {
     display: none;
+  }
+
+  .mobile-menu{
+    display: flex;
   }
 }
 
