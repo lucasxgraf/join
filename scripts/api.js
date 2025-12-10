@@ -226,7 +226,7 @@ async function editContact(index) {
     closeForm();
     contacts = [];
     await init();
-    showContactTemplate(index);
+    showContact(index);
     contactToast("Contact successfully edit")
 } catch (err) {
     console.error('Failed to edit contact:', err);
