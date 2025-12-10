@@ -92,13 +92,6 @@ ul li::marker {
     z-index: 299;
 }
 
-.list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 80px;
-}
-
 .contact {
     display: flex;
     align-items: center;
