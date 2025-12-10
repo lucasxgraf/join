@@ -75,7 +75,8 @@
   }
 
   .add-form {
-    margin-left: 0;
+    position: absolute;
+    bottom: 10%;
   }
 
   .mobile-menu{
@@ -179,24 +180,32 @@
 #mobile-edit:hover, #mobile-delete:hover {
     cursor: pointer;
 }
-}
 
-@media (max-width: 930px) {
+
     .add-contact-form {
         flex-direction: column;
-        width: 510px;
-        height: 700px;
+        width: clamp(19rem, 95vw , 32.5rem);
+        height: calc(100vh - 5%);
+        max-height: 700px;
         bottom: 10%;
-        justify-content: flex-start;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
     }
 
     .text-form {
         width: 100% !important;
         border-radius: 15px 15px 0 0;
-        height: 50%;
+        height: 40%;
+        top: 0px;
+        position: absolute;
+    }
+    .big-contact-picture,
+    .inner-form-picture {
+    height: 120px;
+    width: 120px;
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
     }
 
     .inner-form {
@@ -204,7 +213,7 @@
         justify-content: center;
         align-items: center;
         gap: 0;
-        margin-top: 0;
+        margin-top: 124px
     }
 
     .add-form-innerform {
@@ -358,22 +367,12 @@
     font-size: 1.5rem;
   }
 
-  .big-contact-picture{
-    width: 70px;
-    height: 70px;
-    font-size: 1.5rem;
-  }
-
   .informations h2 {
     margin: 0;
   }
 }
 
-@media (max-width: 470px) {
-    .add-contact-form {
-        width: 300px;
-    }
-
+@media (max-width: 530px) {
     .text-form h1 {
         font-size: 33px;
     }
@@ -389,8 +388,10 @@
     .buttons-addform {
         justify-content: center !important;
     }
-
-    #group-name, #group-mail, #group-phone {
+        #group-name {
+         margin-top: 42px;
+        }
+    /* #group-name, #group-mail, #group-phone {
         margin-bottom: 39px;
-    }
+    } */
 }

@@ -25,8 +25,11 @@ function setupGreetingListener() {
       
       const userData = await window.getUserData(user.uid);
       const userName = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
+      if (userName === 'Guest') {
+        document.getElementById("userGreeting").textContent = "";
+      }else{
       userGreetingElement.textContent = userName;
-      
+      }
       if (window.innerWidth <= 575) {
         showMobileGreeting(userName);
       }

@@ -187,12 +187,13 @@ ul li::marker {
     z-index: 300;
     display: flex;
     justify-content: center;
-    width: 1000px;
+    width: clamp(57rem, 95vw, 62.5rem );
     height: 400px;
     background-color: white;
     align-items: center;
-    bottom: 30%;
-    right: 15%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 15px;
 }
 
