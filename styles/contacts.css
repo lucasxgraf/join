@@ -198,9 +198,10 @@ ul li::marker {
     height: 400px;
     background-color: white;
     align-items: center;
-    bottom: 30%;
-    right: 15%;
     border-radius: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .text-form {
