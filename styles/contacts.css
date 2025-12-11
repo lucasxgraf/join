@@ -44,7 +44,7 @@
 }
 
 .contact-informations h1 {
-    font-size: 60px;
+    font-size: 3.75rem;
     margin: 0;
 }
 
@@ -143,7 +143,7 @@ ul li::marker {
     border-style: solid;
     width: 100px;
     height: 100px;
-    font-size: 40px;
+    font-size: 2.5rem;
 }
 
 .info_contact_name{
@@ -380,7 +380,7 @@ ul li::marker {
 }
 
 .fullname {
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 8px;
 }

@@ -49,18 +49,41 @@ function toggleDropdown(selector, currentId) {
   const dropdown = document.getElementById(selector);
   const isOpen = dropdown.classList.toggle("open");
   if (selector === "contact") {
-    renderIcon();};
+    renderIcon();
+  }
 
   if (isOpen) {
-    function handleClickOutside(e) {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-        document.removeEventListener("click", handleClickOutside);
-        if (currentId) iconContactHTML(currentId);}}
-    document.addEventListener("click", handleClickOutside);}
+    setTimeout(() => {
+      document.addEventListener("click", (e) => handleClickOutside(e, dropdown, currentId));
+    }, 0);
+  }
   if (!isOpen) {
     if (currentId) iconContactHTML(currentId);
-  }}
+  }
+}
+
+function handleClickOutside(e, dropdown, currentId) {
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove("open");
+    document.removeEventListener("click", handleClickOutside);
+    if (currentId) iconContactHTML(currentId);
+  }
+}
+
+function handleDropdownClickInDialog(event) {
+  const dropdown = document.querySelector('.custom-category-dropdown.open');
+  if (!dropdown || dropdown.contains(event.target)) {
+    event.stopPropagation();
+  }
+}
+
+function handleOverlayClick(event) {
+  const dropdown = document.querySelector('.custom-category-dropdown.open');
+  if (dropdown) {
+    return;
+  }
+  closeDialog();
+}
 
 
 function changeCategory(selection) {

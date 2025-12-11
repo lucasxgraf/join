@@ -65,7 +65,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s ease;
+  transition: all 125ms ease;
 }
 
 .card-first-row:hover {
@@ -127,7 +127,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  transition: all 0.1s ease;
+  transition: all 125ms ease;
 }
 
 .card-second-row:hover {
@@ -181,7 +181,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s ease;
+  transition: all 125ms ease;
 }
 
 .card-third-row:hover {
@@ -219,13 +219,13 @@ a {
 #timeGreeting {
   font-weight: 500;
   color: #2A3647;
-  font-size: 48px;
+  font-size: 3rem;
 }
 
 #userGreeting {
   color: #29ABE2;
   font-weight: 700;
-  font-size: 64px;
+  font-size: 4rem;
 }
 
 .expired {

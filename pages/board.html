@@ -176,8 +176,8 @@
               </div>
               </section>
 
-              <div class="dnone" id="addTaskOverlay" onclick="closeDialog()">
-                <div class="dialogWindow" id="addTaskDialog" onclick="event.stopPropagation()">
+              <div class="dnone" id="addTaskOverlay" onclick="handleOverlayClick(event)">
+                <div class="dialogWindow" id="addTaskDialog" onclick="handleDropdownClickInDialog(event)">
                   <div class="addTaskDialogContainer">
                     <button class="closeButtonaddTaskContainer" onclick="closeDialog()"><img src="../assets/svg/close.svg" alt="close icon"></button>
                     <div id="addTaskAtBoardPage"></div>
