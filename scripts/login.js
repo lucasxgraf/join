@@ -7,26 +7,23 @@ const GUEST_LOGIN_BTN = document.querySelector("#guestLog");
 const LOGIN_CARD = document.querySelector(".login_card");
 const LOGIN_HEADER = document.querySelector(".login_header");
 const FOOTER = document.querySelector("footer");
-const LOGO = document.querySelector(".join_image"); // Wichtig für Splash Skip
+const LOGO = document.querySelector(".join_image");
 const FORM_CONTENT = document.querySelector(".form_content");
-const SKIP = shouldSkipSplash(); // Wichtig für Splash Skip
+const SKIP = shouldSkipSplash();
 
-// Funktion für Skip
+
 function shouldSkipSplash() {
   return new URLSearchParams(window.location.search).get("noSplash") === "1";
 }
 
-// Login Page initialisieren
 document.addEventListener("DOMContentLoaded", function () {
-  // Splash unterbinden
   skipSplashIfNeeded();
 
-  // Fade In Animationen
   setTimeout(() => {
     fadeInLoginElements();
-  }, SKIP ? 0 : 1000); //Skip löschen wenn Animation gewünscht
+  }, SKIP ? 0 : 1000);
 
-  // Password Toggle initialisieren
+
   initPasswordToggle(
     "loginPassword",
     "togglePassword",
@@ -36,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 });
 
-// Hilfsfunktionen für Splash Skip und Fade In
+
 function skipSplashIfNeeded() {
   if (SKIP && LOGO) {
     LOGO.style.animation = "none";
@@ -44,13 +41,11 @@ function skipSplashIfNeeded() {
     LOGO.style.top = "24px";
     LOGO.style.left = "24px";
     
-    // Overlay sofort ausblenden bei Skip
     const BG_OVERLAY = document.querySelector(".bg_overlay_responsive");
     if (BG_OVERLAY) {
       BG_OVERLAY.style.display = "none";
     }
     
-    // Logo für mobile Version anpassen
     const joinImage = document.querySelector('.join_image');
     joinImage.style.content = 'url("./assets/img/logo/join_logo.png")';
     if (window.innerWidth <= 475) {
@@ -75,19 +70,19 @@ function fadeInLoginElements() {
   });
 }
 
-//EVENT LISTENERS
 
-// Login Button Click
+
+
 if (REF_LOGIN_BTN) {
   REF_LOGIN_BTN.addEventListener("click", handleLoginSubmit);
 }
 
-// Guest Login Button Click
+
 if (GUEST_LOGIN_BTN) {
   GUEST_LOGIN_BTN.addEventListener("click", handleGuestLogin);
 }
 
-// Password Input Change
+
 if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
   PASSWORD_INPUT.addEventListener("input", () => {
     if (PASSWORD_INPUT.value.length === 0) {
@@ -100,25 +95,23 @@ if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
   });
 }
 
-// Click außerhalb der Form: Error Messages löschen
+
 document.addEventListener("click", function (event) {
   if (FORM_CONTENT && !FORM_CONTENT.contains(event.target)) {
     clearLoginErrors();
   }
 });
 
-// Behandelt Login Form Submit
+
 async function handleLoginSubmit(event) {
   event.preventDefault();
   clearLoginErrors();
 
   const EMAIL = document.getElementById("loginEmail").value.trim();
   const PASSWORD = document.getElementById("loginPassword").value;
-  // Validierung
   if (!validateLoginInputs(EMAIL, PASSWORD)) {
     return;
   }
-  // Login mit Firebase Auth
   const RESULT = await loginUser(EMAIL, PASSWORD);
   if (RESULT.success) {
     window.location.href = "pages/summary.html";
@@ -127,7 +120,6 @@ async function handleLoginSubmit(event) {
   }
 }
 
-// Behandelt Guest Login
 async function handleGuestLogin() {
   const RESULT = await loginAsGuest();
   
@@ -138,7 +130,6 @@ async function handleGuestLogin() {
   }
 }
 
-// Validiert Login Inputs
 function validateLoginInputs(email, password) {
   let isValid = true;
 
@@ -157,7 +148,6 @@ function validateLoginInputs(email, password) {
   return isValid;
 }
 
-// Zeigt Login Error (Email + Password rot)
 function showLoginError(message) {
   const EMAIL_INPUT = document.getElementById("loginEmail");
   const PASSWORD_INPUT = document.getElementById("loginPassword");
@@ -167,7 +157,6 @@ function showLoginError(message) {
   document.getElementById("passwordError").innerText = message;
 }
 
-// Löscht alle Login Error Messages
 function clearLoginErrors() {
   document.getElementById("emailError").innerText = "";
   document.getElementById("passwordError").innerText = "";

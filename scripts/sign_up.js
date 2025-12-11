@@ -17,11 +17,8 @@ const SVG_PATHS = {
   on: "./assets/svg/visibility.svg"
 };
 
-// EVENT LISTENERS
 
-// Initialisierung
 document.addEventListener("DOMContentLoaded", () => {
-  // Password Toggle initialisieren
   [
     { inputId: "signUpPassword", toggleId: "toggleSignUpPassword" },
     { inputId: "signUpConfirmPassword", toggleId: "toggleSignUpConfirmPassword" }
@@ -29,39 +26,31 @@ document.addEventListener("DOMContentLoaded", () => {
     initPasswordToggle(f.inputId, f.toggleId, SVG_PATHS.lock, SVG_PATHS.off, SVG_PATHS.on);
   });
 
-  // Sign Window sofort anzeigen (ohne Animation)
   if (SIGN_WINDOW) SIGN_WINDOW.style.display = "block";
   if (FOOTER) FOOTER.style.display = "block";
 
-  // Button-Enable-Logik nur via Checkbox
   initSignUpButtonState();
 });
 
-// Back Arrow Click
 if (REF_BACK_BTN) {
   REF_BACK_BTN.addEventListener("click", goBack);
 }
 
-// Password Match Validation
 if (SIGNUP_CONF_PSW_INPUT) {
   SIGNUP_CONF_PSW_INPUT.addEventListener("input", checkPasswordMatch);
 }
 
-// Form Submit
 if (SIGNUP_FORM) {
   SIGNUP_FORM.addEventListener("submit", handleSignUpSubmit);
 }
 
-// Click außerhalb des Forms: Error Messages löschen
 document.addEventListener("click", function (event) {
   if (SIGNUP_FORM && !SIGNUP_FORM.contains(event.target)) {
     clearSignUpErrors();
   }
 });
 
-// FUNKTIONEN
 
-// Aktiviert/Deaktiviert den Sign-up Button abhängig von der Checkbox
 function initSignUpButtonState() {
   if (!SIGN_BTN_REGISTER || !PRIVACY_CHECKBOX) 
     return;
@@ -86,7 +75,6 @@ function initSignUpButtonState() {
   SIGNUP_CONF_PSW_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
 }
 
-// Prüft ob Passwörter übereinstimmen
 function checkPasswordMatch() {
   const PASSWORD = SIGNUP_PSW_INPUT.value;
   const CONFIRM_PSW = SIGNUP_CONF_PSW_INPUT.value;
@@ -101,7 +89,6 @@ function checkPasswordMatch() {
   }
 }
 
-// Holt Daten aus dem Sign Up Form und validiert
 async function handleSignUpSubmit(event) {
   event.preventDefault();
   clearSignUpErrors();
@@ -121,7 +108,6 @@ async function handleSignUpSubmit(event) {
   onSignUpError(RESULT.error);
 }
 
-// Hilfsfunktionen für Sign Up Erfolg/Fehler
 function onSignUpSuccess() {
   showSuccessOverlay();
   setTimeout(() => {
@@ -134,7 +120,6 @@ function onSignUpError(msg) {
   SIGNUP_EMAIL_INPUT.style.borderColor = "red";
 }
 
-// Validiert alle Sign Up Form Felder
 function validateSignUpForm(name, email, password, confirmPassword, privacyAccepted) {
   let isValid = true;
   isValid = validateName(name) && isValid;
@@ -145,7 +130,6 @@ function validateSignUpForm(name, email, password, confirmPassword, privacyAccep
   return isValid;
 }
 
-// Hilfsfunktionen für Validierung
 function validateName(name) {
   if (name) return true;
   showError("signUpNameError", "Please enter your name");
@@ -199,7 +183,6 @@ function validatePrivacy(accepted) {
     return false;
 }
 
-// Zeigt Success Overlay
 function showSuccessOverlay() {
   const OVERLAY = document.getElementById("overlay");
   if (OVERLAY) {
@@ -207,13 +190,11 @@ function showSuccessOverlay() {
   }
 }
 
-// Validiert Email Format
 function isValidEmail(email) {
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return EMAIL_REGEX.test(email);
 }
 
-// Löscht alle Error Messages
 function clearSignUpErrors() {
   const ERROR_IDS = [
     "signUpNameError",
@@ -227,7 +208,6 @@ function clearSignUpErrors() {
     if (element) element.textContent = "";
   });
 
-  // Border Colors zurücksetzen
   [SIGNUP_NAME_INPUT, SIGNUP_EMAIL_INPUT, SIGNUP_PSW_INPUT, SIGNUP_CONF_PSW_INPUT].forEach(input => {
     if (input) input.style.borderColor = "";
   });

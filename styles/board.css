@@ -29,7 +29,7 @@ h3 {
   color: #42526E;
   font-weight: 700;
   font-style: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .scroll_layout {
@@ -58,7 +58,7 @@ h3 {
   align-items: center;
   gap: 4px;
   font-weight: 700;
-  font-size: 21px;
+  font-size: 1.313rem;
 }
 
 .addTaskButton img {
@@ -176,7 +176,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
 }
 
 .subtask {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 120%;
 }
@@ -222,7 +222,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   align-items: center;
   background-color: #E7E7E7;
   color: #A8A8A8;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 120%;
   width: 246px;
@@ -358,7 +358,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   border: 2px solid #fff;
 }
@@ -372,7 +372,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
 }
 
 .no_contacts {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a8a8a8;
 }
 
@@ -444,7 +444,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   color: #CDCDCD;
   padding: 8px 0 8px 8px;
   text-align: left;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .dropdown-item-resp:hover{
@@ -494,7 +494,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   }
 
   h3 {
-    font-size: 27px;
+    font-size: 1.688rem;
   }
 
   .singleDragContainerHeader img {
@@ -527,6 +527,11 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   .content_header_addTask_responsiv{
     display: block;
   }
+
+  .search_container{
+    display: none;
+  }
+
   .search_input_responsiv{
     width: 100%;
   }

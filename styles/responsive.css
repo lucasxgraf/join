@@ -205,11 +205,11 @@
     }
 
     .text-form h1 {
-        font-size: 50px;
+        font-size: 3.125rem;
     }
 
     .text-form h3 {
-        font-size: 30px;
+        font-size: 1.875rem;
     }
 
     .divider-small {
@@ -224,12 +224,12 @@
         border-width: 3px;
         border-color: white;
         border-style: solid;
-        font-size: 26px;
+        font-size: 1.625rem;
         margin-left: 0 !important;
         margin-left: 0 !important;
         position: absolute;
         bottom: 300px;
-        font-size: 42px;
+        font-size: 2.625rem;
     }
     
   @keyframes slideUp {

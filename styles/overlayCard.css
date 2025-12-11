@@ -48,7 +48,7 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   height: 48px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .overlay_card_category{
@@ -201,7 +201,7 @@
   padding: 6px 10px;
   border-radius: 20px;
   color: #fff;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .overlay_contact_initials {
@@ -225,7 +225,6 @@
   padding: 0 16px;
 }
 
-/* Overlay Edit */
 
 form {
   display: flex;

@@ -9,22 +9,28 @@ function renderaddTask() {
                 <div class="add-task-container">
                     <div class="task-input-container">
                         <div class="input_field">
+                          <div>
                             <label for="title" aria-label="title">Title<span class="req">*</span></label>
-                            <input type="text" id="title" class="task-input inputBorderColor" placeholder="Enter a title" onblur="validateInput('titleError', 'title', 'title')" oninput="enableSubmit()">
-                            <div id="titleError" class="error_message"></div>
+                          </div>
+                            <input type="text" id="title" class="task-input inputBorderColor mg-t4" placeholder="Enter a title" onblur="validateInput('titleError', 'title', 'title')" oninput="enableSubmit()">
+                            <div id="titleError" class="error_message mg-b2"></div>
                         </div>
                         <div class="input_field">
+                          <div>
                             <label for="description" aria-label="Title">Description</label>
-                            <textarea id="description" class="task-input inputBorderColor" placeholder="Enter a description"></textarea>
+                          </div>
+                            <textarea id="description" class="task-input inputBorderColor mg-t4 mg-b16" placeholder="Enter a description"></textarea>
                         </div>
                         <div class="input_field">
+                          <div>
                             <label for="duedate" aria-label="Date">Due date<span class="req">*</span></label>
-                            <div id="date" class="task-input dpf sp_between inputBackground inputWrapper">
+                          </div>
+                            <div id="date" class="task-input dpf sp_between inputBackground inputWrapper mg-t4">
                                 <input type="text" class="fontColor cleanInputforDate" id="duedate" placeholder="dd/mm/yyyy" maxlength="10" onblur="validateInput('dateError', 'duedate', 'date')" oninput="this.value = this.value.replace(/[^0-9\/]/g, ''); enableSubmit()">
                                 </input>
                                 <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="calender icon"></button>
                             </div>
-                            <div id="dateError" class="error_message"></div>
+                            <div id="dateError mg-b2" class="error_message"></div>
                             <div class="calender" id="calender"></div>
                         </div>
                     </div>
@@ -35,8 +41,10 @@ function renderaddTask() {
                 <div class="add-task-container-right">
                     <div class="task-input-container">
                         <div class="input_field">
+                          <div>
                             <label for="urgentBtnAddTask" aria-label="Priority">Priority</label>
-                            <div class="priority-buttons">
+                          </div>
+                            <div class="priority-buttons mg-t4 mg-b16">
                                 <button type="button" id="urgentBtnAddTask" class="urgent_btn priority-btn dpf_cc" onclick="changePriority('urgent','AddTask')">Urgent<span class="urgent_icon"></span></button> 
                                 <button type="button" id="mediumBtnAddTask" class="medium-btn priority-btn dpf_cc" onclick="changePriority('medium','AddTask')">Medium <span class="medium_icon"></span></button>
                                 <button type="button" id="lowBtnAddTask" class="low_btn priority-btn dpf_cc" onclick="changePriority('low','AddTask')">Low <span class="low_icon"></span></button>
@@ -44,8 +52,10 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
-                            <label for="selectedAssigned" aria-label="Assigned_to">Assigned to</label>
-                            <div class="custom-category-dropdown" id="contactDropdown">
+                            <div>
+                              <label for="selectedAssigned" aria-label="Assigned_to">Assigned to</label>
+                            </div>
+                            <div class="custom-category-dropdown mg-t4 mg-b16" id="contactDropdown">
                                 <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
                                      <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
                                     <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
@@ -58,8 +68,10 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
+                          <div>
                             <label for="selectedCategory" aria-label="Category">Category<span class="req">*</span></label>
-                                <div class="custom-category-dropdown" id="categoryDropdown">
+                          </div>
+                                <div class="custom-category-dropdown mg-t4 mg-b2" id="categoryDropdown">
                                     <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
                                         <div class="dropdown-arrow" id="dropdownArrow">
@@ -74,8 +86,10 @@ function renderaddTask() {
                         </div>
 
                         <div class="input_field">
+                          <div>
                             <label for="subtaskReadOut" aria-label="Subtasks">Subtasks</label>
-                                <div class="input-wrapper">
+                          </div>
+                                <div class="input-wrapper mg-t4">
                                     <input type="text" maxlength="35" class="task-input inputBorderColor" id="subtaskReadOut" placeholder="Add new subtask">
                                     <div id="inputButtons"></div>
                                 </div>
@@ -386,7 +400,8 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <label for="overlayEditTitle">
           <h3>Title</h3>
         </label> 
-        <div>  
+        <div>
+          <label for="overlayEditTitle" aria-label="Enter the Task Title"></label>  
           <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" oninput="checkEditOverlayInput()" value="${CARD.title||''}"/>
           <div id="titleErrorEditOverlay" class="error_message"></div>
         </div> 
@@ -398,7 +413,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <textarea class="inputBorderColor" placeholder="Enter a description" id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
       </div>
       <div class="overlay_edit_form_layout">
-        <label aria-label="Date">
+        <label for="duedateOverlayEdit" aria-label="Date">
           <h3>Due date</h3>
         </label>
         <div> 
@@ -429,6 +444,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Assigned to</h3>
           <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
               <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
+                  <label for="selectedAssignedEditOverlay" aria-label="select contact to assign task"></label>
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
               </div>
@@ -442,6 +458,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <div class="overlay_edit_form_layout">
           <h3>Subtasks</h3>
             <div class="input-wrapper">
+              <label for="subtaskReadOutEditOverlay" aria-label="add new subtask"></label>
               <input type="text" maxlength="35" class="task-input inputBorderColor witdh100" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
               <div id="inputButtonsEditOverlay"></div>      
             </div>

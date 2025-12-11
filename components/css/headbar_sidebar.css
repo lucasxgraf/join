@@ -129,7 +129,7 @@ text {
   padding-right: 0;
   color: #29ABE2;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   transition: all 125ms ease-in-out;
 }
 
@@ -163,7 +163,7 @@ text {
 .dropdown-menu button {
   border: 0;
   color: #CDCDCD;
-  font-size: 16px;
+  font-size: 1rem;
   text-wrap: nowrap;
   padding: 13px;
 }

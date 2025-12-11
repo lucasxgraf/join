@@ -211,13 +211,13 @@ h1 {
 #timeGreeting {
   font-weight: 500;
   color: #2A3647;
-  font-size: 48px;
+  font-size: 3rem;
 }
 
 #userGreeting {
   color: #29ABE2;
   font-weight: 700;
-  font-size: 64px;
+  font-size: 4rem;
 }
 
 .expired {
