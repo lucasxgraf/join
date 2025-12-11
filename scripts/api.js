@@ -185,9 +185,9 @@ async function addContact(event) {
     let iPhone = document.getElementById('input-phone').value;
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
-    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
+    const data = returnJSONDATANEW(iMail, iPhone, firstname, secondname);
    
-    let response = await fetch(BASE_URL + "contacts/contactlist.json", {
+    await fetch(BASE_URL + "contacts/contactlist.json", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
