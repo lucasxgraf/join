@@ -236,7 +236,7 @@ text {
   height: 64px;
 }
 
-.drop-down-menu-only-resp{
+.drop-down-menu-only-resp {
   display: none;
 }
 
@@ -261,7 +261,7 @@ text {
     display: none;
   }
 
-  .drop-down-menu-only-resp{
+  .drop-down-menu-only-resp {
     display: block;
   }
 }
@@ -270,7 +270,7 @@ text {
   .dropdown-menu-container {
     right: auto;
     left: 1570px;
-}
+  }
 }
 
 @media (max-width: 520px) {

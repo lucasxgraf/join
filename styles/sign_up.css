@@ -87,7 +87,7 @@ body {
   font-size: small;
 }
 
-.privacy_police_content label{
+.privacy_police_content label {
   cursor: pointer;
 }
 
@@ -179,22 +179,24 @@ input[type="checkbox"]:hover {
   align-items: center;
 }
 
-/* Toast Animation: Von Unten in die Mitte */
 @keyframes overlaySlideUp {
   0% {
     transform: translate(-50%, 120%);
     opacity: 0;
   }
+
   20% {
     transform: translate(-50%, -50%);
     opacity: 1;
   }
+
   70% {
     transform: translate(-50%, -50%);
-    opacity: 1; 
+    opacity: 1;
   }
+
   100% {
-    transform: translate(-50%, 120%); /* auf -50% ändern, wenn es in der Mitte stehen bleiben soll */
+    transform: translate(-50%, 120%);
     opacity: 0;
   }
 }

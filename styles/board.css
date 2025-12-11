@@ -131,16 +131,16 @@ h3 {
   width: max-content;
 }
 
-.card_header_swap_icon{
+.card_header_swap_icon {
   display: none;
 }
 
-.card_header_swap_icon img{
+.card_header_swap_icon img {
   height: 24px;
 }
 
-.card_header_swap_icon img:hover{
-filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%) contrast(93%);
+.card_header_swap_icon img:hover {
+  filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%) contrast(93%);
 }
 
 .card_content {
@@ -404,6 +404,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   border-radius: 10px;
   font-size: 1rem;
 }
+
 .mobile-clone {
   position: fixed;
   pointer-events: none;
@@ -416,7 +417,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   opacity: 0.3;
 }
 
-.swap-dropdown{
+.swap-dropdown {
   position: absolute;
   top: 16px;
   right: -110px;
@@ -435,10 +436,10 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   width: 150px;
   overflow-y: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin: 0;  
+  margin: 0;
 }
 
-.dropdown-item-resp{
+.dropdown-item-resp {
   width: 100%;
   font-size: 1rem;
   color: #CDCDCD;
@@ -447,7 +448,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   font-size: 0.875rem;
 }
 
-.dropdown-item-resp:hover{
+.dropdown-item-resp:hover {
   background-color: #2A3D59;
 }
 
@@ -489,7 +490,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
     width: 100%;
   }
 
-  .card_header_swap_icon{
+  .card_header_swap_icon {
     display: block;
   }
 
@@ -524,15 +525,15 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
     width: 100%;
   }
 
-  .content_header_addTask_responsiv{
+  .content_header_addTask_responsiv {
     display: block;
   }
 
-  .search_container{
+  .search_container {
     display: none;
   }
 
-  .search_input_responsiv{
+  .search_input_responsiv {
     width: 100%;
   }
 
@@ -555,8 +556,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   }
 
   .addTaskSpan,
-  .search_container
-  .help-icon,
+  .search_container .help-icon,
   header h2 {
     display: none;
   }
@@ -565,7 +565,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
     display: flex;
   }
 
-  .drop-down-menu-only-resp{
+  .drop-down-menu-only-resp {
     display: block;
   }
 }
