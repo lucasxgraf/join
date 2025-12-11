@@ -57,8 +57,10 @@ function renderaddTask() {
                             </div>
                             <div class="custom-category-dropdown mg-t4 mg-b16" id="contactDropdown">
                                 <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
-                                     <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
-                                    <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
+                                    <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
+                                    <button class="dropdown-arrow" id="dropdownArrow"> 
+                                      <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon">
+                                    </button>
                                 </div>
                                 <div class="dropdown-list" id="categoryDropdownList">
                                     <div id="labelContact"></div>
@@ -74,9 +76,9 @@ function renderaddTask() {
                                 <div class="custom-category-dropdown mg-t4 mg-b2" id="categoryDropdown">
                                     <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
-                                        <div class="dropdown-arrow" id="dropdownArrow">
+                                        <button class="dropdown-arrow" id="dropdownArrow">
                                             <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon">
-                                        </div>
+                                        </button>
                                     </div>
                                     <div class="dropdown-list" id="categoryDropdownList">
                                         <div id="labelCategory"></div>
@@ -127,13 +129,14 @@ function renderaddTask() {
 
 
 function renderContact(i, contacFromFirebase) {
-  return `<label for="categoryCheckbox${i}" class="dropdown-item sp_between">
-            <div class="dpf_cc gap8">
-              <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
-              <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
-            </div>
-              <input class="checkbox" type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
-            </label>`;
+  return `
+    <label for="categoryCheckbox${i}" class="dropdown-item sp_between">
+      <div class="dpf_cc gap8">
+        <div id="contactDropdownList_${i}" class="iconConact dpf_cc" style="background-color: ${contacFromFirebase[i].color}">${contacFromFirebase[i].name.firstname.slice(0, 1)}${contacFromFirebase[i].name.secondname.slice(0, 1)}  </div>
+        <span id="contactName">${contacFromFirebase[i].name.firstname} ${contacFromFirebase[i].name.secondname}</span>
+      </div>
+        <input class="checkbox" type="checkbox" id="categoryCheckbox${i}" onchange="selectContacts(${i}, this)">
+    </label>`;
 }
 
 function renderCategory(i) {
@@ -443,7 +446,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
       <div class="overlay_edit_form_layout">
         <h3>Assigned to</h3>
           <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
-              <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
+              <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
                   <label for="selectedAssignedEditOverlay" aria-label="select contact to assign task"></label>
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>

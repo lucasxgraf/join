@@ -23,7 +23,6 @@
 *:disabled {
   background-color: dimgrey !important;
   box-shadow: none !important;
-  cursor: default !important;
 }
 
 .sp_between {
@@ -125,7 +124,9 @@ label {
 
 .priority-buttons {
   display: flex;
+  justify-content: space-between;
   gap: clamp(0.2rem, 1.25vw, 1rem);
+
 }
 
 .priority-btn {
@@ -136,7 +137,6 @@ label {
   border-radius: 10px;
   font-size: 1.25rem;
   line-height: 120%;
-  cursor: pointer;
   transition: all 125ms ease-in-out;
   gap: clamp(0.1rem, 0.5vw, 0.5rem)
 }
@@ -163,7 +163,6 @@ label {
   gap: 4px;
   font-size: 1.313rem;
   line-height: 120%;
-  cursor: pointer;
 }
 
 .btn_clear {
@@ -194,7 +193,6 @@ label {
   padding: 8px 12px;
   background: #fff;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .dropdown-arrow {
@@ -227,8 +225,8 @@ label {
   display: flex;
   align-items: center;
   gap: 24px;
-  cursor: pointer;
   padding: 6px 16px;
+  cursor: pointer;
 }
 
 .dropdown-item:hover {
@@ -241,6 +239,7 @@ label {
 .taskOutput {
   padding: 4px;
   height: 32px;
+  cursor: pointer;
 }
 
 
@@ -252,7 +251,6 @@ label {
 .taskOutputtest:hover,
 .taskOutput:hover {
   background-color: #dad8d8;
-  cursor: pointer;
   border-radius: 16px;
 }
 
@@ -391,14 +389,12 @@ textarea {
 #selectedAssigned #selectedCategory {
   pointer-events: none;
   user-select: none;
-  cursor: pointer;
   color: black;
 }
 
 .stylingInput {
   border: none;
   outline: none;
-  cursor: pointer;
   padding: 8px;
   width: 100%;
 }
@@ -414,7 +410,6 @@ textarea {
   border: none;
   padding: 0;
   margin: 0;
-  cursor: pointer;
   width: 32px;
 }
 
@@ -466,7 +461,6 @@ textarea {
   background-color: #dad8d8;
   border-radius: 10px;
   padding: 0.5em 0.75em;
-  cursor: pointer;
   font-size: 0.875rem;
   box-shadow: 0 1px 2px #000000d7, 0 0px 0 #00000040;
 }
@@ -483,7 +477,6 @@ textarea {
 
 .arrow {
   background-color: #dad8d8;
-  cursor: pointer;
   border-radius: 12px;
   width: 2.5rem;
   height: 2.5rem;
@@ -529,7 +522,6 @@ date {
   font-weight: 600;
   border: 2px solid transparent;
   background-color: transparent;
-  cursor: pointer;
   color: #2a3647;
 }
 

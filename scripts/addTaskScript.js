@@ -363,16 +363,17 @@ function sendFeedback() {
 
 
 function validateInput(displayid, currentId, inputFrame) {
-  const input = document.getElementById(currentId);
-  const output = document.getElementById(displayid)
-  const borderError = document.getElementById(inputFrame)
-
-  if (input.value.trim() === "") {
-    output.innerHTML = "This field is required."
-    borderError.classList.add('errorBorder');
-  }
-  else{
-    output.innerHTML = ""
-    borderError.classList.remove('errorBorder');
-  }
+    const input = document.getElementById(currentId);
+    const output = document.getElementById(displayid);
+    const borderError = document.getElementById(inputFrame);
+    
+    if (!input || !output || !borderError) return;
+    
+    if (input.value.trim() === "") {
+        output.innerHTML = "This field is required.";
+        borderError.classList.add('errorBorder');
+    } else {
+        output.innerHTML = "";
+        borderError.classList.remove('errorBorder');
+    }
 }

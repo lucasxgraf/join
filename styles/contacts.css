@@ -97,6 +97,7 @@ ul li::marker {
     height: 72px;
     padding: 16px 24px;
     border-radius: 16px;
+    cursor: pointer;
 }
 
 .contact:hover {

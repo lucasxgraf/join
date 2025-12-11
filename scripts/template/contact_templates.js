@@ -207,7 +207,7 @@ function appendContact(letter, contact, index) {
       <button class="contact-picture" style="background-color: ${contact.color}">
         ${contactPictureLetters(index)}
       </button>
-      <div style="margin-right: 24px;">
+      <div>
         <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
         <p class="small-email">${contact.mail}</p>
       </div>

@@ -237,4 +237,5 @@ async function deleteContact(index) {
     closeForm();
     contacts = [];
     await init();
+    showNoContact();
 }
