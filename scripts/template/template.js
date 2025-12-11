@@ -534,12 +534,12 @@ function renderContactOnHTMLOverlayEdit(contactFromFirebase, currentId) {
   
   for (let i = 0; i < contactFromFirebase.length; i++) {
     contactRef.innerHTML += `
-    <label for="contact${i}" class="dropdown-item sp_between">
+    <label class="dropdown-item sp_between">
       <div class="dpf_cc gap8">
         <div id="contactDropdownListEdit_${i}" class="iconConact dpf_cc" style="background-color: ${contactFromFirebase[i].color}">${contactFromFirebase[i].name.firstname.slice(0, 1)}${contactFromFirebase[i].name.secondname.slice(0, 1)}</div>
         <span>${contactFromFirebase[i].name.firstname} ${contactFromFirebase[i].name.secondname}</span>
       </div>
-      <input class="checkbox" type="checkbox" onchange="selectContactsOverlayEdit(${i}, this)" id="contact${i}">
+      <input class="checkbox" type="checkbox" onchange="selectContactsOverlayEdit(${i}, this)">
     </label>`;
   }
 }

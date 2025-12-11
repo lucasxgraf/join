@@ -42,12 +42,39 @@ async function signUpUser(name, email, password) {
 }
 
 async function saveUserToDatabase(uid, name, email) {
+  const color = getRandomColor();
   const USER_REF = ref(DATABASE, `users/${uid}`);
   await set(USER_REF, {
     name: name,
     email: email,
-    color: getRandomColor(),
+    color: color,
     createdAt: new Date().toISOString()
+  });
+  
+  await addUserToContacts(name, email, color);
+}
+
+async function addUserToContacts(name, email, color) {
+  const [firstname, ...rest] = name.trim().split(" ");
+  const secondname = rest.join(" ");
+  
+  const contactData = {
+    color: color,
+    mail: email,
+    name: {
+      firstname: firstname || "",
+      secondname: secondname || ""
+    },
+    tel: "<i> Please update your phone number <i>"
+  };
+  
+  const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+  await fetch(BASE_URL + "contacts/contactlist.json", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(contactData)
   });
 }
 

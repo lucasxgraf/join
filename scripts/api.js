@@ -201,32 +201,38 @@ async function addContact(event) {
 }
 
 async function editContact(index) {
-    const { name, mail, tel, color } = contacts[index];
-    const iName = document.getElementById('input-name').value;
-    const iMail = document.getElementById('input-mail').value;
-    const iPhone = document.getElementById('input-phone').value;
-    const originalName = `${name.firstname} ${name.secondname}`;
-    
-    if (iName === originalName && iMail === mail && iPhone === tel) {
-        closeForm();
-        return;
-    }
-    
-    const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    const [firstname, ...rest] = iName.trim().split(" ");
-    const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
-    
-    await fetch(url, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-    
+  const { name, mail, tel, color } = contacts[index];
+  const iName = document.getElementById('input-name').value;
+  const iMail = document.getElementById('input-mail').value;
+  const iPhone = document.getElementById('input-phone').value;
+  const originalName = `${name.firstname} ${name.secondname}`;
+  const cleanedPhone = iPhone === "<i> Please update your phone number <i>" ? "" : iPhone;
+
+  if (iName === originalName && iMail === mail && (iPhone === tel)) {
     closeForm();
-    contacts = [];
-    await init();
-    updateContactContentAfterEdit(index);
-    contactToast("Contact successfully edit");
+    return;
+  }
+  
+  if (iName === originalName && iMail === mail && cleanedPhone === tel) {
+    closeForm();
+    return;
+  }
+
+  const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+  const [firstname, ...rest] = iName.trim().split(" ");
+  const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
+  
+  await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  
+  closeForm();
+  contacts = [];
+  await init();
+  updateContactContentAfterEdit(index);
+  contactToast("Contact successfully edit");
 }
 
 async function deleteContact(index) {
