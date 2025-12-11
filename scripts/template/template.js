@@ -386,7 +386,8 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <label for="overlayEditTitle">
           <h3>Title</h3>
         </label> 
-        <div>  
+        <div>
+          <label for="overlayEditTitle" aria-label="Enter the Task Title"></label>  
           <input id="overlayEditTitle" placeholder="Enter a title" class="inputBorderColor" type="text" name="title" onblur="validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')" oninput="checkEditOverlayInput()" value="${CARD.title||''}"/>
           <div id="titleErrorEditOverlay" class="error_message"></div>
         </div> 
@@ -398,7 +399,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <textarea class="inputBorderColor" placeholder="Enter a description" id="overlayEditDescription" type="text" name="description">${CARD.description||''}</textarea>
       </div>
       <div class="overlay_edit_form_layout">
-        <label aria-label="Date">
+        <label for="duedateOverlayEdit" aria-label="Date">
           <h3>Due date</h3>
         </label>
         <div> 
@@ -429,6 +430,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <h3>Assigned to</h3>
           <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
               <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
+                  <label for="selectedAssignedEditOverlay" aria-label="select contact to assign task"></label>
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>
               </div>
@@ -442,6 +444,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
         <div class="overlay_edit_form_layout">
           <h3>Subtasks</h3>
             <div class="input-wrapper">
+              <label for="subtaskReadOutEditOverlay" aria-label="add new subtask"></label>
               <input type="text" maxlength="35" class="task-input inputBorderColor witdh100" id="subtaskReadOutEditOverlay" placeholder="Add new subtask" oninput="renderSubtaskButtonsEditOverlay(event)" onkeypress="if(event.key==='Enter'){event.preventDefault();addSubtaskEditOverlay();}">
               <div id="inputButtonsEditOverlay"></div>      
             </div>

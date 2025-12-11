@@ -97,18 +97,21 @@ function addFormTemplate(index) {
                 </button>
                 <div class="add-form">
                     <div id="group-name" class="inputWrapper">
+                        <label for="input-name" aria-label="name of contact"></label>
                         <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
                         <img src="../assets/svg/person_input.svg">
                     </div>
                     <div id="errorName" class="error_message"></div>
 
                     <div id="group-mail" class="inputWrapper">
+                        <label for="input-mail" aria-label="e-mail of contact"></label>
                         <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>
 
                     <div id="group-phone" class="inputWrapper">
+                        <label for="input-phone" aria-label="phonenumber of contact"></label>
                         <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
                         <img src="../assets/svg/call.svg">
                     </div>
@@ -148,18 +151,21 @@ function editContactTemplate(index) {
                         <img src="../assets/svg/close.svg">
                     </button>
                     <div id="group-name" class="inputWrapper">
+                        <label for="input-name" aria-label="name of contact"></label>
                         <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
                         <img src="../assets/svg/person_input.svg">
                     </div>
                     <div id="errorName" class="error_message"></div>
 
                     <div id="group-mail" class="inputWrapper">
+                        <label for="input-mail" aria-label="e-mail of contact"></label>
                         <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>
 
                     <div id="group-phone" class="inputWrapper">
+                        <label for="input-phone" aria-label="phonenumber of contact"></label>
                         <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
                         <img src="../assets/svg/call.svg">
                     </div>
