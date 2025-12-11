@@ -36,9 +36,9 @@ function filterCards(SEARCH_TERM) {
 function renderFilteredCards(FILTERED_CARDS) {
     clearAllContainers();
     
-    if (FILTERED_CARDS.length === 0) {
-        showNoResultsMessage();
-        return;
+    if (FILTERED_CARDS.length === 0) {  
+    showNoResultsMessage();
+    return;
     }
     
     hideNoResultsMessage();
@@ -51,6 +51,13 @@ function renderFilteredCards(FILTERED_CARDS) {
           CONTAINER.innerHTML += renderCard(card);
         }
     });
+}
+
+function responsivResultmassage() {
+    if (window.innerWidth <= 1050) {
+        document.getElementById("content_col").classList.add("dnone")    
+    }else
+        document.getElementById("content_col").classList.remove("dnone")    
 }
 
 function showNoResultsMessage() {
@@ -79,9 +86,12 @@ function hideNoResultsMessage() {
 function resetSearch() {
     hideNoResultsMessage();
     loadDetails(cardFromFirebase);
+    responsivResultmassage();
+    document.getElementById("content_col").classList.remove("dnone")    
 }
 
 function clearAllContainers() {
+    responsivResultmassage(); 
     document.getElementById('todo').innerHTML = '';
     document.getElementById('inprogress').innerHTML = '';
     document.getElementById('awaitfeedback').innerHTML = '';
