@@ -70,10 +70,6 @@
     margin-left: 400px;
   }
 
-  #goback-arrow:hover {
-    cursor: pointer;
-  }
-
   .add-form {
     position: absolute;
     bottom: 10%;
@@ -155,10 +151,6 @@
   animation: slideUpHoldDown 2.5s ease-in-out forwards;
 }
 
-#mobile-edit:hover, #mobile-delete:hover {
-    cursor: pointer;
-}
-
 
     .add-contact-form {
         flex-direction: column;
@@ -222,11 +214,6 @@
 
     .divider-small {
         width: 72px;
-    }
-
-    #x-button-form:hover {
-        background-color: transparent;
-        cursor: pointer;
     }
 
     .edit-contact-picture {
@@ -350,28 +337,4 @@
     width: 70px;
     font-size: 1.25rem;
   }
-}
-
-@media (max-width: 530px) {
-    .text-form h1 {
-        font-size: 33px;
-    }
-
-    .text-form h3 {
-        font-size: 18px;
-    }
-
-    #cancel-contact {
-        display: none;
-    }
-
-    .buttons-addform {
-        justify-content: center !important;
-    }
-        #group-name {
-         margin-top: 42px;
-        }
-    /* #group-name, #group-mail, #group-phone {
-        margin-bottom: 39px;
-    } */
 }

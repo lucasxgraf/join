@@ -59,7 +59,6 @@ h3 {
   gap: 4px;
   font-weight: 700;
   font-size: 21px;
-  cursor: pointer;
 }
 
 .addTaskButton img {
@@ -87,7 +86,6 @@ h3 {
 }
 
 .singleDragContainerHeader img {
-  cursor: pointer;
   height: 24px;
   width: 24px;
 }
@@ -104,7 +102,7 @@ h3 {
   width: 252px;
   border-radius: 24px;
   background-color: white;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 125ms ease-in-out, opacity 0.2s ease;
   cursor: grab;
 }
 
@@ -134,7 +132,6 @@ h3 {
 }
 
 .card_header_swap_icon{
-  cursor: pointer;
   display: none;
 }
 
@@ -247,6 +244,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   border: 1px solid #D1D1D1;
   border-radius: 10px;
   font-size: 1rem;
+  transition: all 125ms ease-in-out;
 }
 
 .search_input::placeholder {
@@ -310,7 +308,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   transform: translate(-50%, -50%) translateX(100vw);
   border: none;
   background-color: #f6f7f8;
-  transition: transform 0.20s ease;
+  transition: all 125ms ease-in-out;
 }
 
 .dialogWindow.show {
@@ -328,7 +326,6 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   top: 64px;
   right: 32px;
   border: none;
-  cursor: pointer;
 }
 
 .closeButtonaddTaskContainer img:hover {
@@ -343,7 +340,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
 }
 
 .task_card {
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 125ms ease-in-out, opacity 0.2s ease;
   cursor: grab;
 }
 
@@ -386,7 +383,7 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   background-color: transparent;
   border: 2px dashed #A8A8A8;
   margin-bottom: 16px;
-  transition: all 0.2s ease;
+  transition: all 125ms ease-in-out;
 }
 
 .card.dragging {
@@ -447,13 +444,13 @@ filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%
   color: #CDCDCD;
   padding: 8px 0 8px 8px;
   text-align: left;
-  cursor: pointer;
   font-size: 14px;
 }
 
 .dropdown-item-resp:hover{
   background-color: #2A3D59;
 }
+
 .card_header_responsive,
 .card {
   position: relative;

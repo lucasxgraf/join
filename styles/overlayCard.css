@@ -178,7 +178,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.1s ease, color 0.1s ease, fill 0.1s ease;
+  transition: all 125ms ease-in-out;
 }
 
 .overlay_card_footer button:hover,
@@ -253,6 +253,7 @@ form select{
   width: 100%;
   font-size: 1rem;
   padding: 8px 12px;
+  transition: all 125ms ease-in-out;
 }
 
 #overlayEditTitle {

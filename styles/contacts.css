@@ -56,7 +56,7 @@
 }
 
 ul li::marker {
-  content: none;
+    content: none;
 }
 
 .add-contact {
@@ -73,11 +73,9 @@ ul li::marker {
     gap: 16px;
     position: fixed;
     z-index: 100;
-    border: unset;
 }
 
 .add-contact:hover {
-    cursor: pointer;
     background-color: #29ABE2;
 }
 
@@ -102,7 +100,6 @@ ul li::marker {
 }
 
 .contact:hover {
-    cursor: pointer;
     background-color: #D1D1D1;
     border-radius: 15px;
 }
@@ -156,11 +153,6 @@ ul li::marker {
     gap: 16px;
 }
 
-#contact_content button {
-    cursor: pointer;
-    transition: transform 0.1s ease, color 0.1s ease, fill 0.1s ease;
-}
-
 #edit,
 #delete {
     display: flex;
@@ -175,7 +167,6 @@ ul li::marker {
     color: rgb(41, 171, 226);
     transform: scale(1.1);
     fill: rgb(41, 171, 226) !important;
-    cursor: pointer;
 }
 
 .add-contact-form {
@@ -284,7 +275,6 @@ ul li::marker {
     border-color: #29ABE2;
     color: #29ABE2;
     box-shadow: 0px 9px 8px 1px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
     filter: invert(47%) sepia(89%) saturate(424%) hue-rotate(153deg) brightness(102%) contrast(93%);
 }
 
@@ -308,7 +298,6 @@ ul li::marker {
     background-color: #29ABE2;
     transition-delay: 120ms;
     box-shadow: 0px 9px 8px 1px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
 .margin-left36 {
@@ -326,20 +315,16 @@ ul li::marker {
 }
 
 #x-button-form {
-  position: absolute;      /* z.B. in einer Modal-Box oben rechts */
+  position: absolute;
   top: 0.75rem;
   right: 0.75rem;
   width: 32px;
   height: 32px;
-  border: unset;
-  background: transparent;
-  cursor: pointer;
 }
 
 #x-button-form:hover {
-  background-color: #EEEEEE;
-  border-radius: 100%;
-
+    transform: scale(1.1);
+    transition: all 125ms ease-in-out;
 }
 
 .informations {
@@ -357,12 +342,10 @@ ul li::marker {
 }
 
 .information_contact_email{
-    cursor: pointer;
     color: #007CEE
 }
 
 .information_contact_phone{
-    cursor: pointer;
     color: black;
 }
 
@@ -484,7 +467,6 @@ ul li::marker {
     position: absolute;
     bottom: 100px;
     right: 24px;
-    cursor: pointer;
 }
 
 .mobile-popup-menu{
@@ -504,24 +486,16 @@ ul li::marker {
 
 .responsive-menu-button{
     display: flex;
-    justify-content: flex-start;
     align-items: center;
     gap: 8px;
     width: 80px;
 }
 
-#mobile-edit, #mobile-delete {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 #mobileBack{
     height: 24px;
     width: 24px;
-    cursor: pointer;
-
 }
+
 .contact-selected:hover,
 .contact-selected{
     background-color: #2A3647;
@@ -543,7 +517,6 @@ ul li::marker {
     z-index: 100;
     bottom: 100px;
     right: 24px;
-    cursor: pointer;
 }
 
 .mobile-add-contact:hover {
@@ -553,4 +526,9 @@ ul li::marker {
 
 .mobile-menu img:hover{
     content: url("../assets/svg/three_point_menu_blue.svg");
+}
+
+.textbox button:hover{
+    content: url('../assets/svg/arrow_hover.svg');
+    transform: scale(1.1);
 }

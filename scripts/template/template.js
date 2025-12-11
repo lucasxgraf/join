@@ -275,9 +275,9 @@ function renderSwapDropDown(taskId, currentDragClass) {
   
   filteredColumns.forEach(col => {
     columnSwapCategory += `
-      <div class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', '${col.value}')">
+      <button class="dropdown-item-resp" onclick="swapToColumn(event, '${taskId}', '${col.value}')">
         <span>${col.label}</span>
-      </div>
+      </button>
     `;
   });
   

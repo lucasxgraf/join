@@ -67,7 +67,6 @@ header h2 {
 
 .sidebar-links:hover {
   background-color: #2A3D59;
-  cursor: pointer;
 }
 
 text {
@@ -99,12 +98,6 @@ text {
   color: #CDCDCD !important;
 }
 
-button {
-  background-color: transparent;
-  padding-left: 0;
-  border: transparent;
-}
-
 .center-wrap {
   flex-direction: column;
   width: 100%;
@@ -118,11 +111,11 @@ button {
 
 .help-icon {
   border: 0;
+  transition: all 125ms ease-in-out;
 }
 
 .help-icon:hover {
   transform: scale(1.1);
-  cursor: pointer;
 }
 
 .profile {
@@ -135,13 +128,12 @@ button {
   text-align: center;
   padding-right: 0;
   color: #29ABE2;
-  font-family: Inter;
   font-weight: 700;
   font-size: 18px;
+  transition: all 125ms ease-in-out;
 }
 
 .profile:hover {
-  cursor: pointer;
   background-color: #E1E6EC;
 }
 
@@ -171,7 +163,6 @@ button {
 .dropdown-menu button {
   border: 0;
   color: #CDCDCD;
-  cursor: pointer;
   font-size: 16px;
   text-wrap: nowrap;
   padding: 13px;
@@ -228,7 +219,6 @@ button {
 
 .singleResponsivContainer:hover {
   background-color: #091931;
-  cursor: pointer;
   height: 80px;
   border-radius: 16px;
 }

@@ -52,7 +52,6 @@ body {
 }
 
 #goBackArrow:hover {
-  cursor: pointer;
   content: url(../assets/svg/arrow_hover.svg);
   width: 32px;
   height: 32px;
@@ -117,13 +116,11 @@ body {
 #signBtnRegister:disabled:hover {
   background-color: rgb(42, 54, 71);
   box-shadow: none;
-  cursor: not-allowed;
 }
 
 #signBtnRegister:hover {
   background-color: rgb(41, 171, 226);
   box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
-  cursor: pointer;
 }
 
 input[type="checkbox"] {

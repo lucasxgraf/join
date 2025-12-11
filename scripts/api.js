@@ -231,7 +231,7 @@ async function editContact(index) {
 
 async function deleteContact(index) {
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    let response = await fetch(url, { method: 'DELETE' });
+    await fetch(url, { method: 'DELETE' });
     contactToast("Contact successfully delete")
     await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
