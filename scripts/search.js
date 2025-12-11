@@ -16,6 +16,7 @@ function handleSearch(event) {
         filterCards(SEARCH_TERM);
     } else {
       isSearchActive = false;
+       document.getElementById("content_col").classList.remove("dnone")      
         resetSearch();
     }
 }
@@ -34,10 +35,12 @@ function filterCards(SEARCH_TERM) {
 
 
 function renderFilteredCards(FILTERED_CARDS) {
+    document.getElementById("content_col").classList.remove("dnone")    
     clearAllContainers();
     
     if (FILTERED_CARDS.length === 0) {  
     showNoResultsMessage();
+    responsivResultmassage()
     return;
     }
     
@@ -86,12 +89,9 @@ function hideNoResultsMessage() {
 function resetSearch() {
     hideNoResultsMessage();
     loadDetails(cardFromFirebase);
-    responsivResultmassage();
-    document.getElementById("content_col").classList.remove("dnone")    
 }
 
 function clearAllContainers() {
-    responsivResultmassage(); 
     document.getElementById('todo').innerHTML = '';
     document.getElementById('inprogress').innerHTML = '';
     document.getElementById('awaitfeedback').innerHTML = '';

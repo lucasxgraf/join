@@ -137,7 +137,7 @@ button {
   color: #29ABE2;
   font-family: Inter;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .profile:hover {
@@ -172,7 +172,7 @@ button {
   border: 0;
   color: #CDCDCD;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   text-wrap: nowrap;
   padding: 13px;
 }
