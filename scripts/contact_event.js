@@ -33,10 +33,10 @@ function editXOverflowHidden() {
     void document.body.offsetWidth;
     form.classList.add("slide-in-dialog");
     form.addEventListener('animationend', () => {
-    document.documentElement.classList.remove('disable-x-scroll');
-    document.body.classList.remove('disable-x-scroll');
-    form.classList.remove('slide-in-dialog');}
-);
+        document.documentElement.classList.remove('disable-x-scroll');
+        document.body.classList.remove('disable-x-scroll');
+        form.classList.remove('slide-in-dialog');
+    }, { once: true });
 }
 
 function showContentXOverflowHidden(index) {

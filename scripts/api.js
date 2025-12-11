@@ -209,6 +209,16 @@ async function editContact(index) {
     let iMail = document.getElementById('input-mail').value;
     let iPhone = document.getElementById('input-phone').value;
     let contactColor = contacts[index]["color"];
+    
+    let originalName = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
+    let originalMail = contacts[index]["mail"];
+    let originalPhone = contacts[index]["tel"];
+    
+    if (iName === originalName && iMail === originalMail && iPhone === originalPhone) {
+        closeForm();
+        return;
+    }
+    
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
@@ -226,7 +236,11 @@ async function editContact(index) {
     closeForm();
     contacts = [];
     await init();
-    showContact(index);
+    let existingContent = document.getElementById('showContent' + index);
+    if (existingContent) {
+        let content = document.getElementById('contact_content');
+        content.innerHTML = showContactTemplate(index);
+    }
     contactToast("Contact successfully edit")
 } catch (err) {
     console.error('Failed to edit contact:', err);

@@ -168,7 +168,7 @@ function editContactTemplate(index) {
                     <div class="add-contacts-btn">
                         <button id="cancel-contact" onclick="deleteContact(${index})">
                             Delete
-                            <img src="../assets/svg/close.svg" id="cancel-contact-img">
+                            <img src="../assets/svg/delete.svg" id="cancel-contact-img">
                         </button>
                         <button id="create-contact" onclick="formCheck(${index}, event)">
                             Save

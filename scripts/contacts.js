@@ -271,9 +271,30 @@ function editContactEvent(index) {
     let inputName = document.getElementById('input-name');
     let inputMail = document.getElementById('input-mail');
     let inputPhone = document.getElementById('input-phone');
+    let saveButton = document.getElementById('create-contact');
+    
     inputName.value = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
     inputMail.value = contacts[index]["mail"];
     inputPhone.value = contacts[index]["tel"];
+    
+    saveButton.disabled = true;
+    saveButton.style.opacity = '0.5';
+    saveButton.style.cursor = 'not-allowed';
+    
+    function checkChanges() {
+        let hasChanges = 
+            inputName.value !== (contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"]) ||
+            inputMail.value !== contacts[index]["mail"] ||
+            inputPhone.value !== contacts[index]["tel"];
+        
+        saveButton.disabled = !hasChanges;
+        saveButton.style.opacity = hasChanges ? '1' : '0.5';
+        saveButton.style.cursor = hasChanges ? 'pointer' : 'not-allowed';
+    }
+    
+    inputName.addEventListener('input', checkChanges);
+    inputMail.addEventListener('input', checkChanges);
+    inputPhone.addEventListener('input', checkChanges);
 }
 
 function getContactIndexByFullName(fullName) {
