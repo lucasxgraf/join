@@ -172,7 +172,7 @@ async function fetchContacts() {
     let contactObj = responseToJSON.contactlist || responseToJSON;
     for (let id in contactObj) {
         let contactData = contactObj[id];
-        contactData.id = id;   // ID INS OBJEKT EINTRAGEN
+        contactData.id = id;
         contacts.push(contactData);
     }
 }
@@ -186,7 +186,7 @@ async function addContact(event) {
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
     const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
-    try {
+   
     let response = await fetch(BASE_URL + "contacts/contactlist.json", {
         method: 'POST',
         headers: {
@@ -198,10 +198,6 @@ async function addContact(event) {
     contacts = [];
     await init();
     contactToast("Contact successfully create")
-
-    } catch(error) {
-        console.error("Fehler beim Speichern:", error);
-    }
 }
 
 async function editContact(index) {
@@ -223,8 +219,7 @@ async function editContact(index) {
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
     const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
-    console.log(data)
-    try {
+  
         let response = await fetch(url, {
         method: 'PUT',
         headers: {
@@ -232,7 +227,6 @@ async function editContact(index) {
         },
         body: JSON.stringify(data)
     });
-    console.log("Kontakt bearbeitet:", response);
     closeForm();
     contacts = [];
     await init();
@@ -242,25 +236,14 @@ async function editContact(index) {
         content.innerHTML = showContactTemplate(index);
     }
     contactToast("Contact successfully edit")
-} catch (err) {
-    console.error('Failed to edit contact:', err);
-    alert('Could not save contact. See console for details.');
-}
 }
 
 async function deleteContact(index) {
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    try {
-        let response = await fetch(url, {
-        method: 'DELETE'
-    });
+    let response = await fetch(url, { method: 'DELETE' });
     contactToast("Contact successfully delete")
     await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
     contacts = [];
     await init();
-    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
-} catch (err) {
-    console.error('Failed to delete contact:', err);
-}
 }
