@@ -185,3 +185,25 @@ function editContactTemplate(index) {
 function getFeedbackContact(contactText) {
     return `<div class="alert" id="create-contact-alert"><p>${contactText}</p></div>`
 }
+
+function renderGroupHeader(listEl, letter) {
+    listEl.innerHTML += `
+    <div class="letter">${letter}</div>
+    <div class="contact-line"></div>
+    <div id="group-${letter}"></div>
+  `;
+}
+
+function appendContact(letter, contact, index) {
+    const groupEl = document.getElementById(`group-${letter}`);
+    groupEl.innerHTML += `
+    <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, '${letter}')">
+      <button class="contact-picture" style="background-color: ${contact.color}">
+        ${contactPictureLetters(index)}
+      </button>
+      <div style="margin-right: 24px;">
+        <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
+        <p class="small-email">${contact.mail}</p>
+      </div>
+    </div>`;
+}

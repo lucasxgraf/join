@@ -303,6 +303,10 @@
     justify-content: center;
   }
 
+  .info-content-container{
+    gap: 16px;
+  }
+
   .fullname {
     margin: 0;
   }
@@ -333,16 +337,18 @@
       width: 72px;
   }
 
-  .info-content-container{
-    gap: 24px;
-  }
-
   .fullname {
     font-size: 1.5rem;
   }
 
   .informations h2 {
     margin: 0;
+  }
+
+  .big-contact-picture-show{
+    height: 70px;
+    width: 70px;
+    font-size: 1.25rem;
   }
 }
 
