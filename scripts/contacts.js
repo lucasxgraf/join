@@ -212,7 +212,8 @@ function populateEditForm(index) {
     const { firstname, secondname } = contacts[index].name;
     document.getElementById('input-name').value = `${firstname} ${secondname}`;
     document.getElementById('input-mail').value = contacts[index].mail;
-    document.getElementById('input-phone').value = contacts[index].tel;
+    const phoneValue = contacts[index].tel === "<i> Please update your phone number <i>" ? "" : contacts[index].tel;
+    document.getElementById('input-phone').value = phoneValue;
 }
 
 function setupSaveButtonState(index) {
