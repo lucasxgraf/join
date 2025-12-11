@@ -28,6 +28,14 @@ function showContact(index) {
     toggleMobileView('.contact-informations', 'block', '.contact-list', 'none');
 }
 
+function updateContactContentAfterEdit(index) {
+    const content = document.getElementById('contact_content');
+    const existingContent = document.getElementById('showContent' + index);
+    if (existingContent) {
+        content.innerHTML = showContactTemplate(index);
+    }
+}
+
 function removeExistingContent(index) {
     document.getElementById('showContent' + index)?.remove();
 }
@@ -186,6 +194,14 @@ function editContactEvent(index) {
     editXOverflowHidden();
     populateEditForm(index);
     setupSaveButtonState(index);
+    updateContactDisplay(index);
+}
+
+function updateContactDisplay(index) {
+    const existingContent = document.getElementById('showContent' + index);
+    if (existingContent) {
+        document.getElementById('contact_content').innerHTML = showContactTemplate(index);
+    }
 }
 
 function togglePopupOverlay() {

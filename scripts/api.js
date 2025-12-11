@@ -201,41 +201,32 @@ async function addContact(event) {
 }
 
 async function editContact(index) {
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    let contactColor = contacts[index]["color"];
+    const { name, mail, tel, color } = contacts[index];
+    const iName = document.getElementById('input-name').value;
+    const iMail = document.getElementById('input-mail').value;
+    const iPhone = document.getElementById('input-phone').value;
+    const originalName = `${name.firstname} ${name.secondname}`;
     
-    let originalName = contacts[index]["name"]["firstname"] + " " + contacts[index]["name"]["secondname"];
-    let originalMail = contacts[index]["mail"];
-    let originalPhone = contacts[index]["tel"];
-    
-    if (iName === originalName && iMail === originalMail && iPhone === originalPhone) {
+    if (iName === originalName && iMail === mail && iPhone === tel) {
         closeForm();
         return;
     }
     
-    let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    let [firstname, ...rest] = iName.trim().split(" ");
-    let secondname = rest.join(" ");
-    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
-  
-        let response = await fetch(url, {
+    const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+    const [firstname, ...rest] = iName.trim().split(" ");
+    const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
+    
+    await fetch(url, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
+    
     closeForm();
     contacts = [];
     await init();
-    let existingContent = document.getElementById('showContent' + index);
-    if (existingContent) {
-        let content = document.getElementById('contact_content');
-        content.innerHTML = showContactTemplate(index);
-    }
-    contactToast("Contact successfully edit")
+    updateContactContentAfterEdit(index);
+    contactToast("Contact successfully edit");
 }
 
 async function deleteContact(index) {
