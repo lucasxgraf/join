@@ -280,7 +280,6 @@ label {
   filter: brightness(0) invert(1);
 }
 
-/* Individuelle Hintergrundfarben */
 .urgent_btn:hover,
 .urgent_btn.active {
   background: #ff3d00;
@@ -428,7 +427,6 @@ textarea {
   width: 24px;
 }
 
-/* Carlender section test */
 .calender {
   display: flex;
   justify-content: end;

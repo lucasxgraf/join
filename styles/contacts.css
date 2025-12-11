@@ -329,7 +329,7 @@ ul li::marker {
 }
 
 #x-button-form {
-  position: absolute;      /* z.B. in einer Modal-Box oben rechts */
+  position: absolute;
   top: 0.75rem;
   right: 0.75rem;
   width: 32px;

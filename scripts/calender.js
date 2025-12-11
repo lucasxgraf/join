@@ -2,7 +2,7 @@ const monthNames = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 let currentDate = new Date();
-let currentMonth = currentDate.getMonth(); // 0–11
+let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
 

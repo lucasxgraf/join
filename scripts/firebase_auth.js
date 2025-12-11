@@ -24,21 +24,16 @@ const COLORS = [
 ];
 
 const LOGIN_PAGES = ['index.html', 'login.html', 'sign_up.html'];
-const PROTECTED_PAGE = 'test.html'; // Hier Pfad von Summary Page eintragen
+const PROTECTED_PAGE = 'test.html';
 
-// SIGN UP FUNKTION
 
-// Registriert einen neuen User mit Firebase Auth und speichert zusätzliche Daten in Database
 async function signUpUser(name, email, password) {
   try {
-    // 1. User in Firebase Auth erstellen
     const USER_CREDENTIAL = await createUserWithEmailAndPassword(AUTH, email, password);
     const USER = USER_CREDENTIAL.user;
-    // 2. Display Name setzen
     await updateProfile(USER, {
       displayName: name
     });
-    // 3. Zusätzliche User-Daten in Database speichern
     await saveUserToDatabase(USER.uid, name, email);
       return { success: true, USER };
   } catch (error) {
@@ -46,7 +41,6 @@ async function signUpUser(name, email, password) {
   }
 }
 
-// Speichert User-Daten in Realtime Database
 async function saveUserToDatabase(uid, name, email) {
   const USER_REF = ref(DATABASE, `users/${uid}`);
   await set(USER_REF, {
@@ -57,7 +51,6 @@ async function saveUserToDatabase(uid, name, email) {
   });
 }
 
-// Loggt einen User mit Email und Passwort ein
 async function loginUser(email, password) {
   try {
     const USER_CREDENTAIL = await signInWithEmailAndPassword(AUTH, email, password);
@@ -69,7 +62,6 @@ async function loginUser(email, password) {
   }
 }
 
-// Loggt einen Guest User ein (Anonymous Auth)
 async function loginAsGuest() {
   try {
     const USER_CREDENTAIL = await signInAnonymously(AUTH);
@@ -80,7 +72,7 @@ async function loginAsGuest() {
   }
 }
 
-// Loggt den aktuellen User aus
+
 async function logoutUser() {
   try {
     localStorage.removeItem("headerName");
@@ -91,29 +83,24 @@ async function logoutUser() {
   }
 }
 
-// Überwacht den Auth State und leitet User entsprechend weiter
-// Wird automatisch aufgerufen wenn sich der Auth State ändert
+
 function watchAuthState() {
   onAuthStateChanged(AUTH, (user) => {
     const CURRENT_PATH = window.location.pathname;
     const IS_ON_LOGIN_PAGE = LOGIN_PAGES.some(page => CURRENT_PATH.endsWith(page));
 
     if (user && IS_ON_LOGIN_PAGE) {
-      // User ist eingeloggt und auf Login-Page → Weiterleitung
       window.location.href = PROTECTED_PAGE;
     } else if (!user && !IS_ON_LOGIN_PAGE) {
-      // User ist nicht eingeloggt und auf geschützter Page → Zurück zu Login
       window.location.replace("../../../join/index.html");
     }
   });
 }
 
 function onAuthChange(callback) {
-  // Gibt die Unsubscribe-Funktion zurück, falls du die Subscription abbestellen willst
   return onAuthStateChanged(AUTH, callback);
 }
 
-// Prüft ob ein User eingeloggt ist (für geschützte Seiten)
 function getCurrentUser() {
   return new Promise((resolve) => {
     onAuthStateChanged(AUTH, (user) => {
@@ -122,7 +109,6 @@ function getCurrentUser() {
   });
 }
 
-// Holt User-Daten aus der Database
 async function getUserData(uid) {
   try {
     const USER_REF = ref(DATABASE, `users/${uid}`);
@@ -137,13 +123,11 @@ async function getUserData(uid) {
   }
 }
 
-// Gibt eine zufällige Farbe zurück
 function getRandomColor() {
   const randomIndex = Math.floor(Math.random() * COLORS.length);
   return COLORS[randomIndex];
 }
 
-// Firebase Error Codes in Userfeedback
 function getErrorMessage(errorCode) {
   const errorMessages = {
     'auth/email-already-in-use': 'This email is already registered.',
