@@ -172,7 +172,7 @@ async function fetchContacts() {
     let contactObj = responseToJSON.contactlist || responseToJSON;
     for (let id in contactObj) {
         let contactData = contactObj[id];
-        contactData.id = id;   // ID INS OBJEKT EINTRAGEN
+        contactData.id = id;
         contacts.push(contactData);
     }
 }
@@ -185,9 +185,9 @@ async function addContact(event) {
     let iPhone = document.getElementById('input-phone').value;
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
-    const data = returnJSONDATANEW(iName, iMail, iPhone, firstname, secondname);
-    try {
-    let response = await fetch(BASE_URL + "contacts/contactlist.json", {
+    const data = returnJSONDATANEW(iMail, iPhone, firstname, secondname);
+   
+    await fetch(BASE_URL + "contacts/contactlist.json", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -198,55 +198,43 @@ async function addContact(event) {
     contacts = [];
     await init();
     contactToast("Contact successfully create")
-
-    } catch(error) {
-        console.error("Fehler beim Speichern:", error);
-    }
 }
 
 async function editContact(index) {
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    let contactColor = contacts[index]["color"];
-    let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    let [firstname, ...rest] = iName.trim().split(" ");
-    let secondname = rest.join(" ");
-    const data = returnJSONDATA(contactColor, iName, iMail, iPhone, firstname, secondname);
-    console.log(data)
-    try {
-        let response = await fetch(url, {
+    const { name, mail, tel, color } = contacts[index];
+    const iName = document.getElementById('input-name').value;
+    const iMail = document.getElementById('input-mail').value;
+    const iPhone = document.getElementById('input-phone').value;
+    const originalName = `${name.firstname} ${name.secondname}`;
+    
+    if (iName === originalName && iMail === mail && iPhone === tel) {
+        closeForm();
+        return;
+    }
+    
+    const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+    const [firstname, ...rest] = iName.trim().split(" ");
+    const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
+    
+    await fetch(url, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
-    console.log("Kontakt bearbeitet:", response);
+    
     closeForm();
     contacts = [];
     await init();
-    showContactTemplate(index);
-    contactToast("Contact successfully edit")
-} catch (err) {
-    console.error('Failed to edit contact:', err);
-    alert('Could not save contact. See console for details.');
-}
+    updateContactContentAfterEdit(index);
+    contactToast("Contact successfully edit");
 }
 
 async function deleteContact(index) {
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    try {
-        let response = await fetch(url, {
-        method: 'DELETE'
-    });
+    let response = await fetch(url, { method: 'DELETE' });
     contactToast("Contact successfully delete")
     await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
     contacts = [];
     await init();
-    if (!window.matchMedia("(max-width: 950px)").matches) {showNoContact()} else {goBackToContactList()}
-} catch (err) {
-    console.error('Failed to delete contact:', err);
-}
 }
