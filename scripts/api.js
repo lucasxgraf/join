@@ -235,6 +235,7 @@ async function deleteContact(index) {
     contactToast("Contact successfully delete")
     await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
+    showNoContact();
     contacts = [];
     await init();
 }
