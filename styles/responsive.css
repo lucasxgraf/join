@@ -96,7 +96,7 @@
 
 @keyframes slideUpHoldDown {
   0% {
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 200%);
     opacity: 0;
   }
   20% {
@@ -108,28 +108,28 @@
     opacity: 1;
   }
   100% {
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 200%);
     opacity: 0;
   }
 }
 
 .alert {
-    position: fixed;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 30px;
-    background-color: #2A3647;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-style: solid;
-    z-index: 2000;
-    width: 250px;
-    height: 80px;
-    border-color: transparent;
-    color: white;
-    pointer-events: none;
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  border-radius: 30px;
+  background-color: #2A3647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  z-index: 2000;
+  width: 250px;
+  height: 80px;
+  border-color: transparent;
+  color: white;
+  pointer-events: none;
 }
 
 @keyframes slideOutRight {
@@ -151,86 +151,86 @@
   animation: slideUpHoldDown 2.5s ease-in-out forwards;
 }
 
+.add-contact-form {
+    flex-direction: column;
+    width: clamp(19rem, 95vw , 32.5rem);
+    height: calc(100vh - 5%);
+    max-height: 700px;
+    bottom: 10%;
+}
 
-    .add-contact-form {
-        flex-direction: column;
-        width: clamp(19rem, 95vw , 32.5rem);
-        height: calc(100vh - 5%);
-        max-height: 700px;
-        bottom: 10%;
-    }
-
-    .text-form {
-        width: 100% !important;
-        border-radius: 15px 15px 0 0;
-        height: 40%;
-        top: 0px;
-        position: absolute;
-    }
-    .big-contact-picture,
-    .inner-form-picture {
-    height: 120px;
-    width: 120px;
-    z-index: 100;
+.text-form {
+    width: 100% !important;
+    border-radius: 15px 15px 0 0;
+    height: 40%;
+    top: 0px;
     position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    }
+}
 
-    .inner-form {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0;
-        margin-top: 124px
-    }
+.big-contact-picture,
+.inner-form-picture {
+height: 120px;
+width: 120px;
+z-index: 100;
+position: absolute;
+left: 50%;
+top: 40%;
+transform: translate(-50%, -50%);
+}
 
-    .add-form-innerform {
-        flex-direction: column;
-    }
+.inner-form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-top: 124px
+}
 
-    #group-name {
-        margin-top: 72px;
-    }
+.add-form-innerform {
+    flex-direction: column;
+}
 
-    .img-ppicture {
-        margin-left: 0 !important;
-        position: absolute;
-        bottom: 290px;
-    }
+#group-name {
+    margin-top: 72px;
+}
 
-    .text-form img {
-        display: none;
-    }
+.img-ppicture {
+    margin-left: 0 !important;
+    position: absolute;
+    bottom: 290px;
+}
 
-    .text-form h1 {
-        font-size: 3.125rem;
-    }
+.text-form img {
+    display: none;
+}
 
-    .text-form h3 {
-        font-size: 1.875rem;
-    }
+.text-form h1 {
+    font-size: 3.125rem;
+}
 
-    .divider-small {
-        width: 72px;
-    }
+.text-form h3 {
+    font-size: 1.875rem;
+}
 
-    .edit-contact-picture {
-        width: 134px;
-        height: 134px;
-        border-radius: 100%;
-        color: white;
-        border-width: 3px;
-        border-color: white;
-        border-style: solid;
-        font-size: 1.625rem;
-        margin-left: 0 !important;
-        margin-left: 0 !important;
-        position: absolute;
-        bottom: 300px;
-        font-size: 2.625rem;
-    }
+.divider-small {
+    width: 72px;
+}
+
+.edit-contact-picture {
+    width: 134px;
+    height: 134px;
+    border-radius: 100%;
+    color: white;
+    border-width: 3px;
+    border-color: white;
+    border-style: solid;
+    font-size: 1.625rem;
+    margin-left: 0 !important;
+    margin-left: 0 !important;
+    position: absolute;
+    bottom: 300px;
+    font-size: 2.625rem;
+}
     
   @keyframes slideUp {
   from {

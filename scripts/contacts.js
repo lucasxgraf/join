@@ -57,7 +57,11 @@ function showNoContact() {
 }
 
 function contactToast(contactText) {
-    document.getElementById('contact_content').innerHTML += getFeedbackContact(contactText);
+    if (window.innerWidth <= 980) {
+        document.body.innerHTML += getFeedbackContact(contactText);
+    } else {
+        document.getElementById('contact_content').innerHTML += getFeedbackContact(contactText);
+    }
     alertxOverflowHidden();
 }
 

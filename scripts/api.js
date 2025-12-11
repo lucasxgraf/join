@@ -197,7 +197,7 @@ async function addContact(event) {
     closeForm(event);
     contacts = [];
     await init();
-    contactToast("Contact successfully create")
+    contactToast("Contact successfully create");
 }
 
 async function editContact(index) {
@@ -212,7 +212,7 @@ async function editContact(index) {
     closeForm();
     return;
   }
-  
+
   if (iName === originalName && iMail === mail && cleanedPhone === tel) {
     closeForm();
     return;

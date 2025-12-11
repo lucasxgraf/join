@@ -58,7 +58,8 @@ function alertxOverflowHidden() {
     document.body.classList.add('disable-x-scroll');
     document.getElementById('contactlist').classList.add('disable-x-scroll');
     void alert.offsetWidth;
-    if (window.matchMedia("(max-width: 950px)").matches) {alert.classList.add("slide-up-hold-down");} else {
+    if (window.matchMedia("(max-width: 980px)").matches) {alert.classList.add("slide-up-hold-down");
+    } else {
     alert.classList.add("slide-rtl");}
     alert.addEventListener('animationend', () => {
         document.getElementById('contactlist').classList.remove('disable-x-scroll');
@@ -73,7 +74,7 @@ function bodyClickClose() {
     let popupBlack = document.getElementById('popupBackground');
     let contactContent = document.getElementById('contact_content');
     function handler(event) {
-        if (window.matchMedia("(max-width: 950px)").matches) return;
+        if (window.matchMedia("(max-width: 980px)").matches) return;
         if (popupBlack.classList.contains('popup-overlay') || event.target.closest('.contact')) return;
         if (!content.contains(event.target)) {
             clearContacts();
