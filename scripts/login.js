@@ -1,193 +1,165 @@
-import { loginUser, loginAsGuest } from './firebase_auth.js';
+import { loginUser, loginAsGuest, } from './firebase_auth.js';
 
-const LOGIN_FORM = document.getElementById("loginForm");
-const LOGIN_EMAIL_INPUT = document.getElementById("loginEmail");
-const LOGIN_PSW_INPUT = document.getElementById("loginPassword");
-const GUEST_LOGIN_BTN = document.getElementById("guestLoginBtn");
+const REF_LOGIN_BTN = document.querySelector("#loginBtn");
+const PASSWORD_INPUT = document.getElementById("loginPassword");
+const TOGGLE_PASSWORD = document.getElementById("togglePassword");
+const GUEST_LOGIN_BTN = document.querySelector("#guestLog");
+const LOGIN_CARD = document.querySelector(".login_card");
+const LOGIN_HEADER = document.querySelector(".login_header");
+const FOOTER = document.querySelector("footer");
+const LOGO = document.querySelector(".join_image");
+const FORM_CONTENT = document.querySelector(".form_content");
+const SKIP = shouldSkipSplash();
 
-/**
- * Initializes password visibility toggle functionality for login form
- * Sets up click handlers for password field icons
- */
-function initPasswordToggle() {
-  const passwordToggles = [
-    { inputId: "loginPassword", toggleId: "toggleLoginPassword" }
+
+function shouldSkipSplash() {
+  return new URLSearchParams(window.location.search).get("noSplash") === "1";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  skipSplashIfNeeded();
+
+  setTimeout(() => {
+    fadeInLoginElements();
+  }, SKIP ? 0 : 1000);
+
+
+  initPasswordToggle(
+    "loginPassword",
+    "togglePassword",
+    "./assets/svg/lock.svg",
+    "./assets/svg/visibility_off.svg",
+    "./assets/svg/visibility.svg"
+  );
+});
+
+
+function skipSplashIfNeeded() {
+  if (SKIP && LOGO) {
+    LOGO.style.animation = "none";
+    LOGO.style.transform = "translate(0, 0) scale(1)";
+    LOGO.style.top = "24px";
+    LOGO.style.left = "24px";
+    
+    const BG_OVERLAY = document.querySelector(".bg_overlay_responsive");
+    if (BG_OVERLAY) {
+      BG_OVERLAY.style.display = "none";
+    }
+    
+    const joinImage = document.querySelector('.join_image');
+    joinImage.style.content = 'url("./assets/img/logo/join_logo.png")';
+    if (window.innerWidth <= 475) {
+      LOGO.style.top = "24px";
+      LOGO.style.left = "24px";
+      LOGO.style.height = "80px";
+      LOGO.style.width = "64px";
+    }
+  }
+}
+
+function fadeInLoginElements() {
+  const elements = [
+    { el: FOOTER, display: "block" },
+    { el: LOGIN_HEADER, display: "flex" },
+    { el: LOGIN_CARD, display: "inline" }
   ];
+  
+  elements.forEach(({ el, display }) => {
+    el.style.display = display;
+    el.style.animation = "fadeIn 600ms forwards";
+  });
+}
 
-  passwordToggles.forEach(({ inputId, toggleId }) => {
-    const input = document.getElementById(inputId);
-    const toggle = document.getElementById(toggleId);
-    if (input && toggle) {
-      toggle.addEventListener("click", () => togglePasswordVisibility(inputId, toggleId));
+
+
+
+if (REF_LOGIN_BTN) {
+  REF_LOGIN_BTN.addEventListener("click", handleLoginSubmit);
+}
+
+
+if (GUEST_LOGIN_BTN) {
+  GUEST_LOGIN_BTN.addEventListener("click", handleGuestLogin);
+}
+
+
+if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
+  PASSWORD_INPUT.addEventListener("input", () => {
+    if (PASSWORD_INPUT.value.length === 0) {
+      TOGGLE_PASSWORD.src = "./assets/svg/lock.svg";
+    } else if (PASSWORD_INPUT.type === "password") {
+      TOGGLE_PASSWORD.src = "./assets/svg/visibility_off.svg";
+    } else {
+      TOGGLE_PASSWORD.src = "./assets/svg/visibility.svg";
     }
   });
 }
 
-/**
- * Toggles password visibility for a specific input field
- * Changes input type between password and text, updates icon accordingly
- * 
- * @param {string} inputId - ID of the password input element
- * @param {string} toggleId - ID of the toggle icon element
- */
-function togglePasswordVisibility(inputId, toggleId) {
-  const input = document.getElementById(inputId);
-  const toggle = document.getElementById(toggleId);
-  const isPassword = input.type === "password";
-  input.type = isPassword ? "text" : "password";
-  toggle.src = isPassword ? "./assets/svg/visibility.svg" : "./assets/svg/lock.svg";
-}
 
-/**
- * Handles login form submission
- * Validates credentials and authenticates user via Firebase
- * 
- * @param {Event} event - Form submit event
- */
+document.addEventListener("click", function (event) {
+  if (FORM_CONTENT && !FORM_CONTENT.contains(event.target)) {
+    clearLoginErrors();
+  }
+});
+
+
 async function handleLoginSubmit(event) {
   event.preventDefault();
   clearLoginErrors();
 
-  const EMAIL = LOGIN_EMAIL_INPUT.value.trim();
-  const PASSWORD = LOGIN_PSW_INPUT.value;
-
-  if (!validateLoginForm(EMAIL, PASSWORD)) 
+  const EMAIL = document.getElementById("loginEmail").value.trim();
+  const PASSWORD = document.getElementById("loginPassword").value;
+  if (!validateLoginInputs(EMAIL, PASSWORD)) {
     return;
-
+  }
   const RESULT = await loginUser(EMAIL, PASSWORD);
-
-  if (RESULT.success) 
-    return onLoginSuccess();
-  onLoginError(RESULT.error);
+  if (RESULT.success) {
+    window.location.href = "pages/summary.html";
+  } else {
+    showLoginError(RESULT.error);
+  }
 }
 
-/**
- * Handles successful login
- * Redirects user to main application page
- */
-function onLoginSuccess() {
-  window.location.href = "test.html";
+async function handleGuestLogin() {
+  const RESULT = await loginAsGuest();
+  
+  if (RESULT.success) {
+    window.location.href = "pages/summary.html";
+  } else {
+    alert("Guest login failed. Please try again.");
+  }
 }
 
-/**
- * Handles login errors
- * Displays error message and highlights email field
- * 
- * @param {string} msg - Error message to display
- */
-function onLoginError(msg) {
-  showError("loginEmailError", msg);
-  LOGIN_EMAIL_INPUT.style.borderColor = "red";
-}
-
-/**
- * Validates login form inputs
- * Checks for empty email and password fields
- * 
- * @param {string} email - User email address
- * @param {string} password - User password
- * @returns {boolean} True if form is valid, false otherwise
- */
-function validateLoginForm(email, password) {
+function validateLoginInputs(email, password) {
   let isValid = true;
 
   if (!email) {
-    showError("loginEmailError", "Please enter your email");
-    LOGIN_EMAIL_INPUT.style.borderColor = "red";
+    showError("emailError", "Please enter your email address here.");
+    document.getElementById("loginEmail").style.borderColor = "red";
     isValid = false;
   }
 
   if (!password) {
-    showError("loginPasswordError", "Please enter your password");
-    LOGIN_PSW_INPUT.style.borderColor = "red";
+    showError("passwordError", "Please enter your password here.");
+    document.getElementById("loginPassword").style.borderColor = "red";
     isValid = false;
   }
 
   return isValid;
 }
 
-/**
- * Displays error message for a specific form field
- * 
- * @param {string} elementId - ID of the error message container
- * @param {string} message - Error message text to display
- */
-function showError(elementId, message) {
-  const errorElement = document.getElementById(elementId);
-  if (errorElement) {
-    errorElement.textContent = message;
-  }
-}
-
-/**
- * Clears all login form error messages and resets field borders
- */
-function clearLoginErrors() {
-  const errorIds = ["loginEmailError", "loginPasswordError"];
-  errorIds.forEach(id => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = "";
-  });
-
-  LOGIN_EMAIL_INPUT.style.borderColor = "";
-  LOGIN_PSW_INPUT.style.borderColor = "";
-}
-
-/**
- * Handles guest login functionality
- * Authenticates user anonymously and redirects to main page
- * 
- * @param {Event} event - Click event from guest login button
- */
-async function handleGuestLogin(event) {
-  event.preventDefault();
-  const RESULT = await loginAsGuest();
+function showLoginError(message) {
+  const EMAIL_INPUT = document.getElementById("loginEmail");
+  const PASSWORD_INPUT = document.getElementById("loginPassword");
   
-  if (RESULT.success) {
-    window.location.href = "test.html";
-  }
+  EMAIL_INPUT.style.borderColor = "red";
+  PASSWORD_INPUT.style.borderColor = "red";
+  document.getElementById("passwordError").innerText = message;
 }
 
-/**
- * Initializes all event listeners for the login form
- */
-function initEventListeners() {
-  initFormSubmitListener();
-  initGuestLoginListener();
-  initOutsideClickListener();
+function clearLoginErrors() {
+  document.getElementById("emailError").innerText = "";
+  document.getElementById("passwordError").innerText = "";
+  document.getElementById("loginEmail").style.borderColor = "";
+  document.getElementById("loginPassword").style.borderColor = "";
 }
-
-/**
- * Sets up login form submit event listener
- */
-function initFormSubmitListener() {
-  if (LOGIN_FORM) {
-    LOGIN_FORM.addEventListener("submit", handleLoginSubmit);
-  }
-}
-
-/**
- * Sets up guest login button event listener
- */
-function initGuestLoginListener() {
-  if (GUEST_LOGIN_BTN) {
-    GUEST_LOGIN_BTN.addEventListener("click", handleGuestLogin);
-  }
-}
-
-/**
- * Sets up click outside form to clear errors
- */
-function initOutsideClickListener() {
-  document.addEventListener("click", (event) => {
-    if (LOGIN_FORM && !LOGIN_FORM.contains(event.target)) {
-      clearLoginErrors();
-    }
-  });
-}
-
-if (LOGIN_FORM) {
-  initPasswordToggle();
-}
-
-initEventListeners();

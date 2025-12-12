@@ -26,15 +26,7 @@ const COLORS = [
 const LOGIN_PAGES = ['index.html', 'login.html', 'sign_up.html'];
 const PROTECTED_PAGE = 'test.html';
 
-/**
- * Creates a new user account with email and password
- * Updates user profile with display name and saves to database
- * 
- * @param {string} name - User's full name
- * @param {string} email - User's email address
- * @param {string} password - User's password
- * @returns {Promise<Object>} Object with success status and user data or error message
- */
+
 async function signUpUser(name, email, password) {
   try {
     const USER_CREDENTIAL = await createUserWithEmailAndPassword(AUTH, email, password);
@@ -49,14 +41,6 @@ async function signUpUser(name, email, password) {
   }
 }
 
-/**
- * Saves user data to Firebase Realtime Database
- * Also adds user as a contact in the contacts list
- * 
- * @param {string} uid - User's unique Firebase ID
- * @param {string} name - User's full name
- * @param {string} email - User's email address
- */
 async function saveUserToDatabase(uid, name, email) {
   const color = getRandomColor();
   const USER_REF = ref(DATABASE, `users/${uid}`);
@@ -70,42 +54,11 @@ async function saveUserToDatabase(uid, name, email) {
   await addUserToContacts(name, email, color);
 }
 
-/**
- * Generates a random color from predefined color palette
- * 
- * @returns {string} Hex color code
- */
-function getRandomColor() {
-  const randomIndex = Math.floor(Math.random() * COLORS.length);
-  return COLORS[randomIndex];
-}
-
-/**
- * Adds newly registered user to contacts list
- * Splits name into first and last name
- * 
- * @param {string} name - User's full name
- * @param {string} email - User's email address
- * @param {string} color - Assigned color for user avatar
- */
 async function addUserToContacts(name, email, color) {
-  const contactData = createContactData(name, email, color);
-  await saveContactToDatabase(contactData);
-}
-
-/**
- * Creates contact data object from user information
- * 
- * @param {string} name - User's full name
- * @param {string} email - User's email address
- * @param {string} color - Assigned color for user avatar
- * @returns {Object} Contact data object with name, email, color and phone
- */
-function createContactData(name, email, color) {
   const [firstname, ...rest] = name.trim().split(" ");
   const secondname = rest.join(" ");
   
-  return {
+  const contactData = {
     color: color,
     mail: email,
     name: {
@@ -114,14 +67,7 @@ function createContactData(name, email, color) {
     },
     tel: "<i> Please update your phone number <i>"
   };
-}
-
-/**
- * Saves contact data to Firebase database
- * 
- * @param {Object} contactData - Contact data object to save
- */
-async function saveContactToDatabase(contactData) {
+  
   const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
   await fetch(BASE_URL + "contacts/contactlist.json", {
     method: 'POST',
@@ -132,14 +78,6 @@ async function saveContactToDatabase(contactData) {
   });
 }
 
-/**
- * Authenticates user with email and password
- * Stores user name in localStorage on success
- * 
- * @param {string} email - User's email address
- * @param {string} password - User's password
- * @returns {Promise<Object>} Object with success status and user data or error message
- */
 async function loginUser(email, password) {
   try {
     const USER_CREDENTAIL = await signInWithEmailAndPassword(AUTH, email, password);
@@ -151,12 +89,6 @@ async function loginUser(email, password) {
   }
 }
 
-/**
- * Authenticates user anonymously as guest
- * Sets guest name in localStorage
- * 
- * @returns {Promise<Object>} Object with success status and user data or error message
- */
 async function loginAsGuest() {
   try {
     const USER_CREDENTAIL = await signInAnonymously(AUTH);
@@ -167,10 +99,7 @@ async function loginAsGuest() {
   }
 }
 
-/**
- * Logs out current user and redirects to login page
- * Clears user name from localStorage
- */
+
 async function logoutUser() {
   try {
     localStorage.removeItem("headerName");
@@ -181,10 +110,7 @@ async function logoutUser() {
   }
 }
 
-/**
- * Monitors authentication state changes
- * Redirects users based on authentication status and current page
- */
+
 function watchAuthState() {
   onAuthStateChanged(AUTH, (user) => {
     const CURRENT_PATH = window.location.pathname;
@@ -198,21 +124,10 @@ function watchAuthState() {
   });
 }
 
-/**
- * Registers callback for authentication state changes
- * 
- * @param {Function} callback - Function to call when auth state changes
- * @returns {Function} Unsubscribe function
- */
 function onAuthChange(callback) {
   return onAuthStateChanged(AUTH, callback);
 }
 
-/**
- * Gets currently authenticated user
- * 
- * @returns {Promise<Object|null>} Current user object or null if not authenticated
- */
 function getCurrentUser() {
   return new Promise((resolve) => {
     onAuthStateChanged(AUTH, (user) => {
@@ -221,12 +136,6 @@ function getCurrentUser() {
   });
 }
 
-/**
- * Retrieves user data from Firebase database
- * 
- * @param {string} uid - User's unique Firebase ID
- * @returns {Promise<Object|null>} User data object or null if not found
- */
 async function getUserData(uid) {
   try {
     const USER_REF = ref(DATABASE, `users/${uid}`);
@@ -241,12 +150,11 @@ async function getUserData(uid) {
   }
 }
 
-/**
- * Converts Firebase error codes to user-friendly messages
- * 
- * @param {string} errorCode - Firebase error code
- * @returns {string} User-friendly error message
- */
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * COLORS.length);
+  return COLORS[randomIndex];
+}
+
 function getErrorMessage(errorCode) {
   const errorMessages = {
     'auth/email-already-in-use': 'This email is already registered.',
@@ -264,18 +172,6 @@ function getErrorMessage(errorCode) {
   return errorMessages[errorCode] || 'An error occurred. Please try again.';
 }
 
-/**
- * Checks if user is authenticated and redirects to login if not
- * Should be called on protected pages
- */
-async function checkAuthenticatedUser() {
-  const user = await getCurrentUser();
-  
-  if (!user) {
-    window.location.replace("../../index.html");
-  }
-}
-
 export {
   signUpUser,
   loginUser,
@@ -284,8 +180,7 @@ export {
   watchAuthState,
   getCurrentUser,
   getUserData,
-  onAuthChange,
-  checkAuthenticatedUser
+  onAuthChange
 };
 
 window.signUpUser = signUpUser;
@@ -296,4 +191,3 @@ window.watchAuthState = watchAuthState;
 window.getCurrentUser = getCurrentUser;
 window.getUserData = getUserData;
 window.onAuthChange = onAuthChange;
-window.checkAuthenticatedUser = checkAuthenticatedUser;
