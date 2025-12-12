@@ -20,11 +20,6 @@
   flex-direction: column;
 }
 
-*:disabled {
-  background-color: dimgrey !important;
-  box-shadow: none !important;
-}
-
 .sp_between {
   justify-content: space-between
 }

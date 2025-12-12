@@ -238,8 +238,7 @@ function checkChanges(index, inputs, saveButton) {
 
 function setSaveButtonDisabled(button, disabled) {
     button.disabled = disabled;
-    button.style.opacity = disabled ? '0.5' : '1';
-    button.style.cursor = disabled ? 'not-allowed' : 'pointer';
+
 }
 
 function getContactIndexByFullName(fullName) {

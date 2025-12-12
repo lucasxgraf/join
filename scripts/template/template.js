@@ -30,7 +30,7 @@ function renderaddTask() {
                                 </input>
                                 <button type="button" onmousedown="keepFocusOnDate(event)" onclick="toggleCalender('calender', 'duedate')" class="iconButtonsForImg dpf_cc"><img src="../assets/svg/calender.svg" alt="calender icon"></button>
                             </div>
-                            <div id="dateError mg-b2" class="error_message"></div>
+                            <div id="dateError" class="error_message mg-b2"></div>
                             <div class="calender" id="calender"></div>
                         </div>
                     </div>
