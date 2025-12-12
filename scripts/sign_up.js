@@ -1,23 +1,83 @@
+/**
+ * @fileoverview Sign up page functionality including form validation and user registration.
+ * @module sign_up
+ */
+
 import { signUpUser } from './firebase_auth.js';
 
+/**
+ * Reference to the back button element.
+ * @type {HTMLElement}
+ */
 const REF_BACK_BTN = document.getElementById("goBackArrow");
+
+/**
+ * Reference to the sign up form element.
+ * @type {HTMLFormElement}
+ */
 const SIGNUP_FORM = document.getElementById("signUp");
+
+/**
+ * Reference to the name input field.
+ * @type {HTMLInputElement}
+ */
 const SIGNUP_NAME_INPUT = document.getElementById("name");
+
+/**
+ * Reference to the email input field.
+ * @type {HTMLInputElement}
+ */
 const SIGNUP_EMAIL_INPUT = document.getElementById("signUpEmail");
+
+/**
+ * Reference to the password input field.
+ * @type {HTMLInputElement}
+ */
 const SIGNUP_PSW_INPUT = document.getElementById("signUpPassword");
+
+/**
+ * Reference to the confirm password input field.
+ * @type {HTMLInputElement}
+ */
 const SIGNUP_CONF_PSW_INPUT = document.getElementById("signUpConfirmPassword");
+
+/**
+ * Reference to the privacy policy checkbox.
+ * @type {HTMLInputElement}
+ */
 const PRIVACY_CHECKBOX = document.getElementById("privacy_police");
+
+/**
+ * Reference to the sign up button.
+ * @type {HTMLButtonElement}
+ */
 const SIGN_BTN_REGISTER = document.getElementById("signBtnRegister");
 
+/**
+ * Reference to the sign up window container.
+ * @type {HTMLElement}
+ */
 const SIGN_WINDOW = document.querySelector(".sign_window");
+
+/**
+ * Reference to the footer element.
+ * @type {HTMLElement}
+ */
 const FOOTER = document.querySelector("footer");
+
+/**
+ * SVG icon paths for password visibility toggle.
+ * @type {Object.<string, string>}
+ */
 const SVG_PATHS = {
   lock: "./assets/svg/lock.svg",
   off: "./assets/svg/visibility_off.svg",
   on: "./assets/svg/visibility.svg"
 };
 
-
+/**
+ * Initializes the sign up page when DOM content is loaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   [
     { inputId: "signUpPassword", toggleId: "toggleSignUpPassword" },
@@ -50,31 +110,52 @@ document.addEventListener("click", function (event) {
   }
 });
 
-
+/**
+ * Initializes the sign up button state based on form validation.
+ */
 function initSignUpButtonState() {
   if (!SIGN_BTN_REGISTER || !PRIVACY_CHECKBOX) 
     return;
   
-  const UPDATE_SIGN_BTN_REGISTER = () => {
-    const allFieldsFilled = 
-      SIGNUP_NAME_INPUT.value.trim() !== "" &&
-      SIGNUP_EMAIL_INPUT.value.trim() !== "" &&
-      SIGNUP_PSW_INPUT.value !== "" &&
-      SIGNUP_CONF_PSW_INPUT.value !== "" &&
-      PRIVACY_CHECKBOX.checked;
-    
-    SIGN_BTN_REGISTER.disabled = !allFieldsFilled;
-    SIGN_BTN_REGISTER.classList.toggle("disabled_btn", SIGN_BTN_REGISTER.disabled);
-  };
-  
-  UPDATE_SIGN_BTN_REGISTER();
-  PRIVACY_CHECKBOX.addEventListener("change", UPDATE_SIGN_BTN_REGISTER);
-  SIGNUP_NAME_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
-  SIGNUP_EMAIL_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
-  SIGNUP_PSW_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
-  SIGNUP_CONF_PSW_INPUT.addEventListener("input", UPDATE_SIGN_BTN_REGISTER);
+  updateSignUpButtonState();
+  attachFormFieldListeners();
 }
 
+/**
+ * Updates the sign up button enabled/disabled state.
+ */
+function updateSignUpButtonState() {
+  const allFieldsFilled = areAllFieldsFilled();
+  SIGN_BTN_REGISTER.disabled = !allFieldsFilled;
+  SIGN_BTN_REGISTER.classList.toggle("disabled_btn", SIGN_BTN_REGISTER.disabled);
+}
+
+/**
+ * Checks if all required form fields are filled.
+ * @returns {boolean} True if all fields are filled, false otherwise.
+ */
+function areAllFieldsFilled() {
+  return SIGNUP_NAME_INPUT.value.trim() !== "" &&
+    SIGNUP_EMAIL_INPUT.value.trim() !== "" &&
+    SIGNUP_PSW_INPUT.value !== "" &&
+    SIGNUP_CONF_PSW_INPUT.value !== "" &&
+    PRIVACY_CHECKBOX.checked;
+}
+
+/**
+ * Attaches event listeners to form fields for button state updates.
+ */
+function attachFormFieldListeners() {
+  PRIVACY_CHECKBOX.addEventListener("change", updateSignUpButtonState);
+  SIGNUP_NAME_INPUT.addEventListener("input", updateSignUpButtonState);
+  SIGNUP_EMAIL_INPUT.addEventListener("input", updateSignUpButtonState);
+  SIGNUP_PSW_INPUT.addEventListener("input", updateSignUpButtonState);
+  SIGNUP_CONF_PSW_INPUT.addEventListener("input", updateSignUpButtonState);
+}
+
+/**
+ * Checks if password and confirm password fields match.
+ */
 function checkPasswordMatch() {
   const PASSWORD = SIGNUP_PSW_INPUT.value;
   const CONFIRM_PSW = SIGNUP_CONF_PSW_INPUT.value;
@@ -89,6 +170,11 @@ function checkPasswordMatch() {
   }
 }
 
+/**
+ * Handles the sign up form submission.
+ * @async
+ * @param {Event} event - The form submit event.
+ */
 async function handleSignUpSubmit(event) {
   event.preventDefault();
   clearSignUpErrors();
@@ -108,6 +194,9 @@ async function handleSignUpSubmit(event) {
   onSignUpError(RESULT.error);
 }
 
+/**
+ * Handles successful sign up.
+ */
 function onSignUpSuccess() {
   showSuccessOverlay();
   setTimeout(() => {
@@ -115,11 +204,24 @@ function onSignUpSuccess() {
   }, 2000);
 }
 
+/**
+ * Handles sign up error.
+ * @param {string} msg - The error message to display.
+ */
 function onSignUpError(msg) {
   showError("signUpEmailError", msg);
   SIGNUP_EMAIL_INPUT.style.borderColor = "red";
 }
 
+/**
+ * Validates the entire sign up form.
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @param {string} confirmPassword - The password confirmation.
+ * @param {boolean} privacyAccepted - Whether privacy policy is accepted.
+ * @returns {boolean} True if form is valid, false otherwise.
+ */
 function validateSignUpForm(name, email, password, confirmPassword, privacyAccepted) {
   let isValid = true;
   isValid = validateName(name) && isValid;
@@ -130,6 +232,11 @@ function validateSignUpForm(name, email, password, confirmPassword, privacyAccep
   return isValid;
 }
 
+/**
+ * Validates the name field.
+ * @param {string} name - The name to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function validateName(name) {
   if (name) return true;
   showError("signUpNameError", "Please enter your name");
@@ -137,6 +244,11 @@ function validateName(name) {
     return false;
 }
 
+/**
+ * Validates the email field.
+ * @param {string} email - The email to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function validateEmail(email) {
   if (!email) {
     showError("signUpEmailError", "Please enter your email");
@@ -150,6 +262,11 @@ function validateEmail(email) {
     return false;
 }
 
+/**
+ * Validates the password field.
+ * @param {string} password - The password to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function validatePassword(password) {
   if (!password) {
     showError("signUpPasswordError", "Please enter a password");
@@ -163,6 +280,12 @@ function validatePassword(password) {
     return false;
 }
 
+/**
+ * Validates the confirm password field.
+ * @param {string} password - The original password.
+ * @param {string} confirmPassword - The password confirmation.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function validateConfirmPassword(password, confirmPassword) {
   if (!confirmPassword) {
     showError("signUpConfirmPasswordError", "Please confirm your password");
@@ -176,6 +299,11 @@ function validateConfirmPassword(password, confirmPassword) {
     return false;
 }
 
+/**
+ * Validates the privacy policy acceptance.
+ * @param {boolean} accepted - Whether privacy policy is accepted.
+ * @returns {boolean} True if accepted, false otherwise.
+ */
 function validatePrivacy(accepted) {
   if (accepted) 
     return true;
@@ -183,6 +311,9 @@ function validatePrivacy(accepted) {
     return false;
 }
 
+/**
+ * Shows the success overlay after registration.
+ */
 function showSuccessOverlay() {
   const OVERLAY = document.getElementById("overlay");
   if (OVERLAY) {
@@ -190,11 +321,19 @@ function showSuccessOverlay() {
   }
 }
 
+/**
+ * Checks if an email address is valid.
+ * @param {string} email - The email to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function isValidEmail(email) {
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return EMAIL_REGEX.test(email);
 }
 
+/**
+ * Clears all sign up error messages and input borders.
+ */
 function clearSignUpErrors() {
   const ERROR_IDS = [
     "signUpNameError",
