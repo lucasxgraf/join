@@ -42,6 +42,7 @@ function showContact(index) {
     document.getElementById('contact_content').innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
     toggleMobileView('.contact-informations', 'block', '.contact-list', 'none');
+    bodyClickClose();
 }
 
 /**
