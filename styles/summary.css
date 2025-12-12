@@ -287,6 +287,9 @@ h1 {
   header {
     padding: 0px 37px;
   }
+  .scroll_layout{
+    max-height: calc(100vh - 100px - 90px);
+  }
 
   header h2 {
     display: none;
