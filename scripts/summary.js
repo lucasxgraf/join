@@ -102,12 +102,9 @@ async function getUserName(user) {
  */
 function updateGreetingDisplay(userName) {
   const userGreetingElement = document.getElementById('userGreeting');
-  
-  if (userName === 'Guest') {
-    userGreetingElement.textContent = "";
-  } else {
+
     userGreetingElement.textContent = userName;
-  }
+  
 }
 
 /**

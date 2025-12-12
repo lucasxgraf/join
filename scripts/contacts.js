@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Contact management functionality
+ * @description Handles contact creation, editing, deletion, validation, and display
+ */
+
 let contacts = [];
 
 const COLORS = [
@@ -8,6 +13,9 @@ const COLORS = [
     "#FFE62B", "#FF4646", "#FFBB2B",
 ];
 
+/**
+ * Initializes the contacts page by loading contacts and setting up event listeners
+ */
 async function init() {
     await fetchContacts();
     renderContactList();
@@ -16,11 +24,19 @@ async function init() {
     getInitialsFromUser()
 }
 
+/**
+ * Gets the initials from a contact's first and last name
+ * @param {number} index - The index of the contact in the contacts array
+ */
 function contactPictureLetters(index) {
     const { firstname, secondname } = contacts[index].name;
         return firstname[0].toUpperCase() + secondname[0].toUpperCase();
 }
 
+/**
+ * Displays a contact's details in the content area
+ * @param {number} index - The index of the contact to display
+ */
 function showContact(index) {
     removeExistingContent(index);
     document.getElementById('contact_content').innerHTML = showContactTemplate(index);
@@ -28,6 +44,10 @@ function showContact(index) {
     toggleMobileView('.contact-informations', 'block', '.contact-list', 'none');
 }
 
+/**
+ * Updates the contact content display after editing
+ * @param {number} index - The index of the contact to update
+ */
 function updateContactContentAfterEdit(index) {
     const content = document.getElementById('contact_content');
     const existingContent = document.getElementById('showContent' + index);
@@ -36,15 +56,30 @@ function updateContactContentAfterEdit(index) {
     }
 }
 
+/**
+ * Removes existing contact content from the display
+ * @param {number} index - The index of the contact content to remove
+ */
 function removeExistingContent(index) {
     document.getElementById('showContent' + index)?.remove();
 }
 
+/**
+ * Handles mobile back navigation from contact details to list
+ * @param {number} index - The index of the contact
+ */
 function mobileBack(index) {
     removeExistingContent(index);
     toggleMobileView('.contact-informations', 'none', '.contact-list', 'flex');
 }
 
+/**
+ * Toggles display of elements for mobile view
+ * @param {string} selector1 - CSS selector for first element
+ * @param {string} display1 - Display value for first element
+ * @param {string} selector2 - CSS selector for second element
+ * @param {string} display2 - Display value for second element
+ */
 function toggleMobileView(selector1, display1, selector2, display2) {
     if (window.innerWidth <= 980) {
         document.querySelector(selector1).style.display = display1;
@@ -52,10 +87,17 @@ function toggleMobileView(selector1, display1, selector2, display2) {
     }
 }
 
+/**
+ * Clears the contact content display area
+ */
 function showNoContact() {
     document.getElementById('contact_content').innerHTML = "";
 }
 
+/**
+ * Displays a toast notification for contact actions
+ * @param {string} contactText - The text to display in the toast
+ */
 function contactToast(contactText) {
     if (window.innerWidth <= 980) {
         document.body.innerHTML += getFeedbackContact(contactText);
@@ -65,22 +107,51 @@ function contactToast(contactText) {
     alertxOverflowHidden();
 }
 
+/**
+ * Creates a contact data object
+ * @param {string} color - The color assigned to the contact
+ * @param {string} mail - The email address
+ * @param {string} firstname - The first name
+ * @param {string} secondname - The last name
+ * @param {string} tel - The phone number
+ */
 function createContactData(color, mail, firstname, secondname, tel) {
     return { color, mail, name: { firstname: firstname || "", secondname: secondname || "" }, tel };
 }
 
+/**
+ * Creates contact data for a new contact with random color
+ * @param {string} iMail - The email address
+ * @param {string} iPhone - The phone number
+ * @param {string} firstname - The first name
+ * @param {string} secondname - The last name
+ */
 function returnJSONDATANEW(iMail, iPhone, firstname, secondname) {
     return createContactData(getRandomColor(), iMail, firstname, secondname, iPhone);
 }
 
+/**
+ * Creates contact data with specified color
+ * @param {string} contactColor - The color for the contact
+ * @param {string} iMail - The email address
+ * @param {string} iPhone - The phone number
+ * @param {string} firstname - The first name
+ * @param {string} secondname - The last name
+ */
 function returnJSONDATA(contactColor, iMail, iPhone, firstname, secondname) {
     return createContactData(contactColor, iMail, firstname, secondname, iPhone);
 }
 
+/**
+ * Sorts contacts alphabetically by first name
+ */
 function sortContacts() {
     contacts.sort((a, b) => a.name.firstname.localeCompare(b.name.firstname, 'de', { sensitivity: 'base' }));
 }
 
+/**
+ * Renders the complete contact list with alphabetical grouping
+ */
 function renderContactList() {
     sortContacts();
     const listEl = document.getElementById('contact_list');
@@ -97,11 +168,17 @@ function renderContactList() {
     contactClick();
 }
 
+/**
+ * Gets a random color from the COLORS array
+ */
 function getRandomColor() {
     const randomIndex = Math.floor(Math.random() * COLORS.length);
     return COLORS[randomIndex];
 }
 
+/**
+ * Closes popup forms by removing them from the DOM
+ */
 function popupClickClose() {
     const popupBlack = document.getElementById('popupBackground');
     const forms = ['add-Form', 'edit-Form'];
@@ -114,21 +191,16 @@ function popupClickClose() {
     });
 }
 
-async function formCheck(index, event) {
-    clearAlerts();
-    const { name, mail, phone } = getFormValues();
-    const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
-    if (!nameValid) showError('errorName', 'alert-name', 'Example for name: Max Mustermann', 'group-name');
-    if (!mailValid) showError('errorMail', 'alert-mail', 'Example for e-mail: John-Smith@test.com', 'group-mail');
-    if (!phoneValid) showError('errorPhone', 'alert-phone', 'Example for phone number: +4917612345678', 'group-phone');
-    if (!nameValid || !mailValid || !phoneValid) return;
-    document.getElementById('add-Form') ? await addContact(event) : await editContact(index);
-}
-
+/**
+ * Clears all alert messages from the form
+ */
 function clearAlerts() {
     ['alert-name', 'alert-mail', 'alert-phone'].forEach(id => document.getElementById(id)?.remove());
 }
 
+/**
+ * Gets the current values from the contact form inputs
+ */
 function getFormValues() {
     const name = document.getElementById('input-name').value;
     const mail = document.getElementById('input-mail').value;
@@ -136,6 +208,13 @@ function getFormValues() {
         return { name, mail, phone };
 }
 
+/**
+ * Validates all form field values
+ * @param {Object} params - Object containing name, mail, and phone values
+ * @param {string} params.name - The name to validate
+ * @param {string} params.mail - The email to validate
+ * @param {string} params.phone - The phone number to validate
+ */
 function getValidity({ name, mail, phone }) {
     const nameValid = name.length > 2 && nameCheck(name);
     const mailValid = mail.length > 2 && mailCheck(mail);
@@ -143,30 +222,67 @@ function getValidity({ name, mail, phone }) {
         return { nameValid, mailValid, phoneValid };
 }
 
+/**
+ * Validates name format using regex
+ * @param {string} iName - The name to validate
+ * @returns {boolean} True if name is valid, false otherwise
+ */
 function validName(iName) {
     return /^[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?\s+[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?$/.test(iName.trim());
 }
 
+/**
+ * Checks if name is valid and updates UI
+ * @param {string} iName - The name to check
+ * @returns {boolean} True if name is valid, false otherwise
+ */
 function nameCheck(iName) {
     return validateField(iName, validName, "group-name");
 }
 
+/**
+ * Validates email format using regex
+ * @param {string} iMail - The email to validate
+ * @returns {boolean} True if email is valid, false otherwise
+ */
 function validMail(iMail) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(iMail.trim());
 }
 
+/**
+ * Checks if email is valid and updates UI
+ * @param {string} iMail - The email to check
+ * @returns {boolean} True if email is valid, false otherwise
+ */
 function mailCheck(iMail) {
     return validateField(iMail, validMail, "group-mail");
 }
 
+/**
+ * Validates phone number format using regex
+ * @param {string} iPhone - The phone number to validate
+ * @returns {boolean} True if phone is valid, false otherwise
+ */
 function validPhone(iPhone) {
     return /^\+?[0-9][0-9\s\-().]{6,18}$/.test(iPhone.trim());
 }
 
+/**
+ * Checks if phone number is valid and updates UI
+ * @param {string} iPhone - The phone number to check
+ * @returns {boolean} True if phone is valid, false otherwise
+ */
 function phoneCheck(iPhone) {
     return validateField(iPhone, validPhone, "group-phone");
 }
 
+/**
+ * Validates a field using a validator function and updates border styling
+ * @param {string} value - The value to validate
+ * @param {Function} validator - The validation function
+ * @param {string} borderId - The ID of the border element
+ * @returns {boolean} True if field is valid, false otherwise
+ */
 function validateField(value, validator, borderId) {
     const errorBorder = document.getElementById(borderId);
     const isValid = validator(value);
@@ -174,24 +290,10 @@ function validateField(value, validator, borderId) {
     return isValid;
 }
 
-function showError(groupId, alertId, message, borderElementId) {
-    const errorBorder = document.getElementById(borderElementId);
-    const group = document.getElementById(groupId);
-    const oldAlert = document.getElementById(alertId);
-    errorBorder.classList.remove('inputWrapper');
-    errorBorder.classList.add('errorBorder');
-    if (oldAlert) {
-        errorBorder.classList.add('inputWrapper:focus-within');
-        oldAlert.remove();
-    }
-    group.innerHTML = "";
-    const alert = document.createElement('p');
-    alert.innerText = message;
-    alert.id = alertId;
-    group.appendChild(alert);
-    group.style.marginBottom = "0";
-}
-
+/**
+ * Opens the edit contact form and populates it with contact data
+ * @param {number} index - The index of the contact to edit
+ */
 function editContactEvent(index) {
     togglePopupOverlay();
     document.getElementById('main').innerHTML += editContactTemplate(index);
@@ -201,17 +303,27 @@ function editContactEvent(index) {
     updateContactDisplay(index);
 }
 
+/**
+ * Updates the contact display after editing
+ * @param {number} index - The index of the contact to update
+ */
 function updateContactDisplay(index) {
     const existingContent = document.getElementById('showContent' + index);
-    if (existingContent) {
-        document.getElementById('contact_content').innerHTML = showContactTemplate(index);
-    }
+    if (existingContent) 
+        document.getElementById('contact_content').innerHTML = showContactTemplate(index);  
 }
 
+/**
+ * Toggles the popup overlay visibility
+ */
 function togglePopupOverlay() {
     document.getElementById('popupBackground').classList.toggle("popup-overlay");
 }
 
+/**
+ * Populates the edit form with existing contact data
+ * @param {number} index - The index of the contact to edit
+ */
 function populateEditForm(index) {
     const { firstname, secondname } = contacts[index].name;
     document.getElementById('input-name').value = `${firstname} ${secondname}`;
@@ -220,13 +332,12 @@ function populateEditForm(index) {
     document.getElementById('input-phone').value = phoneValue;
 }
 
-function setupSaveButtonState(index) {
-    const inputs = ['input-name', 'input-mail', 'input-phone'].map(id => document.getElementById(id));
-    const saveButton = document.getElementById('create-contact');
-    setSaveButtonDisabled(saveButton, true);
-    inputs.forEach(input => input.addEventListener('input', () => checkChanges(index, inputs, saveButton)));
-}
-
+/**
+ * Checks if form values have changed from original contact data
+ * @param {number} index - The index of the contact
+ * @param {Array<HTMLInputElement>} inputs - Array of input elements
+ * @param {HTMLButtonElement} saveButton - The save button element
+ */
 function checkChanges(index, inputs, saveButton) {
     const [inputName, inputMail, inputPhone] = inputs;
     const { firstname, secondname } = contacts[index].name;
@@ -236,11 +347,21 @@ function checkChanges(index, inputs, saveButton) {
     setSaveButtonDisabled(saveButton, !hasChanges);
 }
 
+/**
+ * Sets the disabled state of the save button
+ * @param {HTMLButtonElement} button - The button element
+ * @param {boolean} disabled - Whether the button should be disabled
+ */
 function setSaveButtonDisabled(button, disabled) {
     button.disabled = disabled;
 
 }
 
+/**
+ * Finds a contact index by full name
+ * @param {string} fullName - The full name to search for
+ * @returns {number} The index of the contact, or -1 if not found
+ */
 function getContactIndexByFullName(fullName) {
     return contacts.findIndex(contact => {
         const full = `${contact.name.firstname} ${contact.name.secondname}`.trim().toLowerCase();
@@ -248,6 +369,9 @@ function getContactIndexByFullName(fullName) {
     });
 }
 
+/**
+ * Clears all contact selections and resets styling
+ */
 function clearContacts() {
     const contactContent = document.getElementById('contact_content');
     contactContent.innerHTML = "";
@@ -260,67 +384,13 @@ function clearContacts() {
     });
 }
 
-function validateInputContact(displayId, currentId, inputFrame) {
-    const input = document.getElementById(currentId);
-    const output = document.getElementById(displayId);
-    const borderError = document.getElementById(inputFrame);
-    const isEmpty = input.value.trim() === "";
-    output.innerHTML = isEmpty ? "This field is required." : "";
-    borderError.classList.toggle('errorBorder', isEmpty);
-}
-
-
-function replaceOnClickContacts() {
-    contacts.forEach((c, index) => {
-        let contact = document.getElementById(c.id)
-        contact.onclick = () => mobileContactClick(index)
-    });
-}
-
-
+/**
+ * Handles navigation back to contact list from detail view
+ */
 function goBackToContactList() {
     document.getElementById('contactlist').style = "";
     document.querySelector('.contact-informations').style.display = "none";
     document.getElementById('goback-arrow').remove();
     document.querySelector('.contact-informations').innerHTML = "";
     document.getElementById('upperContainer').onclick = null;
-}
-
-function toggleMenu(event) {
-    event?.stopPropagation();
-    const menuPopup = document.getElementById('mobilePopupMenu');
-    menuPopup.classList.remove('d_none', 'slide-out');
-    menuPopup.classList.add('dpf', 'slide-in-mobile-right');
-
-    setTimeout(() => {
-        document.addEventListener('click', closeMenuOnClickOutside, { once: true });
-    }, 0);
-}
-
-function closeMenuOnClickOutside(event) {
-    const menuPopup = document.getElementById('mobilePopupMenu');
-    if (menuPopup && !menuPopup.contains(event.target)) {
-        menuPopup.classList.remove('slide-in-mobile-right');
-        document.body.style.overflowX = "hidden";
-        menuPopup.classList.add('slide-out');
-        menuPopup.addEventListener('animationend', function handler() {
-            menuPopup.classList.add('d_none');
-            menuPopup.classList.remove('dpf');
-            document.body.style.overflowX = "";
-            menuPopup.removeEventListener('animationend', handler);
-        });
-    }
-}
-
-function addYOverflowHidden() {
-    const form = document.getElementById('add-Form');
-    document.documentElement.classList.add('disable-y-scroll');
-    document.body.classList.add('disable-y-scroll');
-    void document.body.offsetWidth;
-    form.classList.add("slide-up");
-    form.addEventListener('animationend', () => {
-        document.documentElement.classList.remove('disable-y-scroll');
-        document.body.classList.remove('disable-y-scroll');
-        form.classList.remove('slide-up');
-    });
 }
