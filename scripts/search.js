@@ -1,115 +1,177 @@
-let isSearchActive = false;
+let searchTimeout;
+let currentSearchTerm = '';
 
+/**
+ * Initializes search functionality
+ * Sets up event listener for search input field
+ */
 function initSearch() {
-    const SEARCH_INPUT = document.getElementById('searchInput')
-    const SEARCH_INPUT_RES = document.getElementById('searchInputResp');
-    SEARCH_INPUT.addEventListener('input', handleSearch);
-    SEARCH_INPUT_RES.addEventListener('input', handleSearch);
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', handleSearchInput);
+    }
 }
 
+/**
+ * Handles search input changes and filters tasks
+ * Debounces input to avoid excessive filtering
+ * 
+ * @param {Event} event - Input event from search field
+ */
+function handleSearchInput(event) {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        performSearch(event.target.value);
+    }, 300);
+}
 
-function handleSearch(event) {
-    const SEARCH_TERM = event.target.value.trim().toLowerCase();
+/**
+ * Performs the actual search and updates task display
+ * 
+ * @param {string} searchTerm - Search term to filter tasks
+ */
+function performSearch(searchTerm) {
+    const trimmedSearch = searchTerm.trim().toLowerCase();
     
-    if (SEARCH_TERM.length >= 3) {
-      isSearchActive = true;
-        filterCards(SEARCH_TERM);
-    } else {
-      isSearchActive = false;
-       document.getElementById("content_col").classList.remove("dnone")      
+    if (trimmedSearch === '') {
         resetSearch();
+    } else {
+        filterAndDisplayTasks(trimmedSearch);
     }
 }
 
-
-function filterCards(SEARCH_TERM) {
-    const FILTERED_CARDS = cardFromFirebase.filter(card => {
-        const CARD_TITLE = String(card.title || card.titel || '').toLowerCase();
-        const CARD_DESCRIPTION = String(card.description || card.discription || '').toLowerCase();
-        
-        return CARD_TITLE.includes(SEARCH_TERM) || CARD_DESCRIPTION.includes(SEARCH_TERM);
-    });
-    
-    renderFilteredCards(FILTERED_CARDS);
-}
-
-
-function renderFilteredCards(FILTERED_CARDS) {
-    document.getElementById("content_col").classList.remove("dnone")    
-    clearAllContainers();
-    
-    if (FILTERED_CARDS.length === 0) {  
-    showNoResultsMessage();
-    responsivResultmassage()
-    return;
-    }
-    
-    hideNoResultsMessage();
-    
-    FILTERED_CARDS.forEach(card => {
-        const CONTAINER_ID = getContainerId(card.dragclass);
-        const CONTAINER = document.getElementById(CONTAINER_ID);
-        
-        if (CONTAINER) {
-          CONTAINER.innerHTML += renderCard(card);
-        }
-    });
-}
-
-function responsivResultmassage() {
-    if (window.innerWidth <= 1050) {
-        document.getElementById("content_col").classList.add("dnone")    
-    }else
-        document.getElementById("content_col").classList.remove("dnone")    
-}
-
-function showNoResultsMessage() {
-    hideNoResultsMessage();
-    
-    const message = document.createElement('div');
-    message.className = 'no-results-message';
-    message.innerHTML = `
-        <div class="no-results-content">
-            <span>No tasks found</span>
-            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.6 21L13.3 14.7C12.8 15.1 12.225 15.4167 11.575 15.65C10.925 15.8833 10.2333 16 9.5 16C7.68333 16 6.146 15.3707 4.888 14.112C3.63 12.8533 3.00067 11.316 3 9.5C3 7.68333 3.62933 6.146 4.888 4.888C6.14667 3.63 7.684 3.00067 9.5 3C11.3167 3 12.854 3.62933 14.112 4.888C15.37 6.14667 15.9993 7.684 16 9.5C16 10.2333 15.8833 10.925 15.65 11.575C15.4167 12.225 15.1 12.8 14.7 13.3L21 19.6L19.6 21ZM9.5 14C10.75 14 11.8127 13.5623 12.688 12.687C13.5633 11.8117 14.0007 10.7493 14 9.5C14 8.25 13.5623 7.18733 12.687 6.312C11.8117 5.43667 10.7493 4.99933 9.5 5C8.25 5 7.18733 5.43767 6.312 6.313C5.43667 7.18833 4.99933 8.25067 5 9.5C5 10.75 5.43767 11.8127 6.313 12.688C7.18833 13.5633 8.25067 14.0007 9.5 14Z" fill="white"/>
-            </svg>
-        </div>
-    `;
-    document.body.appendChild(message);
-}
-
-function hideNoResultsMessage() {
-    const message = document.querySelector('.no-results-message');
-    if (message) {
-        message.remove();
-    }
-}
-
+/**
+ * Resets search and displays all tasks
+ */
 function resetSearch() {
-    hideNoResultsMessage();
-    loadDetails(cardFromFirebase);
+    currentSearchTerm = '';
+    renderAllTasks();
 }
 
-function clearAllContainers() {
-    document.getElementById('todo').innerHTML = '';
-    document.getElementById('inprogress').innerHTML = '';
-    document.getElementById('awaitfeedback').innerHTML = '';
-    document.getElementById('done').innerHTML = '';
+/**
+ * Filters tasks by search term and updates display
+ * 
+ * @param {string} searchTerm - Lowercase search term
+ */
+function filterAndDisplayTasks(searchTerm) {
+    currentSearchTerm = searchTerm;
+    const filteredTasks = filterTasksBySearchTerm(searchTerm);
+    renderFilteredTasks(filteredTasks);
 }
 
-function getContainerId(dragclass) {
-    const CONTAINER_MAP = {
-        'todo': 'todo',
-        'inprogress': 'inprogress',
-        'awaitfeedback': 'awaitfeedback',
-        'done': 'done'
-    };
-    return CONTAINER_MAP[dragclass] || 'todo';
+/**
+ * Filters tasks array by search term
+ * Searches in title and description fields
+ * 
+ * @param {string} searchTerm - Lowercase search term
+ * @returns {Array} Filtered array of tasks matching search term
+ */
+function filterTasksBySearchTerm(searchTerm) {
+    return tasks.filter(task => 
+        matchesSearchTerm(task, searchTerm)
+    );
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSearch);
-} else {
-    initSearch();
+/**
+ * Checks if task matches search term
+ * 
+ * @param {Object} task - Task object to check
+ * @param {string} searchTerm - Lowercase search term
+ * @returns {boolean} True if task matches search term
+ */
+function matchesSearchTerm(task, searchTerm) {
+    const title = task.title.toLowerCase();
+    const description = task.description.toLowerCase();
+    return title.includes(searchTerm) || description.includes(searchTerm);
 }
+
+/**
+ * Renders all tasks without filtering
+ */
+function renderAllTasks() {
+    renderBoard();
+}
+
+/**
+ * Renders filtered tasks on the board
+ * 
+ * @param {Array} filteredTasks - Array of tasks to display
+ */
+function renderFilteredTasks(filteredTasks) {
+    clearAllColumns();
+    filteredTasks.forEach(task => renderTaskInColumn(task));
+    updateEmptyStates();
+}
+
+/**
+ * Clears all task columns on the board
+ */
+function clearAllColumns() {
+    const columns = ['todo', 'inProgress', 'awaitFeedback', 'done'];
+    columns.forEach(column => clearColumn(column));
+}
+
+/**
+ * Clears a specific column
+ * 
+ * @param {string} columnId - ID of the column to clear
+ */
+function clearColumn(columnId) {
+    const column = document.getElementById(columnId);
+    if (column) {
+        column.innerHTML = '';
+    }
+}
+
+/**
+ * Renders a single task in its appropriate column
+ * 
+ * @param {Object} task - Task object to render
+ */
+function renderTaskInColumn(task) {
+    const column = document.getElementById(task.status);
+    if (column) {
+        column.innerHTML += generateTaskHTML(task);
+    }
+}
+
+/**
+ * Updates empty state messages for all columns
+ */
+function updateEmptyStates() {
+    const columns = ['todo', 'inProgress', 'awaitFeedback', 'done'];
+    columns.forEach(column => updateColumnEmptyState(column));
+}
+
+/**
+ * Updates empty state message for a specific column
+ * 
+ * @param {string} columnId - ID of the column to update
+ */
+function updateColumnEmptyState(columnId) {
+    const column = document.getElementById(columnId);
+    if (column && column.children.length === 0) {
+        column.innerHTML = getEmptyStateHTML(columnId);
+    }
+}
+
+/**
+ * Gets empty state HTML for a column
+ * 
+ * @param {string} columnId - ID of the column
+ * @returns {string} HTML string for empty state message
+ */
+function getEmptyStateHTML(columnId) {
+    return `<div class="empty-state">No tasks found</div>`;
+}
+
+/**
+ * Gets current search term
+ * 
+ * @returns {string} Current search term
+ */
+function getCurrentSearchTerm() {
+    return currentSearchTerm;
+}
+
+initSearch();

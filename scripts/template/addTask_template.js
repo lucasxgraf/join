@@ -177,7 +177,6 @@ function subtask(addSubtask, subtaskArray) {
 
 function renderSubtaskButtons() {
   const input = document.getElementById("subtaskReadOut");
-  
   const buttonContainer = document.getElementById("inputButtons");
   const value = input.value.trim();
 
@@ -198,8 +197,8 @@ function renderSubtaskButtons() {
 
 
 function renderCalender(currentid, displayid) {
-  let caldenerOpen = document.getElementById(currentid)
-  caldenerOpen.innerHTML += 
+  let calenderOpen = document.getElementById(currentid)
+  calenderOpen.innerHTML += 
     `<div class="datePicker">
             <div class="datepickerTop">
                 <div class="btnGroup">
@@ -212,7 +211,7 @@ function renderCalender(currentid, displayid) {
                     <div>
                         <span class="monthName" id="month">Oktober</span>
                         <span class="monthName" id="year">2025</span>
-                        </div>
+                      </div>
                     <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt="chevron right"></button>
                 </div>
             </div> 
