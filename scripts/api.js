@@ -1,6 +1,21 @@
+/**
+ * Base URL for the Firebase Realtime Database API
+ * @type {string}
+ */
 const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+
+/**
+ * Array to store contacts fetched from Firebase
+ * @type {Array<Object>}
+ */
 let contactFromFirebase = [];
- 
+
+/**
+ * Posts data to the specified path in Firebase
+ * @param {string} [path="addTask.json"] - The path to post data to
+ * @param {Object} [data={task}] - The data to post
+ * @returns {Promise<Object>} The response from Firebase
+ */
 async function postData(path="addTask.json", data={task}) {
   let response = await fetch(BASE_URL + path,{
     method: "POST",
@@ -10,6 +25,10 @@ async function postData(path="addTask.json", data={task}) {
    return response.json();
 }
 
+/**
+ * Fetches contacts from the specified path in Firebase and renders them
+ * @param {string} [path="contacts/contactlist.json"] - The path to fetch contacts from
+ */
 async function fetchContact(path = "contacts/contactlist.json") {
   const fetchRes = await fetch(BASE_URL + path);
   const data = await fetchRes.json();
@@ -23,6 +42,10 @@ async function fetchContact(path = "contacts/contactlist.json") {
   renderContactOnHTML(contactFromFirebase, "labelContact")
 }
 
+/**
+ * Adds a new task to Firebase
+ * @returns {Promise<Object>} The response from Firebase
+ */
 async function addTask() {
   let titel = document.getElementById("title");
   let description = document.getElementById("description");
@@ -38,6 +61,14 @@ async function addTask() {
   return postData("addTask.json", newTask);
 }
 
+/**
+ * Helper function to compose a new task object
+ * @param {HTMLElement} titel - The title input element
+ * @param {HTMLElement} description - The description input element
+ * @param {HTMLElement} date - The date input element
+ * @param {HTMLElement} category - The category input element
+ * @returns {Object} The composed task object
+ */
 function helpForComposition(titel, description, date, category) {
     const newTask = {
     "title": titel.value,
@@ -52,29 +83,56 @@ function helpForComposition(titel, description, date, category) {
   return newTask
 }
 
+/**
+ * Saves the edited card to Firebase
+ */
 async function saveEditedCardToFirebase() {
-  if (!validateEditedForm()) {
-    return;
-  }
+  if (!validateEditedForm()) return;
+  
   const cardId = SingleCARD[0];
+  const updatedCard = getUpdatedCardData(cardId);
+  
+  await updateCardInFirebase(cardId.id, updatedCard);
+  toggleOverlay();
+  location.reload();
+}
+
+/**
+ * Gets updated card data from form inputs
+ * @param {Object} cardId - The card ID object
+ * @returns {Object} The updated card data
+ */
+function getUpdatedCardData(cardId) {
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
   const selectedContacts = getSelectedContactsFromOverlay();
-
   
-  const updatedCard = helpForCompositionEdit(cardId, title, description, date, selectedContacts)
-    const url = `${BASE_URL}addTask/${cardId.id}.json`;
-    await fetch(url, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedCard)
-    });
-
-    toggleOverlay();
-    location.reload();
+  return helpForCompositionEdit(cardId, title, description, date, selectedContacts);
 }
 
+/**
+ * Updates card data in Firebase
+ * @param {string} cardId - The card ID
+ * @param {Object} updatedCard - The updated card data
+ */
+async function updateCardInFirebase(cardId, updatedCard) {
+  await fetch(`${BASE_URL}addTask/${cardId}.json`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updatedCard)
+  });
+}
+
+/**
+ * Helper function to compose an edited card object
+ * @param {Object} cardId - The card ID object
+ * @param {string} title - The title of the card
+ * @param {string} description - The description of the card
+ * @param {string} date - The date of the card
+ * @param {Array} selectedContacts - The selected contacts for the card
+ * @returns {Object} The composed updated card object
+ */
 function helpForCompositionEdit(cardId, title, description, date, selectedContacts){
     const updatedCard = {
     title: title,
@@ -89,6 +147,10 @@ function helpForCompositionEdit(cardId, title, description, date, selectedContac
 return updatedCard
 }
 
+/**
+ * Determines the drag class for a task
+ * @returns {string} The drag class
+ */
 function dragclass() {
   const dragclassRef = document.getElementById("addTaskDialog")?.dataset.dragclass; 
 
@@ -99,6 +161,11 @@ function dragclass() {
   } 
 }
 
+/**
+ * Saves subtasks to Firebase for a specific card
+ * @param {string} cardId - The ID of the card
+ * @param {Array} subtasks - The subtasks to save
+ */
 async function saveSubtasksToFirebase(cardId, subtasks) {
     const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
     await fetch(url, {
@@ -108,12 +175,20 @@ async function saveSubtasksToFirebase(cardId, subtasks) {
     });
 }
 
+/**
+ * Deletes a task from Firebase
+ * @param {string} taskId - The ID of the task to delete
+ */
 async function deleteTaskFromFirebase(taskId) {
     const response = await fetch(`${BASE_URL}addTask/${taskId}.json`, {
       method: 'DELETE'
     });
   } 
   
+/**
+ * Moves a task to a new drag class in Firebase
+ * @param {string} newdragclass - The new drag class
+ */
 async function moveTo(newdragclass) {
   const task = cardFromFirebase.find(t => t.id === dragElementId);
   if (!task) return;
@@ -127,6 +202,9 @@ async function moveTo(newdragclass) {
       loadDetails(cardFromFirebase);
 }
 
+/**
+ * Loads contacts from Firebase
+ */
 async function loadContacts() {
   
     const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
@@ -136,6 +214,10 @@ async function loadContacts() {
     } 
 }
 
+/**
+ * Loads tasks from Firebase and processes them based on reference
+ * @param {string} ref - The reference to determine processing method
+ */
 async function loadTasks(ref) {
     const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
     const DATA = await RESPONSE.json();
@@ -147,13 +229,15 @@ async function loadTasks(ref) {
     }
   if (ref === "board"){
   loadDetails(cardFromFirebase)
-  }
-  else{
+  } else {
     splitCardsByStatus(cardFromFirebase)
     countUrgentPriority(cardFromFirebase)
   }
 };
 
+/**
+ * Fetches contacts from Firebase and populates the contacts array
+ */
 async function fetchContacts() {
     let response = await fetch(BASE_URL + "contacts.json");
     let responseToJSON = await response.json();
@@ -165,63 +249,130 @@ async function fetchContacts() {
     }
 }
 
+/**
+ * Adds a new contact to Firebase
+ * @param {Event} event - The submit event
+ */
 async function addContact(event) {
-    event.stopPropagation();
-    let iName = document.getElementById('input-name').value;
-    let iMail = document.getElementById('input-mail').value;
-    let iPhone = document.getElementById('input-phone').value;
-    let [firstname, ...rest] = iName.trim().split(" ");
-    let secondname = rest.join(" ");
-    const data = returnJSONDATANEW(iMail, iPhone, firstname, secondname);
-   
-    await fetch(BASE_URL + "contacts/contactlist.json", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    closeForm(event);
-    contacts = [];
-    await init();
-    contactToast("Contact successfully create");
+  event.stopPropagation();
+  
+  const data = getContactData();
+  await saveContactToFirebase(data);
+  
+  closeForm(event);
+  await refreshContacts();
+  contactToast("Contact successfully create");
 }
 
+/**
+ * Gets contact data from form inputs
+ * @returns {Object} The contact data
+ */
+function getContactData() {
+  let iName = document.getElementById('input-name').value;
+  let iMail = document.getElementById('input-mail').value;
+  let iPhone = document.getElementById('input-phone').value;
+  let [firstname, ...rest] = iName.trim().split(" ");
+  let secondname = rest.join(" ");
+  
+  return returnJSONDATANEW(iMail, iPhone, firstname, secondname);
+}
+
+/**
+ * Saves contact data to Firebase
+ * @param {Object} data - The contact data to save
+ */
+async function saveContactToFirebase(data) {
+  await fetch(BASE_URL + "contacts/contactlist.json", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+}
+
+/**
+ * Refreshes contacts after adding a new one
+ */
+async function refreshContacts() {
+  contacts = [];
+  await init();
+}
+
+/**
+ * Edits an existing contact in Firebase
+ * @param {number} index - The index of the contact to edit
+ */
 async function editContact(index) {
-  const { name, mail, tel, color } = contacts[index];
+  if (isContactUnchanged(index)) return;
+  
+  const data = getEditedContactData(index);
+  await updateContactInFirebase(index, data);
+  
+  closeForm();
+  await refreshContacts();
+  updateContactContentAfterEdit(index);
+  contactToast("Contact successfully edit");
+}
+
+/**
+ * Checks if contact data has changed
+ * @param {number} index - The index of the contact to check
+ * @returns {boolean} True if contact is unchanged
+ */
+function isContactUnchanged(index) {
+  const { name, mail, tel } = contacts[index];
   const iName = document.getElementById('input-name').value;
   const iMail = document.getElementById('input-mail').value;
   const iPhone = document.getElementById('input-phone').value;
   const originalName = `${name.firstname} ${name.secondname}`;
   const cleanedPhone = iPhone === "<i> Please update your phone number <i>" ? "" : iPhone;
+  
+  return (iName === originalName && iMail === mail && (iPhone === tel)) ||
+         (iName === originalName && iMail === mail && cleanedPhone === tel);
+}
 
-  if (iName === originalName && iMail === mail && (iPhone === tel)) {
-    closeForm();
-    return;
-  }
-
-  if (iName === originalName && iMail === mail && cleanedPhone === tel) {
-    closeForm();
-    return;
-  }
-
-  const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+/**
+ * Gets edited contact data from form inputs
+ * @param {number} index - The index of the contact being edited
+ * @returns {Object} The edited contact data
+ */
+function getEditedContactData(index) {
+  const { color } = contacts[index];
+  const iName = document.getElementById('input-name').value;
+  const iMail = document.getElementById('input-mail').value;
+  const iPhone = document.getElementById('input-phone').value;
   const [firstname, ...rest] = iName.trim().split(" ");
-  const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
+  
+  return returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
+}
+
+/**
+ * Updates contact data in Firebase
+ * @param {number} index - The index of the contact to update
+ * @param {Object} data - The updated contact data
+ */
+async function updateContactInFirebase(index, data) {
+  const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
   
   await fetch(url, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   });
-  
-  closeForm();
-  contacts = [];
-  await init();
-  updateContactContentAfterEdit(index);
-  contactToast("Contact successfully edit");
 }
 
+/**
+ * Refreshes contacts after editing
+ */
+async function refreshContacts() {
+  contacts = [];
+  await init();
+}
+
+/**
+ * Deletes a contact from Firebase
+ * @param {number} index - The index of the contact to delete
+ */
 async function deleteContact(index) {
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
     await fetch(url, { method: 'DELETE' });
