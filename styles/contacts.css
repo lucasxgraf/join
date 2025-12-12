@@ -411,7 +411,7 @@ ul li::marker {
 .alert {
     position: fixed;
     left: 50%;
-    top: 50%;
+    bottom: 0%;
     transform: translateX(-50%);
     border-radius: 30px;
     background-color: #2A3647;
