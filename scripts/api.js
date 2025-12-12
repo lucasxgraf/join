@@ -295,7 +295,7 @@ async function saveContactToFirebase(data) {
  */
 async function refreshContacts() {
   contacts = [];
-  await init();
+  // await init();
 }
 
 /**
@@ -376,11 +376,10 @@ async function refreshContacts() {
 async function deleteContact(index) {
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
     await fetch(url, { method: 'DELETE' });
-    await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
     if (window.innerWidth >= 981){showNoContact()}
     else {showNoContact(); mobileBack()};
     contacts = [];
-    await init();
     contactToast("Contact successfully delete");
+    await init();
 }

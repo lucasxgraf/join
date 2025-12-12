@@ -1,6 +1,13 @@
+/**
+ * @fileoverview Contact event handlers and UI interactions
+ * @description Manages contact selection, form animations, popup overlays, and mobile menu interactions
+ */
+
 window.addEventListener("DOMContentLoaded", contactClick);
 
-
+/**
+ * Adds click event listeners to all contact elements for selection highlighting
+ */
 function contactClick() {
     let contacts = document.querySelectorAll('.contact');
     contacts.forEach(contact => {
@@ -11,6 +18,9 @@ function contactClick() {
     });
 }
 
+/**
+ * Adds horizontal overflow hidden and triggers slide-in animation for add form
+ */
 function addXOverflowHidden() {
     let popupBody = document.getElementById('popupBackground');
     let form = document.getElementById('add-Form');
@@ -25,6 +35,9 @@ function addXOverflowHidden() {
 );
 }
 
+/**
+ * Adds horizontal overflow hidden and triggers slide-in animation for edit form
+ */
 function editXOverflowHidden() {
     let popupBody = document.getElementById('popupBackground');
     let form = document.getElementById('edit-Form');
@@ -39,6 +52,10 @@ function editXOverflowHidden() {
     }, { once: true });
 }
 
+/**
+ * Adds horizontal overflow hidden and triggers slide-in animation for contact content display
+ * @param {number} index - The index of the contact being displayed
+ */
 function showContentXOverflowHidden(index) {
     let info = document.getElementById('showContent'+ index)
     document.documentElement.classList.add('disable-x-scroll');
@@ -52,6 +69,9 @@ function showContentXOverflowHidden(index) {
     );
 }
 
+/**
+ * Adds horizontal overflow hidden and triggers slide-up animation for alert notification
+ */
 function alertxOverflowHidden() {
     const alertEl = document.getElementById('create-contact-alert');
   document.documentElement.classList.add('disable-x-scroll');
@@ -67,6 +87,9 @@ function alertxOverflowHidden() {
   }, 2500);
 }
 
+/**
+ * Adds click event listener to body to close contact details when clicking outside
+ */
 function bodyClickClose() {
     let content = document.getElementById('contact-side');
     let popupBlack = document.getElementById('popupBackground');
@@ -83,6 +106,10 @@ function bodyClickClose() {
 }
 window.bodyClickClose = bodyClickClose;
 
+/**
+ * Opens the add contact form popup
+ * @param {Event} event - The click event
+ */
 function addContactEvent(event) {
     event.stopPropagation();
     let index = undefined;
@@ -93,6 +120,10 @@ function addContactEvent(event) {
     addXOverflowHidden();
 }
 
+/**
+ * Closes the add or edit contact form
+ * @param {Event} event - The click event
+ */
 function closeForm(event) {
     event?.stopPropagation();
     let popupBlack = document.getElementById('popupBackground');

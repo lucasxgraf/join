@@ -30,7 +30,7 @@ async function init() {
  */
 function contactPictureLetters(index) {
     const { firstname, secondname } = contacts[index].name;
-        return firstname[0].toUpperCase() + secondname[0].toUpperCase();
+        return firstname[0]?.toUpperCase() + secondname[0]?.toUpperCase();
 }
 
 /**
