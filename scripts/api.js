@@ -228,8 +228,8 @@ async function deleteContact(index) {
     await new Promise(resolve => setTimeout(resolve, 2000));
     closeForm();
     if (window.innerWidth >= 981){showNoContact()}
-    else {mobileBack()};
-    contactToast("Contact successfully delete");
+    else {showNoContact(); mobileBack()};
     contacts = [];
     await init();
+    contactToast("Contact successfully delete");
 }

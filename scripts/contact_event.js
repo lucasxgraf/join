@@ -53,20 +53,18 @@ function showContentXOverflowHidden(index) {
 }
 
 function alertxOverflowHidden() {
-    let alert = document.getElementById('create-contact-alert');
-    document.documentElement.classList.add('disable-x-scroll');
-    document.body.classList.add('disable-x-scroll');
-    document.getElementById('contactlist').classList.add('disable-x-scroll');
-    void alert.offsetWidth;
-    if (window.matchMedia("(max-width: 980px)").matches) {alert.classList.add("slide-up-hold-down");
-    } else {
-    alert.classList.add("slide-rtl");}
-    alert.addEventListener('animationend', () => {
-        document.getElementById('contactlist').classList.remove('disable-x-scroll');
-        document.documentElement.classList.remove('disable-x-scroll');
-        document.body.classList.remove('disable-x-scroll');
-        alert.remove();
-    }, { once: true });
+    const alertEl = document.getElementById('create-contact-alert');
+  document.documentElement.classList.add('disable-x-scroll');
+  document.body.classList.add('disable-x-scroll');
+  document.getElementById('contactlist').classList.add('disable-x-scroll');
+  alertEl.classList.remove('slide-up-hold-down'); void alertEl.offsetWidth;
+  alertEl.classList.add('slide-up-hold-down');
+  setTimeout(() => {
+    document.documentElement.classList.remove('disable-x-scroll');
+    document.body.classList.remove('disable-x-scroll');
+    document.getElementById('contactlist').classList.remove('disable-x-scroll');
+    alertEl.remove();
+  }, 2500);
 }
 
 function bodyClickClose() {

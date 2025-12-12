@@ -93,26 +93,11 @@
   }
 
   @keyframes slideUpHoldDown {
-    0% {
-      transform: translate(-50%, 200%);
-      opacity: 0;
-    }
-
-    20% {
-      transform: translate(-50%, -50%);
-      opacity: 1;
-    }
-
-    80% {
-      transform: translate(-50%, -50%);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translate(-50%, 200%);
-      opacity: 0;
-    }
-  }
+  0%   { bottom: -120px; opacity: 0; }
+  20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+  80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+  100% { bottom: -120px; opacity: 0; }
+}
 
   .alert {
     position: fixed;

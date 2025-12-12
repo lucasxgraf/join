@@ -432,6 +432,17 @@ ul li::marker {
     margin-right: 10px;
 }
 
+.slide-up-hold-down {
+    animation: slideUpHoldDown 2.5s ease-in-out forwards;
+  }
+
+@keyframes slideUpHoldDown {
+  0%   { bottom: -120px; opacity: 0; }
+  20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+  80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+  100% { bottom: -120px; opacity: 0; }
+}
+
 .slide-rtl {
     animation: slide-in-out 2s ease-in-out forwards;
 }
