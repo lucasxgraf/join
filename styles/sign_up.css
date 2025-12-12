@@ -4,8 +4,8 @@ body {
 
 .join_image {
   position: absolute;
-  top: 56px;
-  left: 56px;
+  top: 24px;
+  left: 24px;
 }
 
 .sign_card {
@@ -52,7 +52,6 @@ body {
 }
 
 #goBackArrow:hover {
-  cursor: pointer;
   content: url(../assets/svg/arrow_hover.svg);
   width: 32px;
   height: 32px;
@@ -88,7 +87,7 @@ body {
   font-size: small;
 }
 
-.privacy_police_content label{
+.privacy_police_content label {
   cursor: pointer;
 }
 
@@ -117,13 +116,11 @@ body {
 #signBtnRegister:disabled:hover {
   background-color: rgb(42, 54, 71);
   box-shadow: none;
-  cursor: not-allowed;
 }
 
 #signBtnRegister:hover {
   background-color: rgb(41, 171, 226);
   box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
-  cursor: pointer;
 }
 
 input[type="checkbox"] {
@@ -182,23 +179,39 @@ input[type="checkbox"]:hover {
   align-items: center;
 }
 
-/* Toast Animation: Von Unten in die Mitte */
 @keyframes overlaySlideUp {
   0% {
     transform: translate(-50%, 120%);
     opacity: 0;
   }
+
   20% {
     transform: translate(-50%, -50%);
     opacity: 1;
   }
+
   70% {
     transform: translate(-50%, -50%);
-    opacity: 1; 
+    opacity: 1;
   }
+
   100% {
-    transform: translate(-50%, 120%); /* auf -50% ändern, wenn es in der Mitte stehen bleiben soll */
+    transform: translate(-50%, 120%);
     opacity: 0;
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .sign_card {
+    width: 90%;
+    padding: 32px 16px;
+  }
+
+  .join_image {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 64px;
+    height: 80px;
+  }
+}

@@ -22,11 +22,12 @@
   font-display: swap;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter18", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;  scroll-behavior: smooth;
+  font-family: "Inter18", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -43,9 +44,10 @@ main {
 a {
   text-decoration: none;
   cursor: pointer;
+  color: inherit;
 }
 
-.d_none{
+.d_none {
   display: none;
 }
 
@@ -59,7 +61,6 @@ footer {
 
 .terms_conditions {
   margin-bottom: 30px;
-  font-size: 0.8rem;
 }
 
 .terms_conditions a {
@@ -79,6 +80,7 @@ footer {
   from {
     clip-path: inset(0 0 0 100%);
   }
+
   to {
     clip-path: inset(0 0 0 0);
   }
@@ -88,6 +90,7 @@ footer {
   from {
     clip-path: inset(0 0 0 0);
   }
+
   to {
     clip-path: inset(0 0 0 100%);
   }
@@ -97,6 +100,7 @@ footer {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -106,9 +110,24 @@ footer {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
+}
+*:disabled {
+  background-color: #2A3647 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+button {
+  background-color: transparent;
+  padding-left: 0;
+  border: transparent;
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
 }
 
 .scroll_layout {
@@ -123,45 +142,44 @@ footer {
 }
 
 input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    border: none !important;
-    cursor: pointer;
-    width: 19px;
-    height: 19px;
-    background-image: url(../assets/svg/check_btn.svg);
-    background-repeat: no-repeat;
-    background-position: center;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none !important;
+  width: 19px;
+  height: 19px;
+  background-image: url(../assets/svg/check_btn.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 
 
-input[type="checkbox"]:checked{
-    background-image: url(../assets/svg/check_btn_checked.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
+input[type="checkbox"]:checked {
+  background-image: url(../assets/svg/check_btn_checked.svg);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .checkbox:hover,
 .checkbox_checked:hover {
-    filter: brightness(0) invert(1);
-}
-
-.focusWithInput,
-.inputWrapper:focus-within, 
-.inputBorderColor:focus{
-  outline:none ;
-  border: 2px solid #29ABE2 !important;
-}
-
-.focusNotInput,
-.inputWrapper:has(input:not(:placeholder-shown)), 
-.inputBorderColor:not(:placeholder-shown) {
-    border-color: #29ABE2 !important;
-    outline: none;
+  filter: brightness(0) invert(1);
 }
 
 .errorBorder {
   border-color: red !important;
+  outline: none;
+}
+
+.focusWithInput,
+.inputWrapper:focus-within,
+.inputBorderColor:focus {
+  outline: none;
+  border: 2px solid #29ABE2 !important;
+}
+
+.focusNotInput,
+.inputWrapper:has(input:not(:placeholder-shown)),
+.inputBorderColor:not(:placeholder-shown) {
+  border-color: #29ABE2 !important;
   outline: none;
 }

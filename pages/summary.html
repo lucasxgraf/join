@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="shortcut icon" href="../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
+   
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../components/css/headbar_sidebar.css">
+    <link rel="stylesheet" href="../styles/summary.css">
+    
+    <script type="module" src="../scripts/firebase_config.js"></script>
+    <script type="module" src="../scripts/firebase_auth.js"></script>
+    <script src="../components/js/summary_header.js"></script>
+    <script src="../scripts/api.js"></script>
+    <script src="../scripts/summary.js"></script>
+    <script src="../script.js"></script>
+    <script src="../scripts/calender.js"></script>
+</head>
+
+<body>
+    <div class="upper-container">
+      <div class="navContainer">
+        <img class="sidebar-logo" src="../assets/img/logo/join_logo_vector.svg" alt="join logo">
+        <div class="sidebar-content">
+          <div class="sidebar-links-container">
+            <a class="sidebar-links" href="./summary.html">
+              <img src="../assets/svg/icons_page/summary.svg" alt="summary icon">
+              Summary
+            </a>
+            <a class="sidebar-links" href="./addTask.html">
+              <img src="../assets/svg/icons_page/add_task.svg" alt="add task icon">
+              Add Task
+            </a>
+            <a class="sidebar-links" href="./board.html">
+              <img src="../assets/svg/icons_page/board.svg" alt="board icon">
+              Board
+            </a>
+            <a class="sidebar-links" href="./contacts.html">
+              <img src="../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+              Contacts
+            </a>
+          </div>
+          <div class="sidebar-bottom">
+            <a href="../components/html/privacyPolicy.html">Privacy Policy</a>
+            <a href="../components/html/legalNotice.html">Legal notice</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navResponsivContainer dnone">
+        <div class="ResponsivBorder">
+          <a class="singleResponsivContainer" href="./summary.html">
+            <img class="responsivIcon" src="../assets/svg/icons_page/summary.svg" alt="summary icon">
+            Summary
+          </a>
+          <a class="singleResponsivContainer" href="./addTask.html">
+            <img class="responsivIcon" src="../assets/svg/icons_page/add_task.svg" alt="add task icon">
+            Add Task
+          </a>
+          <a class="singleResponsivContainer" href="./board.html">
+            <img class="responsivIcon" src="../assets/svg/icons_page/board.svg" alt="board icon">
+            Board
+          </a>
+          <a class="singleResponsivContainer" href="./contacts.html">
+            <img class="responsivIcon" src="../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+            Contacts
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="center-wrap">
+      <header>
+        <div class="header_content">
+          <h2>Kanban Project Management Tool</h2>
+          <div class="respLogoContainer"> <img class="respLogo" src="../assets/img/logo/join_logo.png" alt="join logo"></div>
+          <div class="profile-section">
+            <a href="../components/html/help.html" >
+              <button class="help-icon"><img src="../assets/svg/help_small.svg" alt="help icon"></button>
+            </a>
+            <button class="profile" id="profilePicture" onclick="dropDown(event)"></button>
+          </div>
+        </div>
+      </header>
+          <div class="dropdown-menu-container" id="dropDownMenu">
+            <div class="dropdown-menu">
+              <a href="../components/html/help.html" class="drop-down-menu-only-resp">
+                <button>Help</button>
+              </a>
+              <a href="../components/html/legalNotice.html">
+                <button>Legal Notice</button>
+              </a>
+              <a href="../components/html/privacyPolicy.html">
+                <button>Privacy Policy</button>
+              </a>
+              <a>
+                <button onclick="logoutUser()">Log out</button>
+              </a>
+            </div>
+          </div> 
+
+        <main>
+            <div id="welcome_message" class="overlay_welcome_message dnone">
+              <span id="timeGreeting_overlay"></span>
+              <span id="userGreeting_overlay"></span>
+            </div>
+
+            <div class="scroll_layout">         
+                <div class="headlines">
+                    <h1>Join 360</h1>
+                    <div class="blue-divider"></div>
+                    <h2 class="join-subline">Key Metrics at a Glance</h2>
+                    <div class="resp_blue-divider dnone"></div>
+                </div>
+                <div class="content-layout">
+
+                <section class="main-content-left">
+                    <div class="two-cards">
+                        <a href="./board.html">
+                            <div class="card-first-row" id="todoCard">
+                                <div id="iconToDo"></div>
+                                <div class="card-info">
+                                    <span class="card-font" id="todoNumber"></span>
+                                    <span class="task-category" id="taskToDo">To-Do</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-first-row" id="doneCard">
+                                <div id="iconDone"></div>
+                                <div class="card-info">
+                                    <span class="card-font" id="doneNumber"></span>
+                                    <span class="task-category" id="taskDone">Done</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="./board.html">
+                    <div class="card-second-row" id="longCard">
+                            <div class="card-second-row-left">
+                                <img src="../assets/svg/urgent_icon.svg" alt="priority urgent icon">
+                                <div class="card-info">
+                                    <span class="card-font" id="urgentNumber"></span>
+                                    <span class="task-category" id="taskUrgent">Urgent</span>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="card-second-row-right">
+                                <span id="dateText" class="date">date</span>
+                                <span id="dateSubline">Upcoming Deadline</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="three-cards-row">
+                        <a href="./board.html">
+                            <div class="card-third-row" id="taskBoard">
+                                <span class="card-third-row-number" id="taskBoardNumber"></span>
+                                <span id="taskBoardText">Tasks in Board</span>
+                            </div>
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-third-row" id="taskProgress">
+                                <span class="card-third-row-number" id="taskProgressNumber"></span>
+                                <span id="taskProgressText">Tasks in Progress</span>
+                            </div>
+                        </a>
+                        <a href="./board.html">
+                            <div class="card-third-row" id="feedback">
+                                <span class="card-third-row-number" id="feedbackNumber"></span>
+                                <span id="feedbackText">Awaiting Feedback</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                <section class="main-content-right">
+                    <div class="greetings">
+                        <span id="timeGreeting"></span>
+                        <span id="userGreeting"></span>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

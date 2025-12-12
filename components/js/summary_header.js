@@ -1,3 +1,8 @@
+const savedName = localStorage.getItem("headerName");
+
+function headerinit() {
+   getInitialsFromUser()
+}
 window.addEventListener("DOMContentLoaded", closeDropDownEvent);
 let dropDownOpen = false;
 
@@ -26,4 +31,16 @@ let menu = document.getElementById('dropDownMenu');
       profilePic.style.backgroundColor = "";
       dropDownOpen = false;
       }
+}
+
+function getInitialsFromUser() {
+
+    const words = savedName.trim().split(/\s+/);
+    const iconHeaderInitials = document.getElementById("profilePicture");
+    
+    const initials = words
+      .filter(word => word.length > 0)
+      .map(word => word[0].toUpperCase())
+      .join('');
+    iconHeaderInitials.innerHTML = initials;
 }

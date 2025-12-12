@@ -1,10 +1,28 @@
+/**
+ * @fileoverview Search functionality for filtering and displaying task cards.
+ * @module search
+ */
+
+/**
+ * Flag indicating if search is currently active.
+ * @type {boolean}
+ */
 let isSearchActive = false;
 
+/**
+ * Initializes search functionality by attaching event listeners.
+ */
 function initSearch() {
-    const SEARCH_INPUT = document.getElementById('searchInput');
+    const SEARCH_INPUT = document.getElementById('searchInput')
+    const SEARCH_INPUT_RES = document.getElementById('searchInputResp');
     SEARCH_INPUT.addEventListener('input', handleSearch);
+    SEARCH_INPUT_RES.addEventListener('input', handleSearch);
 }
 
+/**
+ * Handles search input events and triggers filtering.
+ * @param {Event} event - The input event.
+ */
 function handleSearch(event) {
     const SEARCH_TERM = event.target.value.trim().toLowerCase();
     
@@ -13,10 +31,15 @@ function handleSearch(event) {
         filterCards(SEARCH_TERM);
     } else {
       isSearchActive = false;
+       document.getElementById("content_col").classList.remove("dnone")      
         resetSearch();
     }
 }
 
+/**
+ * Filters cards based on search term.
+ * @param {string} SEARCH_TERM - The search term to filter by.
+ */
 function filterCards(SEARCH_TERM) {
     const FILTERED_CARDS = cardFromFirebase.filter(card => {
         const CARD_TITLE = String(card.title || card.titel || '').toLowerCase();
@@ -28,26 +51,59 @@ function filterCards(SEARCH_TERM) {
     renderFilteredCards(FILTERED_CARDS);
 }
 
+/**
+ * Renders filtered cards to their respective containers.
+ * @param {Array} FILTERED_CARDS - Array of filtered card objects.
+ */
 function renderFilteredCards(FILTERED_CARDS) {
+    document.getElementById("content_col").classList.remove("dnone")    
     clearAllContainers();
     
-    if (FILTERED_CARDS.length === 0) {
-        showNoResultsMessage();
+    if (FILTERED_CARDS.length === 0) {  
+        handleNoResults();
         return;
     }
     
     hideNoResultsMessage();
-    
-    FILTERED_CARDS.forEach(card => {
+    renderCardsToContainers(FILTERED_CARDS);
+}
+
+/**
+ * Handles the display when no search results are found.
+ */
+function handleNoResults() {
+    showNoResultsMessage();
+    responsivResultmassage();
+}
+
+/**
+ * Renders cards to their respective containers.
+ * @param {Array} cards - Array of card objects to render.
+ */
+function renderCardsToContainers(cards) {
+    cards.forEach(card => {
         const CONTAINER_ID = getContainerId(card.dragclass);
         const CONTAINER = document.getElementById(CONTAINER_ID);
         
         if (CONTAINER) {
-          CONTAINER.innerHTML += renderCard(card);
+            CONTAINER.innerHTML += renderCard(card);
         }
     });
 }
 
+/**
+ * Adjusts result message display for responsive design.
+ */
+function responsivResultmassage() {
+    if (window.innerWidth <= 1050) {
+        document.getElementById("content_col").classList.add("dnone")    
+    }else
+        document.getElementById("content_col").classList.remove("dnone")    
+}
+
+/**
+ * Displays a "no results found" message.
+ */
 function showNoResultsMessage() {
     hideNoResultsMessage();
     
@@ -64,6 +120,9 @@ function showNoResultsMessage() {
     document.body.appendChild(message);
 }
 
+/**
+ * Hides the "no results found" message.
+ */
 function hideNoResultsMessage() {
     const message = document.querySelector('.no-results-message');
     if (message) {
@@ -71,26 +130,36 @@ function hideNoResultsMessage() {
     }
 }
 
+/**
+ * Resets search and displays all cards.
+ */
 function resetSearch() {
     hideNoResultsMessage();
     loadDetails(cardFromFirebase);
 }
 
+/**
+ * Clears all task container contents.
+ */
 function clearAllContainers() {
     document.getElementById('todo').innerHTML = '';
-    document.getElementById('inProgress').innerHTML = '';
-    document.getElementById('awaitFeedback').innerHTML = '';
+    document.getElementById('inprogress').innerHTML = '';
+    document.getElementById('awaitfeedback').innerHTML = '';
     document.getElementById('done').innerHTML = '';
 }
 
+/**
+ * Maps drag class to container ID.
+ * @param {string} dragclass - The drag class of the card.
+ * @returns {string} The container ID.
+ */
 function getContainerId(dragclass) {
     const CONTAINER_MAP = {
         'todo': 'todo',
-        'inprogress': 'inProgress',
-        'awaitfeedback': 'awaitFeedback',
+        'inprogress': 'inprogress',
+        'awaitfeedback': 'awaitfeedback',
         'done': 'done'
     };
-    
     return CONTAINER_MAP[dragclass] || 'todo';
 }
 

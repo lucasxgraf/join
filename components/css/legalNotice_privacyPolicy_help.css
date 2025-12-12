@@ -24,13 +24,13 @@ h1 {
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 16px;
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -65,19 +65,66 @@ ol {
 }
 
 ol li::marker {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
-ol h3{
-  font-size: 24px;
+ol h3 {
+  font-size: 1.5rem;
   padding-left: 32px;
 }
 
-ol p{
+ol p {
   padding-left: 32px;
 }
 
 span {
   color: rgb(41, 171, 226);
+}
+
+@media only screen and (max-width: 749px) {
+  .scroll_layout {
+    padding: 24px 24px 0;
+    max-height: calc(100vh - 100px - 80px);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  ol h3,
+  ol li::marker {
+    font-size: 1.25rem;
+  }
+
+  .navContainer {
+    display: none !important;
+  }
+
+  .navResponsivContainer {
+    display: flex !important;
+    height: 80px;
+  }
+
+  .ResponsivBorder {
+    padding: 0 16px;
+  }
+
+  .responsive_links_container {
+    display: flex;
+    gap: 16px;
+  }
+
+  .singleResponsivContainer {
+    width: auto;
+  }
 }

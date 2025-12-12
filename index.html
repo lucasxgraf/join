@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join - Login Page</title>
+  <title>Log In</title>
   <link rel="shortcut icon" href="./assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
 
   <link rel="stylesheet" href="style.css">
@@ -16,6 +16,8 @@
   <script type="module" src="./scripts/login.js" defer></script>
   
 </head>
+<div class="bg_overlay_responsive"></div>
+
 <body>
   <header class="login_header" style="display: none">
     <div class="sign_up">
@@ -33,7 +35,7 @@
   <main>
     <div class="login_card" style="display: none">
       <div class="login_title">
-        <h1>Log In</h1>
+        <h1>Log in</h1>
         <div class="underline"></div>
       </div>
       <div>
@@ -42,7 +44,7 @@
             <label for="loginEmail"></label>
             <div class="input_container">
               <input id="loginEmail" autocomplete="username" type="email" placeholder="Email" required/>
-              <img src="./assets/svg/email.svg" alt="Toggle Password Visibility" class="input_icon"/>
+              <img src="./assets/svg/email.svg" alt="email icon" class="input_icon"/>
             </div>
             <div id="emailError" class="error_message email_error_position"></div>
           </div>
@@ -51,7 +53,7 @@
             <label for="loginPassword"></label>
             <div class="input_container">
               <input id="loginPassword" autocomplete="current-password" name="password" type="password" placeholder="Password" required/>
-              <img id="togglePassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon"/>
+              <img id="togglePassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
             </div>
             <div id="passwordError" class="error_message password_error_position"></div>
           </div>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join - Privacy policy</title>
+  <title>Legal Notice</title>
   <link rel="shortcut icon" href="../../assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
 
   <link rel="stylesheet" href="../../style.css">
@@ -16,49 +16,77 @@
   <script src="../../components/js/summary_header.js"></script>
 </head>
 
-<body class="template">
+<body class="template" onload="headerinit()">
   <div class="upper-container">
-<nav>
-      <img class="sidebar-logo" src="../../assets/img/logo/join_logo_vector.svg">
-      <div class="sidebar-content">
-        <div class="sidebar-links-container">
-          <a class="sidebar-links" href="./summary.html">
-            <img src="../../assets/svg/icons_page/summary.svg">
+    <nav>
+      <div class="navContainer">
+        <img class="sidebar-logo" src="../../assets/img/logo/join_logo_vector.svg" alt="join logo">
+        <div class="sidebar-content">
+          <div class="sidebar-links-container">
+            <a class="sidebar-links" href="../../pages/summary.html">
+              <img src="../../assets/svg/icons_page/summary.svg" alt="summary icon">
+              Summary
+            </a>
+            <a class="sidebar-links" href="../../pages/addTask.html">
+              <img src="../../assets/svg/icons_page/add_task.svg" alt="add task icon">
+              Add Task
+            </a>
+            <a class="sidebar-links" href="../../pages/board.html">
+              <img src="../../assets/svg/icons_page/board.svg" alt="board icon">
+              Board
+            </a>
+            <a class="sidebar-links" href="../../pages/contacts.html">
+              <img src="../../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+              Contacts
+            </a>
+          </div>
+          <div class="sidebar-bottom">
+            <a href="../../components/html/privacyPolicy.html">Privacy Policy</a>
+            <a href="../../components/html/legalNotice.html">Legal notice</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navResponsivContainer dnone">
+        <div class="ResponsivBorder">
+          <a class="singleResponsivContainer" href="../../pages/summary.html">
+            <img class="responsivIcon" src="../../assets/svg/icons_page/summary.svg" alt="summary icon">
             Summary
           </a>
-          <a class="sidebar-links" href="../../pages/addTask.html">
-            <img src="../../assets/svg/icons_page/add_task.svg">
+          <a class="singleResponsivContainer" href="../../pages/addTask.html">
+            <img class="responsivIcon" src="../../assets/svg/icons_page/add_task.svg" alt="add task icon">
             Add Task
           </a>
-          <a class="sidebar-links" href="../../pages/board.html">
-            <img src="../../assets/svg/icons_page/board.svg">
+          <a class="singleResponsivContainer" href="../../pages/board.html">
+            <img class="responsivIcon" src="../../assets/svg/icons_page/board.svg" alt="board icon">
             Board
           </a>
-          <a class="sidebar-links" href="./contacts.html">
-            <img src="../../assets/svg/icons_page/contacts.svg">
-            Contacts
+          <a class="singleResponsivContainer" href="../../pages/contacts.html">
+            <img class="responsivIcon" src="../../assets/svg/icons_page/contacts.svg" alt="contacts icon">
+             Contacts
           </a>
-        </div>
-        <div class="sidebar-bottom">
-          <a href="./privacyPolicy.html">Privacy Policy</a>
-          <a href="./legalNotice.html">Legal notice</a>
         </div>
       </div>
     </nav>
+
     <div class="center-wrap">
       <header>
         <div class="header_content">
           <h2>Kanban Project Management Tool</h2>
+          <div class="respLogoContainer"> <img class="respLogo" src="../../assets/img/logo/join_logo.png" alt="join logo"></div>
           <div class="profile-section">
-            <a href="./help.html" >
-              <button class="help-icon"><img src="../../assets/svg/help_small.svg"></button>
+            <a href="../../components/html/help.html" >
+              <button class="help-icon"><img src="../../assets/svg/help_small.svg" alt="help icon"></button>
             </a>
-            <button class="profile" id="profilePicture" onclick="dropDown(event)">SM</button>
+            <button class="profile" id="profilePicture" onclick="dropDown(event)"></button>
           </div>
         </div>
       </header>
       <div class="dropdown-menu-container" id="dropDownMenu">
         <div class="dropdown-menu">
+          <a href="../../components/html/help.html" class="drop-down-menu-only-resp">
+            <button>Help</button>
+          </a>
           <a href="../../components/html/legalNotice.html">
             <button>Legal Notice</button>
           </a>
@@ -76,7 +104,7 @@
           <h2>Imprint</h2>
           <ul>
             <li>
-              Islam Naqed, Leon-Georg Leuning, Maik Groth, Lucas Graf
+              Leon-Georg Leuning, Maik Groth, Lucas Graf
             </li>
             <li>
               Weißestraße 36
@@ -92,14 +120,14 @@
           <h3>Acceptance of terms</h3>
           <p>
             By accessing and using
-            <a href="../components/html/help.html">Join</a> (Product), you acknowledge and agree to the following terms and
+            <a href="../../components/html/help.html">Join</a> (Product), you acknowledge and agree to the following terms and
             conditions, and any policies, guidelines, or amendments thereto that may be presented to you from time
             to time. We, the listed
             students, may update or change the terms and conditions from time to time without notice.
           </p>
           <h3>Scope and ownership of the product</h3>
           <p>
-            <a href="../components/html/help.html">Join</a> has been developed as part of a student group project in a web
+            <a href="../../components/html/help.html">Join</a> has been developed as part of a student group project in a web
             development bootcamp at the <a href="https://developerakademie.com/"target="_blank">Developer Akademie
               GmbH</a>. It has an
             educational purpose and is not intended for extensive personal & business usage. As such, we cannot
@@ -107,7 +135,7 @@
             Product.
           </p>
           <p>
-            The design of <a href="../components/html/help.html">Join</a> is owned by the 
+            The design of <a href="../../components/html/help.html">Join</a> is owned by the 
             <a href="https://developerakademie.com/" target="_blank">Developer Akademie GmbH</a>. Unauthorized use, reproduction,
             modification, distribution, or replication
             of the design is strictly prohibited.
@@ -116,21 +144,21 @@
           <p>
             Aside from the design owned by
             <a href="https://developerakademie.com/" target="_blank">Developer Akademie GmbH</a>, we, the listed
-            students, retain all proprietary rights in <a href="../components/html/help.html">Join</a>, including any associated
+            students, retain all proprietary rights in <a href="../../components/html/help.html">Join</a>, including any associated
             copyrighted material,
             trademarks, and other proprietary information.
           </p>
           <h3>Use of the product</h3>
           <p>
-            <a href="../components/html/help.html">Join</a> is intended to be used for lawful purposes only, in accordance with
-            all applicable laws and regulations. Any use of <a href="../components/html/help.html">Join</a> for illegal
+            <a href="../../components/html/help.html">Join</a> is intended to be used for lawful purposes only, in accordance with
+            all applicable laws and regulations. Any use of <a href="../../components/html/help.html">Join</a> for illegal
             activities, or to harass,
             harm, threaten, or intimidate another person, is strictly prohibited. You are solely responsible for
-            your interactions with other users of <a href="../components/html/help.html">Join</a>.
+            your interactions with other users of <a href="../../components/html/help.html">Join</a>.
           </p>
           <h3>Disclaimer of warranties and limitation of liability</h3>
           <p>
-            <a href="../components/html/help.html">Join</a> is provided "as is" without warranty of any kind, whether express or
+            <a href="../../components/html/help.html">Join</a> is provided "as is" without warranty of any kind, whether express or
             implied, including but not limited to the implied warranties of merchantability, fitness for a
             particular purpose, and
             non-infringement. In no event will we, the listed students, or the <a href="https://developerakademie.com/" target="_blank">Developer Akademie</a>, be liable for any direct, indirect,
@@ -138,14 +166,14 @@
             exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data, or
             other intangible losses, even if we have been advised of the possibility of such damages, arising out of
             or in connection
-            with the use or performance of <a href="../components/html/help.html">Join</a>.
+            with the use or performance of <a href="../../components/html/help.html">Join</a>.
           </p>
           <h3>Indemnity</h3>
           <p>
             You agree to indemnify defend and hold harmless us, the students the <a href="https://developerakademie.com/" target="_blank">Developer Akademie</a>, and our affiliates, partners officers,
             directors, agents, and employees, from
             and against and claim demand loss damage, cost, or liability (including reasonable legal fees) arising
-            out of or relating to your use of <a href="../components/html/help.html">Join</a> and/or your breach of this Legal
+            out of or relating to your use of <a href="../../components/html/help.html">Join</a> and/or your breach of this Legal
             Notice.
           </p>
           <p>For any questions or notices, please contact us at <a href="mailto:lucasgraf01@gmail.com">lucasgraf01@gmail.com</a>.</p>

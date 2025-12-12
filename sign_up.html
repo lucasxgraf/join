@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up Page</title>
+  <title>Sign Up</title>
   <link rel="shortcut icon" href="./assets/img/logo/join_logo_vector.svg" type="image/x-icon"/>
 
   <link rel="stylesheet" href="style.css">
@@ -28,9 +28,9 @@
 
   <main>
     <div class="sign_card">
-      <div class="back_arrow_container">
-        <img id="goBackArrow" src="./assets/svg/arrow.svg" alt="arrow"/>
-      </div>
+      <button id="goBackArrow" class="back_arrow_container">
+        <img src="./assets/svg/arrow.svg" alt="arrow left icon"/>
+      </button>
 
       <div class="sign_up_content">
         <div class="sign_title">
@@ -46,8 +46,8 @@
               <div class="form_group">
                 <label for="name"></label>
                 <div class="input_container">
-                  <input id="name" name="name" type="text" placeholder="Name"/>
-                  <img src="./assets/svg/person.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                  <input id="name" name="name" autocomplete="name" type="text" placeholder="Name"/>
+                  <img src="./assets/svg/person.svg" alt="person icon" class="input_icon"/>
                 </div>
                 <div id="signUpNameError" class="error_message email_error_position"></div>
               </div>
@@ -56,7 +56,7 @@
                 <label for="signUpEmail"></label>
                 <div class="input_container">
                   <input id="signUpEmail" autocomplete="username" name="email" type="email" placeholder="Email"/>
-                  <img id="togglePassword" src="./assets/svg/email.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                  <img id="togglePassword" src="./assets/svg/email.svg" alt="email icon" class="input_icon"/>
                 </div>
                 <div id="signUpEmailError" class="error_message email_error_position"></div>
               </div>
@@ -65,7 +65,7 @@
                 <label for="signUpPassword"></label>
                 <div class="input_container">
                   <input id="signUpPassword" autocomplete="new-password" name="password" type="password" placeholder="Password"/>
-                  <img id="toggleSignUpPassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                  <img id="toggleSignUpPassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
                 </div>
                 <div id="signUpPasswordError" class="error_message email_error_position"></div>
               </div>
@@ -74,7 +74,7 @@
                 <label for="signUpConfirmPassword"></label>
                 <div class="input_container">
                   <input id="signUpConfirmPassword" autocomplete="new-password" type="password" placeholder="Confirm Password"/>
-                  <img id="toggleSignUpConfirmPassword" src="./assets/svg/lock.svg" alt="Toggle Password Visibility" class="input_icon"/>
+                  <img id="toggleSignUpConfirmPassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
                 </div>
                 <div id="signUpConfirmPasswordError" class="error_message email_error_position"></div>
               </div>

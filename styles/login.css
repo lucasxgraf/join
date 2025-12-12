@@ -29,8 +29,8 @@ body {
     transform: translate(0, 0) scale(1);
     opacity: 1;
     position: absolute;
-    top: 56px;
-    left: 56px;
+    top: 24px;
+    left: 24px;
   }
 }
 
@@ -39,7 +39,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 35px;
+  padding: 40px;
 }
 
 .sign_up {
@@ -49,7 +49,7 @@ header {
 }
 
 .sign_up span {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 400;
 }
 
@@ -61,9 +61,8 @@ header {
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 700;
-  cursor: pointer;
-  height: 49px;
-  width: 91px;
+  height: 50px;
+  width: 90px;
 }
 
 .login_card {
@@ -113,8 +112,8 @@ header {
 .email_error_position,
 .password_error_position {
   position: static;
-  top: auto; /* Sicherheits-Reset */
-  margin-top: 4px; /* leichte Abstand nach dem Input */
+  top: auto;
+  margin-top: 4px;
 }
 
 #loginPassword {
@@ -132,7 +131,6 @@ header {
   width: 140px;
   height: 40px;
   font-size: large;
-  cursor: pointer;
 }
 
 #guestLog:hover {
@@ -143,7 +141,6 @@ header {
 }
 
 #loginBtn {
-  cursor: pointer;
   background-color: rgb(42, 54, 71);
   color: white;
   border: none;
@@ -165,4 +162,161 @@ header {
   background-color: rgb(41, 171, 226);
   box-shadow: 0 7px 7px 0 rgba(104, 104, 104, 0.301);
   transition: all 125ms ease-in-out;
+}
+
+@media only screen and (max-width: 600px) {
+  .login_header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 15%;
+    width: 100%;
+    padding: 0;
+  }
+
+  .sign_up span {
+    font-size: 1rem;
+  }
+
+  .login_card {
+    padding: 16px;
+    width: 90%;
+    top: 45%;
+  }
+
+  .join_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    object-fit: cover;
+    animation: moveShrinkFade 0.8s ease-in-out forwards;
+    z-index: 100;
+    animation-delay: 1s;
+  }
+
+  @keyframes moveShrinkFade {
+    0% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      height: 80px;
+      width: 64px;
+    }
+  }
+
+  .form_btn {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+  }
+
+  #loginBtn {
+    width: 140px;
+  }
+
+  .terms_conditions {
+    margin-bottom: 16px;
+  }
+
+}
+
+@media only screen and (max-width: 475px) {
+
+  .join_image {
+    content: url("../assets/img/logo/join_logo_vector.svg");
+    animation: moveShrinkFade475 1s ease-in-out forwards, changeLogo 1s ease-in-out forwards;
+    animation-delay: 1s;
+    height: 80px;
+    width: 64px;
+    width: auto;
+  }
+
+  @keyframes moveShrinkFade475 {
+    0% {
+      transform: translate(-50%, -50%) scale(2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 3;
+      content: url("../assets/img/logo/join_logo_vector.svg");
+    }
+
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      height: 80px;
+      width: 64px;
+    }
+  }
+
+
+  @keyframes changeLogo {
+    0%, 100% {
+      content: url("../assets/img/logo/join_logo_vector.svg");
+      opacity: 1;
+    }
+
+    5%, 95% { opacity: 0.95; }
+
+    10%, 90% { opacity: 0.9; }
+
+    15%, 85% { opacity: 0.85; }
+
+    20%, 80% { opacity: 0.8; }
+
+    25%, 75% { opacity: 0.75; }
+
+    30%, 70% { opacity: 0.7; }
+
+    35%, 65% { opacity: 0.65; }
+
+    40%, 60% { opacity: 0.6; }
+
+    45%, 55% { opacity: 0.55; }
+
+    100% {
+      content: url("../assets/img/logo/join_logo.png");
+      transform: translate(0, 0) scale(1);
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      height: 80px;
+      width: 64px;
+    }
+  }
+
+  .bg_overlay_responsive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(42, 54, 71, 1);
+    animation: fadeOutOverlay 1s ease-in-out forwards;
+    animation-delay: 1s;
+    z-index: 2;
+  }
+
+  @keyframes fadeOutOverlay {
+    to {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+  }
 }
