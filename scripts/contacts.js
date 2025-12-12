@@ -26,6 +26,7 @@ function showContact(index) {
     document.getElementById('contact_content').innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
     toggleMobileView('.contact-informations', 'block', '.contact-list', 'none');
+    bodyClickClose();
 }
 
 function updateContactContentAfterEdit(index) {
@@ -118,9 +119,9 @@ async function formCheck(index, event) {
     clearAlerts();
     const { name, mail, phone } = getFormValues();
     const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
-    if (!nameValid) showError('errorName', 'alert-name', 'Example for name: Max Mustermann', 'group-name');
-    if (!mailValid) showError('errorMail', 'alert-mail', 'Example for e-mail: John-Smith@test.com', 'group-mail');
-    if (!phoneValid) showError('errorPhone', 'alert-phone', 'Example for phone number: +4917612345678', 'group-phone');
+    if (!nameValid) showMessageError('errorName', 'alert-name', 'Example for name: Max Mustermann', 'group-name');
+    if (!mailValid) showMessageError('errorMail', 'alert-mail', 'Example for e-mail: John-Smith@test.com', 'group-mail');
+    if (!phoneValid) showMessageError('errorPhone', 'alert-phone', 'Example for phone number: +4917612345678', 'group-phone');
     if (!nameValid || !mailValid || !phoneValid) return;
     document.getElementById('add-Form') ? await addContact(event) : await editContact(index);
 }
@@ -174,16 +175,12 @@ function validateField(value, validator, borderId) {
     return isValid;
 }
 
-function showError(groupId, alertId, message, borderElementId) {
+function showMessageError(groupId, alertId, message, borderElementId) {
     const errorBorder = document.getElementById(borderElementId);
     const group = document.getElementById(groupId);
     const oldAlert = document.getElementById(alertId);
     errorBorder.classList.remove('inputWrapper');
     errorBorder.classList.add('errorBorder');
-    if (oldAlert) {
-        errorBorder.classList.add('inputWrapper:focus-within');
-        oldAlert.remove();
-    }
     group.innerHTML = "";
     const alert = document.createElement('p');
     alert.innerText = message;

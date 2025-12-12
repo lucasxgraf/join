@@ -53,16 +53,12 @@ function helpForComposition(titel, description, date, category) {
 }
 
 async function saveEditedCardToFirebase() {
-  if (!validateEditedForm()) {
-    return;
-  }
+  if (!validateEditedForm()) {return;}
   const cardId = SingleCARD[0];
   const title = document.getElementById("overlayEditTitle").value;
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
   const selectedContacts = getSelectedContactsFromOverlay();
-
-  
   const updatedCard = helpForCompositionEdit(cardId, title, description, date, selectedContacts)
     const url = `${BASE_URL}addTask/${cardId.id}.json`;
     await fetch(url, {
@@ -70,7 +66,6 @@ async function saveEditedCardToFirebase() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedCard)
     });
-
     toggleOverlay();
     location.reload();
 }
@@ -145,9 +140,7 @@ async function loadTasks(ref) {
     ...task
     }));
     }
-  if (ref === "board"){
-  loadDetails(cardFromFirebase)
-  }
+  if (ref === "board"){loadDetails(cardFromFirebase)}
   else{
     splitCardsByStatus(cardFromFirebase)
     countUrgentPriority(cardFromFirebase)
@@ -173,18 +166,19 @@ async function addContact(event) {
     let [firstname, ...rest] = iName.trim().split(" ");
     let secondname = rest.join(" ");
     const data = returnJSONDATANEW(iMail, iPhone, firstname, secondname);
-   
-    await fetch(BASE_URL + "contacts/contactlist.json", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
+    await postJSON(data)
     closeForm(event);
     contacts = [];
     await init();
     contactToast("Contact successfully create");
+}
+
+async function postJSON(data) {
+  return fetch(BASE_URL + "contacts/contactlist.json", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
 }
 
 async function editContact(index) {
@@ -194,27 +188,30 @@ async function editContact(index) {
   const iPhone = document.getElementById('input-phone').value;
   const originalName = `${name.firstname} ${name.secondname}`;
   const cleanedPhone = iPhone === "<i> Please update your phone number <i>" ? "" : iPhone;
+  if (iName === originalName && iMail === mail && (iPhone === tel)) {closeForm(); return;}
+  if (iName === originalName && iMail === mail && cleanedPhone === tel) {closeForm(); return;}
+  const { url, data } = buildContactUpdate(index, iName, iMail, iPhone);
+  await putJSON(url, data);
+  await finishContactEdit(index);
+}
 
-  if (iName === originalName && iMail === mail && (iPhone === tel)) {
-    closeForm();
-    return;
-  }
-
-  if (iName === originalName && iMail === mail && cleanedPhone === tel) {
-    closeForm();
-    return;
-  }
-
-  const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+function buildContactUpdate(index, iName, iMail, iPhone) {
+  const { id, color } = contacts[index];
   const [firstname, ...rest] = iName.trim().split(" ");
+  const url = BASE_URL + `contacts/contactlist/${id}.json`;
   const data = returnJSONDATA(color, iMail, iPhone, firstname, rest.join(" "));
-  
-  await fetch(url, {
+  return { url, data };
+}
+
+async function putJSON(url, data) {
+  return fetch(url, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   });
-  
+}
+
+async function finishContactEdit(index) {
   closeForm();
   contacts = [];
   await init();
