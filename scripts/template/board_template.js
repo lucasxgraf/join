@@ -153,6 +153,18 @@ function showDeleteToast() {
   }, 2000);
 }
 
+function showOverlaySubtasksHTML (SUBTASKS, OVERLAY_SUBTASK, CARD_ID) {
+  SUBTASKS.forEach((st, index) => {
+    OVERLAY_SUBTASK.innerHTML += `
+      <div class="overlay_card_single_subtask">
+        <input type="checkbox" 
+          onclick="toggleSubtaskCompleted('${CARD_ID}', ${index})"
+          ${st.completed ? 'checked' : ''}/>
+        <div>${st.title}</div>
+      </div>
+    `;
+  });
+}
 
 function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   OVERLAY_CARD.innerHTML = `
