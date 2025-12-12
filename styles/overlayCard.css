@@ -1,4 +1,5 @@
-#overlay, #addTaskOverlay {
+#overlay,
+#addTaskOverlay {
   position: fixed;
   inset: 0;
   background: #0000004d;
@@ -10,7 +11,7 @@
   width: clamp(18rem, 95vw, 30rem);
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   max-height: calc(100vh - 50px);
   width: clamp(18rem, 95vw, 30rem);
   overflow: auto;
@@ -18,7 +19,7 @@
   color: #000;
   padding: 48px 40px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -26,23 +27,23 @@
   gap: 24px;
 }
 
-.witdh100{
+.witdh100 {
   width: 100% !important;
 }
 
-.OverlayEditContainer{
+.OverlayEditContainer {
   gap: 24px;
   display: flex;
   flex-direction: column;
 }
 
-.overlay_card_header{
+.overlay_card_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.task-input-editoverlay{
+.task-input-editoverlay {
   max-width: clamp(18.5rem, 90vw, 36rem);
   padding: 8px 12px;
   border: 1px solid #ccc;
@@ -51,7 +52,7 @@
   font-size: 1rem;
 }
 
-.overlay_card_category{
+.overlay_card_category {
   color: white;
   padding: 4px 16px;
   border-radius: 8px;
@@ -59,7 +60,7 @@
   font-size: 1.25rem;
 }
 
-.overlay_close_btn{
+.overlay_close_btn {
   background: none;
   border: none;
   font-size: 1.75rem;
@@ -70,13 +71,13 @@
   display: block;
 }
 
-.overlay_card_title{
+.overlay_card_title {
   font-weight: 700;
   font-size: 3rem;
   color: black;
 }
 
-.overlay_card_description{
+.overlay_card_description {
   font-size: 1.25rem;
   color: black;
   max-height: 75px;
@@ -84,7 +85,7 @@
 }
 
 .overlay_card_due_date_container,
-.overlay_card_priority_container{
+.overlay_card_priority_container {
   display: flex;
   gap: 24px;
   font-size: 1.25rem;
@@ -95,43 +96,43 @@
 .overlay_card_due_date_container span,
 .overlay_card_priority_container span,
 .overlay_card_assigned_to_container span,
-.overlay_card_subtasks_container span{
+.overlay_card_subtasks_container span {
   width: 120px;
   color: #2A3647;
   font-size: 1.25rem;
 }
 
-.overlay_card_priority_layout{
+.overlay_card_priority_layout {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.overlay_card_priority_img{
+.overlay_card_priority_img {
   background-repeat: no-repeat;
   width: 32px;
   height: 32px;
 }
 
-.overlay_card_priority_img_urgent{
+.overlay_card_priority_img_urgent {
   background-image: url('../assets/svg/priority_symblos/urgent.svg');
 }
 
-.overlay_card_priority_img_medium{
+.overlay_card_priority_img_medium {
   background-image: url('../assets/svg/priority_symblos/medium.svg');
 }
 
-.overlay_card_priority_img_low{
+.overlay_card_priority_img_low {
   background-image: url('../assets/svg/priority_symblos/low.svg');
 }
 
-.overlay_card_assigned_to_container{
+.overlay_card_assigned_to_container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.overlay_card_assigned_to_layout{
+.overlay_card_assigned_to_layout {
   max-height: 135px;
   overflow-y: auto;
 }
@@ -146,19 +147,19 @@
   padding: 7px 16px;
 }
 
-.overlay_card_subtasks_container{
+.overlay_card_subtasks_container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.overlay_card_subtask_layout{
+.overlay_card_subtask_layout {
   max-height: 100px;
   overflow-y: auto;
 }
 
 
-.overlay_card_single_subtask{
+.overlay_card_single_subtask {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -188,7 +189,7 @@
   fill: rgb(41, 171, 226) !important;
 }
 
-.overlay_card_footer_separator{
+.overlay_card_footer_separator {
   width: 1px;
   height: 30px;
   background-color: #D1D1D1;
@@ -208,7 +209,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +220,7 @@
   color: black;
 }
 
-.overlay_no_contacts{
+.overlay_no_contacts {
   color: #2A3647;
   gap: 16px;
   padding: 0 16px;
@@ -232,21 +233,21 @@ form {
   gap: 6px;
 }
 
-.overlay_edit_form_layout{
+.overlay_edit_form_layout {
   display: flex;
   flex-direction: column;
   font-size: 1.25rem;
   gap: 8px;
 }
 
-form label{
+form label {
   font-size: 1.25rem;
   margin-bottom: 0;
 }
 
 #overlayEditTitle,
-form textarea, 
-form select{
+form textarea,
+form select {
   border: solid 1px rgba(209, 209, 209, 1);
   border-radius: 10px;
   width: 100%;
@@ -257,6 +258,10 @@ form select{
 
 #overlayEditTitle {
   height: 48px;
+}
+
+#selectedAssignedEditOverlay{
+  cursor: pointer;
 }
 
 #overlayEditDescription {
@@ -280,7 +285,7 @@ form select{
   position: relative;
 }
 
-#calenderOverlayEdit{
+#calenderOverlayEdit {
   position: absolute;
   top: calc(100% + 4px);
   right: -1px;
@@ -309,7 +314,8 @@ form select{
   .overlay_card_description {
     font-size: 1rem;
   }
+
   #overlay_card {
-    padding: 18px 
+    padding: 18px
   }
 }

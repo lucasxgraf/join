@@ -38,30 +38,6 @@ function showOverlayAssignToContacts(CARD) {
   OVERLAY_CONTACT.innerHTML = renderOverlayContactBadges(contact_array);
 }
 
-function renderOverlayContactBadges(contact_array) {
-  if (!contact_array || contact_array.length === 0)
-    return '<div class="overlay_no_contacts">No contacts assigned</div>';
-
-  let html = '';
-  for (let i = 0; i < contact_array.length; i++) {
-    const contact_entry = contact_array[i];
-    const contact_id = contact_entry.id;
-    const contact_data = contacts_from_firebase[contact_id];
-    if (!contact_data) 
-      continue;
-    const initials = getInitials(contact_data.name);
-    const color = contact_data.color || '#2a3647';
-    html += `
-      <div class="overlay_contact_badge">
-        <div class="overlay_contact_initials" style="background-color:${color}">${initials}</div>
-        <div class="overlay_contact_name">
-          ${contact_data.name.firstname} ${contact_data.name.secondname}
-        </div>
-      </div>
-    `;}
-  return html;
-}
-
 function showOverlaySubtasks(CARD) {
   const OVERLAY_SUBTASK = document.getElementById('overlaySubtask');
   const CONTAINER = document.querySelector('.overlay_card_subtasks_container');
@@ -132,33 +108,6 @@ async function overlayDeleteCard() {
   toggleOverlay();
   await loadTasks("board");
 }
-
-function openOverlayEdit(cardId) {
-  const OVERLAY = document.getElementById('overlay');
-  const OVERLAY_CARD = document.getElementById('overlay_card');
-  const CARD = cardFromFirebase.find(c => c.id === cardId);
-  const subtaskArray = getSubtasksArray(CARD.subtask);
-  SingleCARD = [CARD];
-  if (!OVERLAY || !OVERLAY_CARD || !CARD) 
-    return;
-  
-  openOverlayEditSync(CARD, OVERLAY_CARD, subtaskArray,contactFromFirebase)
-  OVERLAY.classList.remove('d_none');
-  document.body.style.overflow = 'hidden';
-}
-
-function openOverlayEditSync (CARD, OVERLAY_CARD, subtaskArray, contactFromFirebase) {
-  disableCurrentOverlay();
-  renderOverlayEditCard(CARD, OVERLAY_CARD);
-  fetchSVGs("OverlayEdit");
-  subtaskEditOverlay(document.getElementById("overlayEditSubtask"), subtaskArray);
-  changePriority(CARD.priority, "OverlayEdit");
-  preselectContactsInOverlay(CARD);
-  checkEditOverlayInput();
-  renderContactOnHTMLOverlayEdit(contactFromFirebase, "labelContactOverlayEdit");
-   
-}
-
 
 function disableCurrentOverlay() {
   const OVERLAY = document.getElementById('overlay');
@@ -254,133 +203,6 @@ function getSelectedContactsFromOverlay() {
     }
   });
   return selectedContacts;
-}
-
-function cleanInputEditOverlay() {
-  let input = document.getElementById("subtaskReadOutEditOverlay");
-  input.value = "";
-  document.getElementById("inputButtonsEditOverlay").innerHTML = "";
-}
-
-function addSubtaskEditOverlay() {
-  const readout = document.getElementById("subtaskReadOutEditOverlay");
-  const addSubtaskContainer = document.getElementById("overlayEditSubtask");
-  const value = readout.value.trim().toLowerCase();;
-  
-  if (!SingleCARD[0].subtask) {
-    SingleCARD[0].subtask = [];
-  }
-  
-  const subtaskArray = getSubtasksArray(SingleCARD[0].subtask);
-  
-  if (value === "" || subtaskArray.length >= 5) 
-    return;
-
-  subtaskArray.push({ title: value, completed: false });
-  SingleCARD[0].subtask = subtaskArray;
-  
-  subtaskEditOverlay(addSubtaskContainer, subtaskArray);
-  document.getElementById("inputButtonsEditOverlay").innerHTML = "";
-  readout.value = "";
-}
-
-function editSubtaskEditOverlay(i) {
-  const subtaskArray = getSubtasksArray(SingleCARD[0].subtask);
-
-  const taskOutput = document.getElementById(`taskOutputEditOverlay-${i}`);
-  const editInputSubtask = document.getElementById(`editInputSubtaskEditOverlay-${i}`);
-  const containerEditSubtask = document.getElementById(`containerEditSubtaskEditOverlay-${i}`);
-
-  taskOutput.classList.toggle("dnone");
-  containerEditSubtask.classList.toggle("dnone");
-  editInputSubtask.value = subtaskArray[i].title;
-  editInputSubtask.focus();   
-  editInputSubtask.onblur = (e) => {
-    if (e.relatedTarget && containerEditSubtask.contains(e.relatedTarget)) {
-      return;
-    }
-    cancelEditSubtaskEditOverlay(i);
-  };
-}
-
-function cancelEditSubtaskEditOverlay(i) {
-  const taskOutput = document.getElementById(`taskOutputEditOverlay-${i}`);
-  const container = document.getElementById(`containerEditSubtaskEditOverlay-${i}`);
-
-  container.classList.add("dnone");
-  taskOutput.classList.remove("dnone");
-}
-
-function deleteTaskEditOverlay(i) {
-  const subtaskArray = getSubtasksArray(SingleCARD[0].subtask);
-  const addSubtask = document.getElementById("overlayEditSubtask");
-  
-  subtaskArray.splice(i, 1);
-  SingleCARD[0].subtask = subtaskArray;
-  
-  subtaskEditOverlay(addSubtask, subtaskArray);
-}
-
-function clearEditSubtaskEditOverlay(i) {
-  const editInputSubtask = document.getElementById(`editInputSubtaskEditOverlay-${i}`);
-  const subtaskArray = getSubtasksArray(SingleCARD[0].subtask);
-
-  if (editInputSubtask.value === "") {
-    subtaskArray.splice(i, 1);
-    SingleCARD[0].subtask = subtaskArray;
-    subtaskEditOverlay(document.getElementById("overlayEditSubtask"), subtaskArray);
-  } else {
-    editInputSubtask.value = "";
-    editInputSubtask.focus();
-  }
-}
-
-function addEditSubtaskEditOverlay(i) {
-  const subtaskArray = getSubtasksArray(SingleCARD[0].subtask);
-  const editInputSubtask = document.getElementById(`editInputSubtaskEditOverlay-${i}`);
-  const newValue = editInputSubtask.value;
-
-  if (newValue !== null && newValue.trim() !== "") {
-    subtaskArray[i] = { title: newValue.trim(), completed: false };
-    SingleCARD[0].subtask = subtaskArray;
-    subtaskEditOverlay(document.getElementById("overlayEditSubtask"), subtaskArray);
-  } else {
-    subtaskArray.splice(i, 1);
-    SingleCARD[0].subtask = subtaskArray;
-    subtaskEditOverlay(document.getElementById("overlayEditSubtask"), subtaskArray);
-  }
-}
-
-function validateEditedForm() {
-  clearErrors();
-  let isValid = true;
-
-  const titleInput = document.getElementById('overlayEditTitle');
-  if (titleInput.value.trim() === "") {
-    showError('titleErrorEditOverlay', "This field is required.");
-    titleInput.classList.add('errorBorder');
-    isValid = false;
-  } else {
-    titleInput.classList.remove('errorBorder');
-  }
-
-  if (!validateDueDate("duedateOverlayEdit", "dateErrorEditOverlay", "dateOverlayEdit")) {
-    isValid = false;
-  }
-  return isValid;
-}
-
-function checkEditOverlayInput() {
-  let button = document.getElementById ("submitEditOverlay")
-  let titleInput = document.getElementById("overlayEditTitle").value.trim();
-  let dueDate = document.getElementById("duedateOverlayEdit").value.trim();
-  const allFilled = titleInput && dueDate
-  if (allFilled) {
-    button.disabled = false
-  }
-  else{
-    button.disabled = true
-  }
 }
   
 function filterDateInput(id) {

@@ -20,11 +20,6 @@
   flex-direction: column;
 }
 
-*:disabled {
-  background-color: dimgrey !important;
-  box-shadow: none !important;
-}
-
 .sp_between {
   justify-content: space-between
 }
@@ -40,13 +35,16 @@
 .mg-t4 {
   margin-top: 4px;
 }
+
 .mg-t8 {
   margin-top: 8px;
 }
-.mg-b16{
+
+.mg-b16 {
   margin-bottom: 16px;
 }
-.mg-b2{
+
+.mg-b2 {
   margin-bottom: 2px;
 }
 
@@ -193,6 +191,7 @@ label {
   padding: 8px 12px;
   background: #fff;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .dropdown-arrow {
@@ -654,7 +653,7 @@ button.dateFaded {
     display: none;
   }
 
-  .drop-down-menu-only-resp{
+  .drop-down-menu-only-resp {
     display: block;
   }
 

@@ -174,11 +174,11 @@ header {
     padding: 0;
   }
 
-  .sign_up span{
+  .sign_up span {
     font-size: 1rem;
   }
 
-  .login_card{
+  .login_card {
     padding: 16px;
     width: 90%;
     top: 45%;
@@ -203,7 +203,7 @@ header {
       top: 50%;
       left: 50%;
     }
-  
+
     100% {
       transform: translate(0, 0) scale(1);
       opacity: 1;
@@ -215,20 +215,20 @@ header {
     }
   }
 
-.form_btn{
+  .form_btn {
     flex-direction: column;
     align-items: center;
     gap: 16px;
     margin: 0;
-}
+  }
 
-#loginBtn{
+  #loginBtn {
     width: 140px;
-}
+  }
 
-.terms_conditions {
-  margin-bottom: 16px;
-}
+  .terms_conditions {
+    margin-bottom: 16px;
+  }
 
 }
 
@@ -266,19 +266,29 @@ header {
 
 
   @keyframes changeLogo {
-    0%, 100% { 
-      content: url("../assets/img/logo/join_logo_vector.svg"); 
+    0%, 100% {
+      content: url("../assets/img/logo/join_logo_vector.svg");
       opacity: 1;
     }
+
     5%, 95% { opacity: 0.95; }
+
     10%, 90% { opacity: 0.9; }
+
     15%, 85% { opacity: 0.85; }
+
     20%, 80% { opacity: 0.8; }
+
     25%, 75% { opacity: 0.75; }
+
     30%, 70% { opacity: 0.7; }
+
     35%, 65% { opacity: 0.65; }
+
     40%, 60% { opacity: 0.6; }
+
     45%, 55% { opacity: 0.55; }
+
     100% {
       content: url("../assets/img/logo/join_logo.png");
       transform: translate(0, 0) scale(1);
@@ -300,13 +310,13 @@ header {
     animation: fadeOutOverlay 1s ease-in-out forwards;
     animation-delay: 1s;
     z-index: 2;
-    }
+  }
 
-    @keyframes fadeOutOverlay {
-      to {
-        opacity: 0;
-        pointer-events: none;
-        visibility: hidden;
-      }
+  @keyframes fadeOutOverlay {
+    to {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
     }
+  }
 }

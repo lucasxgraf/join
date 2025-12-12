@@ -7,159 +7,224 @@ let counter = 0;
 const urgentCards = [];
 let nearest = null;
 
-
-async function inittest() {
-  greetingTime();
-    setupGreetingListener()
-    loadTasks("summary")
+/**
+ * Initializes the summary page
+ * Loads tasks, displays greeting, and renders summary statistics
+ */
+async function init() {
+    await loadTasks();
+    const userName = localStorage.getItem("headerName") || "Guest";
+    greetUser(userName);
+    renderTodoCount();
+    renderDoneCount();
+    renderInProgressCount();
+    renderAwaitFeedbackCount();
+    renderUrgentCount();
+    renderTotalTasksCount();
+    renderNearestDeadline();
 }
 
+/**
+ * Displays personalized greeting message with user name
+ * 
+ * @param {string} userName - Name of the user to greet
+ */
+function greetUser(userName) {
+    const greetingElement = document.getElementById('greeting');
+    const userNameElement = document.getElementById('userName');
+    
+    if (greetingElement && userNameElement) {
+        greetingElement.textContent = greetingTime();
+        userNameElement.textContent = userName;
+        setupGreetingListener();
+    }
+}
+
+/**
+ * Sets up event listener for greeting animation
+ * Shows greeting overlay on mobile devices on first load
+ */
 function setupGreetingListener() {
-    window.onAuthChange(async (user) => {
-      const userGreetingElement = document.getElementById('userGreeting');
-      
-      if (!user) {
-        userGreetingElement.textContent = '';
+    if (shouldShowGreetingOverlay()) {
+        showGreetingOverlay();
+    }
+}
+
+/**
+ * Checks if greeting overlay should be shown
+ * Only shows on mobile and if not previously shown
+ * 
+ * @returns {boolean} True if overlay should be shown
+ */
+function shouldShowGreetingOverlay() {
+    return window.innerWidth <= 1000 && 
+           !sessionStorage.getItem('greetingShown');
+}
+
+/**
+ * Displays greeting overlay with animation
+ * Marks greeting as shown in session storage
+ */
+function showGreetingOverlay() {
+    const overlay = document.getElementById('greetingOverlay');
+    if (overlay) {
+        overlay.classList.add('show');
+        sessionStorage.setItem('greetingShown', 'true');
+        hideOverlayAfterDelay(overlay);
+    }
+}
+
+/**
+ * Hides greeting overlay after delay
+ * 
+ * @param {HTMLElement} overlay - Overlay element to hide
+ */
+function hideOverlayAfterDelay(overlay) {
+    setTimeout(() => {
+        overlay.classList.remove('show');
+    }, 2000);
+}
+
+/**
+ * Returns appropriate greeting based on current time
+ * 
+ * @returns {string} Time-based greeting message
+ */
+function greetingTime() {
+    const hour = new Date().getHours();
+    return getGreetingByHour(hour);
+}
+
+/**
+ * Gets greeting message based on hour of day
+ * 
+ * @param {number} hour - Hour of the day (0-23)
+ * @returns {string} Appropriate greeting message
+ */
+function getGreetingByHour(hour) {
+    if (isMorning(hour)) return "Good morning,";
+    if (isAfternoon(hour)) return "Good afternoon,";
+    if (isEvening(hour)) return "Good evening,";
+    return "Good night,";
+}
+
+/**
+ * Checks if hour is in morning time range
+ * 
+ * @param {number} hour - Hour of the day (0-23)
+ * @returns {boolean} True if morning (5-12)
+ */
+function isMorning(hour) {
+    return hour >= 5 && hour < 12;
+}
+
+/**
+ * Checks if hour is in afternoon time range
+ * 
+ * @param {number} hour - Hour of the day (0-23)
+ * @returns {boolean} True if afternoon (12-18)
+ */
+function isAfternoon(hour) {
+    return hour >= 12 && hour < 18;
+}
+
+/**
+ * Checks if hour is in evening time range
+ * 
+ * @param {number} hour - Hour of the day (0-23)
+ * @returns {boolean} True if evening (18-22)
+ */
+function isEvening(hour) {
+    return hour >= 18 && hour < 22;
+}
+
+/**
+ * Renders count of tasks in "To Do" status
+ */
+function renderTodoCount() {
+    const todoCount = tasks.filter(task => task.status === 'todo').length;
+    document.getElementById('todoCount').textContent = todoCount;
+}
+
+/**
+ * Renders count of tasks in "Done" status
+ */
+function renderDoneCount() {
+    const doneCount = tasks.filter(task => task.status === 'done').length;
+    document.getElementById('doneCount').textContent = doneCount;
+}
+
+/**
+ * Renders count of tasks in "In Progress" status
+ */
+function renderInProgressCount() {
+    const inProgressCount = tasks.filter(task => task.status === 'inProgress').length;
+    document.getElementById('inProgressCount').textContent = inProgressCount;
+}
+
+/**
+ * Renders count of tasks in "Await Feedback" status
+ */
+function renderAwaitFeedbackCount() {
+    const awaitFeedbackCount = tasks.filter(task => task.status === 'awaitFeedback').length;
+    document.getElementById('awaitFeedbackCount').textContent = awaitFeedbackCount;
+}
+
+/**
+ * Renders count of urgent priority tasks
+ */
+function renderUrgentCount() {
+    const urgentCount = tasks.filter(task => task.priority === 'urgent').length;
+    document.getElementById('urgentCount').textContent = urgentCount;
+}
+
+/**
+ * Renders total count of all tasks
+ */
+function renderTotalTasksCount() {
+    document.getElementById('totalTasksCount').textContent = tasks.length;
+}
+
+/**
+ * Renders the nearest deadline date for urgent tasks
+ * Displays formatted date or "No urgent tasks" message
+ */
+function renderNearestDeadline() {
+    const urgentTasks = tasks.filter(task => task.priority === 'urgent' && task.dueDate);
+    const deadlineElement = document.getElementById('nearestDeadline');
+    
+    if (urgentTasks.length === 0) {
+        deadlineElement.textContent = 'No urgent tasks';
         return;
-      }
-      
-      const userData = await window.getUserData(user.uid);
-      const userName = userData?.name ?? user.displayName ?? (user.isAnonymous ? 'Guest' : 'User');
-      if (userName === 'Guest') {
-        document.getElementById("userGreeting").textContent = "";
-      }else{
-      userGreetingElement.textContent = userName;
-      }
-      if (window.innerWidth <= 575) {
-        showMobileGreeting(userName);
-      }
-      
-      getInitialsFromUser();
+    }
+    
+    const nearestDate = findNearestDeadline(urgentTasks);
+    deadlineElement.textContent = formatDeadlineDate(nearestDate);
+}
+
+/**
+ * Finds the nearest deadline from urgent tasks
+ * 
+ * @param {Array} urgentTasks - Array of urgent tasks with due dates
+ * @returns {Date} Nearest deadline date
+ */
+function findNearestDeadline(urgentTasks) {
+    const dates = urgentTasks.map(task => new Date(task.dueDate));
+    return new Date(Math.min(...dates));
+}
+
+/**
+ * Formats deadline date to readable string
+ * 
+ * @param {Date} date - Date to format
+ * @returns {string} Formatted date string (e.g., "January 1, 2024")
+ */
+function formatDeadlineDate(date) {
+    return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
     });
 }
 
-function showMobileGreeting(userName) {
-  const overlayElement = document.getElementById('welcome_message');
-  const timeGreetingOverlay = document.getElementById('timeGreeting_overlay');
-  const userGreetingOverlay = document.getElementById('userGreeting_overlay');
-  
-  const greetingText = greetingTime();
-  
-  timeGreetingOverlay.textContent = greetingText;
-  userGreetingOverlay.textContent = userName;
-  overlayElement.classList.remove('dnone');
-  
-  setTimeout(() => {
-    overlayElement.classList.add('dnone');
-  }, 3000);
-}
-
-function greetingTime() {
-    let greeting = document.getElementById('timeGreeting');
-    const hour = new Date().getHours();
-    let greetingText = "Good Morning,";
-    
-    switch (true) {
-        case (hour >= 4 && hour < 11):
-            greetingText = "Good Morning,";
-            break;
-        case (hour >= 11 && hour < 18):
-            greetingText = "Good Afternoon,";
-            break;
-        case (hour >= 18 && hour < 21):
-            greetingText = "Good Evening,";
-            break;
-        case (hour >= 21 || hour < 4):
-            greetingText = "Good Night,";
-            break;
-        default:
-            greetingText = "Good Morning,";
-            break;
-    }
-    
-    greeting.textContent = greetingText;
-    return greetingText;
-}
-
-function splitCardsByStatus(cards) {
-  const statusMap = {
-    todo: todo,
-    done: done,
-    inprogress: inProgress,
-    awaitfeedback: awaitFeedback
-  };
-  cards.forEach(card => statusMap[card.dragclass]?.push(card));
-  updateSummary(todo, done, inProgress, awaitFeedback);
-}
-
-function countUrgentPriority(cards) {
- const urgentRef = document.getElementById("urgentNumber")
-
-  for (let card of cards) {          
-    if (card.priority === "urgent") { 
-      counter++;
-      urgentCards.push(card);
-    }}
-    urgentRef.innerHTML = counter
-    upcomingDeadline(urgentCards)
-}
-
-function upcomingDeadline(urgentCards) {
-  const dateRef = document.getElementById("dateText");
-
-  if (!urgentCards || urgentCards.length === 0) {
-    dateRef.innerHTML = "No urgent tasks";
-    return;
-  }
-  dateRef.innerHTML = calculationUpComingDeadline(urgentCards);
-}
-
-function calculationUpComingDeadline(urgentCards) {
-  today.setHours(0,0,0,0);
-  for (let card of urgentCards) {
-    if (!card.date) continue;
-
-    let parts = card.date.split("/");
-    let dateObj = new Date(parts[2], parts[1] - 1, parts[0]);
-    dateObj.setHours(0,0,0,0);
-
-    if (nearest === null || dateObj.getTime() < nearest.getTime()) {
-      nearest = dateObj;
-    }}
-   return howNearest(nearest, today)
-}
-
-function howNearest(nearest, today) {
-    if (!nearest) return null;
-
-  let day = nearest.getDate();
-  let month = monthNames[nearest.getMonth()];
-  let year = nearest.getFullYear();
-  const dateString = `${month} ${day}, ${year}`
-  const isPast = nearest.getTime() < today.getTime();
-
-  if (isPast) {
-    return `<span class="expired">${dateString}</span>`;
-  } else {
-    return `${dateString}`;
-  }
-}
-
-function updateSummary(todo, done, inProgress, awaitFeedback) {
-   const todoRef = document.getElementById("todoNumber")
-   const doneRef = document.getElementById("doneNumber")
-   const taskProgressNumberRef = document.getElementById("taskProgressNumber")
-   const feedbackNumberRef = document.getElementById("feedbackNumber")
-   const taskBoardNumberRef = document.getElementById("taskBoardNumber")
-   
-    todoRef.innerHTML = todo.length;
-    doneRef.innerHTML = done.length;
-    taskProgressNumberRef.innerHTML = inProgress.length;
-    feedbackNumberRef.innerHTML = awaitFeedback.length;
-
-    taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    inittest();
-  });
+init();

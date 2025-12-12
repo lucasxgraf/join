@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Add Task functionality for task management system
+ * @description Handles task creation, validation, contact assignment, subtask management, and priority selection
+ */
 
 let task = [];
 let subtaskArray = [];
@@ -6,6 +10,9 @@ let contactBadge = [];
 let selectedPriority = '';
 let category = ["Technical Task", "User Story",];
 
+/**
+ * Clears all input fields and resets the form to default state
+ */
 function clearInput() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
@@ -14,24 +21,26 @@ function clearInput() {
 
   const categoryInput = document.getElementById("selectedCategory");
   categoryInput.value = "";
-
   changePriority("medium", "AddTask")
   document.getElementById("submit").disabled = true
-clearSubtask()
-clearContact()
-updateAssignedInput()
+  clearSubtask()
+  clearContact()
+  updateAssignedInput()
 }
 
-
+/**
+ * Clears all subtasks from the form
+ */
 function clearSubtask() {
   subtaskArray = [];
   const addSubtaskContainer = document.getElementById("addSubtask");
-  if (addSubtaskContainer) addSubtask(addSubtaskContainer, subtaskArray);
- 
+  if (addSubtaskContainer) addSubtask(addSubtaskContainer, subtaskArray);   
   addSubtaskContainer.innerHTML = ""
 }
 
-
+/**
+ * Clears all selected contacts and unchecks all contact checkboxes
+ */
 function clearContact() {
   contactList = [];
   contactBadge = [];
@@ -44,14 +53,17 @@ function clearContact() {
   });
 }
 
-
+/**
+ * Toggles the visibility of a dropdown menu
+ * @param {string} selector - The ID of the dropdown element
+ * @param {string} [currentId] - Optional ID for icon rendering
+ */
 function toggleDropdown(selector, currentId) {
   const dropdown = document.getElementById(selector);
   const isOpen = dropdown.classList.toggle("open");
   if (selector === "contact") {
     renderIcon();
   }
-
   if (isOpen) {
     setTimeout(() => {
       document.addEventListener("click", (e) => handleClickOutside(e, dropdown, currentId));
@@ -62,6 +74,12 @@ function toggleDropdown(selector, currentId) {
   }
 }
 
+/**
+ * Handles clicks outside of dropdown to close it
+ * @param {Event} e - The click event
+ * @param {HTMLElement} dropdown - The dropdown element
+ * @param {string} [currentId] - Optional ID for icon rendering
+ */
 function handleClickOutside(e, dropdown, currentId) {
   if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
@@ -70,22 +88,21 @@ function handleClickOutside(e, dropdown, currentId) {
   }
 }
 
-function handleDropdownClickInDialog(event) {
-  const dropdown = document.querySelector('.custom-category-dropdown.open');
-  if (!dropdown || dropdown.contains(event.target)) {
-    event.stopPropagation();
-  }
-}
-
+/**
+ * Handles overlay clicks to close dialog if no dropdown is open
+ * @param {Event} event - The click event
+ */
 function handleOverlayClick(event) {
   const dropdown = document.querySelector('.custom-category-dropdown.open');
   if (dropdown) {
-    return;
-  }
+    return;}
   closeDialog();
 }
 
-
+/**
+ * Changes the selected category and updates the input field
+ * @param {string|Element} selection - The selected category as string or DOM element
+ */
 function changeCategory(selection) {
   let text = "";
   const input = document.getElementById("selectedCategory");
@@ -104,7 +121,9 @@ function changeCategory(selection) {
   toggleDropdown('categoryDropdown');
 }
 
-
+/**
+ * Adds a new subtask to the subtask array (max 5 subtasks)
+ */
 function addSubtask() {
   const readout = document.getElementById("subtaskReadOut");
   const addSubtaskContainer = document.getElementById("addSubtask");
@@ -118,7 +137,9 @@ function addSubtask() {
   readout.value = "";
 }
 
-
+/**
+ * Adds event listener for Enter key to add subtask
+ */
 function enterSubtask() {
   document.getElementById("subtaskReadOut").addEventListener("keypress", (event) => {  
   if (event.key === "Enter"){
@@ -127,32 +148,43 @@ function enterSubtask() {
   }}); 
 }
 
-
+/**
+ * Changes the priority level and updates button states
+ * @param {string} priority - The priority level (urgent, medium, low)
+ * @param {string} currentId - The ID suffix for the button element
+ */
 function changePriority(priority, currentId) {
   const buttons = document.querySelectorAll('.priority-btn');
   const button = document.getElementById(`${priority}Btn${currentId}`);
 
   buttons.forEach(btn => btn.classList.remove('active'));
   button.classList.add('active');
-
   selectedPriority = priority;
 }
 
-
+/**
+ * Fetches and displays SVG icons for priority buttons
+ * @param {string} currentId - The ID suffix for the button elements
+ */
 function fetchSVGs(currentId) {
-  const svgs = [{ path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
-                { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId}  .medium_icon`},
-                { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId}  .low_icon` }];
+  const svgs = [
+    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
+    { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
+    { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId} .low_icon` }];
   svgs.forEach(svg => {
     fetch(svg.path)
       .then(response => response.text())
       .then(svgContent => {
         document.querySelector(svg.selector).innerHTML = svgContent;
-      })
-      .catch(error => console.error('Error fetching SVG:', error));
-})};
+      });
+  });
+}
 
-
+/**
+ * Selects or deselects a contact for task assignment
+ * @param {number} i - The index of the contact in the contact array
+ * @param {HTMLInputElement} checkbox - The checkbox element
+ */
 function selectContacts(i, checkbox) {
   let badgeName = contactName[i].innerText
   let badgeEl = document.getElementById(`contactDropdownList_${i}`);
@@ -170,7 +202,9 @@ function selectContacts(i, checkbox) {
   updateAssignedInput();
 }
 
-
+/**
+ * Updates the assigned contacts input field placeholder
+ */
 function updateAssignedInput() {
   const input = document.getElementById("selectedAssigned");
   
@@ -180,34 +214,28 @@ function updateAssignedInput() {
     input.value = "Select contacts to assign";   
 }
 
-
-function iconContactHTML(currentId) {
-  const iconConact = document.getElementById(currentId);
-  const visibleBadges = contactBadge.slice(0, 9);
-  iconConact.innerHTML = ""; 
-
-  visibleBadges.forEach(badge => {
-    iconConact.appendChild(badge.cloneNode(true));
-  });
-  if (contactBadge.length > 9) { 
-   iconConact.innerHTML += `<div class="iconConact dpf_cc morethan9"><span>+${contactBadge.length - 9}</span></div>`
-  }
-}
-
-
+/**
+ * Deletes a subtask at the specified index
+ * @param {number} i - The index of the subtask to delete
+ */
 function deleteTask(i){
   const addSubtask = document.getElementById("addSubtask");
   subtaskArray.splice(i, 1);
   subtask(addSubtask, subtaskArray);
 }
 
-
+/**
+ * Clears the subtask input field
+ */
 function cleanInput() {
   let input = document.getElementById("subtaskReadOut")
   input.value = "";  
 }
 
-
+/**
+ * Enables edit mode for a subtask
+ * @param {number} i - The index of the subtask to edit
+ */
 function editSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
@@ -223,7 +251,10 @@ function editSubtask(i) {
   cancelEditSubtask(i);
   }};
 
-
+/**
+ * Cancels subtask editing and returns to view mode
+ * @param {number} i - The index of the subtask
+ */
 function cancelEditSubtask(i) {
   const taskOutput = document.getElementById(`taskOutput-${i}`);
   const container = document.getElementById(`containerEditSubtask-${i}`);
@@ -232,7 +263,10 @@ function cancelEditSubtask(i) {
   taskOutput.classList.remove("dnone");
 }
  
-
+/**
+ * Saves the edited subtask or removes it if empty
+ * @param {number} i - The index of the subtask to update
+ */
 function addEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   const newValue = editInputSubtask.value;
@@ -247,7 +281,10 @@ function addEditSubtask(i) {
   }
 }
 
-
+/**
+ * Clears the subtask edit input or deletes the subtask if already empty
+ * @param {number} i - The index of the subtask
+ */
 function clearEditSubtask(i) {
   const editInputSubtask = document.getElementById(`editInputSubtask-${i}`);
   if (editInputSubtask.value === "") {
@@ -260,55 +297,26 @@ function clearEditSubtask(i) {
   }
 }
 
-
+/**
+ * Displays an error message in the specified element
+ * @param {string} elementId - The ID of the error message element
+ * @param {string} message - The error message to display
+ */
 function showError(elementId, message) {
   const el = document.getElementById(elementId);
   if (el) el.textContent = message;
 }
 
-
+/**
+ * Clears all error messages from the form
+ */
 function clearErrors() {
   document.querySelectorAll('.error_message').forEach(e => e.textContent = '');
 }
 
-
-function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId = null) {
-  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-  const duedateInput = document.getElementById(inputId);
-  const value = duedateInput.value.trim();
-  duedateInput.classList.remove("error");
-
-  if (wrapperId) {
-    const wrapper = document.getElementById(wrapperId);
-    if (wrapper) wrapper.classList.remove("errorBorder");
-  }
-
-  const isValid = duedateError(dateRegex, value, duedateInput, wrapperId, errorId);
-  return isValid;
-}
-
-
-function duedateError(dateRegex, value, duedateInput, wrapperId, errorId) {
-  const addErrorBorder = () => {
-    if (wrapperId) {
-      document.getElementById(wrapperId)?.classList.add('errorBorder');
-    }};
-
-  if (!dateRegex.test(value)) {
-    showError(errorId, "Please select a valid date format DD/MM/YYYY.");
-    addErrorBorder();
-    return false;
-  }
-
-  if (!checkDate(duedateInput)) {
-    showError(errorId, "The date must be today or in the future.");
-    addErrorBorder();
-    return false;
-  }
-  return true;
-}
-
-
+/**
+ * Enables or disables the submit button based on required field completion
+ */
 function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
   const categorySelect = document.getElementById("selectedCategory").value.trim();
@@ -323,25 +331,32 @@ function enableSubmit() {
   }
 }
 
-
+/**
+ * Initializes task form event handlers
+ */
 function initTaskFormEvents() {
   const form = document.getElementById("taskForm");
   const title = document.getElementById("title");
   const duedate = document.getElementById("duedate");
 
   if (!form || !title || !duedate.value) return;
-
   form.onsubmit = e => { 
     e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
   };
 }
 
-
+/**
+ * Prevents focus loss on date input when clicking calendar button
+ * @param {Event} e - The mousedown event
+ */
 function keepFocusOnDate(e) {
   e.preventDefault(); 
 }
 
-
+/**
+ * Validates all required form fields
+ * @returns {boolean} True if all fields are valid, false otherwise
+ */
 function validateForm() {
   let ok = true;
   if (!title.value.trim()) { showError("titleError", "This field is required."); ok = false; }
@@ -350,7 +365,9 @@ function validateForm() {
   return ok;
 }
 
-
+/**
+ * Displays feedback message and redirects to board page
+ */
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
@@ -358,17 +375,20 @@ function sendFeedback() {
     feedbackRef.classList.add("dnone");
     window.location.href = "board.html";
   }, 2000);
-  
 }
 
-
+/**
+ * Validates input field and displays error message if empty
+ * @param {string} displayid - The ID of the error message element
+ * @param {string} currentId - The ID of the input element to validate
+ * @param {string} inputFrame - The ID of the wrapper element for error styling
+ */
 function validateInput(displayid, currentId, inputFrame) {
     const input = document.getElementById(currentId);
     const output = document.getElementById(displayid);
     const borderError = document.getElementById(inputFrame);
     
-    if (!input || !output || !borderError) return;
-    
+    if (!input || !output || !borderError) return; 
     if (input.value.trim() === "") {
         output.innerHTML = "This field is required.";
         borderError.classList.add('errorBorder');
