@@ -166,76 +166,6 @@ function closeDialog() {
   clearInput();
 }
 
-
-function getSubtasksArray(subtask) {
-  if (Array.isArray(subtask)) 
-    return subtask;
-  return [];
-}
-
-
-function calcCompleted(subtasks) {
-  return subtasks.filter(s => s.completed).length;
-}
-
-
-function calcProgress(subtasks) {
-  if (subtasks.length === 0) 
-    return 0;
-  return (calcCompleted(subtasks) / subtasks.length) * 100;
-}
-
-
-function getInitials(name_obj) {
-  if (!name_obj) return '??';
-  const FIRST = name_obj.firstname || '';
-  const SECOND = name_obj.secondname || '';
-  if (!FIRST && !SECOND) return '??';
-  return `${FIRST[0] || ''}${SECOND[0] || ''}`.toUpperCase();
-}
-
-
-function renderContactBadges(contact_array) {
-  const MAX_VISIBLE = 3;
-  let html = '';
-
-  if (!contact_array || contact_array.length === 0) {
-    return '<div class="no_contacts">No contacts assigned</div>';
-  }
-
-  html += maxContactbadge(contact_array, MAX_VISIBLE);
-
-  if (contact_array.length > MAX_VISIBLE) {
-    const REMAINING = contact_array.length - MAX_VISIBLE;
-    html += `
-      <div class="contact_badge contact_badge_more">+${REMAINING}</div>`;
-  }
-
-  return html;
-};
-
-
-function maxContactbadge(contact_array, MAX_VISIBLE) {
-  let html = '';
-
-  for (let i = 0; i < Math.min(contact_array.length, MAX_VISIBLE); i++) {
-    const CONTACT_ENTRY = contact_array[i];
-    const CONTACT_ID = CONTACT_ENTRY.id;
-    const CONTACT_DATA = contacts_from_firebase[CONTACT_ID];
-
-    if (!CONTACT_DATA) continue;
-
-    const INITIALS = getInitials(CONTACT_DATA.name);
-    const COLOR = CONTACT_DATA.color || '#2a3647';
-
-    html += `
-      <div class="contact_badge" style="background-color:${COLOR}">${INITIALS}</div>`;
-  }
-
-  return html;
-}
-
-
 function handleTouchStart(e, id) {
   const LONG_PRESS_DURATION = 500;
   const touch = e.touches[0];
@@ -364,4 +294,15 @@ async function swapToColumn(event, taskId, newDragClass) {
   dragElementId = taskId;
   await moveTo(newDragClass);
   closeAllSwapDropdowns();
+}
+
+/**
+ * Handles dropdown clicks within dialog to prevent event propagation
+ * @param {Event} event - The click event
+ */
+function handleDropdownClickInDialog(event) {
+  const dropdown = document.querySelector('.custom-category-dropdown.open');
+  if (!dropdown || dropdown.contains(event.target)) {
+    event.stopPropagation();
+  }
 }

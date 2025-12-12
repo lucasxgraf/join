@@ -133,3 +133,54 @@ function handleDayButton(btn, date, today, d, month, year, currentid, displayid)
     enableSubmit() 
   };
 }
+
+/**
+ * Validates the due date input field
+ * @param {string} [inputId="duedate"] - The ID of the date input element
+ * @param {string} [errorId="dateError"] - The ID of the error message element
+ * @param {string|null} [wrapperId=null] - The ID of the wrapper element for error styling
+ * @returns {boolean} True if date is valid, false otherwise
+ */
+function validateDueDate(inputId = "duedate", errorId = "dateError", wrapperId = null) {
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+  const duedateInput = document.getElementById(inputId);
+  const value = duedateInput.value.trim();
+  duedateInput.classList.remove("error");
+
+  if (wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    if (wrapper) wrapper.classList.remove("errorBorder");
+  }
+
+  const isValid = duedateError(dateRegex, value, duedateInput, wrapperId, errorId);
+  return isValid;
+}
+
+/**
+ * Validates date format and checks if date is today or in the future
+ * @param {RegExp} dateRegex - Regular expression for date format validation
+ * @param {string} value - The date value to validate
+ * @param {HTMLInputElement} duedateInput - The date input element
+ * @param {string|null} wrapperId - The ID of the wrapper element for error styling
+ * @param {string} errorId - The ID of the error message element
+ * @returns {boolean} True if date is valid, false otherwise
+ */
+function duedateError(dateRegex, value, duedateInput, wrapperId, errorId) {
+  const addErrorBorder = () => {
+    if (wrapperId) {
+      document.getElementById(wrapperId)?.classList.add('errorBorder');
+    }};
+
+  if (!dateRegex.test(value)) {
+    showError(errorId, "Please select a valid date format DD/MM/YYYY.");
+    addErrorBorder();
+    return false;
+  }
+
+  if (!checkDate(duedateInput)) {
+    showError(errorId, "The date must be today or in the future.");
+    addErrorBorder();
+    return false;
+  }
+  return true;
+}

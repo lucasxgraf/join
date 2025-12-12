@@ -8,7 +8,7 @@ const urgentCards = [];
 let nearest = null;
 
 
-async function inittest() {
+async function initSummary() {
   greetingTime();
     setupGreetingListener()
     loadTasks("summary")
@@ -161,5 +161,5 @@ function updateSummary(todo, done, inProgress, awaitFeedback) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    inittest();
+    initSummary();
   });
