@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Calendar functionality for date selection and validation
+ * @description Handles calendar rendering, date picking, validation, and month navigation
+ */
+
 const monthNames = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
@@ -5,7 +10,11 @@ let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-
+/**
+ * Validates if the input date is today or in the future
+ * @param {HTMLInputElement} duedateInput - The date input element to validate
+ * @returns {boolean} True if date is valid and in the future, false otherwise
+ */
 function checkDate(duedateInput) {
   if (!isValidFutureDate(duedateInput.value)) {
     duedateInput.focus();
@@ -14,7 +23,12 @@ function checkDate(duedateInput) {
   return true;
 }
 
-
+/**
+ * Sets a date with an optional offset and updates the input field
+ * @param {number} [offsetDays=0] - Number of days to offset from today
+ * @param {string} displayid - The ID of the input element to display the date
+ * @param {string} currentid - The ID of the calendar element to close
+ */
 function pickDate(offsetDays = 0, displayid, currentid) {
   
   const today = new Date();
@@ -38,7 +52,11 @@ function pickDate(offsetDays = 0, displayid, currentid) {
   inputDate.focus()
 }
 
-
+/**
+ * Validates if a date string is in the correct format and is today or in the future
+ * @param {string} value - Date string in DD/MM/YYYY format
+ * @returns {boolean} True if date is valid and not in the past, false otherwise
+ */
 function isValidFutureDate(value) {
   const parts = value.split("/");
   if (parts.length !== 3) return false;
@@ -54,7 +72,11 @@ function isValidFutureDate(value) {
   return inputDate >= today;
 }
 
-
+/**
+ * Toggles the calendar visibility
+ * @param {string} currentid - The ID of the calendar container element
+ * @param {string} displayid - The ID of the date input element
+ */
 function toggleCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
 
@@ -65,6 +87,11 @@ if (caldenerOpen.innerHTML.trim() === ""){
   }
 }
 
+/**
+ * Closes the calendar and validates the input
+ * @param {string} currentid - The ID of the calendar container element
+ * @param {string} displayid - The ID of the date input element
+ */
 function closeCalender (currentid, displayid) {
  let calenderCloseRef = document.getElementById(currentid)
  calenderCloseRef.innerHTML = ""
@@ -76,13 +103,20 @@ else
  validateInput('dateError', 'duedate', 'date')
 }
 
-
+/**
+ * Initializes the month and year display in the calendar header
+ */
 function initMonthDisplay() {
   document.getElementById("month").textContent = monthNames[currentMonth];
   document.getElementById("year").textContent = currentYear;
 }
 
-
+/**
+ * Changes the displayed month in the calendar
+ * @param {number} direction - Direction to change month (1 for next, -1 for previous)
+ * @param {string} currentid - The ID of the calendar container element
+ * @param {string} displayid - The ID of the date input element
+ */
 function changeMonth(direction, currentid, displayid) {
   currentMonth += direction;
 
@@ -98,7 +132,13 @@ function changeMonth(direction, currentid, displayid) {
   renderCalendarDays(currentMonth, currentYear, currentid, displayid);
 }
 
-
+/**
+ * Renders all days of the specified month in the calendar grid
+ * @param {number} month - The month to render (0-11)
+ * @param {number} year - The year to render
+ * @param {string} currentid - The ID of the calendar container element
+ * @param {string} displayid - The ID of the date input element
+ */
 function renderCalendarDays(month, year, currentid, displayid) {
   const grid = document.getElementById("calenderDays");
   grid.innerHTML = "";
@@ -117,7 +157,17 @@ function renderCalendarDays(month, year, currentid, displayid) {
   }
 }
 
-
+/**
+ * Configures a day button with appropriate styling and click handler
+ * @param {HTMLButtonElement} btn - The button element to configure
+ * @param {Date} date - The date object for this button
+ * @param {Date} today - Today's date for comparison
+ * @param {number} d - The day number
+ * @param {number} month - The month (0-11)
+ * @param {number} year - The year
+ * @param {string} currentid - The ID of the calendar container element
+ * @param {string} displayid - The ID of the date input element
+ */
 function handleDayButton(btn, date, today, d, month, year, currentid, displayid) {
   const isPast = date < today;
   const isToday = date.toDateString() === today.toDateString();

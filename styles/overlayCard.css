@@ -260,6 +260,10 @@ form select {
   height: 48px;
 }
 
+#selectedAssignedEditOverlay{
+  cursor: pointer;
+}
+
 #overlayEditDescription {
   resize: none;
   overflow: hidden;

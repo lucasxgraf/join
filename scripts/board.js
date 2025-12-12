@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Board functionality for task management with drag and drop
+ * @description Handles task board initialization, drag and drop operations, mobile touch events, and task status updates
+ */
+
 let cardFromFirebase = [];
 let dragElementId = "";
 let contacts_from_firebase = {};
@@ -7,6 +12,9 @@ let longPressTimer = null;
 let touchStartPos = null;
 let isSwapOpen = false;
 
+/**
+ * Initializes the board by loading user data, contacts, and tasks
+ */
 async function initBoard() {
     getInitialsFromUser()
     await loadContacts();
@@ -15,7 +23,10 @@ async function initBoard() {
     fetchContact();
 }
 
-
+/**
+ * Updates all task columns with current data from Firebase
+ * @param {Array} cardFromFirebase - Array of task cards from Firebase
+ */
 function loadDetails(cardFromFirebase) {
      updateHTMLToDo(cardFromFirebase)
      updateHTMLInProgress(cardFromFirebase)
@@ -23,7 +34,12 @@ function loadDetails(cardFromFirebase) {
      updateHTMLawaitFeedback(cardFromFirebase) 
 }
 
-
+/**
+ * Renders cards in a container or displays placeholder text if empty
+ * @param {HTMLElement} ref - The container element to render cards into
+ * @param {Array} array - Array of card objects to render
+ * @param {string} placeholdertext - Text to display when no cards exist
+ */
 function forLoopCards(ref, array , placeholdertext) {
 
       ref.innerHTML = '';
@@ -35,21 +51,30 @@ function forLoopCards(ref, array , placeholdertext) {
     ref.innerHTML = `<div class="placeholderDragContainer">${placeholdertext}</div>`} 
 }
 
-
+/**
+ * Updates the "To Do" column with filtered tasks
+ * @param {Array} cardFromFirebase - Array of all task cards
+ */
 function updateHTMLToDo(cardFromFirebase) {
     let todoArray = cardFromFirebase.filter(d => d['dragclass'] === "todo");
     const TODO_REF = document.getElementById("todo");
     forLoopCards(TODO_REF, todoArray, "No tasks To Do") 
 }
 
-
+/**
+ * Updates the "In Progress" column with filtered tasks
+ * @param {Array} cardFromFirebase - Array of all task cards
+ */
 function updateHTMLInProgress(cardFromFirebase) {
     let inprogressArray = cardFromFirebase.filter(d => d['dragclass'] === "inprogress");
     const INPROGRESS_REF = document.getElementById("inprogress");
     forLoopCards(INPROGRESS_REF, inprogressArray, "No tasks In Progress")
 }
 
-
+/**
+ * Updates the "Await Feedback" column with filtered tasks
+ * @param {Array} cardFromFirebase - Array of all task cards
+ */
 function updateHTMLawaitFeedback(cardFromFirebase) {
     let awaitFeedbackArray = cardFromFirebase.filter(d => d['dragclass'] === "awaitfeedback");
     const AWAIT_FEEDBACK_REF = document.getElementById("awaitfeedback");
@@ -57,14 +82,19 @@ function updateHTMLawaitFeedback(cardFromFirebase) {
 
 }
 
-
+/**
+ * Updates the "Done" column with filtered tasks
+ * @param {Array} cardFromFirebase - Array of all task cards
+ */
 function updateHTMLDone(cardFromFirebase) {
     let doneArray = cardFromFirebase.filter(d => d['dragclass'] === "done");
     const DONE_REF = document.getElementById("done");
     forLoopCards(DONE_REF, doneArray, "No tasks To Do")
 }
 
-
+/**
+ * Removes the drag placeholder and restores text placeholders
+ */
 function removePlaceholder() {
   if (currentPlaceholder) {
     currentPlaceholder.remove();
@@ -79,7 +109,10 @@ function removePlaceholder() {
   });
 }
 
-
+/**
+ * Creates a visual placeholder in the target container during drag
+ * @param {HTMLElement} container - The container to add the placeholder to
+ */
 function createPlaceholderPreview(container) {
   const existingPlaceholder = container.querySelector('#drag-placeholder');
   
@@ -98,7 +131,10 @@ function createPlaceholderPreview(container) {
   }
 }
 
-
+/**
+ * Handles dragover event to show placeholder in target container
+ * @param {DragEvent} ev - The dragover event
+ */
 function dragoverHandler(ev) {
   ev.preventDefault();
   const container = ev.currentTarget;
@@ -110,7 +146,10 @@ function dragoverHandler(ev) {
   createPlaceholderPreview(container);
 }
 
-
+/**
+ * Initiates drag operation and adds dragging class to element
+ * @param {string} id - The ID of the task being dragged
+ */
 function startDrag(id) {
     dragElementId = id;
     const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
@@ -119,7 +158,10 @@ function startDrag(id) {
     }
 }
 
-
+/**
+ * Ends drag operation and removes dragging class from element
+ * @param {string} id - The ID of the task being dragged
+ */
 function stopDrag(id) {
   const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
   if (ELEMENT) {
@@ -128,7 +170,9 @@ function stopDrag(id) {
   removePlaceholder();
 }
 
-
+/**
+ * Synchronizes dialog state for adding new tasks
+ */
 function syncforDialog() {
     changePriority("medium", "AddTask")
     fetchSVGs("AddTask");
@@ -138,7 +182,10 @@ function syncforDialog() {
     enableSubmit();
 }
 
-
+/**
+ * Opens the add task dialog with specified drag class
+ * @param {string} targetDragClass - The target column class for the new task
+ */
 function showDialog(targetDragClass) {
 
   if (isSwapOpen) return;
@@ -155,7 +202,9 @@ function showDialog(targetDragClass) {
       }, 10);
 }
 
-
+/**
+ * Closes the add task dialog and clears input fields
+ */
 function closeDialog() {
   const OVERLAY = document.getElementById("addTaskOverlay");
   const DIALOG = document.getElementById("addTaskDialog");
@@ -166,6 +215,11 @@ function closeDialog() {
   clearInput();
 }
 
+/**
+ * Handles touch start event for mobile drag and drop
+ * @param {TouchEvent} e - The touch start event
+ * @param {string} id - The ID of the task being touched
+ */
 function handleTouchStart(e, id) {
   const LONG_PRESS_DURATION = 500;
   const touch = e.touches[0];
@@ -178,7 +232,10 @@ function handleTouchStart(e, id) {
   }, LONG_PRESS_DURATION);
 }
 
-
+/**
+ * Creates a visual clone of the card for mobile dragging
+ * @param {HTMLElement} card - The card element to clone
+ */
 function createMobileClone(card) {
   const rect = card.getBoundingClientRect();
   
@@ -192,7 +249,11 @@ function createMobileClone(card) {
   card.classList.add('card-dragging');
 }
 
-
+/**
+ * Handles touch move event to update clone position and show placeholder
+ * @param {TouchEvent} e - The touch move event
+ * @param {string} id - The ID of the task being moved
+ */
 function handleTouchMove(e, id) {
   e.preventDefault();
   if (!clonedCard) return;
@@ -209,18 +270,20 @@ function handleTouchMove(e, id) {
   }
 }
 
-
+/**
+ * Handles touch end event to complete mobile drag operation
+ * @param {TouchEvent} e - The touch end event
+ * @param {string} id - The ID of the task being dropped
+ */
 function handleTouchEnd(e, id) {
   clearTimeout(longPressTimer);
   longPressTimer = null;
   if (!clonedCard) return;
-  
   e.preventDefault();
   
   const touch = e.changedTouches[0];
   const elements = document.elementsFromPoint(touch.clientX, touch.clientY);
   const container = elements.find(el => el.classList.contains('singleDragContainer'));
-  
   if (container && container.id) {
     moveTo(container.id);}
 
@@ -228,7 +291,9 @@ function handleTouchEnd(e, id) {
   stopDrag(id);
 };
 
-
+/**
+ * Cleans up mobile drag state and removes clone element
+ */
 function cleanupMobileDrag() {
   if (clonedCard) {
     clonedCard.remove();
@@ -244,7 +309,11 @@ function cleanupMobileDrag() {
   dragElementId = null;
 }
 
-
+/**
+ * Toggles the category swap dropdown for a task card
+ * @param {Event} event - The click event
+ * @param {string} taskId - The ID of the task
+ */
 function toggleSwapCategory(event, taskId) {
   event.stopPropagation();
   const card = event.currentTarget.closest('.card');
@@ -258,7 +327,11 @@ function toggleSwapCategory(event, taskId) {
   createSwapDropdown(card, taskId);
 }
 
-
+/**
+ * Creates and displays the swap dropdown menu for a task card
+ * @param {HTMLElement} card - The card element
+ * @param {string} taskId - The ID of the task
+ */
 function createSwapDropdown(card, taskId) {
   closeAllSwapDropdowns();
   const task = cardFromFirebase.find(t => t.id === taskId);
@@ -270,7 +343,11 @@ function createSwapDropdown(card, taskId) {
   setupDropdownClickOutside(dropdown, card.querySelector('.card_header_swap_icon'));
 }
 
-
+/**
+ * Sets up click outside handler to close dropdown
+ * @param {HTMLElement} dropdown - The dropdown element
+ * @param {HTMLElement} button - The button that opened the dropdown
+ */
 function setupDropdownClickOutside(dropdown, button) {
   const handleClickOutside = (e) => {
     if (!dropdown.contains(e.target) && !button.contains(e.target)) {
@@ -282,13 +359,20 @@ function setupDropdownClickOutside(dropdown, button) {
   setTimeout(() => document.addEventListener('click', handleClickOutside), 0);
 }
 
-
+/**
+ * Closes all open swap dropdown menus
+ */
 function closeAllSwapDropdowns() {
   document.querySelectorAll('.swap-dropdown').forEach(dropdown => dropdown.remove());
   isSwapOpen = false;
 }
 
-
+/**
+ * Swaps a task to a different column
+ * @param {Event} event - The click event
+ * @param {string} taskId - The ID of the task to move
+ * @param {string} newDragClass - The target column class
+ */
 async function swapToColumn(event, taskId, newDragClass) {
   event.stopPropagation();
   dragElementId = taskId;

@@ -58,7 +58,7 @@ function renderaddTask() {
                             <div class="custom-category-dropdown mg-t4 mg-b16" id="contactDropdown">
                                 <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdown', 'iconContact')">
                                     <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedAssigned" placeholder="Select contacts to assign">
-                                    <button class="dropdown-arrow" id="dropdownArrow"> 
+                                    <button type="button" class="dropdown-arrow" id="dropdownArrow"> 
                                       <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon">
                                     </button>
                                 </div>
@@ -76,7 +76,7 @@ function renderaddTask() {
                                 <div class="custom-category-dropdown mg-t4 mg-b2" id="categoryDropdown">
                                     <div class="dropdown-header inputWrapper" id="categoryDropdownInput" onclick="toggleDropdown('categoryDropdown')">
                                         <input class="fontColor stylingInput cleanInputforDate" type="text" readonly id="selectedCategory" placeholder="Select task category">
-                                        <button class="dropdown-arrow" id="dropdownArrow">
+                                        <button type="button" class="dropdown-arrow" id="dropdownArrow">
                                             <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon">
                                         </button>
                                     </div>
