@@ -116,9 +116,10 @@ footer {
   }
 }
 *:disabled {
-  background-color: dimgrey !important;
+  background-color: #2A3647 !important;
   box-shadow: none !important;
   cursor: not-allowed !important;
+  opacity: 0.5 !important;
 }
 
 button {

@@ -61,6 +61,10 @@ h3 {
   font-size: 1.313rem;
 }
 
+.addTaskButton:hover{
+  background-color: #29ABE2;
+}
+
 .addTaskButton img {
   width: 32px;
   height: 32px;

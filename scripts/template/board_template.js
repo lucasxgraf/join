@@ -207,7 +207,7 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
       <div class="overlay_edit_form_layout">
         <h3>Assigned to</h3>
           <div class="custom-category-dropdown witdh100" id="contactDropdownOverlayEdit">
-              <div class="dropdown-header inputWrapper" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
+              <div class="dropdown-header" onclick="toggleDropdown('contactDropdownOverlayEdit','iconContactOverlayEdit')">
                   <label for="selectedAssignedEditOverlay" aria-label="select contact to assign task"></label>
                   <input class="fontColor cleanInputforDate" type="text" readonly id="selectedAssignedEditOverlay" placeholder="Select contacts to assign">
                   <div class="dropdown-arrow" id="dropdownArrow"> <img src="../assets/img/arrow_drop_down.png" alt="arrow down icon"></div>

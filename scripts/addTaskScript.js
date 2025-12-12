@@ -382,7 +382,6 @@ function sendFeedback() {
  * @param {string} displayid - The ID of the error message element
  * @param {string} currentId - The ID of the input element to validate
  * @param {string} inputFrame - The ID of the wrapper element for error styling
-
  */
 function validateInput(displayid, currentId, inputFrame) {
     const input = document.getElementById(currentId);

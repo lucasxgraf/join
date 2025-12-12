@@ -143,13 +143,13 @@ function editContactTemplate(index) {
             <div class="divider-small"></div>
         </div>
             <div class="inner-form">
-                <button class="big-contact-picture" style="background-color: ${contacts[index]["color"]};">
+                <div class="big-contact-picture" style="background-color: ${contacts[index]["color"]};">
                     ${contactPictureLetters(index)}
+                </div>
+                <button id="x-button-form" onclick="closeForm(event)">
+                    <img src="../assets/svg/close.svg">
                 </button>
                 <div class="add-form">
-                    <button id="x-button-form" onclick="closeForm(event)">
-                        <img src="../assets/svg/close.svg">
-                    </button>
                     <div id="group-name" class="inputWrapper">
                         <label for="input-name" aria-label="name of contact"></label>
                         <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
