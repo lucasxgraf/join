@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Firebase authentication and user management functionality.
+ * @module firebase_auth
+ */
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -15,6 +20,10 @@ import {
 
 import { AUTH, DATABASE } from './firebase_config.js';
 
+/**
+ * Array of available user colors.
+ * @type {string[]}
+ */
 const COLORS = [
   "#FF7A00", "#FF5EB3", "#6E52FF", 
   "#9327FF", "#00BEE8", "#1FD7C1", 
@@ -23,10 +32,26 @@ const COLORS = [
   "#FFE62B", "#FF4646", "#FFBB2B",
 ];
 
+/**
+ * Array of login page paths.
+ * @type {string[]}
+ */
 const LOGIN_PAGES = ['index.html', 'login.html', 'sign_up.html'];
+
+/**
+ * Protected page path.
+ * @type {string}
+ */
 const PROTECTED_PAGE = 'test.html';
 
-
+/**
+ * Signs up a new user with email and password.
+ * @async
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<{success: boolean, USER?: Object, error?: string}>} Result object with success status.
+ */
 async function signUpUser(name, email, password) {
   try {
     const USER_CREDENTIAL = await createUserWithEmailAndPassword(AUTH, email, password);
@@ -41,6 +66,13 @@ async function signUpUser(name, email, password) {
   }
 }
 
+/**
+ * Saves user data to the database.
+ * @async
+ * @param {string} uid - The user's unique ID.
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ */
 async function saveUserToDatabase(uid, name, email) {
   const color = getRandomColor();
   const USER_REF = ref(DATABASE, `users/${uid}`);
@@ -54,11 +86,30 @@ async function saveUserToDatabase(uid, name, email) {
   await addUserToContacts(name, email, color);
 }
 
+/**
+ * Adds user to the contacts list.
+ * @async
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ * @param {string} color - The user's assigned color.
+ */
 async function addUserToContacts(name, email, color) {
+  const contactData = createContactData(name, email, color);
+  await saveContactToDatabase(contactData);
+}
+
+/**
+ * Creates contact data object from user information.
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email address.
+ * @param {string} color - The user's assigned color.
+ * @returns {Object} Contact data object.
+ */
+function createContactData(name, email, color) {
   const [firstname, ...rest] = name.trim().split(" ");
   const secondname = rest.join(" ");
   
-  const contactData = {
+  return {
     color: color,
     mail: email,
     name: {
@@ -67,7 +118,14 @@ async function addUserToContacts(name, email, color) {
     },
     tel: "<i> Please update your phone number <i>"
   };
-  
+}
+
+/**
+ * Saves contact data to the database.
+ * @async
+ * @param {Object} contactData - The contact data to save.
+ */
+async function saveContactToDatabase(contactData) {
   const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
   await fetch(BASE_URL + "contacts/contactlist.json", {
     method: 'POST',
@@ -78,6 +136,13 @@ async function addUserToContacts(name, email, color) {
   });
 }
 
+/**
+ * Logs in a user with email and password.
+ * @async
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<{success: boolean, user?: Object, error?: string}>} Result object with success status.
+ */
 async function loginUser(email, password) {
   try {
     const USER_CREDENTAIL = await signInWithEmailAndPassword(AUTH, email, password);
@@ -89,6 +154,11 @@ async function loginUser(email, password) {
   }
 }
 
+/**
+ * Logs in a user as a guest.
+ * @async
+ * @returns {Promise<{success: boolean, user?: Object, error?: string}>} Result object with success status.
+ */
 async function loginAsGuest() {
   try {
     const USER_CREDENTAIL = await signInAnonymously(AUTH);
@@ -99,7 +169,10 @@ async function loginAsGuest() {
   }
 }
 
-
+/**
+ * Logs out the current user.
+ * @async
+ */
 async function logoutUser() {
   try {
     localStorage.removeItem("headerName");
@@ -110,7 +183,9 @@ async function logoutUser() {
   }
 }
 
-
+/**
+ * Watches authentication state changes and handles redirects.
+ */
 function watchAuthState() {
   onAuthStateChanged(AUTH, (user) => {
     const CURRENT_PATH = window.location.pathname;
@@ -124,10 +199,20 @@ function watchAuthState() {
   });
 }
 
+/**
+ * Registers a callback for authentication state changes.
+ * @param {Function} callback - Callback function to execute on auth state change.
+ * @returns {Function} Unsubscribe function.
+ */
 function onAuthChange(callback) {
   return onAuthStateChanged(AUTH, callback);
 }
 
+/**
+ * Gets the current authenticated user.
+ * @async
+ * @returns {Promise<Object|null>} The current user object or null.
+ */
 function getCurrentUser() {
   return new Promise((resolve) => {
     onAuthStateChanged(AUTH, (user) => {
@@ -136,6 +221,12 @@ function getCurrentUser() {
   });
 }
 
+/**
+ * Retrieves user data from the database.
+ * @async
+ * @param {string} uid - The user's unique ID.
+ * @returns {Promise<Object|null>} User data object or null.
+ */
 async function getUserData(uid) {
   try {
     const USER_REF = ref(DATABASE, `users/${uid}`);
@@ -150,11 +241,20 @@ async function getUserData(uid) {
   }
 }
 
+/**
+ * Returns a random color from the COLORS array.
+ * @returns {string} A random color hex code.
+ */
 function getRandomColor() {
   const randomIndex = Math.floor(Math.random() * COLORS.length);
   return COLORS[randomIndex];
 }
 
+/**
+ * Converts Firebase error codes to user-friendly messages.
+ * @param {string} errorCode - The Firebase error code.
+ * @returns {string} User-friendly error message.
+ */
 function getErrorMessage(errorCode) {
   const errorMessages = {
     'auth/email-already-in-use': 'This email is already registered.',
