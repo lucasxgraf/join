@@ -38,7 +38,7 @@ function contactPictureLetters(index) {
  * @param {number} index - The index of the contact to display
  */
 function showContact(index) {
-    removeExistingContent(index);
+    if (document.getElementById('showContent' + index) && window.innerWidth >= 981) {return} else {removeExistingContent(index)}
     document.getElementById('contact_content').innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
     toggleMobileView('.contact-informations', 'block', '.contact-list', 'none');

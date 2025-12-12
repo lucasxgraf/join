@@ -133,7 +133,7 @@ button {
 .scroll_layout {
   padding: 80px;
   overflow-y: auto;
-  max-height: calc(100vh - 100px - 48px);
+  max-height: calc(100vh - 100px - 90px);
   width: 100%;
 }
 
