@@ -169,8 +169,8 @@ function changePriority(priority, currentId) {
 function fetchSVGs(currentId) {
   const svgs = [
     { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
-    { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
-    { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId} .low_icon` }];
+    { path: '../assets/svg/priority_symblos/medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
+    { path: '../assets/svg/priority_symblos/low.svg', selector: `#lowBtn${currentId} .low_icon` }];
   svgs.forEach(svg => {
     fetch(svg.path)
       .then(response => response.text())

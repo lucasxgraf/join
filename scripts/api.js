@@ -262,6 +262,7 @@ async function addContact(event) {
   closeForm(event);
   await refreshContacts();
   contactToast("Contact successfully create");
+  buttonTimeOut()
 }
 
 /**
@@ -295,7 +296,6 @@ async function saveContactToFirebase(data) {
  */
 async function refreshContacts() {
   contacts = [];
-  // await init();
 }
 
 /**
@@ -312,6 +312,7 @@ async function editContact(index) {
   await refreshContacts();
   updateContactContentAfterEdit(index);
   contactToast("Contact successfully edit");
+  buttonTimeOut()
 }
 
 /**
@@ -382,4 +383,16 @@ async function deleteContact(index) {
     contacts = [];
     contactToast("Contact successfully delete");
     await init();
+    buttonTimeOut()
+}
+/**
+ * Timeout function to disable add contact buttons temporarily
+ */
+function buttonTimeOut() {
+  const addButtons = document.querySelectorAll('.add-contact, .mobile-add-contact');
+  addButtons.forEach(btn => btn.disabled = true);
+  
+  setTimeout(() => {
+    addButtons.forEach(btn => btn.disabled = false);
+  }, 2500); 
 }
