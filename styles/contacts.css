@@ -524,11 +524,10 @@ ul li::marker {
 
 .error_message {
     color: red;
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin-top: 4px;
-    min-height: 18px;
     display: block;
-    height: 14px;
+    height: 24px;
 }
 
 .mobile-add-contact {

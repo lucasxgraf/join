@@ -24,7 +24,7 @@ function renderCard(element) {
           <div class="subtaskProgressBar">
             <div class="subtaskProgressBarCalc" style="width:${PROGRESS}%"></div>
           </div>
-          <div class="subtask">${DONE}/${TOTAL} Subtasks</div>
+          <div class="subtask">${DONE}/${TOTAL}</div>
         </div>
         ` : ''}
         <div class="cardFooter">

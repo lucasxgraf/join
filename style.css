@@ -64,9 +64,8 @@ h1 {
 
 .error_message {
   color: red;
-  font-size: 0.75rem;
-  margin-top: 4px;
-  min-height: 18px;
+  font-size: 1rem;
+  height: 24px;
   display: block;
 
 }
