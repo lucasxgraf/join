@@ -103,12 +103,12 @@ if (SIGNUP_CONF_PSW_INPUT) {
 if (SIGNUP_FORM) {
   SIGNUP_FORM.addEventListener("submit", handleSignUpSubmit);
 }
-
 document.addEventListener("click", function (event) {
   if (SIGNUP_FORM && !SIGNUP_FORM.contains(event.target)) {
-    clearSignUpErrors();
+    // clearSignUpErrors();
   }
 });
+
 
 /**
  * Initializes the sign up button state based on form validation.

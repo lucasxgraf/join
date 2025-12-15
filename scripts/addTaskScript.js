@@ -377,23 +377,23 @@ function sendFeedback() {
   }, 2000);
 }
 
-/**
- * Validates input field and displays error message if empty
- * @param {string} displayid - The ID of the error message element
- * @param {string} currentId - The ID of the input element to validate
- * @param {string} inputFrame - The ID of the wrapper element for error styling
- */
-function validateInput(displayid, currentId, inputFrame) {
-    const input = document.getElementById(currentId);
-    const output = document.getElementById(displayid);
-    const borderError = document.getElementById(inputFrame);
+// /**
+//  * Validates input field and displays error message if empty
+//  * @param {string} displayid - The ID of the error message element
+//  * @param {string} currentId - The ID of the input element to validate
+//  * @param {string} inputFrame - The ID of the wrapper element for error styling
+//  */
+// function validateInput(displayid, currentId, inputFrame) {
+//     const input = document.getElementById(currentId);
+//     const output = document.getElementById(displayid);
+//     const borderError = document.getElementById(inputFrame);
     
-    if (!input || !output || !borderError) return; 
-    if (input.value.trim() === "") {
-        output.innerHTML = "This field is required.";
-        borderError.classList.add('errorBorder');
-    } else {
-        output.innerHTML = "";
-        borderError.classList.remove('errorBorder');
-    }
-}
+//     if (!input || !output || !borderError) return; 
+//     if (input.value.trim() === "") {
+//         output.innerHTML = "This field is required.";
+//         borderError.classList.add('errorBorder');
+//     } else {
+//         output.innerHTML = "";
+//         borderError.classList.remove('errorBorder');
+//     }
+// }

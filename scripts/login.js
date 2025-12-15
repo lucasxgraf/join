@@ -232,13 +232,13 @@ function validateLoginInputs(email, password) {
   let isValid = true;
 
   if (!email) {
-    showError("emailError", "Please enter your email address here.");
+    showError("emailError", "Please enter your email address.");
     document.getElementById("loginEmail").style.borderColor = "red";
     isValid = false;
   }
 
   if (!password) {
-    showError("passwordError", "Please enter your password here.");
+    showError("passwordError", "Please enter your password.");
     document.getElementById("loginPassword").style.borderColor = "red";
     isValid = false;
   }
