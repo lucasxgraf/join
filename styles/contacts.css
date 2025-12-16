@@ -112,6 +112,10 @@ ul li::marker {
 
 .small-email {
     color: #007CEE;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    white-space: nowrap;
 }
 
 .contact-line {
@@ -485,6 +489,9 @@ ul li::marker {
 .mobile-menu {
     display: none;
     position: absolute;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
     bottom: 100px;
     right: 24px;
 }
@@ -532,10 +539,14 @@ ul li::marker {
 
 .mobile-add-contact {
     display: none;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
     position: fixed;
     z-index: 100;
     bottom: 100px;
     right: 24px;
+    
 }
 
 .mobile-add-contact:hover {

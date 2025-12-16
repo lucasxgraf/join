@@ -75,6 +75,8 @@
   font-weight: 700;
   font-size: 3rem;
   color: black;
+  overflow-x: auto;
+  max-height: 150px;
 }
 
 .overlay_card_description {
