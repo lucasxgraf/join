@@ -224,3 +224,13 @@ header {
     }
   }
 }
+
+@media only screen and (max-height: 675px) {
+  .sign_up {
+    bottom: 12%;
+  }
+
+  .login_card {
+    top: 48%;
+  }
+}
