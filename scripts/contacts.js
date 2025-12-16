@@ -250,7 +250,7 @@ function nameCheck(iName) {
  * @returns {boolean} True if email is valid, false otherwise
  */
 function validMail(iMail) {
-    return /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/.test(iMail.trim());
+    return /^(?=.{1,254}$)(?=.{1,64}@)(?!.*\.\.)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+(?:com|de|org|net|io|eu|edu|gov|co|info|biz)$/iu.test(iMail.trim());
 }
 
 /**
@@ -268,7 +268,7 @@ function mailCheck(iMail) {
  * @returns {boolean} True if phone is valid, false otherwise
  */
 function validPhone(iPhone) {
-    return /^\+?[0-9][0-9\s\-().]{6,18}$/.test(iPhone.trim());
+    return /^\+[1-9]\d{7,14}$/.test(iPhone.trim());
 }
 
 /**
