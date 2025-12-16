@@ -209,14 +209,13 @@ async function handleSignUpSubmit(event) {
   onSignUpError(RESULT.error);
 }
 
-
 /**
  * Handles successful sign up.
  */
 function onSignUpSuccess() {
   showSuccessOverlay();
   setTimeout(() => {
-    window.location.href = "index.html?noSplash=1";
+    window.location.href = "./index.html?noSplash=1";
   }, 2000);
 }
 

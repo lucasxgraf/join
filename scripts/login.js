@@ -3,7 +3,7 @@
  * @module login
  */
 
-import { loginUser, loginAsGuest, } from './firebase_auth.js';
+import { loginUser, loginAsGuest } from './firebase_auth.js';
 
 /**
  * Reference to the login button element.
@@ -57,7 +57,13 @@ const FOOTER = document.querySelector("footer");
  * Reference to the logo image element.
  * @type {HTMLElement}
  */
-const LOGO = document.querySelector(".join_image");
+const LOGO = document.querySelector(".logo");
+
+/**
+ * Reference to the logo container element.
+ * @type {HTMLElement}
+ */
+const LOGO_CONTAINER = document.querySelector('.logo_container');
 
 /**
  * Reference to the form content container.
@@ -69,14 +75,16 @@ const FORM_CONTENT = document.querySelector(".form_content");
  * Flag indicating whether to skip the splash screen animation.
  * @type {boolean}
  */
-const SKIP = shouldSkipSplash();
+let SKIP = shouldSkipSplash();
 
 /**
  * Checks if the splash screen should be skipped based on URL parameters.
  * @returns {boolean} True if splash screen should be skipped, false otherwise.
  */
 function shouldSkipSplash() {
-  return new URLSearchParams(window.location.search).get("noSplash") === "1";
+  const params = new URLSearchParams(window.location.search);
+  const skip = params.get("noSplash") === "1";
+  return skip;
 }
 
 /**
@@ -84,10 +92,16 @@ function shouldSkipSplash() {
  * Sets up splash screen behavior and password toggle functionality.
  */
 document.addEventListener("DOMContentLoaded", function () {
-  skipSplashIfNeeded();
-
+  SKIP = shouldSkipSplash();
+  
+  if (SKIP) {
+    skipAllAnimations();
+  }
+  
   setTimeout(() => {
-    fadeInLoginElements();
+    if (!SKIP) {
+      fadeInLoginElements();
+    }
   }, SKIP ? 0 : 1000);
 
   initPasswordToggle(
@@ -97,53 +111,97 @@ document.addEventListener("DOMContentLoaded", function () {
     "./assets/svg/visibility_off.svg",
     "./assets/svg/visibility.svg"
   );
+
+  if (!SKIP && LOGO && LOGO_CONTAINER && SIGN_UP) {
+    setInitialLogoStyle();
+    const { deltaX, deltaY } = calculateDelta();
+    
+    setTimeout(() => {
+      if (!shouldSkipSplash()) {
+        animateLogoToContainer(deltaX, deltaY);
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      if (!shouldSkipSplash()) {
+        finalizeLogoPosition();
+      }
+    }, 1800);
+  }
 });
 
 /**
- * Skips the splash screen animation if the noSplash parameter is set.
- * Adjusts logo positioning and removes background overlay.
+ * Completely skips all splash animations and shows elements immediately.
+ * This function is called when the noSplash parameter is present in the URL.
  */
-function skipSplashIfNeeded() {
-  if (SKIP && LOGO) {
-    applyLogoStyles();
-    hideBgOverlay();
-    adjustLogoForMobile();
+function skipAllAnimations() {
+  hideBgOverlay();
+  applyLogoStyles();
+  showElementsWithoutAnimation();
+  
+  if (LOGO && LOGO_CONTAINER) {
+    LOGO_CONTAINER.appendChild(LOGO);
+    LOGO.style.position = "static";
+    LOGO.style.transform = "none";
+    LOGO.style.cursor = "default";
+    LOGO.style.animation = "none";
   }
 }
 
 /**
- * Applies initial logo styles to skip animation.
- */
-function applyLogoStyles() {
-  LOGO.style.animation = "none";
-  LOGO.style.transform = "translate(0, 0) scale(1)";
-  LOGO.style.top = "24px";
-  LOGO.style.left = "24px";
-  
-  const joinImage = document.querySelector('.join_image');
-  joinImage.style.content = 'url("./assets/img/logo/join_logo.png")';
-}
-
-/**
- * Hides the background overlay element.
+ * Hides the background overlay element immediately.
+ * Removes any animations and sets display to none.
  */
 function hideBgOverlay() {
   const BG_OVERLAY = document.querySelector(".overlay");
   if (BG_OVERLAY) {
     BG_OVERLAY.style.display = "none";
+    BG_OVERLAY.style.animation = "none";
+    BG_OVERLAY.style.opacity = "0";
   }
 }
 
 /**
- * Adjusts logo size and position for mobile devices.
+ * Applies initial logo styles to skip animation.
+ * Positions the logo correctly without any animation effects.
  */
-function adjustLogoForMobile() {
+function applyLogoStyles() {
+  if (!LOGO) return;
+  
+  LOGO.style.animation = "none";
+  LOGO.style.transform = "translate(0, 0) scale(1)";
+  LOGO.style.top = "24px";
+  LOGO.style.left = "24px";
+  LOGO.style.position = "absolute";
+  LOGO.style.transition = "none";
+  
   if (window.innerWidth <= 475) {
     LOGO.style.top = "24px";
     LOGO.style.left = "24px";
     LOGO.style.height = "80px";
     LOGO.style.width = "64px";
   }
+}
+
+/**
+ * Shows all login page elements immediately without animation.
+ * Sets display properties and removes any animation effects.
+ */
+function showElementsWithoutAnimation() {
+  const elements = [
+    { el: FOOTER, display: "block" },
+    { el: LOGIN_HEADER, display: "flex" },
+    { el: LOGIN_CARD, display: "block" },
+    { el: SIGN_UP, display: "flex" },
+  ];
+  
+  elements.forEach(({ el, display }) => {
+    if (el) {
+      el.style.display = display;
+      el.style.animation = "none";
+      el.style.opacity = "1";
+    }
+  });
 }
 
 /**
@@ -154,26 +212,35 @@ function fadeInLoginElements() {
   const elements = [
     { el: FOOTER, display: "block" },
     { el: LOGIN_HEADER, display: "flex" },
-    { el: LOGIN_CARD, display: "inline" },
+    { el: LOGIN_CARD, display: "block" },
     { el: SIGN_UP, display: "flex" },
   ];
   
   elements.forEach(({ el, display }) => {
-    if (el) {  // Prüfen, ob Element existiert
+    if (el) {
       el.style.display = display;
       el.style.animation = "fadeIn 600ms forwards";
     }
   });
 }
 
+/**
+ * Adds event listener to login button for form submission.
+ */
 if (REF_LOGIN_BTN) {
   REF_LOGIN_BTN.addEventListener("click", handleLoginSubmit);
 }
 
+/**
+ * Adds event listener to guest login button.
+ */
 if (GUEST_LOGIN_BTN) {
   GUEST_LOGIN_BTN.addEventListener("click", handleGuestLogin);
 }
 
+/**
+ * Adds event listener to password input for visibility toggle icon update.
+ */
 if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
   PASSWORD_INPUT.addEventListener("input", () => {
     if (PASSWORD_INPUT.value.length === 0) {
@@ -186,6 +253,9 @@ if (PASSWORD_INPUT && TOGGLE_PASSWORD) {
   });
 }
 
+/**
+ * Adds click event listener to clear login errors when clicking outside form.
+ */
 document.addEventListener("click", function (event) {
   if (FORM_CONTENT && !FORM_CONTENT.contains(event.target)) {
     clearLoginErrors();
@@ -278,60 +348,61 @@ function clearLoginErrors() {
   document.getElementById("loginPassword").style.borderColor = "";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const logo = document.querySelector('.logo');
-  const logoContainer = document.querySelector('.logo_container');
-  const signUp = document.querySelector('.sign_up');
-
-  if (!logo || !logoContainer || !signUp) return;
-
-  // Startposition: Mitte des Bildschirms
+/**
+ * Sets initial logo style for animation.
+ * Positions the logo in the center of the screen with scaling effect.
+ */
+function setInitialLogoStyle() {
   if (window.innerWidth <= 475) {
-    logo.style.content = 'url("./assets/img/logo/join_logo_vector.svg")'; // Für <img>-Element
+    LOGO.style.content = 'url("./assets/img/logo/join_logo_vector.svg")';
   }
+  LOGO.style.position = 'fixed';
+  LOGO.style.top = '50%';
+  LOGO.style.left = '50%';
+  LOGO.style.transform = 'translate(-50%, -50%) scale(2)';
+  LOGO.style.transition = 'all 0.8s ease-in-out';
+}
 
-  logo.style.position = 'fixed';
-  logo.style.top = '50%';
-  logo.style.left = '50%';
-  logo.style.transform = 'translate(-50%, -50%) scale(2)';
-  logo.style.transition = 'all 0.8s ease-in-out';
-
-  // Zielposition berechnen
-  const targetRect = logoContainer.getBoundingClientRect();
+/**
+ * Calculates the delta values for logo animation to move it to the target position.
+ * @returns {Object} Object containing deltaX and deltaY values.
+ */
+function calculateDelta() {
+  const targetRect = LOGO_CONTAINER.getBoundingClientRect();
   const targetX = targetRect.left + targetRect.width / 2;
   const targetY = targetRect.top + targetRect.height / 2;
   const startX = window.innerWidth / 2;
   const startY = window.innerHeight / 2;
-  const deltaX = targetX - startX;
-  const deltaY = targetY - startY;
+  return { deltaX: targetX - startX, deltaY: targetY - startY };
+}
 
-  // Nach 1 Sekunde: Logo animieren
-  setTimeout(() => {
-    logo.style.transform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(1)`;
-    logo.style.top = '50%';  // bleibt fixed, transform macht die Bewegung
-    logo.style.left = '50%';
-  }, 1000);
+/**
+ * Animates the logo to move to the container position.
+ * @param {number} deltaX - The horizontal distance to move.
+ * @param {number} deltaY - The vertical distance to move.
+ */
+function animateLogoToContainer(deltaX, deltaY) {
+  LOGO.style.transform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(1)`;
+  LOGO.style.top = '50%';
+  LOGO.style.left = '50%';
+}
 
+/**
+ * Finalizes the logo position by moving it to the logo container.
+ * Resets animation and transition properties.
+ */
+function finalizeLogoPosition() {
+  LOGO_CONTAINER.appendChild(LOGO);
+  LOGO.style.position = 'static';
+  LOGO.style.transform = 'none';
+  LOGO.style.cursor = 'default';
 
-// Nach 1.8 Sekunden: Logo in Header verschieben und andere Elemente einblenden
-setTimeout(() => {
-  // Logo in den Header verschieben
-  logoContainer.appendChild(logo);
-
-  // CSS zurücksetzen, damit es im flex Layout sitzt
-  logo.style.position = 'static';
-  logo.style.transform = 'none';
-  logo.style.cursor = 'default';
-
-  // 🔵 Nur bei schmalen Bildschirmen: Farbwechsel
   if (window.innerWidth <= 475) {
-    if (logo.tagName !== 'IMG') {
-      logo.src = './assets/img/logo/join_logo.png'; // Für <img>-Element
+    if (LOGO.tagName !== 'IMG') {
+      LOGO.src = './assets/img/logo/join_logo.png';
     } else {
-      logo.style.content = 'url("./assets/img/logo/join_logo.png")'; // Für CSS content
+      LOGO.style.content = 'url("./assets/img/logo/join_logo.png")';
     }
   }
-  // Andere Elemente einblenden
   fadeInLoginElements();
-}, 1800);
-});
+}
