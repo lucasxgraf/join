@@ -16,60 +16,62 @@
   <script type="module" src="./scripts/login.js" defer></script>
   
 </head>
-<div class="bg_overlay_responsive"></div>
 
 <body>
-  <header class="login_header" style="display: none">
-    <div class="sign_up">
-      <span>Not a Join user?</span>
-      <a href="sign_up.html"> 
-        <button id="signBtn">Sign up</button>
-      </a>
-    </div>
-  </header>
+  <div class="overlay"></div>
 
-  <div>
-    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo"/>
+  <img src="./assets/img/logo/join_logo.png" alt="Join Logo" class="logo"/>
+
+  <div class="content_layout">
+    <header>
+      <div class="logo_container"></div> <!-- Hier wird das Logo später eingefügt -->
+      <div class="sign_up">
+        <span>Not a Join user?</span>
+        <a href="sign_up.html">
+          <button id="signBtn">Sign up</button>
+        </a>
+      </div>
+    </header>
+    
+    <main>
+      <div class="login_card" style="display: none">
+        <div class="login_title">
+          <h1>Log in</h1>
+          <div class="underline"></div>
+        </div>
+        <div>
+          <form id="loginForm" class="form_content" novalidate>
+            <div class="form_group">
+              <label for="loginEmail"></label>
+              <div class="input_container">
+                <input id="loginEmail" autocomplete="username" type="email" placeholder="Email" required/>
+                <img src="./assets/svg/email.svg" alt="email icon" class="input_icon"/>
+              </div>
+              <div id="emailError" class="error_message email_error_position"></div>
+            </div>
+
+            <div class="form_group">
+              <label for="loginPassword"></label>
+              <div class="input_container">
+                <input id="loginPassword" autocomplete="current-password" name="password" type="password" placeholder="Password" required/>
+                <img id="togglePassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
+              </div>
+              <div id="passwordError" class="error_message password_error_position"></div>
+            </div>
+
+            <div class="form_btn">
+              <button id="loginBtn" type="submit">Log in</button>
+              <button id="guestLog" type="button">Guest Log in</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="terms_conditions d_none">
+      <a href="./components/html/privacyPolicy_auth.html">Privacy Policy</a>
+      <a href="./components/html/legalNotice_auth.html">Legal notice</a>
+    </footer>
   </div>
-
-  <main>
-    <div class="login_card" style="display: none">
-      <div class="login_title">
-        <h1>Log in</h1>
-        <div class="underline"></div>
-      </div>
-      <div>
-        <form id="loginForm" class="form_content" novalidate>
-          <div class="form_group">
-            <label for="loginEmail"></label>
-            <div class="input_container">
-              <input id="loginEmail" autocomplete="username" type="email" placeholder="Email" required/>
-              <img src="./assets/svg/email.svg" alt="email icon" class="input_icon"/>
-            </div>
-            <div id="emailError" class="error_message email_error_position"></div>
-          </div>
-
-          <div class="form_group">
-            <label for="loginPassword"></label>
-            <div class="input_container">
-              <input id="loginPassword" autocomplete="current-password" name="password" type="password" placeholder="Password" required/>
-              <img id="togglePassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
-            </div>
-            <div id="passwordError" class="error_message password_error_position"></div>
-          </div>
-
-          <div class="form_btn">
-            <button id="loginBtn" type="submit">Log in</button>
-            <button id="guestLog" type="button">Guest Log in</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </main>
-
-  <footer class="terms_conditions d_none">
-    <a href="./components/html/privacyPolicy_auth.html">Privacy Policy</a>
-    <a href="./components/html/legalNotice_auth.html">Legal notice</a>
-  </footer>
 </body>
 </html>

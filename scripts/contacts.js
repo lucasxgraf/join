@@ -207,7 +207,7 @@ function clearAlerts() {
  */
 function getFormValues() {
     const name = document.getElementById('input-name').value;
-    const mail = document.getElementById('input-mail').value;
+    let mail = document.getElementById('input-mail').value;
     const phone = document.getElementById('input-phone').value;
         return { name, mail, phone };
 }

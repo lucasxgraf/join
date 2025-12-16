@@ -5,45 +5,36 @@ body {
   background-color: #f4f4f4;
 }
 
-.join_image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.logo {
+  object-fit: contain;
+  z-index: 1100;
+  transition: transform 0.8s ease-in-out, width 0.8s ease-in-out, height 0.8s ease-in-out;
   transform: translate(-50%, -50%) scale(2);
-  object-fit: cover;
-  animation: moveShrinkFade 0.8s ease-in-out forwards;
-  z-index: 100;
-  animation-delay: 1s;
+  width: 64px;
+  height: 80px;
 }
 
-@keyframes moveShrinkFade {
-  0% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
+.content_layout {
+  max-width: 1440px;
+  margin: 0 auto;
+}
 
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-    position: absolute;
-    top: 24px;
-    left: 24px;
-  }
+.logo_container {
+  width: 64px;
+  height: 80px;
 }
 
 header {
-  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
   padding: 40px;
 }
 
 .sign_up {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 32px;
 }
@@ -74,11 +65,9 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0;
-  animation: fadeIn 125ms forwards;
   width: 500px;
   padding: 32px 64px;
-  display: none;
+  display: block;
 }
 
 .login_title {
@@ -165,17 +154,22 @@ header {
 }
 
 @media only screen and (max-width: 600px) {
-  .login_header {
+  header{
+    padding: 24px;
+  }
+
+  .sign_up {
     position: fixed;
-    display: flex;
     justify-content: center;
     bottom: 15%;
-    width: 100%;
     padding: 0;
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .sign_up span {
     font-size: 1rem;
+    width: max-content;
   }
 
   .login_card {
@@ -184,35 +178,13 @@ header {
     top: 45%;
   }
 
-  .join_image {
+  .logo {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(2);
     object-fit: cover;
-    animation: moveShrinkFade 0.8s ease-in-out forwards;
     z-index: 100;
-    animation-delay: 1s;
-  }
-
-  @keyframes moveShrinkFade {
-    0% {
-      transform: translate(-50%, -50%) scale(2);
-      opacity: 1;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-    }
-
-    100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 1;
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      height: 80px;
-      width: 64px;
-    }
   }
 
   .form_btn {
@@ -229,78 +201,10 @@ header {
   .terms_conditions {
     margin-bottom: 16px;
   }
-
 }
 
 @media only screen and (max-width: 475px) {
-
-  .join_image {
-    content: url("../assets/img/logo/join_logo_vector.svg");
-    animation: moveShrinkFade475 1s ease-in-out forwards, changeLogo 1s ease-in-out forwards;
-    animation-delay: 1s;
-    height: 80px;
-    width: 64px;
-    width: auto;
-  }
-
-  @keyframes moveShrinkFade475 {
-    0% {
-      transform: translate(-50%, -50%) scale(2);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      z-index: 3;
-      content: url("../assets/img/logo/join_logo_vector.svg");
-    }
-
-    100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 1;
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      height: 80px;
-      width: 64px;
-    }
-  }
-
-
-  @keyframes changeLogo {
-    0%, 100% {
-      content: url("../assets/img/logo/join_logo_vector.svg");
-      opacity: 1;
-    }
-
-    5%, 95% { opacity: 0.95; }
-
-    10%, 90% { opacity: 0.9; }
-
-    15%, 85% { opacity: 0.85; }
-
-    20%, 80% { opacity: 0.8; }
-
-    25%, 75% { opacity: 0.75; }
-
-    30%, 70% { opacity: 0.7; }
-
-    35%, 65% { opacity: 0.65; }
-
-    40%, 60% { opacity: 0.6; }
-
-    45%, 55% { opacity: 0.55; }
-
-    100% {
-      content: url("../assets/img/logo/join_logo.png");
-      transform: translate(0, 0) scale(1);
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      height: 80px;
-      width: 64px;
-    }
-  }
-
-  .bg_overlay_responsive {
+  .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -318,5 +222,15 @@ header {
       pointer-events: none;
       visibility: hidden;
     }
+  }
+}
+
+@media only screen and (max-height: 675px) {
+  .sign_up {
+    bottom: 12%;
+  }
+
+  .login_card {
+    top: 48%;
   }
 }

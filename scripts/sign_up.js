@@ -184,15 +184,31 @@ async function handleSignUpSubmit(event) {
   const PASSWORD = SIGNUP_PSW_INPUT.value;
   const CONFIRM_PSW = SIGNUP_CONF_PSW_INPUT.value;
   const PRIVACY_ACCEPTED = PRIVACY_CHECKBOX.checked;
+
+  // 1. Alle Validierungen
+  const isValid = validateSignUpForm(
+    NAME,
+    EMAIL,
+    PASSWORD,
+    CONFIRM_PSW,
+    PRIVACY_ACCEPTED
+  );
+
+  if (!isValid) {
+    // Abbrechen, NICHT bei Firebase anmelden / User anlegen
+    return;
+  }
+
+  // 2. Nur wenn alles gültig ist: User anlegen
   const RESULT = await signUpUser(NAME, EMAIL, PASSWORD);
 
-  if (!validateSignUpForm(NAME, EMAIL, PASSWORD, CONFIRM_PSW, PRIVACY_ACCEPTED)) 
-    return;
-
-  if (RESULT.success) 
+  if (RESULT.success) {
     return onSignUpSuccess();
+  }
+
   onSignUpError(RESULT.error);
 }
+
 
 /**
  * Handles successful sign up.
@@ -238,10 +254,14 @@ function validateSignUpForm(name, email, password, confirmPassword, privacyAccep
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateName(name) {
-  if (name) return true;
-  showError("signUpNameError", "Please enter your name");
-  SIGNUP_NAME_INPUT.style.borderColor = "red";
+  const namePattern = /^(?!.*\b(?:Dr|Prof|Professor|Dipl|Ing|Mag|BSc|MSc|PhD)\.?\b)[a-zà-öø-ÿ]+(?:[- ][a-zà-öø-ÿ]+)$/i;
+
+  if (!name || !namePattern.test(name.trim())) {
+    showError("signUpNameError", "Please enter a valid name: Max Mustermann");
+    SIGNUP_NAME_INPUT.style.borderColor = "red";
     return false;
+  }
+  return true;
 }
 
 /**
@@ -250,10 +270,11 @@ function validateName(name) {
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateEmail(email) {
-  if (!email) {
-    showError("signUpEmailError", "Please enter your email");
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,24}$/;
+  if (!email || !emailPattern.test(email.trim())) {
+    showError("signUpEmailError", "Please enter a valid email");
     SIGNUP_EMAIL_INPUT.style.borderColor = "red";
-      return false;
+    return false;
   }
   if (isValidEmail(email)) 
     return true;
@@ -344,7 +365,8 @@ function clearSignUpErrors() {
 
   ERROR_IDS.forEach(id => {
     const element = document.getElementById(id);
-    if (element) element.textContent = "";
+    if (element === 'This field is required.') 
+    element.textContent = "";
   });
 
   [SIGNUP_NAME_INPUT, SIGNUP_EMAIL_INPUT, SIGNUP_PSW_INPUT, SIGNUP_CONF_PSW_INPUT].forEach(input => {

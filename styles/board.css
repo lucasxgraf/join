@@ -167,7 +167,10 @@ h3 {
   font-weight: 700;
   line-height: 120%;
   min-height: 40px;
+  max-height: 60px;
   color: #2a3647;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card_description {
