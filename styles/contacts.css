@@ -173,7 +173,7 @@ ul li::marker {
 
 .add-contact-form {
     position: absolute;
-    z-index: 300;
+    z-index: 10000;
     display: flex;
     justify-content: center;
     width: clamp(57rem, 95vw, 62.5rem);
@@ -533,9 +533,12 @@ ul li::marker {
 .mobile-add-contact {
     display: none;
     position: fixed;
-    z-index: 100;
+    z-index: 9999;
     bottom: 100px;
     right: 24px;
+    pointer-events: auto;
+    height: 56px;
+    width: 56px;
 }
 
 .mobile-add-contact:hover {

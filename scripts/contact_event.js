@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", contactClick);
  * Adds click event listeners to all contact elements for selection highlighting
  */
 function contactClick() {
+    if (window.innerWidth <= 980) {return};
     let contacts = document.querySelectorAll('.contact');
     contacts.forEach(contact => {
         contact.addEventListener('click', function () {
@@ -111,7 +112,8 @@ window.bodyClickClose = bodyClickClose;
  * @param {Event} event - The click event
  */
 function addContactEvent(event) {
-    event.stopPropagation();
+    event?.preventDefault();
+    event?.stopPropagation();
     let index = undefined;
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');

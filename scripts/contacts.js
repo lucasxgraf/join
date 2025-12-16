@@ -37,7 +37,10 @@ function contactPictureLetters(index) {
  * Displays a contact's details in the content area
  * @param {number} index - The index of the contact to display
  */
-function showContact(index) {
+function showContact(index, event) {
+    const topEl = document.elementFromPoint(event.clientX, event.clientY);
+    if (topEl && topEl.closest(".mobile-add-contact")) {addContactEvent(); return}
+    event.preventDefault();
     if (document.getElementById('showContent' + index) && window.innerWidth >= 981) {return} else {removeExistingContent(index)}
     document.getElementById('contact_content').innerHTML = showContactTemplate(index);
     showContentXOverflowHidden(index);
@@ -229,7 +232,7 @@ function getValidity({ name, mail, phone }) {
  * @returns {boolean} True if name is valid, false otherwise
  */
 function validName(iName) {
-    return /^[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?\s+[A-Za-zÄÖÜäöüß]+(?:-[A-Za-zÄÖÜäöüß]+)?$/.test(iName.trim());
+    return /^(?!.*\b(?:Dr|Prof|Professor|Dipl|Ing|Mag|BSc|MSc|PhD)\.?\b)[A-ZÀ-ÖØ-Ý][a-zà-öø-ÿ]+(?:[- ][A-ZÀ-ÖØ-Ý][a-zà-öø-ÿ]+)*$/.test(iName.trim());
 }
 
 /**
@@ -247,7 +250,7 @@ function nameCheck(iName) {
  * @returns {boolean} True if email is valid, false otherwise
  */
 function validMail(iMail) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(iMail.trim());
+    return /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/.test(iMail.trim());
 }
 
 /**
