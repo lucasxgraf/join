@@ -30,6 +30,12 @@ const TOGGLE_PASSWORD = document.getElementById("togglePassword");
 const GUEST_LOGIN_BTN = document.querySelector("#guestLog");
 
 /**
+ * Reference to the sign up element.
+ * @type {HTMLElement}
+ */
+const SIGN_UP = document.querySelector(".sign_up");
+
+/**
  * Reference to the login card container.
  * @type {HTMLElement}
  */
@@ -39,7 +45,7 @@ const LOGIN_CARD = document.querySelector(".login_card");
  * Reference to the login header element.
  * @type {HTMLElement}
  */
-const LOGIN_HEADER = document.querySelector(".login_header");
+const LOGIN_HEADER = document.querySelector("header");
 
 /**
  * Reference to the footer element.
@@ -122,7 +128,7 @@ function applyLogoStyles() {
  * Hides the background overlay element.
  */
 function hideBgOverlay() {
-  const BG_OVERLAY = document.querySelector(".bg_overlay_responsive");
+  const BG_OVERLAY = document.querySelector(".overlay");
   if (BG_OVERLAY) {
     BG_OVERLAY.style.display = "none";
   }
@@ -148,12 +154,15 @@ function fadeInLoginElements() {
   const elements = [
     { el: FOOTER, display: "block" },
     { el: LOGIN_HEADER, display: "flex" },
-    { el: LOGIN_CARD, display: "inline" }
+    { el: LOGIN_CARD, display: "inline" },
+    { el: SIGN_UP, display: "flex" },
   ];
   
   elements.forEach(({ el, display }) => {
-    el.style.display = display;
-    el.style.animation = "fadeIn 600ms forwards";
+    if (el) {  // Prüfen, ob Element existiert
+      el.style.display = display;
+      el.style.animation = "fadeIn 600ms forwards";
+    }
   });
 }
 
@@ -268,3 +277,61 @@ function clearLoginErrors() {
   document.getElementById("loginEmail").style.borderColor = "";
   document.getElementById("loginPassword").style.borderColor = "";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const logo = document.querySelector('.logo');
+  const logoContainer = document.querySelector('.logo_container');
+  const signUp = document.querySelector('.sign_up');
+
+  if (!logo || !logoContainer || !signUp) return;
+
+  // Startposition: Mitte des Bildschirms
+  if (window.innerWidth <= 475) {
+    logo.style.content = 'url("./assets/img/logo/join_logo_vector.svg")'; // Für <img>-Element
+  }
+
+  logo.style.position = 'fixed';
+  logo.style.top = '50%';
+  logo.style.left = '50%';
+  logo.style.transform = 'translate(-50%, -50%) scale(2)';
+  logo.style.transition = 'all 0.8s ease-in-out';
+
+  // Zielposition berechnen
+  const targetRect = logoContainer.getBoundingClientRect();
+  const targetX = targetRect.left + targetRect.width / 2;
+  const targetY = targetRect.top + targetRect.height / 2;
+  const startX = window.innerWidth / 2;
+  const startY = window.innerHeight / 2;
+  const deltaX = targetX - startX;
+  const deltaY = targetY - startY;
+
+  // Nach 1 Sekunde: Logo animieren
+  setTimeout(() => {
+    logo.style.transform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(1)`;
+    logo.style.top = '50%';  // bleibt fixed, transform macht die Bewegung
+    logo.style.left = '50%';
+  }, 1000);
+
+
+// Nach 1.8 Sekunden: Logo in Header verschieben und andere Elemente einblenden
+setTimeout(() => {
+  // Logo in den Header verschieben
+  logoContainer.appendChild(logo);
+
+  // CSS zurücksetzen, damit es im flex Layout sitzt
+  logo.style.position = 'static';
+  logo.style.transform = 'none';
+  logo.style.cursor = 'default';
+
+  // 🔵 Nur bei schmalen Bildschirmen: Farbwechsel
+  if (window.innerWidth <= 475) {
+    if (logo.tagName !== 'IMG') {
+      logo.src = './assets/img/logo/join_logo.png'; // Für <img>-Element
+    } else {
+      logo.style.content = 'url("./assets/img/logo/join_logo.png")'; // Für CSS content
+    }
+  }
+  // Andere Elemente einblenden
+  fadeInLoginElements();
+}, 1800);
+});
