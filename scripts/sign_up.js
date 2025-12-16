@@ -254,7 +254,7 @@ function validateSignUpForm(name, email, password, confirmPassword, privacyAccep
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateName(name) {
-  const namePattern = /^(?!.*\b(?:Dr|Prof|Professor|Dipl|Ing|Mag|BSc|MSc|PhD)\.?\b)[a-zà-öø-ÿ]+(?:[- ][a-zà-öø-ÿ]+)$/i;
+  const namePattern = /^(?=.{1,24}$)(?!.*\b(?:Dr|Prof|Professor|Dipl|Ing|Mag|BSc|MSc|PhD)\.?\b)[a-zà-öø-ÿ]+(?:[- ][a-zà-öø-ÿ]+)$/i;
 
   if (!name || !namePattern.test(name.trim())) {
     showError("signUpNameError", "Please enter a valid name: Max Mustermann");
@@ -270,7 +270,7 @@ function validateName(name) {
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateEmail(email) {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,24}$/;
+  const emailPattern = /^(?=.{1,30}$)[^\s@]+@[^\s@]+\.(de|net|org|com|info|io)$/i;
   if (!email || !emailPattern.test(email.trim())) {
     showError("signUpEmailError", "Please enter a valid email");
     SIGNUP_EMAIL_INPUT.style.borderColor = "red";
