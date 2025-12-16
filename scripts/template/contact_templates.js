@@ -105,7 +105,7 @@ function addFormTemplate(index) {
 
                     <div id="group-mail" class="inputWrapper">
                         <label for="input-mail" aria-label="e-mail of contact"></label>
-                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="20" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
+                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="32" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>
@@ -159,7 +159,7 @@ function editContactTemplate(index) {
 
                     <div id="group-mail" class="inputWrapper">
                         <label for="input-mail" aria-label="e-mail of contact"></label>
-                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="20" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
+                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="32" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>

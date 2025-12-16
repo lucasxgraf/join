@@ -213,9 +213,9 @@ async function formCheck(index, event) {
     clearAlerts();
     const { name, mail, phone } = getFormValues();
     const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
-    if (!nameValid) showErrorContact('errorName', 'alert-name', 'Example for name: Max Mustermann', 'group-name');
-    if (!mailValid) showErrorContact('errorMail', 'alert-mail', 'Example for e-mail: John-Smith@test.com', 'group-mail');
-    if (!phoneValid) showErrorContact('errorPhone', 'alert-phone', 'Example for phone number: +4917612345678', 'group-phone');
+    if (!nameValid) showErrorContact('errorName', 'alert-name', 'Example: Max Mustermann', 'group-name');
+    if (!mailValid) showErrorContact('errorMail', 'alert-mail', 'Example: John-Smith@test.com', 'group-mail');
+    if (!phoneValid) showErrorContact('errorPhone', 'alert-phone', 'Example: +4917612345678', 'group-phone');
     if (!nameValid || !mailValid || !phoneValid) return;
     document.getElementById('add-Form') ? await addContact(event) : await editContact(index);
 }
