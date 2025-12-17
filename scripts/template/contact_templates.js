@@ -193,23 +193,23 @@ function getFeedbackContact(contactText) {
 }
 
 function renderGroupHeader(listEl, letter) {
-    listEl.innerHTML += `
-    <div class="letter">${letter}</div>
-    <div class="contact-line"></div>
-    <div id="group-${letter}"></div>
+  listEl.innerHTML += `
+   <div class="letter">${letter}</div>
+   <div class="contact-line"></div>
+   <div id="group-${letter}"></div>
   `;
 }
 
 function appendContact(letter, contact, index) {
-    const groupEl = document.getElementById(`group-${letter}`);
-    groupEl.innerHTML += `
+  const groupEl = document.getElementById(`group-${letter}`);
+  groupEl.innerHTML += `
     <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, event)">
-      <button class="contact-picture" style="background-color: ${contact.color}">
+    <button class="contact-picture" style="background-color: ${contact.color}">
         ${contactPictureLetters(index)}
-      </button>
-      <div>
-        <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
-        <p class="small-email">${contact.mail}</p>
-      </div>
+    </button>
+    <div>
+      <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
+      <p class="small-email">${contact.mail}</p>
+    </div>
     </div>`;
 }

@@ -70,7 +70,7 @@ async function addTask() {
  * @returns {Object} The composed task object
  */
 function helpForComposition(titel, description, date, category) {
-    const newTask = {
+  const newTask = {
     "title": titel.value,
     "description": description.value,
     "date": date.value || date.innerText,
@@ -134,7 +134,7 @@ async function updateCardInFirebase(cardId, updatedCard) {
  * @returns {Object} The composed updated card object
  */
 function helpForCompositionEdit(cardId, title, description, date, selectedContacts){
-    const updatedCard = {
+  const updatedCard = {
     title: title,
     description: description,
     date: date,
@@ -144,7 +144,7 @@ function helpForCompositionEdit(cardId, title, description, date, selectedContac
     category: cardId.category,
     dragclass: cardId.dragclass
   };
-return updatedCard
+  return updatedCard
 }
 
 /**
@@ -167,12 +167,12 @@ function dragclass() {
  * @param {Array} subtasks - The subtasks to save
  */
 async function saveSubtasksToFirebase(cardId, subtasks) {
-    const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
-    await fetch(url, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(subtasks) 
-    });
+  const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
+  await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(subtasks) 
+  });
 }
 
 /**
@@ -207,11 +207,11 @@ async function moveTo(newdragclass) {
  */
 async function loadContacts() {
   
-    const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
-    const DATA = await RESPONSE.json();
-    if (DATA) {
-      contacts_from_firebase = DATA;
-    } 
+  const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
+  const DATA = await RESPONSE.json();
+  if (DATA) {
+    contacts_from_firebase = DATA;
+  } 
 }
 
 /**
@@ -219,14 +219,14 @@ async function loadContacts() {
  * @param {string} ref - The reference to determine processing method
  */
 async function loadTasks(ref) {
-    const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
-    const DATA = await RESPONSE.json();
-    if (DATA) {
-      cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
+  const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
+  const DATA = await RESPONSE.json();
+  if (DATA) {
+    cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
     id: id,
     ...task
-    }));
-    }
+  }));
+  }
   if (ref === "board"){
   loadDetails(cardFromFirebase)
   } else {
@@ -239,14 +239,19 @@ async function loadTasks(ref) {
  * Fetches contacts from Firebase and populates the contacts array
  */
 async function fetchContacts() {
-    let response = await fetch(BASE_URL + "contacts.json");
-    let responseToJSON = await response.json();
-    let contactObj = responseToJSON.contactlist || responseToJSON;
-    for (let id in contactObj) {
-        let contactData = contactObj[id];
-        contactData.id = id;
-        contacts.push(contactData);
-    }
+  try {  let response = await fetch(BASE_URL + "contacts.json");
+  let responseToJSON = await response.json();
+  let contactObj = responseToJSON.contactlist || responseToJSON;
+  for (let id in contactObj) {
+      let contactData = contactObj[id];
+      contactData.id = id;
+      contacts.push(contactData); 
+  }
+  }
+  
+  catch (error){
+     console.error("Failed to load contacts:", error);
+  }
 }
 
 /**
@@ -375,15 +380,15 @@ async function refreshContacts() {
  * @param {number} index - The index of the contact to delete
  */
 async function deleteContact(index) {
-    let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    await fetch(url, { method: 'DELETE' });
-    closeForm();
-    if (window.innerWidth >= 981){showNoContact()}
-    else {showNoContact(); mobileBack()};
-    contacts = [];
-    contactToast("Contact successfully delete");
-    await init();
-    buttonTimeOut()
+  let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
+  await fetch(url, { method: 'DELETE' });
+  closeForm();
+  if (window.innerWidth >= 981){showNoContact()}
+  else {showNoContact(); mobileBack()};
+  contacts = [];
+  contactToast("Contact successfully delete");
+  await init();
+  buttonTimeOut()
 }
 /**
  * Timeout function to disable add contact buttons temporarily

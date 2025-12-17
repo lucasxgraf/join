@@ -422,10 +422,18 @@ function sendFeedback() {
   }, 2000);
 }
 
+/**
+ * Checks whether the current browser URL points to the "addTask.html" page.
+ *
+ * This function evaluates the current window location pathname and
+ * determines if it ends with "addTask.html".
+ *
+ * @returns {boolean} Returns true if the current page is "addTask.html",
+ *                    otherwise returns false.
+ */
 function checkWindowURL() {
   const currentPath = window.location.pathname;
   const isAddTaskPage = currentPath.endsWith("addTask.html");
 
   return isAddTaskPage;
 }
-

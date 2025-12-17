@@ -300,7 +300,7 @@ function validateConfirmPassword(password, confirmPassword) {
   if (!confirmPassword) {
     showError("signUpConfirmPasswordError", "Please confirm your password");
     SIGNUP_CONF_PSW_INPUT.style.borderColor = "red";
-      return false;
+    return false;
   }
   if (password === confirmPassword) 
     return true;

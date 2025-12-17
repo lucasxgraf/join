@@ -30,9 +30,10 @@ function addXOverflowHidden() {
     void document.body.offsetWidth;
     form.classList.add("slide-in-dialog");
     form.addEventListener('animationend', () => {
-    document.documentElement.classList.remove('disable-x-scroll');
-    document.body.classList.remove('disable-x-scroll');
-    form.classList.remove('slide-in-dialog');}
+        document.documentElement.classList.remove('disable-x-scroll');
+        document.body.classList.remove('disable-x-scroll');
+        form.classList.remove('slide-in-dialog');
+    }
 );
 }
 
@@ -75,17 +76,17 @@ function showContentXOverflowHidden(index) {
  */
 function alertxOverflowHidden() {
     const alertEl = document.getElementById('create-contact-alert');
-  document.documentElement.classList.add('disable-x-scroll');
-  document.body.classList.add('disable-x-scroll');
-  document.getElementById('contactlist').classList.add('disable-x-scroll');
-  alertEl.classList.remove('slide-up-hold-down'); void alertEl.offsetWidth;
-  alertEl.classList.add('slide-up-hold-down');
-  setTimeout(() => {
-    document.documentElement.classList.remove('disable-x-scroll');
-    document.body.classList.remove('disable-x-scroll');
-    document.getElementById('contactlist').classList.remove('disable-x-scroll');
-    alertEl.remove();
-  }, 2500);
+    document.documentElement.classList.add('disable-x-scroll');
+    document.body.classList.add('disable-x-scroll');
+    document.getElementById('contactlist').classList.add('disable-x-scroll');
+    alertEl.classList.remove('slide-up-hold-down'); void alertEl.offsetWidth;
+    alertEl.classList.add('slide-up-hold-down');
+    setTimeout(() => {
+        document.documentElement.classList.remove('disable-x-scroll');
+        document.body.classList.remove('disable-x-scroll');
+        document.getElementById('contactlist').classList.remove('disable-x-scroll');
+        alertEl.remove();
+    }, 2500);
 }
 
 /**

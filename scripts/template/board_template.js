@@ -69,7 +69,7 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
     <div class="${String(CARD.category||'').toLowerCase().replace(/\s+/g,'_')}">
       <div class="overlay_card_category">${CARD.category||''}</div>
     </div>
-      <button class="overlay_close_btn" onclick="toggleOverlay()">×</button>
+    <button class="overlay_close_btn" onclick="toggleOverlay()">×</button>
   </div>
 
     <h3 class="overlay_card_title">${CARD.title||''}</h3>
@@ -124,7 +124,7 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
         </svg>
         Edit
       </button>
-    </div>
+  </div>
   `;
 }
 
