@@ -266,3 +266,30 @@ function replaceOnClickContacts() {
         contact.onclick = () => mobileContactClick(index)
     });
 }
+
+/**
+ * Timeout function to disable add contact buttons temporarily
+ */
+function buttonTimeOut() {
+  const addButtons = document.querySelectorAll('.add-contact, .mobile-add-contact');
+  addButtons.forEach(btn => btn.disabled = true);
+  
+  setTimeout(() => {
+    addButtons.forEach(btn => btn.disabled = false);
+  }, 2500); 
+}
+
+/**
+ * Refreshes contacts after adding a new one
+ */
+async function refreshContacts() {
+  contacts = [];
+}
+
+/**
+ * Refreshes contacts after editing
+ */
+async function refreshContacts() {
+  contacts = [];
+  await init();
+}
