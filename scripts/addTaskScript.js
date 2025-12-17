@@ -323,29 +323,40 @@ function initTaskFormEvents() {
   const duedate = document.getElementById("duedate");
   const category = document.getElementById("selectedCategory");
 
-  if (!form || !submitBtn || !title || !duedate || !category) return;
-  registerTaskFormListeners({ title, duedate, category, submitBtn });
-}
+title.addEventListener('blur', () => {
+  if (!title.value.trim()) {
+    showError("titleError", "This field is required.");
+  } else {
+    showError("titleError", "");
+  }
+  enableSubmit();
+});
 
-/** * Registers event listeners for task form fields and submission
- * @param {Object} params - The form elements
- * @param {HTMLElement} params.title - The title input element
- */
-function registerTaskFormListeners({ title, duedate, category, submitBtn }) {
-  title.addEventListener("blur", () =>
-    validateField(title.value.trim(), "titleError")
-  );
-  duedate.addEventListener("blur", () =>
-    validateField(validateDueDate(), "dateError")
-  );
-  category.addEventListener("change", () =>
-    validateField(category.value.trim(), "categoryError")
-  );
-  submitBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (validateForm()) addTask();
-    clearErrors();
-  });
+duedate.addEventListener('blur', () => {
+  if (!validateDueDate()) {
+    showError("dateError", "This field is required.");
+  } else {
+    showError("dateError", "");
+  }
+  enableSubmit();
+});
+
+category.addEventListener('change', () => {
+  if (!category.value.trim()) {
+    showError("categoryError", "This field is required.");
+  } else {
+    showError("categoryError", "");
+  }
+  enableSubmit();
+});
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (validateForm()) {
+    addTask();
+  }
+  clearErrors();
+});
 }
 
 /**
