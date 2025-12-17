@@ -701,7 +701,7 @@ button.dateFaded {
   .error_message {
     margin-bottom: 4px;
   }
-
+  
   #contactDropdown,
   .priority-buttons,
   textarea {
@@ -715,7 +715,7 @@ button.dateFaded {
   .datePicker {
     top: calc(87%);
   }
-
+.dropdown-list,
   textarea,
   .custom-category-dropdown,
   .task-input {
