@@ -17,12 +17,14 @@ let contactFromFirebase = [];
  * @returns {Promise<Object>} The response from Firebase
  */
 async function postData(path="addTask.json", data={task}) {
+  try{
   let response = await fetch(BASE_URL + path,{
     method: "POST",
     headers: {"Content-Type": "application/json",},
     body: JSON.stringify(data)
-  });
-   return response.json();
+  })
+  return response.json();
+  } catch (error) {handleApiError(error, "postData");}
 }
 
 /**
@@ -30,16 +32,16 @@ async function postData(path="addTask.json", data={task}) {
  * @param {string} [path="contacts/contactlist.json"] - The path to fetch contacts from
  */
 async function fetchContact(path = "contacts/contactlist.json") {
+  try{
   const fetchRes = await fetch(BASE_URL + path);
   const data = await fetchRes.json();
-
   if (data) {
     contactFromFirebase = Object.entries(data).map(([id, contact]) => ({
       userid: id,
       ...contact
-    }));
-  }
+    }));}
   renderContactOnHTML(contactFromFirebase, "labelContact")
+  } catch (error) {handleApiError(error, "fetchContact");}
 }
 
 /**
@@ -47,6 +49,7 @@ async function fetchContact(path = "contacts/contactlist.json") {
  * @returns {Promise<Object>} The response from Firebase
  */
 async function addTask() {
+  try{
   let titel = document.getElementById("title");
   let description = document.getElementById("description");
   let date = document.getElementById("duedate");
@@ -57,8 +60,8 @@ async function addTask() {
   clearInput();
   enableSubmit();
   sendFeedback();
-  
   return postData("addTask.json", newTask);
+  } catch (error) {handleApiError(error, "addTask");}
 }
 
 /**
@@ -88,7 +91,6 @@ function helpForComposition(titel, description, date, category) {
  */
 async function saveEditedCardToFirebase() {
   if (!validateEditedForm()) return;
-  
   const cardId = SingleCARD[0];
   const updatedCard = getUpdatedCardData(cardId);
   
@@ -107,7 +109,6 @@ function getUpdatedCardData(cardId) {
   const description = document.getElementById("overlayEditDescription").value;
   const date = document.getElementById("duedateOverlayEdit").value;
   const selectedContacts = getSelectedContactsFromOverlay();
-  
   return helpForCompositionEdit(cardId, title, description, date, selectedContacts);
 }
 
@@ -117,11 +118,13 @@ function getUpdatedCardData(cardId) {
  * @param {Object} updatedCard - The updated card data
  */
 async function updateCardInFirebase(cardId, updatedCard) {
+  try{
   await fetch(`${BASE_URL}addTask/${cardId}.json`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedCard)
   });
+  } catch (error) { handleApiError(error, "updateCardInFirebase");}
 }
 
 /**
@@ -142,8 +145,7 @@ function helpForCompositionEdit(cardId, title, description, date, selectedContac
     contact: selectedContacts,
     subtask: cardId.subtask,
     category: cardId.category,
-    dragclass: cardId.dragclass
-  };
+    dragclass: cardId.dragclass};
 return updatedCard
 }
 
@@ -157,8 +159,7 @@ function dragclass() {
   if (dragclassRef) {
     return dragclassRef
   }else {
-   return "todo"
-  } 
+   return "todo"} 
 }
 
 /**
@@ -167,12 +168,14 @@ function dragclass() {
  * @param {Array} subtasks - The subtasks to save
  */
 async function saveSubtasksToFirebase(cardId, subtasks) {
+  try{
     const url = `${BASE_URL}addTask/${cardId}/subtask.json`;
     await fetch(url, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(subtasks) 
     });
+  } catch (error) {handleApiError(error, "saveSubtasksToFirebase");}
 }
 
 /**
@@ -180,16 +183,19 @@ async function saveSubtasksToFirebase(cardId, subtasks) {
  * @param {string} taskId - The ID of the task to delete
  */
 async function deleteTaskFromFirebase(taskId) {
+  try{
     const response = await fetch(`${BASE_URL}addTask/${taskId}.json`, {
       method: 'DELETE'
     });
-  } 
-  
+  } catch (error) {handleApiError(error, "deleteTaskFromFirebase");} 
+}
+
 /**
  * Moves a task to a new drag class in Firebase
  * @param {string} newdragclass - The new drag class
  */
 async function moveTo(newdragclass) {
+  try{
   const task = cardFromFirebase.find(t => t.id === dragElementId);
   if (!task) return;
 
@@ -200,18 +206,19 @@ async function moveTo(newdragclass) {
           body: `"${newdragclass}"`
       });
       loadDetails(cardFromFirebase);
+  } catch (error) {handleApiError(error, "moveTo");}
 }
 
 /**
  * Loads contacts from Firebase
  */
 async function loadContacts() {
-  
+try{
     const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
     const DATA = await RESPONSE.json();
     if (DATA) {
-      contacts_from_firebase = DATA;
-    } 
+      contacts_from_firebase = DATA;} 
+  } catch (error) {handleApiError(error, "loadContacts");}
 }
 
 /**
@@ -219,34 +226,35 @@ async function loadContacts() {
  * @param {string} ref - The reference to determine processing method
  */
 async function loadTasks(ref) {
+  try{
     const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
     const DATA = await RESPONSE.json();
     if (DATA) {
       cardFromFirebase = Object.entries(DATA).map(([id, task]) => ({
     id: id,
     ...task
-    }));
-    }
+    }))}
   if (ref === "board"){
   loadDetails(cardFromFirebase)
   } else {
     splitCardsByStatus(cardFromFirebase)
-    countUrgentPriority(cardFromFirebase)
-  }
-};
+    countUrgentPriority(cardFromFirebase)}
+  } catch (error) {handleApiError(error, "loadTasks");}
+}
 
 /**
  * Fetches contacts from Firebase and populates the contacts array
  */
 async function fetchContacts() {
+  try{
     let response = await fetch(BASE_URL + "contacts.json");
     let responseToJSON = await response.json();
     let contactObj = responseToJSON.contactlist || responseToJSON;
     for (let id in contactObj) {
         let contactData = contactObj[id];
         contactData.id = id;
-        contacts.push(contactData);
-    }
+        contacts.push(contactData);}
+  }catch (error) {handleApiError(error, "fetchContacts");}
 }
 
 /**
@@ -255,10 +263,8 @@ async function fetchContacts() {
  */
 async function addContact(event) {
   event.stopPropagation();
-  
   const data = getContactData();
   await saveContactToFirebase(data);
-  
   closeForm(event);
   await refreshContacts();
   contactToast("Contact successfully create");
@@ -275,7 +281,6 @@ function getContactData() {
   let iPhone = document.getElementById('input-phone').value;
   let [firstname, ...rest] = iName.trim().split(" ");
   let secondname = rest.join(" ");
-  
   return returnJSONDATANEW(iMail, iPhone, firstname, secondname);
 }
 
@@ -284,18 +289,12 @@ function getContactData() {
  * @param {Object} data - The contact data to save
  */
 async function saveContactToFirebase(data) {
+  try{
   await fetch(BASE_URL + "contacts/contactlist.json", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-}
-
-/**
- * Refreshes contacts after adding a new one
- */
-async function refreshContacts() {
-  contacts = [];
+    body: JSON.stringify(data)})
+  } catch (error) {handleApiError(error, "saveContactToFirebase");}
 }
 
 /**
@@ -304,10 +303,8 @@ async function refreshContacts() {
  */
 async function editContact(index) {
   if (isContactUnchanged(index)) return;
-  
   const data = getEditedContactData(index);
   await updateContactInFirebase(index, data);
-  
   closeForm();
   await refreshContacts();
   updateContactContentAfterEdit(index);
@@ -327,7 +324,6 @@ function isContactUnchanged(index) {
   const iPhone = document.getElementById('input-phone').value;
   const originalName = `${name.firstname} ${name.secondname}`;
   const cleanedPhone = iPhone === "<i> Please update your phone number <i>" ? "" : iPhone;
-  
   return (iName === originalName && iMail === mail && (iPhone === tel)) ||
          (iName === originalName && iMail === mail && cleanedPhone === tel);
 }
@@ -353,21 +349,13 @@ function getEditedContactData(index) {
  * @param {Object} data - The updated contact data
  */
 async function updateContactInFirebase(index, data) {
+  try{
   const url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-  
   await fetch(url, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-}
-
-/**
- * Refreshes contacts after editing
- */
-async function refreshContacts() {
-  contacts = [];
-  await init();
+    body: JSON.stringify(data)});
+  } catch (error) {handleApiError(error, "updateContactInFirebase");}
 }
 
 /**
@@ -375,24 +363,24 @@ async function refreshContacts() {
  * @param {number} index - The index of the contact to delete
  */
 async function deleteContact(index) {
+  try{
     let url = BASE_URL + `contacts/contactlist/${contacts[index].id}.json`;
-    await fetch(url, { method: 'DELETE' });
-    closeForm();
-    if (window.innerWidth >= 981){showNoContact()}
-    else {showNoContact(); mobileBack()};
-    contacts = [];
-    contactToast("Contact successfully delete");
-    await init();
-    buttonTimeOut()
+      await fetch(url, { method: 'DELETE' });
+      closeForm();
+      if (window.innerWidth >= 981){showNoContact()}
+      else {showNoContact(); mobileBack()};
+      contacts = [];
+      contactToast("Contact successfully delete");
+      await init();
+      buttonTimeOut()
+  } catch (error) {handleApiError(error, "deleteContact");}
 }
+
 /**
  * Timeout function to disable add contact buttons temporarily
+ * * @param {string} error -  The error message
+ * * @param {string} source - The source of the error
  */
-function buttonTimeOut() {
-  const addButtons = document.querySelectorAll('.add-contact, .mobile-add-contact');
-  addButtons.forEach(btn => btn.disabled = true);
-  
-  setTimeout(() => {
-    addButtons.forEach(btn => btn.disabled = false);
-  }, 2500); 
+function handleApiError(error, source = "unknown") {
+  console.error(`API-Fehler [${source}]:`, error.message);
 }
