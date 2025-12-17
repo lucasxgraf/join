@@ -105,7 +105,6 @@ if (SIGNUP_FORM) {
 }
 document.addEventListener("click", function (event) {
   if (SIGNUP_FORM && !SIGNUP_FORM.contains(event.target)) {
-    // clearSignUpErrors();
   }
 });
 
@@ -185,23 +184,14 @@ async function handleSignUpSubmit(event) {
   const CONFIRM_PSW = SIGNUP_CONF_PSW_INPUT.value;
   const PRIVACY_ACCEPTED = PRIVACY_CHECKBOX.checked;
 
-  // 1. Alle Validierungen
   const isValid = validateSignUpForm(
-    NAME,
-    EMAIL,
-    PASSWORD,
-    CONFIRM_PSW,
-    PRIVACY_ACCEPTED
+    NAME, EMAIL, PASSWORD, CONFIRM_PSW, PRIVACY_ACCEPTED
   );
-
   if (!isValid) {
-    // Abbrechen, NICHT bei Firebase anmelden / User anlegen
     return;
   }
 
-  // 2. Nur wenn alles gültig ist: User anlegen
   const RESULT = await signUpUser(NAME, EMAIL, PASSWORD);
-
   if (RESULT.success) {
     return onSignUpSuccess();
   }

@@ -332,17 +332,51 @@ function enableSubmit() {
 }
 
 /**
- * Initializes task form event handlers
+ * Initializes task form event handlers for validation and submission
  */
 function initTaskFormEvents() {
   const form = document.getElementById("taskForm");
+  const submitBtn = document.getElementById("submit");
   const title = document.getElementById("title");
   const duedate = document.getElementById("duedate");
+  const category = document.getElementById("selectedCategory");
 
-  if (!form || !title || !duedate.value) return;
-  form.onclick = e => { 
-    e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
-  };
+  if (!form || !submitBtn || !title || !duedate || !category) return;
+
+title.addEventListener('blur', () => {
+  if (!title.value.trim()) {
+    showError("titleError", "This field is required.");
+  } else {
+    showError("titleError", "");
+  }
+  enableSubmit();
+});
+
+duedate.addEventListener('blur', () => {
+  if (!validateDueDate()) {
+    showError("dateError", "This field is required.");
+  } else {
+    showError("dateError", "");
+  }
+  enableSubmit();
+});
+
+category.addEventListener('change', () => {
+  if (!category.value.trim()) {
+    showError("categoryError", "This field is required.");
+  } else {
+    showError("categoryError", "");
+  }
+  enableSubmit();
+});
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (validateForm()) {
+    addTask();
+  }
+  clearErrors();
+});
 }
 
 /**
@@ -380,6 +414,8 @@ function sendFeedback() {
     else{
       closeDialog();
       clearInput();
+      clearErrors();
+      initTaskFormEvents();
       loadTasks("board");
       return;
     }

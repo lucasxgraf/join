@@ -38,7 +38,6 @@ function renderCard(element) {
   `;
 }
 
-
 function renderSwapDropDown(taskId, currentDragClass) {
   const columns = [
     { value: 'todo', label: 'To Do' },
@@ -63,7 +62,6 @@ function renderSwapDropDown(taskId, currentDragClass) {
   
   return columnSwapCategory;
 }
-
 
 function renderOverlayCard(CARD, OVERLAY_CARD) {
   OVERLAY_CARD.innerHTML = `
@@ -129,7 +127,6 @@ function renderOverlayCard(CARD, OVERLAY_CARD) {
     </div>
   `;
 }
-
 
 function showDeleteToast() {
   toast = document.createElement('div');
@@ -248,7 +245,6 @@ function renderOverlayEditCard(CARD, OVERLAY_CARD) {
   `
 }
 
-
 function subtaskEditOverlay(addSubtask, subtaskArray) {
   addSubtask.innerHTML = "";
   
@@ -275,7 +271,6 @@ function subtaskEditOverlay(addSubtask, subtaskArray) {
   }
 }
 
-
 function renderSubtaskButtonsEditOverlay(event) {
   const input = event ? event.target : document.getElementById("subtaskReadOutEditOverlay");
   const buttonContainer = document.getElementById("inputButtonsEditOverlay");
@@ -299,7 +294,6 @@ function renderSubtaskButtonsEditOverlay(event) {
       </button>`;
   }
 }
-
 
 function renderContactOnHTMLOverlayEdit(contactFromFirebase, currentId) {
   const contactRef = document.getElementById(currentId);

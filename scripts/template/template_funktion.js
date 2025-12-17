@@ -10,14 +10,12 @@ function init() {
     changePriority("medium", "AddTask") 
 }
 
-
 function renderInHtml() {
     renderaddTaskOnHtml();
     renderCategoryOnHTML();
     initTaskFormEvents();
 
 }
-
 
 function renderaddTaskOnHtml() {
     const addTaskRef = document.getElementById("addTaskTemplate")
@@ -31,7 +29,6 @@ function renderaddTaskOnHtml() {
     }
 }
 
-
 function renderContactOnHTML(contacFromFirebase, currentId) {
     const contactRef = document.getElementById(currentId);
     
@@ -40,7 +37,6 @@ function renderContactOnHTML(contacFromFirebase, currentId) {
     }
 }
 
-
 function renderCategoryOnHTML() {
     const categoryRef = document.getElementById("labelCategory");
     
@@ -48,7 +44,6 @@ function renderCategoryOnHTML() {
         categoryRef.innerHTML +=  renderCategory(i);      
     }
 }
-
 
 function addTaskButton() {
   const input = document.getElementById("subtaskReadOut");
@@ -61,8 +56,9 @@ function addTaskButton() {
  */
 function iconContactHTML(currentId) {
   const iconConact = document.getElementById(currentId);
-  const visibleBadges = contactBadge.slice(0, 9);
-  iconConact.innerHTML = ""; 
+  const visibleBadges = contactBadge.slice(0, 8);
+  if (!iconConact) return;
+  iconConact.innerHTML = "";
 
   visibleBadges.forEach(badge => {
     iconConact.appendChild(badge.cloneNode(true));
@@ -95,6 +91,7 @@ function getInitials(name_obj) {
   if (!FIRST && !SECOND) return '??';
   return `${FIRST[0] || ''}${SECOND[0] || ''}`.toUpperCase();
 }
+
 function renderContactBadges(contact_array) {
   const MAX_VISIBLE = 3;
   let html = '';

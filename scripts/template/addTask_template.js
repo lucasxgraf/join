@@ -1,4 +1,3 @@
-
 function renderaddTask() {
   return `
     <main>
@@ -127,7 +126,6 @@ function renderaddTask() {
     </div>`;
 }
 
-
 function renderContact(i, contacFromFirebase) {
   return `
     <label for="categoryCheckbox${i}" class="dropdown-item sp_between">
@@ -174,7 +172,6 @@ function subtask(addSubtask, subtaskArray) {
     }
 }
 
-
 function renderSubtaskButtons() {
   const input = document.getElementById("subtaskReadOut");
   const buttonContainer = document.getElementById("inputButtons");
@@ -194,7 +191,6 @@ function renderSubtaskButtons() {
       </button>`;
   }
 }
-
 
 function renderCalender(currentid, displayid) {
   let calenderOpen = document.getElementById(currentid)
