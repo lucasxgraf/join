@@ -445,8 +445,9 @@ textarea {
   position: relative;
 }
 
-.datePickerZ{
-  position: absolute;   /* aus dem Layout */
+.datePickerZ {
+  position: absolute;
+  /* aus dem Layout */
   top: calc(-380% + 4px);
   z-index: 2;
 }
@@ -709,9 +710,10 @@ button.dateFaded {
 
   .datePicker {
     top: calc(87%);
-}
+  }
+
   textarea,
- .dropdown-list,
+  .dropdown-list,
   .custom-category-dropdown,
   .task-input {
     width: clamp(18.5rem, 90vw, 36rem);
@@ -766,7 +768,8 @@ button.dateFaded {
     width: 95px;
     font-size: 1rem;
   }
-  .tag{
-      padding: 10px 8px;
-    }
+
+  .tag {
+    padding: 10px 8px;
+  }
 }

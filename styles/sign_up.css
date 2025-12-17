@@ -191,7 +191,7 @@ input[type="checkbox"]:hover {
 
 @keyframes overlaySlideUp {
   0% {
-    transform: translate(-50%, 120%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
 
@@ -206,7 +206,7 @@ input[type="checkbox"]:hover {
   }
 
   100% {
-    transform: translate(-50%, 120%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
 }
@@ -217,7 +217,7 @@ input[type="checkbox"]:hover {
     padding: 32px 16px;
   }
 
-  header{
+  header {
     padding: 24px;
   }
 }

@@ -93,9 +93,14 @@ text {
   transition: all 125ms ease-in-out;
 }
 
-.focus {
+.focus,
+.focus_resp{
   background-color: #091931;
   color: #CDCDCD !important;
+}
+
+.focus_resp{
+  border-radius: 15px;
 }
 
 .center-wrap {
@@ -172,7 +177,6 @@ text {
   background-color: #2A3D59;
 }
 
-/* Responsiv  */
 .navContainer {
   background-color: #2A3647;
   height: 100vh;
@@ -198,6 +202,7 @@ text {
   justify-content: space-between;
   width: 100%;
   padding: 0 24px;
+  height: 100%;
 }
 
 .navResponsivFooter {
@@ -214,7 +219,8 @@ text {
   color: white;
   text-decoration: none;
   max-width: 120px;
-  padding: 8px 24px;
+  padding: 14px 24px;
+  height: 100%;
 }
 
 .singleResponsivContainer:hover {
@@ -279,6 +285,6 @@ text {
   }
 
   .singleResponsivContainer {
-    padding: 0px
+    padding: 14px 0;
   }
 }

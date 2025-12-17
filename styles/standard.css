@@ -115,6 +115,7 @@ footer {
     opacity: 0;
   }
 }
+
 *:disabled {
   background-color: #2A3647 !important;
   box-shadow: none !important;

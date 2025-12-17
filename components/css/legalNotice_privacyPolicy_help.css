@@ -122,9 +122,11 @@ span {
   .responsive_links_container {
     display: flex;
     gap: 16px;
+    height: 100%;
   }
 
   .singleResponsivContainer {
     width: auto;
+    text-wrap-mode: nowrap;
   }
 }
