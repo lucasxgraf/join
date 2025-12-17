@@ -94,7 +94,7 @@ async function saveEditedCardToFirebase() {
   
   await updateCardInFirebase(cardId.id, updatedCard);
   toggleOverlay();
-  location.reload();
+  loadTasks("board");
 }
 
 /**

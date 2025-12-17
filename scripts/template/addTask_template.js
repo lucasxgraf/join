@@ -21,7 +21,7 @@ function renderaddTask() {
                           </div>
                             <textarea id="description" class="task-input inputBorderColor mg-t4 mg-b16" placeholder="Enter a description"></textarea>
                         </div>
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                           <div>
                             <label for="duedate" aria-label="Date">Due date<span class="req">*</span></label>
                           </div>
@@ -51,7 +51,7 @@ function renderaddTask() {
                             </div>
                         </div>
 
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                             <div>
                               <label for="selectedAssigned" aria-label="Assigned_to">Assigned to</label>
                             </div>
@@ -69,7 +69,7 @@ function renderaddTask() {
                             </div>
                         </div>
 
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                           <div>
                             <label for="selectedCategory" aria-label="Category">Category<span class="req">*</span></label>
                           </div>
@@ -111,7 +111,7 @@ function renderaddTask() {
                     <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
                         <img class="closeSvg" src="../assets/svg/close.svg" alt="close icon">
                     </button>
-                    <button type="submit" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
+                    <button type="button" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
                         <img class="checkSvg" src="../assets/svg/check.svg" alt="check icon">
                     </button>
                 </div>
@@ -199,7 +199,7 @@ function renderSubtaskButtons() {
 function renderCalender(currentid, displayid) {
   let calenderOpen = document.getElementById(currentid)
   calenderOpen.innerHTML += 
-    `<div class="datePicker">
+    `<div class="datePicker datePickerZ">
             <div class="datepickerTop">
                 <div class="btnGroup">
                     <button type="button" class="tag" onclick="pickDate(0, '${displayid}', '${currentid}')">Today</button>

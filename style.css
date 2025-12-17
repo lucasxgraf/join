@@ -51,7 +51,6 @@ h1 {
   border: 1px solid rgba(209, 209, 209, 1);
   border-radius: 12px;
   outline: none;
-  cursor: pointer;
 }
 
 ::placeholder {

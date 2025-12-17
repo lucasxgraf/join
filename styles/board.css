@@ -40,6 +40,11 @@ h3 {
   padding: 0px 80px;
 }
 
+#addTaskAtBoardPage .scroll_layout{
+  max-height: calc(100vh - 100px - 140px);
+  padding: 40px 20px 0px 20px
+}
+
 .inputSearch {
   border-radius: 10px;
   width: 312px;
@@ -470,7 +475,9 @@ h3 {
     padding: 80px 24px;
     max-height: calc(100vh - 100px - 80px);
   }
-
+  #addTaskAtBoardPage .scroll_layout{
+  max-height: calc(100vh - 100px - 40px)
+}
   .content_col {
     gap: 0px
   }

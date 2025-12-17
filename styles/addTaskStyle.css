@@ -173,7 +173,6 @@ label {
 }
 
 .custom-category-dropdown {
-  position: relative;
   width: clamp(20rem, 32.7vw, 27.5rem);
   user-select: none;
 }
@@ -210,6 +209,10 @@ label {
   max-height: 200px;
   overflow-x: auto;
   margin-bottom: 8px;
+  z-index: 2;
+  position: absolute;
+  width: clamp(20rem, 32.7vw, 27.5rem);
+  min-height: 95px;
 }
 
 .custom-category-dropdown.open .dropdown-list {
@@ -315,7 +318,7 @@ label {
 }
 
 .morethan9 {
-  background-color: white !important;
+  background-color: #2a3647 !important;
   border: 1px solid black !important;
 }
 
@@ -392,6 +395,7 @@ textarea {
   outline: none;
   padding: 8px;
   width: 100%;
+  cursor: pointer;
 }
 
 .containerEditSubtask {
@@ -429,13 +433,22 @@ textarea {
 }
 
 .datePicker {
-  height: 360px;
+  height: 370px;
   max-width: 320px;
   min-width: 290px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0, 2);
   padding: 1rem;
+}
+
+.p_realtive {
+  position: relative;
+}
+
+.datePickerZ{
+  position: absolute;   /* aus dem Layout */
+  top: calc(-380% + 4px);
+  z-index: 2;
 }
 
 .datepickerTop {
@@ -694,7 +707,11 @@ button.dateFaded {
     max-width: clamp(18.5rem, 90vw, 36rem) !important;
   }
 
+  .datePicker {
+    top: calc(87%);
+}
   textarea,
+ .dropdown-list,
   .custom-category-dropdown,
   .task-input {
     width: clamp(18.5rem, 90vw, 36rem);
@@ -730,6 +747,7 @@ button.dateFaded {
     position: sticky;
     bottom: 0px;
     background-color: #f6f7f8;
+    z-index: 2;
   }
 
   .feedbackAddTask span {
@@ -748,4 +766,7 @@ button.dateFaded {
     width: 95px;
     font-size: 1rem;
   }
+  .tag{
+      padding: 10px 8px;
+    }
 }

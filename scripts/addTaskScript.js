@@ -340,7 +340,7 @@ function initTaskFormEvents() {
   const duedate = document.getElementById("duedate");
 
   if (!form || !title || !duedate.value) return;
-  form.onsubmit = e => { 
+  form.onclick = e => { 
     e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
   };
 }
@@ -371,29 +371,25 @@ function validateForm() {
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
+  const checkURL = checkWindowURL()
   setTimeout(() => {
     feedbackRef.classList.add("dnone");
-    window.location.href = "board.html";
+    if (checkURL) {
+      window.location.href = "board.html";
+    }
+    else{
+      closeDialog();
+      clearInput();
+      loadTasks("board");
+      return;
+    }
   }, 2000);
 }
 
-// /**
-//  * Validates input field and displays error message if empty
-//  * @param {string} displayid - The ID of the error message element
-//  * @param {string} currentId - The ID of the input element to validate
-//  * @param {string} inputFrame - The ID of the wrapper element for error styling
-//  */
-// function validateInput(displayid, currentId, inputFrame) {
-//     const input = document.getElementById(currentId);
-//     const output = document.getElementById(displayid);
-//     const borderError = document.getElementById(inputFrame);
-    
-//     if (!input || !output || !borderError) return; 
-//     if (input.value.trim() === "") {
-//         output.innerHTML = "This field is required.";
-//         borderError.classList.add('errorBorder');
-//     } else {
-//         output.innerHTML = "";
-//         borderError.classList.remove('errorBorder');
-//     }
-// }
+function checkWindowURL() {
+  const currentPath = window.location.pathname;
+  const isAddTaskPage = currentPath.endsWith("addTask.html");
+
+  return isAddTaskPage;
+}
+
