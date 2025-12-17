@@ -139,9 +139,9 @@ function renderContact(i, contacFromFirebase) {
 
 function renderCategory(i) {
   return `
-       <div class="dropdown-item" onclick="changeCategory(this)">
-            <span>${category[i]}</span>
-        </div>`;
+    <div class="dropdown-item" onclick="changeCategory(this)">
+      <span>${category[i]}</span>
+    </div>`;
 }
 
 

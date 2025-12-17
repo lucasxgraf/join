@@ -58,31 +58,27 @@ let nearest = null;
  */
 async function initSummary() {
   greetingTime();
-    setupGreetingListener()
-    loadTasks("summary")
+  setupGreetingListener()
+  loadTasks("summary")
 }
 
 /**
  * Sets up authentication change listener for user greeting.
  */
 function setupGreetingListener() {
-    window.onAuthChange(async (user) => {
-      const userGreetingElement = document.getElementById('userGreeting');
-      
-      if (!user) {
-        userGreetingElement.textContent = '';
-        return;
-      }
-      
-      const userName = await getUserName(user);
-      updateGreetingDisplay(userName);
-      
-      if (window.innerWidth <= 575) {
-        showMobileGreeting(userName);
-      }
-      
-      getInitialsFromUser();
-    });
+  window.onAuthChange(async (user) => {
+    const userGreetingElement = document.getElementById('userGreeting');  
+  if (!user) {
+    userGreetingElement.textContent = '';
+    return;
+  }   
+  const userName = await getUserName(user);
+  updateGreetingDisplay(userName);   
+  if (window.innerWidth <= 575) {
+    showMobileGreeting(userName);
+  }  
+  getInitialsFromUser();
+  });
 }
 
 /**
@@ -103,7 +99,7 @@ async function getUserName(user) {
 function updateGreetingDisplay(userName) {
   const userGreetingElement = document.getElementById('userGreeting');
 
-    userGreetingElement.textContent = userName;
+  userGreetingElement.textContent = userName;
   
 }
 
@@ -131,12 +127,12 @@ function showMobileGreeting(userName) {
  * @returns {string} The greeting text.
  */
 function greetingTime() {
-    let greeting = document.getElementById('timeGreeting');
-    const hour = new Date().getHours();
-    const greetingText = getGreetingByHour(hour);
+  let greeting = document.getElementById('timeGreeting');
+  const hour = new Date().getHours();
+  const greetingText = getGreetingByHour(hour);
     
-    greeting.textContent = greetingText;
-    return greetingText;
+  greeting.textContent = greetingText;
+  return greetingText;
 }
 
 /**
@@ -145,18 +141,18 @@ function greetingTime() {
  * @returns {string} The greeting text.
  */
 function getGreetingByHour(hour) {
-    switch (true) {
-        case (hour >= 4 && hour < 11):
-            return "Good Morning,";
-        case (hour >= 11 && hour < 18):
-            return "Good Afternoon,";
-        case (hour >= 18 && hour < 21):
-            return "Good Evening,";
-        case (hour >= 21 || hour < 4):
-            return "Good Night,";
-        default:
-            return "Good Morning,";
-    }
+  switch (true) {
+    case (hour >= 4 && hour < 11):
+      return "Good Morning,";
+    case (hour >= 11 && hour < 18):
+      return "Good Afternoon,";
+    case (hour >= 18 && hour < 21):
+      return "Good Evening,";
+    case (hour >= 21 || hour < 4):
+      return "Good Night,";
+    default:
+      return "Good Morning,";
+  }
 }
 
 /**
@@ -179,7 +175,7 @@ function splitCardsByStatus(cards) {
  * @param {Array} cards - Array of task cards to check.
  */
 function countUrgentPriority(cards) {
- const urgentRef = document.getElementById("urgentNumber")
+  const urgentRef = document.getElementById("urgentNumber")
 
   for (let card of cards) {          
     if (card.priority === "urgent") { 
@@ -221,7 +217,7 @@ function calculationUpComingDeadline(urgentCards) {
     if (nearest === null || dateObj.getTime() < nearest.getTime()) {
       nearest = dateObj;
     }}
-   return howNearest(nearest, today)
+  return howNearest(nearest, today)
 }
 
 /**
@@ -254,20 +250,20 @@ function howNearest(nearest, today) {
  * @param {Array} awaitFeedback - Array of await feedback tasks.
  */
 function updateSummary(todo, done, inProgress, awaitFeedback) {
-   const todoRef = document.getElementById("todoNumber")
-   const doneRef = document.getElementById("doneNumber")
-   const taskProgressNumberRef = document.getElementById("taskProgressNumber")
-   const feedbackNumberRef = document.getElementById("feedbackNumber")
-   const taskBoardNumberRef = document.getElementById("taskBoardNumber")
+  const todoRef = document.getElementById("todoNumber")
+  const doneRef = document.getElementById("doneNumber")
+  const taskProgressNumberRef = document.getElementById("taskProgressNumber")
+  const feedbackNumberRef = document.getElementById("feedbackNumber")
+  const taskBoardNumberRef = document.getElementById("taskBoardNumber")
    
-    todoRef.innerHTML = todo.length;
-    doneRef.innerHTML = done.length;
-    taskProgressNumberRef.innerHTML = inProgress.length;
-    feedbackNumberRef.innerHTML = awaitFeedback.length;
+  todoRef.innerHTML = todo.length;
+  doneRef.innerHTML = done.length;
+  taskProgressNumberRef.innerHTML = inProgress.length;
+  feedbackNumberRef.innerHTML = awaitFeedback.length;
 
-    taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
+  taskBoardNumberRef.innerHTML = awaitFeedback.length + inProgress.length + done.length + todo.length;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initSummary();
-  });
+  initSummary();
+});

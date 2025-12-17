@@ -97,7 +97,8 @@ function renderCardsToContainers(cards) {
 function responsivResultmassage() {
     if (window.innerWidth <= 1050) {
         document.getElementById("content_col").classList.add("dnone")    
-    }else
+    }
+    else
         document.getElementById("content_col").classList.remove("dnone")    
 }
 

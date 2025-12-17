@@ -135,10 +135,10 @@ async function overlayDeleteCard() {
  * @param {Object} CARD - The card object to delete
  */
  async function deleteSyn (CARD) {
-      await deleteTaskFromFirebase(CARD.id);
-      showDeleteToast();
-      toggleOverlay();
-      await loadTasks("board");
+  await deleteTaskFromFirebase(CARD.id);
+  showDeleteToast();
+  toggleOverlay();
+  await loadTasks("board");
   
 }
 
@@ -277,7 +277,7 @@ function filterDateInput(id) {
   let input = document.getElementById(id);
   if (!input) return;
   else{
-  input.value = input.value.replace(/[^0-9\/]/g, "");
-  return true
+    input.value = input.value.replace(/[^0-9\/]/g, "");
+    return true
   } 
 }

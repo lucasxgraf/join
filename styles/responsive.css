@@ -93,11 +93,11 @@
   }
 
   @keyframes slideUpHoldDown {
-  0%   { bottom: -120px; opacity: 0; }
-  20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
-  80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
-  100% { bottom: -120px; opacity: 0; }
-}
+    0%   { bottom: -120px; opacity: 0; }
+    20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+    80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+    100% { bottom: -120px; opacity: 0; }
+  }
 
   .alert {
     position: fixed;
@@ -333,12 +333,12 @@
 }
 
 @media only screen and (max-width: 520px) {
-    .error_message {
-      height: 39px;
-      text-align: center;
-    }
+  .error_message {
+    height: 39px;
+    text-align: center;
+  }
 
-    .add-form {
-      align-items: center;
-    }
+  .add-form {
+    align-items: center;
+  }
 }

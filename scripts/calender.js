@@ -80,9 +80,9 @@ function isValidFutureDate(value) {
 function toggleCalender(currentid, displayid) {
   let caldenerOpen = document.getElementById(currentid)
 
-if (caldenerOpen.innerHTML.trim() === ""){
-  renderCalender(currentid, displayid) 
-}else{
+  if (caldenerOpen.innerHTML.trim() === ""){
+   renderCalender(currentid, displayid) 
+  }else{
     closeCalender(currentid, displayid)
   }
 }
@@ -96,11 +96,11 @@ function closeCalender (currentid, displayid) {
  let calenderCloseRef = document.getElementById(currentid)
  calenderCloseRef.innerHTML = ""
 
-if (currentid === "calenderOverlayEdit") {
+ if (currentid === "calenderOverlayEdit") {
   validateInput('titleErrorEditOverlay', 'overlayEditTitle', 'overlayEditTitle')
-}
-else
- validateInput('dateError', 'duedate', 'date')
+ }
+ else
+  validateInput('dateError', 'duedate', 'date')
 }
 
 /**
@@ -126,7 +126,7 @@ function changeMonth(direction, currentid, displayid) {
   } else if (currentMonth < 0) {
     currentMonth = 11;
     currentYear--;
-}
+  }
   document.getElementById("month").textContent = monthNames[currentMonth];
   document.getElementById("year").textContent = currentYear;
   renderCalendarDays(currentMonth, currentYear, currentid, displayid);

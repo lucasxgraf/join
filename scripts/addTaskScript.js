@@ -2,7 +2,6 @@
  * @fileoverview Add Task functionality for task management system
  * @description Handles task creation, validation, contact assignment, subtask management, and priority selection
  */
-
 let task = [];
 let subtaskArray = [];
 let contactList = [];
@@ -49,8 +48,7 @@ function clearContact() {
 
     document.querySelectorAll('#contactDropdown input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
-    iconContactHTML("iconContact")
-  });
+    iconContactHTML("iconContact")});
 }
 
 /**
@@ -63,15 +61,11 @@ function toggleDropdown(selector, currentId) {
   const isOpen = dropdown.classList.toggle("open");
   if (selector === "contact") {
     renderIcon();
-  }
-  if (isOpen) {
+  } if (isOpen) {
     setTimeout(() => {
       document.addEventListener("click", (e) => handleClickOutside(e, dropdown, currentId));
     }, 0);
-  }
-  if (!isOpen) {
-    if (currentId) iconContactHTML(currentId);
-  }
+  } if (!isOpen) { if (currentId) iconContactHTML(currentId);}
 }
 
 /**
@@ -84,8 +78,7 @@ function handleClickOutside(e, dropdown, currentId) {
   if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
     document.removeEventListener("click", handleClickOutside);
-    if (currentId) iconContactHTML(currentId);
-  }
+    if (currentId) iconContactHTML(currentId);}
 }
 
 /**
@@ -94,8 +87,7 @@ function handleClickOutside(e, dropdown, currentId) {
  */
 function handleOverlayClick(event) {
   const dropdown = document.querySelector('.custom-category-dropdown.open');
-  if (dropdown) {
-    return;}
+  if (dropdown) { return; }
   closeDialog();
 }
 
@@ -109,12 +101,10 @@ function changeCategory(selection) {
 
   if (typeof selection === "string") {
     text = selection;
-  } 
-   if (selection instanceof Element) {
+  } if (selection instanceof Element) {
     const span = selection.querySelector("span");
     text = span ? span.innerText.trim() : selection.innerText.trim();
-  }
-  if (input && text) {
+  } if (input && text) {
     input.value = text;
     enableSubmit()
   }
@@ -175,9 +165,8 @@ function fetchSVGs(currentId) {
     fetch(svg.path)
       .then(response => response.text())
       .then(svgContent => {
-        document.querySelector(svg.selector).innerHTML = svgContent;
-      });
-  });
+        document.querySelector(svg.selector).innerHTML = svgContent;});
+});
 }
 
 /**
@@ -197,8 +186,7 @@ function selectContacts(i, checkbox) {
     });
   } else {
     contactList = contactList.filter(c => c.id !== userId);
-    contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);
-  }
+    contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);}
   updateAssignedInput();
 }
 
@@ -274,11 +262,9 @@ function addEditSubtask(i) {
   if (newValue !== null && newValue.trim() !== "") {
     subtaskArray[i] = { title: newValue.trim(), completed: false };
     subtask(document.getElementById("addSubtask"), subtaskArray);
-  }
-  else{ (editInputSubtask.value === "") 
+  } else{ (editInputSubtask.value === "") 
   subtaskArray.splice(i, 1);
-  subtask(document.getElementById("addSubtask"), subtaskArray) 
-  }
+  subtask(document.getElementById("addSubtask"), subtaskArray) }
 }
 
 /**
@@ -290,11 +276,9 @@ function clearEditSubtask(i) {
   if (editInputSubtask.value === "") {
   subtaskArray.splice(i, 1);
   subtask(document.getElementById("addSubtask"), subtaskArray) 
-  }
-  else{
+  } else{
   editInputSubtask.value = "";
-  editInputSubtask.focus();
-  }
+  editInputSubtask.focus();}
 }
 
 /**
@@ -325,10 +309,8 @@ function enableSubmit() {
 
   if (allFilled) {
     document.getElementById("submit").disabled = false
-  }
-  else{
-    document.getElementById("submit").disabled = true
-  }
+  }else{
+    document.getElementById("submit").disabled = true}
 }
 
 /**
@@ -342,41 +324,28 @@ function initTaskFormEvents() {
   const category = document.getElementById("selectedCategory");
 
   if (!form || !submitBtn || !title || !duedate || !category) return;
+  registerTaskFormListeners({ title, duedate, category, submitBtn });
+}
 
-title.addEventListener('blur', () => {
-  if (!title.value.trim()) {
-    showError("titleError", "This field is required.");
-  } else {
-    showError("titleError", "");
-  }
-  enableSubmit();
-});
-
-duedate.addEventListener('blur', () => {
-  if (!validateDueDate()) {
-    showError("dateError", "This field is required.");
-  } else {
-    showError("dateError", "");
-  }
-  enableSubmit();
-});
-
-category.addEventListener('change', () => {
-  if (!category.value.trim()) {
-    showError("categoryError", "This field is required.");
-  } else {
-    showError("categoryError", "");
-  }
-  enableSubmit();
-});
-
-submitBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (validateForm()) {
-    addTask();
-  }
-  clearErrors();
-});
+/** * Registers event listeners for task form fields and submission
+ * @param {Object} params - The form elements
+ * @param {HTMLElement} params.title - The title input element
+ */
+function registerTaskFormListeners({ title, duedate, category, submitBtn }) {
+  title.addEventListener("blur", () =>
+    validateField(title.value.trim(), "titleError")
+  );
+  duedate.addEventListener("blur", () =>
+    validateField(validateDueDate(), "dateError")
+  );
+  category.addEventListener("change", () =>
+    validateField(category.value.trim(), "categoryError")
+  );
+  submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (validateForm()) addTask();
+    clearErrors();
+  });
 }
 
 /**
@@ -409,23 +378,23 @@ function sendFeedback() {
   setTimeout(() => {
     feedbackRef.classList.add("dnone");
     if (checkURL) {
-      window.location.href = "board.html";
-    }
-    else{
+      window.location.href = "board.html";}
+    else {
       closeDialog();
       clearInput();
       clearErrors();
       initTaskFormEvents();
       loadTasks("board");
       return;
-    }
-  }, 2000);
+    }}, 2000);
 }
 
+/**
+ * Check Window URL to determine if on addTask page
+ * @returns {boolean} True if on addTask page, false otherwise
+ */
 function checkWindowURL() {
   const currentPath = window.location.pathname;
   const isAddTaskPage = currentPath.endsWith("addTask.html");
-
   return isAddTaskPage;
 }
-

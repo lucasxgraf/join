@@ -1,48 +1,48 @@
 function init() {
-    getInitialsFromUser()
-    fetchContact();
-    renderInHtml();
-    fetchSVGs("AddTask");
-    addTaskButton();
-    addSubtask();
-    enterSubtask();
-    enableSubmit();
-    changePriority("medium", "AddTask") 
+  getInitialsFromUser()
+  fetchContact();
+  renderInHtml();
+  fetchSVGs("AddTask");
+  addTaskButton();
+  addSubtask();
+  enterSubtask();
+  enableSubmit();
+  changePriority("medium", "AddTask") 
 }
 
 function renderInHtml() {
-    renderaddTaskOnHtml();
-    renderCategoryOnHTML();
-    initTaskFormEvents();
+  renderaddTaskOnHtml();
+  renderCategoryOnHTML();
+  initTaskFormEvents();
 
 }
 
 function renderaddTaskOnHtml() {
-    const addTaskRef = document.getElementById("addTaskTemplate")
-    const boardAddTaskRef = document.getElementById("addTaskAtBoardPage")
+  const addTaskRef = document.getElementById("addTaskTemplate")
+  const boardAddTaskRef = document.getElementById("addTaskAtBoardPage")
 
-    if (boardAddTaskRef) {
+  if (boardAddTaskRef) {
     boardAddTaskRef.innerHTML += renderaddTask()
-    }
-    else{
+  }
+  else{
     addTaskRef.innerHTML += renderaddTask()
-    }
+  }
 }
 
 function renderContactOnHTML(contacFromFirebase, currentId) {
-    const contactRef = document.getElementById(currentId);
+  const contactRef = document.getElementById(currentId);
     
-    for (let i = 0; i < contacFromFirebase.length; i++) {
-        contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);
-    }
+  for (let i = 0; i < contacFromFirebase.length; i++) {
+    contactRef.innerHTML +=  renderContact(i ,contacFromFirebase);
+  }
 }
 
 function renderCategoryOnHTML() {
-    const categoryRef = document.getElementById("labelCategory");
+  const categoryRef = document.getElementById("labelCategory");
     
-    for (let i = 0; i < category.length; i++) {
-        categoryRef.innerHTML +=  renderCategory(i);      
-    }
+  for (let i = 0; i < category.length; i++) {
+    categoryRef.innerHTML +=  renderCategory(i);      
+  }
 }
 
 function addTaskButton() {

@@ -151,11 +151,11 @@ function dragoverHandler(ev) {
  * @param {string} id - The ID of the task being dragged
  */
 function startDrag(id) {
-    dragElementId = id;
-    const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
-    if (ELEMENT) {
-      ELEMENT.classList.add('dragging');
-    }
+  dragElementId = id;
+  const ELEMENT = document.querySelector(`[ondragstart*="${id}"]`);
+  if (ELEMENT) {
+    ELEMENT.classList.add('dragging');
+  }
 }
 
 /**
@@ -174,12 +174,12 @@ function stopDrag(id) {
  * Synchronizes dialog state for adding new tasks
  */
 function syncforDialog() {
-    changePriority("medium", "AddTask")
-    fetchSVGs("AddTask");
-    addTaskButton();
-    addSubtask();
-    enterSubtask();
-    enableSubmit();
+  changePriority("medium", "AddTask")
+  fetchSVGs("AddTask");
+  addTaskButton();
+  addSubtask();
+  enterSubtask();
+  enableSubmit();
 }
 
 /**
@@ -189,17 +189,17 @@ function syncforDialog() {
 function showDialog(targetDragClass) {
 
   if (isSwapOpen) return;
-    syncforDialog()
+  syncforDialog()
 
-    const OVERLAY = document.getElementById("addTaskOverlay");
-    const DIALOG = document.getElementById("addTaskDialog");
-    DIALOG.dataset.dragclass = targetDragClass;
+  const OVERLAY = document.getElementById("addTaskOverlay");
+  const DIALOG = document.getElementById("addTaskDialog");
+  DIALOG.dataset.dragclass = targetDragClass;
 
-    OVERLAY.classList.toggle("dnone");
+  OVERLAY.classList.toggle("dnone");
 
-      setTimeout(() => {
-        DIALOG.classList.add("show");
-      }, 10);
+  setTimeout(() => {
+    DIALOG.classList.add("show");
+  }, 10);
 }
 
 /**
