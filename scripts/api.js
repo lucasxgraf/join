@@ -212,7 +212,6 @@ async function moveTo(newdragclass) {
  * Loads contacts from Firebase
  */
 async function loadContacts() {
-  
   const RESPONSE = await fetch(`${BASE_URL}contacts/contactlist.json`);
   const DATA = await RESPONSE.json();
   if (DATA) {

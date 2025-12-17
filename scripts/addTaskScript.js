@@ -153,23 +153,6 @@ function changePriority(priority, currentId) {
 }
 
 /**
- * Fetches and displays SVG icons for priority buttons
- * @param {string} currentId - The ID suffix for the button elements
- */
-function fetchSVGs(currentId) {
-  const svgs = [
-    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
-    { path: '../assets/svg/priority_symblos/medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
-    { path: '../assets/svg/priority_symblos/low.svg', selector: `#lowBtn${currentId} .low_icon` }];
-  svgs.forEach(svg => {
-    fetch(svg.path)
-      .then(response => response.text())
-      .then(svgContent => {
-        document.querySelector(svg.selector).innerHTML = svgContent;});
-});
-}
-
-/**
  * Selects or deselects a contact for task assignment
  * @param {number} i - The index of the contact in the contact array
  * @param {HTMLInputElement} checkbox - The checkbox element

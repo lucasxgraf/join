@@ -142,3 +142,20 @@ function cleanValdedatError(displayid, inputFrame) {
     }
   }
 }
+
+/**
+ * Fetches and displays SVG icons for priority buttons
+ * @param {string} currentId - The ID suffix for the button elements
+ */
+function fetchSVGs(currentId) {
+  const svgs = [
+    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
+    { path: '../assets/svg/priority_symblos/medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
+    { path: '../assets/svg/priority_symblos/low.svg', selector: `#lowBtn${currentId} .low_icon` }];
+  svgs.forEach(svg => {
+    fetch(svg.path)
+      .then(response => response.text())
+      .then(svgContent => {
+        document.querySelector(svg.selector).innerHTML = svgContent;});
+});
+}
