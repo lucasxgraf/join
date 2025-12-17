@@ -225,7 +225,7 @@ async function loadContacts() {
  * @param {string} ref - The reference to determine processing method
  */
 async function loadTasks(ref) {
-  try{
+  try {
   const RESPONSE = await fetch(`${BASE_URL}addTask.json`);
   const DATA = await RESPONSE.json();
   if (DATA) {
