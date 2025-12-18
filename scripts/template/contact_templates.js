@@ -98,21 +98,21 @@ function addFormTemplate(index) {
                 <div class="add-form">
                     <div id="group-name" class="inputWrapper">
                         <label for="input-name" aria-label="name of contact"></label>
-                        <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
+                        <input type="text" placeholder="Name" id="input-name" maxlength="20" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
                         <img src="../assets/svg/person_input.svg">
                     </div>
                     <div id="errorName" class="error_message"></div>
 
                     <div id="group-mail" class="inputWrapper">
                         <label for="input-mail" aria-label="e-mail of contact"></label>
-                        <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
+                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="32" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>
 
                     <div id="group-phone" class="inputWrapper">
                         <label for="input-phone" aria-label="phonenumber of contact"></label>
-                        <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
+                        <input type="text" placeholder="Phone" id="input-phone" maxlength="16" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
                         <img src="../assets/svg/call.svg">
                     </div>
                     <div id="errorPhone" class="error_message"></div>
@@ -152,21 +152,21 @@ function editContactTemplate(index) {
                 <div class="add-form">
                     <div id="group-name" class="inputWrapper">
                         <label for="input-name" aria-label="name of contact"></label>
-                        <input type="text" placeholder="Name" id="input-name" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
+                        <input type="text" placeholder="Name" id="input-name" maxlength="20" onblur="validateInputContact('errorName', 'input-name', 'group-name')">
                         <img src="../assets/svg/person_input.svg">
                     </div>
                     <div id="errorName" class="error_message"></div>
 
                     <div id="group-mail" class="inputWrapper">
                         <label for="input-mail" aria-label="e-mail of contact"></label>
-                        <input type="text" placeholder="E-Mail" id="input-mail" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
+                        <input type="text" placeholder="E-Mail" id="input-mail" maxlength="32" onblur="validateInputContact('errorMail', 'input-mail', 'group-mail')">
                         <img src="../assets/svg/email.svg">
                     </div>
                     <div id="errorMail" class="error_message"></div>
 
                     <div id="group-phone" class="inputWrapper">
                         <label for="input-phone" aria-label="phonenumber of contact"></label>
-                        <input type="text" placeholder="Phone" id="input-phone" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
+                        <input type="text" placeholder="Phone" id="input-phone" maxlength="16" onblur="validateInputContact('errorPhone', 'input-phone', 'group-phone')">
                         <img src="../assets/svg/call.svg">
                     </div>
                     <div id="errorPhone" class="error_message"></div>
@@ -193,23 +193,23 @@ function getFeedbackContact(contactText) {
 }
 
 function renderGroupHeader(listEl, letter) {
-    listEl.innerHTML += `
-    <div class="letter">${letter}</div>
-    <div class="contact-line"></div>
-    <div id="group-${letter}"></div>
+  listEl.innerHTML += `
+   <div class="letter">${letter}</div>
+   <div class="contact-line"></div>
+   <div id="group-${letter}"></div>
   `;
 }
 
 function appendContact(letter, contact, index) {
-    const groupEl = document.getElementById(`group-${letter}`);
-    groupEl.innerHTML += `
-    <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, '${letter}')">
-      <button class="contact-picture" style="background-color: ${contact.color}">
+  const groupEl = document.getElementById(`group-${letter}`);
+  groupEl.innerHTML += `
+    <div class="contact" id="${contacts[index].id}" onclick="showContact(${index}, event)">
+    <button class="contact-picture" style="background-color: ${contact.color}">
         ${contactPictureLetters(index)}
-      </button>
-      <div>
-        <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
-        <p class="small-email">${contact.mail}</p>
-      </div>
+    </button>
+    <div>
+      <p>${contact.name.firstname} ${contact.name.secondname || ''}</p>
+      <p class="small-email">${contact.mail}</p>
+    </div>
     </div>`;
 }

@@ -40,6 +40,11 @@ h3 {
   padding: 0px 80px;
 }
 
+#addTaskAtBoardPage .scroll_layout{
+  max-height: calc(100vh - 100px - 140px);
+  padding: 40px 20px 0px 20px
+}
+
 .inputSearch {
   border-radius: 10px;
   width: 312px;
@@ -167,7 +172,10 @@ h3 {
   font-weight: 700;
   line-height: 120%;
   min-height: 40px;
+  max-height: 60px;
   color: #2a3647;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card_description {
@@ -180,7 +188,7 @@ h3 {
 }
 
 .subtask {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 120%;
 }
@@ -190,6 +198,8 @@ h3 {
   justify-content: space-between;
   align-items: center;
   width: 220px;
+  gap: 8px;
+  text-align: center;
 }
 
 .subtaskProgressBar {
@@ -355,15 +365,14 @@ h3 {
 }
 
 .contact_badge {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 1rem;
   border: 2px solid #fff;
 }
 
@@ -376,7 +385,7 @@ h3 {
 }
 
 .no_contacts {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: #a8a8a8;
 }
 
@@ -449,7 +458,7 @@ h3 {
   color: #CDCDCD;
   padding: 8px 0 8px 8px;
   text-align: left;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .dropdown-item-resp:hover {
@@ -466,7 +475,9 @@ h3 {
     padding: 80px 24px;
     max-height: calc(100vh - 100px - 80px);
   }
-
+  #addTaskAtBoardPage .scroll_layout{
+  max-height: calc(100vh - 100px - 40px)
+}
   .content_col {
     gap: 0px
   }

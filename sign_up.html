@@ -22,9 +22,12 @@
     <div class="overlay_msg">You Signed Up Successfully</div>
   </div>
 
-  <div class="image_container">
-    <img class="join_image" src="./assets/img/logo/join_logo.png" alt="Join Logo"/>
-  </div>
+  <div class="content_layout">
+    <header>
+      <div class="logo_container">
+        <img src="./assets/img/logo/join_logo.png" alt="Join Logo" class="logo"/>
+      </div>
+    </header>
 
   <main>
     <div class="sign_card">
@@ -46,7 +49,7 @@
               <div class="form_group">
                 <label for="name"></label>
                 <div class="input_container">
-                  <input id="name" name="name" autocomplete="name" type="text" placeholder="Name"/>
+                  <input id="name" name="name" autocomplete="name" type="text" placeholder="Name" onblur="validateInput('signUpNameError', 'name', 'name')" onfocus="cleanValdedatError('signUpNameError', 'name')"/>
                   <img src="./assets/svg/person.svg" alt="person icon" class="input_icon"/>
                 </div>
                 <div id="signUpNameError" class="error_message email_error_position"></div>
@@ -55,7 +58,7 @@
               <div class="form_group">
                 <label for="signUpEmail"></label>
                 <div class="input_container">
-                  <input id="signUpEmail" autocomplete="username" name="email" type="email" placeholder="Email"/>
+                  <input id="signUpEmail" autocomplete="username" name="email" type="email" placeholder="Email" onblur="validateInput('signUpEmailError', 'signUpEmail', 'signUpEmail')" onfocus="cleanValdedatError('signUpEmailError', 'signUpEmail')"/>
                   <img id="togglePassword" src="./assets/svg/email.svg" alt="email icon" class="input_icon"/>
                 </div>
                 <div id="signUpEmailError" class="error_message email_error_position"></div>
@@ -64,7 +67,7 @@
               <div class="form_group">
                 <label for="signUpPassword"></label>
                 <div class="input_container">
-                  <input id="signUpPassword" autocomplete="new-password" name="password" type="password" placeholder="Password"/>
+                  <input id="signUpPassword" autocomplete="new-password" name="password" type="password" placeholder="Password" onblur="validateInput('signUpPasswordError', 'signUpPassword', 'signUpPassword')" onfocus="cleanValdedatError('signUpPasswordError', 'signUpPassword')"/>
                   <img id="toggleSignUpPassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
                 </div>
                 <div id="signUpPasswordError" class="error_message email_error_position"></div>
@@ -73,7 +76,7 @@
               <div class="form_group">
                 <label for="signUpConfirmPassword"></label>
                 <div class="input_container">
-                  <input id="signUpConfirmPassword" autocomplete="new-password" type="password" placeholder="Confirm Password"/>
+                  <input id="signUpConfirmPassword" autocomplete="new-password" type="password" placeholder="Confirm Password" onblur="validateInput('signUpConfirmPasswordError', 'signUpConfirmPassword', 'signUpConfirmPassword')" onfocus="cleanValdedatError('signUpConfirmPasswordError', 'nasignUpConfirmPasswordme')"/>
                   <img id="toggleSignUpConfirmPassword" src="./assets/svg/lock.svg" alt="lock icon" class="input_icon"/>
                 </div>
                 <div id="signUpConfirmPasswordError" class="error_message email_error_position"></div>

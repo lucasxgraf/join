@@ -103,12 +103,11 @@ if (SIGNUP_CONF_PSW_INPUT) {
 if (SIGNUP_FORM) {
   SIGNUP_FORM.addEventListener("submit", handleSignUpSubmit);
 }
-
 document.addEventListener("click", function (event) {
   if (SIGNUP_FORM && !SIGNUP_FORM.contains(event.target)) {
-    clearSignUpErrors();
   }
 });
+
 
 /**
  * Initializes the sign up button state based on form validation.
@@ -184,13 +183,19 @@ async function handleSignUpSubmit(event) {
   const PASSWORD = SIGNUP_PSW_INPUT.value;
   const CONFIRM_PSW = SIGNUP_CONF_PSW_INPUT.value;
   const PRIVACY_ACCEPTED = PRIVACY_CHECKBOX.checked;
-  const RESULT = await signUpUser(NAME, EMAIL, PASSWORD);
 
-  if (!validateSignUpForm(NAME, EMAIL, PASSWORD, CONFIRM_PSW, PRIVACY_ACCEPTED)) 
+  const isValid = validateSignUpForm(
+    NAME, EMAIL, PASSWORD, CONFIRM_PSW, PRIVACY_ACCEPTED
+  );
+  if (!isValid) {
     return;
+  }
 
-  if (RESULT.success) 
+  const RESULT = await signUpUser(NAME, EMAIL, PASSWORD);
+  if (RESULT.success) {
     return onSignUpSuccess();
+  }
+
   onSignUpError(RESULT.error);
 }
 
@@ -200,7 +205,7 @@ async function handleSignUpSubmit(event) {
 function onSignUpSuccess() {
   showSuccessOverlay();
   setTimeout(() => {
-    window.location.href = "index.html?noSplash=1";
+    window.location.href = "./index.html?noSplash=1";
   }, 2000);
 }
 
@@ -238,10 +243,14 @@ function validateSignUpForm(name, email, password, confirmPassword, privacyAccep
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateName(name) {
-  if (name) return true;
-  showError("signUpNameError", "Please enter your name");
-  SIGNUP_NAME_INPUT.style.borderColor = "red";
+  const namePattern = /^(?=.{1,24}$)(?!.*\b(?:Dr|Prof|Professor|Dipl|Ing|Mag|BSc|MSc|PhD)\.?\b)[a-zà-öø-ÿ]+(?:[- ][a-zà-öø-ÿ]+)$/i;
+
+  if (!name || !namePattern.test(name.trim())) {
+    showError("signUpNameError", "Please enter a valid name: Max Mustermann");
+    SIGNUP_NAME_INPUT.style.borderColor = "red";
     return false;
+  }
+  return true;
 }
 
 /**
@@ -250,10 +259,11 @@ function validateName(name) {
  * @returns {boolean} True if valid, false otherwise.
  */
 function validateEmail(email) {
-  if (!email) {
-    showError("signUpEmailError", "Please enter your email");
+  const emailPattern = /^(?=.{1,30}$)[^\s@]+@[^\s@]+\.(de|net|org|com|info|io)$/i;
+  if (!email || !emailPattern.test(email.trim())) {
+    showError("signUpEmailError", "Please enter a valid email");
     SIGNUP_EMAIL_INPUT.style.borderColor = "red";
-      return false;
+    return false;
   }
   if (isValidEmail(email)) 
     return true;
@@ -290,7 +300,7 @@ function validateConfirmPassword(password, confirmPassword) {
   if (!confirmPassword) {
     showError("signUpConfirmPasswordError", "Please confirm your password");
     SIGNUP_CONF_PSW_INPUT.style.borderColor = "red";
-      return false;
+    return false;
   }
   if (password === confirmPassword) 
     return true;
@@ -344,7 +354,8 @@ function clearSignUpErrors() {
 
   ERROR_IDS.forEach(id => {
     const element = document.getElementById(id);
-    if (element) element.textContent = "";
+    if (element === 'This field is required.') 
+    element.textContent = "";
   });
 
   [SIGNUP_NAME_INPUT, SIGNUP_EMAIL_INPUT, SIGNUP_PSW_INPUT, SIGNUP_CONF_PSW_INPUT].forEach(input => {

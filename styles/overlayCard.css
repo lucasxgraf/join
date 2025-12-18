@@ -60,6 +60,10 @@
   font-size: 1.25rem;
 }
 
+.dropdown_overlay{
+  width: 83% ;
+}
+
 .overlay_close_btn {
   background: none;
   border: none;
@@ -75,6 +79,8 @@
   font-weight: 700;
   font-size: 3rem;
   color: black;
+  overflow-x: auto;
+  max-height: 150px;
 }
 
 .overlay_card_description {
@@ -202,7 +208,7 @@
   padding: 6px 10px;
   border-radius: 20px;
   color: #fff;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .overlay_contact_initials {
@@ -300,8 +306,11 @@ form select {
 
 @media only screen and (max-width: 500px) {
   .overlay_card_title {
-    font-size: 1.788rem;
+    font-size: 1.788rem; 
   }
+  .dropdown_overlay{
+  width: clamp(15.5rem, 83vw + 4%, 36rem);
+}
 
   .overlay_card_due_date_container span,
   .overlay_card_priority_container span,

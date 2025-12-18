@@ -106,3 +106,56 @@ function fadeInElement(selector, delay = 1000) {
     ELEMENT.style.animation = "fadeIn 3s forwards";
   }, delay);
 }
+
+/**
+ * Validates input field and displays error message if empty
+ * @param {string} displayid - The ID of the error message element
+ * @param {string} currentId - The ID of the input element to validate
+ * @param {string} inputFrame - The ID of the wrapper element for error styling
+ */
+function validateInput(displayid, currentId, inputFrame) {
+    const input = document.getElementById(currentId);
+    const output = document.getElementById(displayid);
+    const borderError = document.getElementById(inputFrame);
+    cleanValdedatError(displayid, currentId, inputFrame);
+    
+    if (!input || !output || !borderError) return; 
+    if (input.value.trim() === "") {
+        output.innerHTML = "This field is required.";
+        borderError.classList.add('errorBorder');
+    } else {
+        output.innerHTML = "";
+        borderError.classList.remove('errorBorder');
+    }
+}
+
+function cleanValdedatError(displayid, inputFrame) {
+  const output = document.getElementById(displayid);
+  const borderError = document.getElementById(inputFrame);
+
+  if (!output || !borderError) return;
+
+  if (borderError.classList.contains('errorBorder')) {
+    if ( output.innerHTML === "This field is required.") {
+      borderError.classList.remove('errorBorder');
+      output.innerHTML = "";
+    }
+  }
+}
+
+/**
+ * Fetches and displays SVG icons for priority buttons
+ * @param {string} currentId - The ID suffix for the button elements
+ */
+function fetchSVGs(currentId) {
+  const svgs = [
+    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
+    { path: '../assets/svg/priority_symblos/medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
+    { path: '../assets/svg/priority_symblos/low.svg', selector: `#lowBtn${currentId} .low_icon` }];
+  svgs.forEach(svg => {
+    fetch(svg.path)
+      .then(response => response.text())
+      .then(svgContent => {
+        document.querySelector(svg.selector).innerHTML = svgContent;});
+});
+}

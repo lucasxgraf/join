@@ -93,11 +93,11 @@
   }
 
   @keyframes slideUpHoldDown {
-  0%   { bottom: -120px; opacity: 0; }
-  20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
-  80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
-  100% { bottom: -120px; opacity: 0; }
-}
+    0%   { bottom: -120px; opacity: 0; }
+    20%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+    80%  { bottom: 50vh;   opacity: 1; transform: translateX(-50%) translateY(50%); }
+    100% { bottom: -120px; opacity: 0; }
+  }
 
   .alert {
     position: fixed;
@@ -250,6 +250,10 @@
   .slide-down {
     animation: slideDown 0.6s ease-out forwards;
   }
+
+  #group-name, #group-mail, #group-phone {
+    width: clamp(18.75rem, 72vw, 23.75rem);
+  }
 }
 
 @media only screen and (max-width: 749px) {
@@ -325,5 +329,16 @@
     height: 70px;
     width: 70px;
     font-size: 1.25rem;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .error_message {
+    height: 39px;
+    text-align: center;
+  }
+
+  .add-form {
+    align-items: center;
   }
 }

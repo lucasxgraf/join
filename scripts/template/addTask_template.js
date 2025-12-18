@@ -1,4 +1,3 @@
-
 function renderaddTask() {
   return `
     <main>
@@ -21,7 +20,7 @@ function renderaddTask() {
                           </div>
                             <textarea id="description" class="task-input inputBorderColor mg-t4 mg-b16" placeholder="Enter a description"></textarea>
                         </div>
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                           <div>
                             <label for="duedate" aria-label="Date">Due date<span class="req">*</span></label>
                           </div>
@@ -51,7 +50,7 @@ function renderaddTask() {
                             </div>
                         </div>
 
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                             <div>
                               <label for="selectedAssigned" aria-label="Assigned_to">Assigned to</label>
                             </div>
@@ -69,7 +68,7 @@ function renderaddTask() {
                             </div>
                         </div>
 
-                        <div class="input_field">
+                        <div class="input_field p_realtive">
                           <div>
                             <label for="selectedCategory" aria-label="Category">Category<span class="req">*</span></label>
                           </div>
@@ -111,7 +110,7 @@ function renderaddTask() {
                     <button type="button" class="btn btn_clear dpf_cc" onclick="clearInput()">Clear
                         <img class="closeSvg" src="../assets/svg/close.svg" alt="close icon">
                     </button>
-                    <button type="submit" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
+                    <button type="button" disabled id="submit" class="btn btn_create dpf_cc" onclick="initTaskFormEvents()">Create Task
                         <img class="checkSvg" src="../assets/svg/check.svg" alt="check icon">
                     </button>
                 </div>
@@ -127,7 +126,6 @@ function renderaddTask() {
     </div>`;
 }
 
-
 function renderContact(i, contacFromFirebase) {
   return `
     <label for="categoryCheckbox${i}" class="dropdown-item sp_between">
@@ -141,98 +139,72 @@ function renderContact(i, contacFromFirebase) {
 
 function renderCategory(i) {
   return `
-       <div class="dropdown-item" onclick="changeCategory(this)">
-            <span>${category[i]}</span>
-        </div>`;
+    <div class="dropdown-item" onclick="changeCategory(this)">
+      <span>${category[i]}</span>
+    </div>`;
 }
 
 
-function subtask(addSubtask, subtaskArray) {
-    addSubtask.innerHTML = "";
-  
-    for (let i = 0; i < subtaskArray.length; i++) {
-      const subtaskTitle = typeof subtaskArray[i] === 'object' ? subtaskArray[i].title : subtaskArray[i];
-     
-      addSubtask.innerHTML += `
-  
-        <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}" ondblclick="editSubtask(${i})">・ ${subtaskTitle}
-          <div class="editdeleteBtn">
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pencil, edit icon"></button>
-            <div class="sepraratorSubtask"></div>
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
-          </div>
-        </div>
-  
-        <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtask-${i}">
-          <input id="editInputSubtask-${i}" class="stylingInput" value="${subtaskTitle}">
-          <div class="dpf_cc">
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
-            <div class="sepraratorSubtask"></div>
-            <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtask(${i})"><img src="../assets/svg/check.svg" alt="check icon"></button>
-          </div>
-        </div>`;
-    }
+function subtaskTemplate(i, subtaskTitle) {
+  return `
+    <div class="taskOutput dpf_cc sp_between" id="taskOutput-${i}" ondblclick="editSubtask(${i})">・ ${subtaskTitle}
+      <div class="editdeleteBtn">
+        <button type="button" class="iconButtonsForImg dpf_cc" onclick="editSubtask(${i})"><img src="../assets/svg/edit.svg" alt="pencil, edit icon"></button>
+        <div class="sepraratorSubtask"></div>
+        <button type="button" class="iconButtonsForImg dpf_cc" onclick="deleteTask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
+      </div>
+    </div>
+
+    <div class="dnone dpf_cc sp_between containerEditSubtask" id="containerEditSubtask-${i}">
+      <input id="editInputSubtask-${i}" class="stylingInput" value="${subtaskTitle}">
+      <div class="dpf_cc">
+        <button type="button" class="iconButtonsForImg dpf_cc" onclick="clearEditSubtask(${i})"><img src="../assets/svg/delete.svg" alt="trash, delete icon"></button>
+        <div class="sepraratorSubtask"></div>
+        <button type="button" class="iconButtonsForImg dpf_cc" onclick="addEditSubtask(${i})"><img src="../assets/svg/check.svg" alt="check icon"></button>
+      </div>
+    </div>`;
 }
 
-
-function renderSubtaskButtons() {
-  const input = document.getElementById("subtaskReadOut");
-  const buttonContainer = document.getElementById("inputButtons");
-  const value = input.value.trim();
-
-  buttonContainer.innerHTML = "";
-
-  if (value !== "") {
-    buttonContainer.innerHTML = `
-
-      <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInput()" id="addBtn">
-        <img src="../assets/svg/close.svg" alt="close icon">
-      </button>
-      <div class="sepraratorSubtask"></div>
-      <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtask()" id="cancelBtn">
-        <img src="../assets/svg/check.svg" alt="check icon">
-      </button>`;
-  }
+function renderSubtaskButtonsTemplate() {
+  return `
+    <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="cleanInput()" id="addBtn">
+      <img src="../assets/svg/close.svg" alt="close icon">
+    </button>
+    <div class="sepraratorSubtask"></div>
+    <button type="button" class="iconButtonsForImg dpf_cc hover" onclick="addSubtask()" id="cancelBtn">
+      <img src="../assets/svg/check.svg" alt="check icon">
+    </button>`;
 }
 
-
-function renderCalender(currentid, displayid) {
-  let calenderOpen = document.getElementById(currentid)
-  calenderOpen.innerHTML += 
-    `<div class="datePicker">
-            <div class="datepickerTop">
-                <div class="btnGroup">
-                    <button type="button" class="tag" onclick="pickDate(0, '${displayid}', '${currentid}')">Today</button>
-                    <button type="button" class="tag" onclick="pickDate(1, '${displayid}', '${currentid}')">Tomorrow</button>
-                    <button type="button" class="tag" onclick="pickDate(2, '${displayid}', '${currentid}')">in 2 days</button>
-                </div>
-                <div class="monthSelector">
-                    <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1, '${currentid}', '${displayid}')"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt="chevron left"></button>
-                    <div>
-                        <span class="monthName" id="month">Oktober</span>
-                        <span class="monthName" id="year">2025</span>
-                      </div>
-                    <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt="chevron right"></button>
-                </div>
-            </div> 
-            <div class="datepickerCalender">
-                <span class="day dpf_cc">Mo</span>
-                <span class="day dpf_cc">Tu</span>
-                <span class="day dpf_cc">We</span>
-                <span class="day dpf_cc">Th</span>
-                <span class="day dpf_cc">Fr</span>
-                <span class="day dpf_cc">Sa</span>
-                <span class="day dpf_cc">Su</span>
+function renderCalenderTemplate(currentid, displayid) {
+  return `
+    <div class="datePicker datePickerZ">
+        <div class="datepickerTop">
+            <div class="btnGroup">
+                <button type="button" class="tag" onclick="pickDate(0, '${displayid}', '${currentid}')">Today</button>
+                <button type="button" class="tag" onclick="pickDate(1, '${displayid}', '${currentid}')">Tomorrow</button>
+                <button type="button" class="tag" onclick="pickDate(2, '${displayid}', '${currentid}')">in 2 days</button>
             </div>
-            <div class="datepickerCalender mg-t8" id="calenderDays"></div>
-        </div>`;
-        
-  const today = new Date();
-  currentMonth = today.getMonth();
-  currentYear = today.getFullYear();
-
-  initMonthDisplay();
-  renderCalendarDays(currentMonth, currentYear, currentid, displayid);  
+            <div class="monthSelector">
+                <button type="button" id="reverse" class="arrow dpf_cc" onclick="changeMonth(-1, '${currentid}', '${displayid}')"><img class="change180" src="../assets/svg/chevron_arrow.svg" alt="chevron left"></button>
+                <div>
+                    <span class="monthName" id="month">Oktober</span>
+                    <span class="monthName" id="year">2025</span>
+                  </div>
+                <button type="button" id="forward" class="arrow dpf_cc" onclick="changeMonth(1, '${currentid}', '${displayid}')"><img src="../assets/svg/chevron_arrow.svg" alt="chevron right"></button>
+            </div>
+        </div> 
+        <div class="datepickerCalender">
+            <span class="day dpf_cc">Mo</span>
+            <span class="day dpf_cc">Tu</span>
+            <span class="day dpf_cc">We</span>
+            <span class="day dpf_cc">Th</span>
+            <span class="day dpf_cc">Fr</span>
+            <span class="day dpf_cc">Sa</span>
+            <span class="day dpf_cc">Su</span>
+        </div>
+        <div class="datepickerCalender mg-t8" id="calenderDays"></div>
+    </div>`;
 }
 
 

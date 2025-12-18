@@ -1,11 +1,20 @@
 body {
   background-color: #f4f4f4;
+  overflow: hidden;
 }
 
-.join_image {
-  position: absolute;
-  top: 24px;
-  left: 24px;
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  padding: 40px;
+}
+
+.logo {
+  width: 64px;
+  height: 80px;
 }
 
 .sign_card {
@@ -84,11 +93,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-size: small;
 }
 
 .privacy_police_content label {
   cursor: pointer;
+  font-size: 1rem;
 }
 
 .privacy_police_content a {
@@ -107,6 +116,7 @@ body {
   border: none;
   padding: 10px;
   border-radius: 8px;
+  font-size: 1rem;
   font-weight: 400;
   width: 99px;
   height: 40px;
@@ -181,7 +191,7 @@ input[type="checkbox"]:hover {
 
 @keyframes overlaySlideUp {
   0% {
-    transform: translate(-50%, 120%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
 
@@ -196,7 +206,7 @@ input[type="checkbox"]:hover {
   }
 
   100% {
-    transform: translate(-50%, 120%);
+    transform: translate(-50%, 50%);
     opacity: 0;
   }
 }
@@ -207,11 +217,25 @@ input[type="checkbox"]:hover {
     padding: 32px 16px;
   }
 
-  .join_image {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    width: 64px;
-    height: 80px;
+  header {
+    padding: 24px;
+  }
+}
+
+@media only screen and (max-height: 750px) {
+  .sign_card {
+    padding: 16px;
+  }
+
+  .sign_card {
+    top: 55%;
+  }
+
+  .form_btn_sign {
+    margin-top: 16px;
+  }
+
+  .terms_conditions {
+    margin-bottom: 8px;
   }
 }

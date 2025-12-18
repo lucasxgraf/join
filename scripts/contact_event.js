@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", contactClick);
  * Adds click event listeners to all contact elements for selection highlighting
  */
 function contactClick() {
+    if (window.innerWidth <= 980) {return};
     let contacts = document.querySelectorAll('.contact');
     contacts.forEach(contact => {
         contact.addEventListener('click', function () {
@@ -29,9 +30,10 @@ function addXOverflowHidden() {
     void document.body.offsetWidth;
     form.classList.add("slide-in-dialog");
     form.addEventListener('animationend', () => {
-    document.documentElement.classList.remove('disable-x-scroll');
-    document.body.classList.remove('disable-x-scroll');
-    form.classList.remove('slide-in-dialog');}
+        document.documentElement.classList.remove('disable-x-scroll');
+        document.body.classList.remove('disable-x-scroll');
+        form.classList.remove('slide-in-dialog');
+    }
 );
 }
 
@@ -74,17 +76,17 @@ function showContentXOverflowHidden(index) {
  */
 function alertxOverflowHidden() {
     const alertEl = document.getElementById('create-contact-alert');
-  document.documentElement.classList.add('disable-x-scroll');
-  document.body.classList.add('disable-x-scroll');
-  document.getElementById('contactlist').classList.add('disable-x-scroll');
-  alertEl.classList.remove('slide-up-hold-down'); void alertEl.offsetWidth;
-  alertEl.classList.add('slide-up-hold-down');
-  setTimeout(() => {
-    document.documentElement.classList.remove('disable-x-scroll');
-    document.body.classList.remove('disable-x-scroll');
-    document.getElementById('contactlist').classList.remove('disable-x-scroll');
-    alertEl.remove();
-  }, 2500);
+    document.documentElement.classList.add('disable-x-scroll');
+    document.body.classList.add('disable-x-scroll');
+    document.getElementById('contactlist').classList.add('disable-x-scroll');
+    alertEl.classList.remove('slide-up-hold-down'); void alertEl.offsetWidth;
+    alertEl.classList.add('slide-up-hold-down');
+    setTimeout(() => {
+        document.documentElement.classList.remove('disable-x-scroll');
+        document.body.classList.remove('disable-x-scroll');
+        document.getElementById('contactlist').classList.remove('disable-x-scroll');
+        alertEl.remove();
+    }, 2500);
 }
 
 /**
@@ -111,7 +113,8 @@ window.bodyClickClose = bodyClickClose;
  * @param {Event} event - The click event
  */
 function addContactEvent(event) {
-    event.stopPropagation();
+    event?.preventDefault();
+    event?.stopPropagation();
     let index = undefined;
     let form = document.getElementById('main');
     let popupBlack = document.getElementById('popupBackground');
@@ -211,9 +214,9 @@ async function formCheck(index, event) {
     clearAlerts();
     const { name, mail, phone } = getFormValues();
     const { nameValid, mailValid, phoneValid } = getValidity({ name, mail, phone });
-    if (!nameValid) showErrorContact('errorName', 'alert-name', 'Example for name: Max Mustermann', 'group-name');
-    if (!mailValid) showErrorContact('errorMail', 'alert-mail', 'Example for e-mail: John-Smith@test.com', 'group-mail');
-    if (!phoneValid) showErrorContact('errorPhone', 'alert-phone', 'Example for phone number: +4917612345678', 'group-phone');
+    if (!nameValid) showErrorContact('errorName', 'alert-name', 'Example: Max Mustermann', 'group-name');
+    if (!mailValid) showErrorContact('errorMail', 'alert-mail', 'Example: John-Smith@test.com', 'group-mail');
+    if (!phoneValid) showErrorContact('errorPhone', 'alert-phone', 'Example: +4917612345678', 'group-phone');
     if (!nameValid || !mailValid || !phoneValid) return;
     document.getElementById('add-Form') ? await addContact(event) : await editContact(index);
 }
@@ -262,4 +265,31 @@ function replaceOnClickContacts() {
         let contact = document.getElementById(c.id)
         contact.onclick = () => mobileContactClick(index)
     });
+}
+
+/**
+ * Timeout function to disable add contact buttons temporarily
+ */
+function buttonTimeOut() {
+  const addButtons = document.querySelectorAll('.add-contact, .mobile-add-contact');
+  addButtons.forEach(btn => btn.disabled = true);
+  
+  setTimeout(() => {
+    addButtons.forEach(btn => btn.disabled = false);
+  }, 2500); 
+}
+
+/**
+ * Refreshes contacts after adding a new one
+ */
+async function refreshContacts() {
+  contacts = [];
+}
+
+/**
+ * Refreshes contacts after editing
+ */
+async function refreshContacts() {
+  contacts = [];
+  await init();
 }

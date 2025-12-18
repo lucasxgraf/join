@@ -287,7 +287,8 @@ h1 {
   header {
     padding: 0px 37px;
   }
-  .scroll_layout{
+
+  .scroll_layout {
     max-height: calc(100vh - 100px - 90px);
   }
 
@@ -319,6 +320,7 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    margin-bottom: 16px;
   }
 
   .blue-divider {
@@ -366,6 +368,10 @@ h1 {
 
   .card-third-row {
     width: 100%;
+  }
+
+  .main-content-left {
+    gap: 16px;
   }
 
   .card-first-row,

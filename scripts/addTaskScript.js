@@ -2,7 +2,6 @@
  * @fileoverview Add Task functionality for task management system
  * @description Handles task creation, validation, contact assignment, subtask management, and priority selection
  */
-
 let task = [];
 let subtaskArray = [];
 let contactList = [];
@@ -49,8 +48,7 @@ function clearContact() {
 
     document.querySelectorAll('#contactDropdown input[type="checkbox"]').forEach(checkbox => {
     checkbox.checked = false;
-    iconContactHTML("iconContact")
-  });
+    iconContactHTML("iconContact")});
 }
 
 /**
@@ -63,15 +61,11 @@ function toggleDropdown(selector, currentId) {
   const isOpen = dropdown.classList.toggle("open");
   if (selector === "contact") {
     renderIcon();
-  }
-  if (isOpen) {
+  } if (isOpen) {
     setTimeout(() => {
       document.addEventListener("click", (e) => handleClickOutside(e, dropdown, currentId));
     }, 0);
-  }
-  if (!isOpen) {
-    if (currentId) iconContactHTML(currentId);
-  }
+  } if (!isOpen) { if (currentId) iconContactHTML(currentId);}
 }
 
 /**
@@ -84,8 +78,7 @@ function handleClickOutside(e, dropdown, currentId) {
   if (dropdown && !dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
     document.removeEventListener("click", handleClickOutside);
-    if (currentId) iconContactHTML(currentId);
-  }
+    if (currentId) iconContactHTML(currentId);}
 }
 
 /**
@@ -94,8 +87,7 @@ function handleClickOutside(e, dropdown, currentId) {
  */
 function handleOverlayClick(event) {
   const dropdown = document.querySelector('.custom-category-dropdown.open');
-  if (dropdown) {
-    return;}
+  if (dropdown) { return; }
   closeDialog();
 }
 
@@ -109,12 +101,10 @@ function changeCategory(selection) {
 
   if (typeof selection === "string") {
     text = selection;
-  } 
-   if (selection instanceof Element) {
+  } if (selection instanceof Element) {
     const span = selection.querySelector("span");
     text = span ? span.innerText.trim() : selection.innerText.trim();
-  }
-  if (input && text) {
+  } if (input && text) {
     input.value = text;
     enableSubmit()
   }
@@ -163,24 +153,6 @@ function changePriority(priority, currentId) {
 }
 
 /**
- * Fetches and displays SVG icons for priority buttons
- * @param {string} currentId - The ID suffix for the button elements
- */
-function fetchSVGs(currentId) {
-  const svgs = [
-    { path: '../assets/svg/priority_symblos/urgent.svg', selector: `#urgentBtn${currentId} .urgent_icon` },
-    { path: '../assets/svg/priority_symblos/Medium.svg', selector: `#mediumBtn${currentId} .medium_icon` },
-    { path: '../assets/svg/priority_symblos/Low.svg', selector: `#lowBtn${currentId} .low_icon` }];
-  svgs.forEach(svg => {
-    fetch(svg.path)
-      .then(response => response.text())
-      .then(svgContent => {
-        document.querySelector(svg.selector).innerHTML = svgContent;
-      });
-  });
-}
-
-/**
  * Selects or deselects a contact for task assignment
  * @param {number} i - The index of the contact in the contact array
  * @param {HTMLInputElement} checkbox - The checkbox element
@@ -197,8 +169,7 @@ function selectContacts(i, checkbox) {
     });
   } else {
     contactList = contactList.filter(c => c.id !== userId);
-    contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);
-  }
+    contactBadge = contactBadge.filter(b => b.id !== badgeEl.id);}
   updateAssignedInput();
 }
 
@@ -274,11 +245,9 @@ function addEditSubtask(i) {
   if (newValue !== null && newValue.trim() !== "") {
     subtaskArray[i] = { title: newValue.trim(), completed: false };
     subtask(document.getElementById("addSubtask"), subtaskArray);
-  }
-  else{ (editInputSubtask.value === "") 
+  } else{ (editInputSubtask.value === "") 
   subtaskArray.splice(i, 1);
-  subtask(document.getElementById("addSubtask"), subtaskArray) 
-  }
+  subtask(document.getElementById("addSubtask"), subtaskArray) }
 }
 
 /**
@@ -290,11 +259,9 @@ function clearEditSubtask(i) {
   if (editInputSubtask.value === "") {
   subtaskArray.splice(i, 1);
   subtask(document.getElementById("addSubtask"), subtaskArray) 
-  }
-  else{
+  } else{
   editInputSubtask.value = "";
-  editInputSubtask.focus();
-  }
+  editInputSubtask.focus();}
 }
 
 /**
@@ -325,24 +292,54 @@ function enableSubmit() {
 
   if (allFilled) {
     document.getElementById("submit").disabled = false
-  }
-  else{
-    document.getElementById("submit").disabled = true
-  }
+  }else{
+    document.getElementById("submit").disabled = true}
 }
 
 /**
- * Initializes task form event handlers
+ * Initializes task form event handlers for validation and submission
  */
 function initTaskFormEvents() {
   const form = document.getElementById("taskForm");
+  const submitBtn = document.getElementById("submit");
   const title = document.getElementById("title");
   const duedate = document.getElementById("duedate");
+  const category = document.getElementById("selectedCategory");
 
-  if (!form || !title || !duedate.value) return;
-  form.onsubmit = e => { 
-    e.preventDefault(); clearErrors(); if (validateForm()) addTask(); 
-  };
+title.addEventListener('blur', () => {
+  if (!title.value.trim()) {
+    showError("titleError", "This field is required.");
+  } else {
+    showError("titleError", "");
+  }
+  enableSubmit();
+});
+
+duedate.addEventListener('blur', () => {
+  if (!validateDueDate()) {
+    showError("dateError", "This field is required.");
+  } else {
+    showError("dateError", "");
+  }
+  enableSubmit();
+});
+
+category.addEventListener('change', () => {
+  if (!category.value.trim()) {
+    showError("categoryError", "This field is required.");
+  } else {
+    showError("categoryError", "");
+  }
+  enableSubmit();
+});
+
+submitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (validateForm()) {
+    addTask();
+  }
+  clearErrors();
+});
 }
 
 /**
@@ -371,29 +368,27 @@ function validateForm() {
 function sendFeedback() {
   const feedbackRef = document.getElementById("feedback")
   feedbackRef.classList.remove("dnone");
+  const checkURL = checkWindowURL()
   setTimeout(() => {
     feedbackRef.classList.add("dnone");
-    window.location.href = "board.html";
-  }, 2000);
+    if (checkURL) {
+      window.location.href = "board.html";}
+    else {
+      closeDialog();
+      clearInput();
+      clearErrors();
+      initTaskFormEvents();
+      loadTasks("board");
+      return;
+    }}, 2000);
 }
 
 /**
- * Validates input field and displays error message if empty
- * @param {string} displayid - The ID of the error message element
- * @param {string} currentId - The ID of the input element to validate
- * @param {string} inputFrame - The ID of the wrapper element for error styling
+ * Check Window URL to determine if on addTask page
+ * @returns {boolean} True if on addTask page, false otherwise
  */
-function validateInput(displayid, currentId, inputFrame) {
-    const input = document.getElementById(currentId);
-    const output = document.getElementById(displayid);
-    const borderError = document.getElementById(inputFrame);
-    
-    if (!input || !output || !borderError) return; 
-    if (input.value.trim() === "") {
-        output.innerHTML = "This field is required.";
-        borderError.classList.add('errorBorder');
-    } else {
-        output.innerHTML = "";
-        borderError.classList.remove('errorBorder');
-    }
+function checkWindowURL() {
+  const currentPath = window.location.pathname;
+  const isAddTaskPage = currentPath.endsWith("addTask.html");
+  return isAddTaskPage;
 }

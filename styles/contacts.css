@@ -112,6 +112,10 @@ ul li::marker {
 
 .small-email {
     color: #007CEE;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    white-space: nowrap;
 }
 
 .contact-line {
@@ -173,7 +177,7 @@ ul li::marker {
 
 .add-contact-form {
     position: absolute;
-    z-index: 300;
+    z-index: 10000;
     display: flex;
     justify-content: center;
     width: clamp(57rem, 95vw, 62.5rem);
@@ -485,6 +489,9 @@ ul li::marker {
 .mobile-menu {
     display: none;
     position: absolute;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
     bottom: 100px;
     right: 24px;
 }
@@ -524,19 +531,24 @@ ul li::marker {
 
 .error_message {
     color: red;
-    font-size: 0.75rem;
+    font-size: 1rem;
     margin-top: 4px;
-    min-height: 18px;
     display: block;
-    height: 14px;
+    height: 24px;
 }
 
 .mobile-add-contact {
     display: none;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
     position: fixed;
-    z-index: 100;
+    z-index: 9999;
     bottom: 100px;
     right: 24px;
+    pointer-events: auto;
+    height: 56px;
+    width: 56px;
 }
 
 .mobile-add-contact:hover {
