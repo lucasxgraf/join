@@ -27,7 +27,7 @@ JOIN is a Kanban-based task management application designed to help teams organi
 
 ## Tech Stack
 
-- **Frontend:** HTML5, CSS3, JavaScript  
+- **Frontend:** HTML, CSS, JavaScript  
 - **Backend / Database:** Firebase Realtime Database
 
 ---
