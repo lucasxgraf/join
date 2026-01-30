@@ -1,4 +1,5 @@
 # JOIN – Kanban Task Manager
+<img width="1024" height="1024" alt="77606ff1-1615-42d6-aa1b-c032dc0ae3a5" src="https://github.com/user-attachments/assets/4d12ec5a-4362-4c81-b992-f4074dd5b637" />
 
 JOIN is a collaborative **student group project** created to demonstrate applied web development skills in a practical, real-world–like scenario.  
 The project focuses on teamwork, agile workflows, and building an interactive, data-driven web application.
