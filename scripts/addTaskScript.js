@@ -8,6 +8,7 @@ let contactList = [];
 let contactBadge = [];
 let selectedPriority = '';
 let category = ["Technical Task", "User Story",];
+let hasForbidden ;
 
 /**
  * Clears all input fields and resets the form to default state
@@ -288,13 +289,17 @@ function enableSubmit() {
   const duedateInput = document.getElementById("duedate").value.trim();
   const categorySelect = document.getElementById("selectedCategory").value.trim();
   const titleInput = document.getElementById("title").value.trim();
-  const allFilled = categorySelect && titleInput && duedateInput
+  const allFilled = categorySelect && titleInput && duedateInput;
+  const hasForbidden = checkReg();
+  document.getElementById("submit").disabled = !allFilled || hasForbidden || !submit;
 
-  if (allFilled) {
-    document.getElementById("submit").disabled = false
-  }else{
-    document.getElementById("submit").disabled = true}
-}
+
+  if (allFilled) 
+      document.getElementById("submit").disabled = false
+  else
+    document.getElementById("submit").disabled = true
+  }
+
 
 /**
  * Initializes task form event handlers for validation and submission
@@ -306,6 +311,7 @@ function initTaskFormEvents() {
   const duedate = document.getElementById("duedate");
   const category = document.getElementById("selectedCategory");
 
+
 title.addEventListener('blur', () => {
   if (!title.value.trim()) {
     showError("titleError", "This field is required.");
@@ -314,6 +320,7 @@ title.addEventListener('blur', () => {
   }
   enableSubmit();
 });
+
 
 duedate.addEventListener('blur', () => {
   if (!validateDueDate()) {
@@ -391,4 +398,11 @@ function checkWindowURL() {
   const currentPath = window.location.pathname;
   const isAddTaskPage = currentPath.endsWith("addTask.html");
   return isAddTaskPage;
+}
+
+function checkReg() {  
+  const reg = /[<>\[\]{}´']/;
+  return reg.test(document.getElementById("subtaskReadOut").value) ||
+         reg.test(document.getElementById("description").value) ||
+         reg.test(document.getElementById("title").value);
 }

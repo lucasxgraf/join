@@ -3,6 +3,7 @@
  * @type {string}
  */
 const BASE_URL = "https://join-kanban-projekt-default-rtdb.europe-west1.firebasedatabase.app/"
+  const reg = /[<>\[\]{}´']/g;
 
 /**
  * Array to store contacts fetched from Firebase
@@ -73,17 +74,22 @@ async function addTask() {
  * @returns {Object} The composed task object
  */
 function helpForComposition(titel, description, date, category) {
+  const clean = (val) => (typeof val === 'string' ? val.replace(reg, '') : val);
+
   const newTask = {
-    "title": titel.value,
-    "description": description.value,
+    "title": clean(titel.value),
+    "description": clean(description.value),
     "date": date.value || date.innerText,
-    "subtask": subtaskArray,
+    "subtask": subtaskArray.map(st => ({
+      ...st,
+      title: clean(st.title)
+    })),
     "priority": selectedPriority,
     "contact": contactList,
     "category": category.value,
     "dragclass": dragclass()
   };
-  return newTask
+  return newTask;
 }
 
 /**
@@ -136,18 +142,21 @@ async function updateCardInFirebase(cardId, updatedCard) {
  * @param {Array} selectedContacts - The selected contacts for the card
  * @returns {Object} The composed updated card object
  */
-function helpForCompositionEdit(cardId, title, description, date, selectedContacts){
+function helpForCompositionEdit(cardId, title, description, date, selectedContacts) {
+  const clean = (val) => (typeof val === 'string' ? val.replace(reg, '') : val);
+
   const updatedCard = {
-    title: title,
-    description: description,
-    date: date,
-    priority: selectedPriority,
-    contact: selectedContacts,
-    subtask: cardId.subtask,
-    category: cardId.category,
-    dragclass: cardId.dragclass
+    "title": clean(title),
+    "description": clean(description),
+    "date": date,
+    "priority": selectedPriority,
+    "contact": selectedContacts,
+    "subtask": cardId.subtask, 
+    "category": cardId.category,
+    "dragclass": cardId.dragclass
   };
-  return updatedCard
+  
+  return updatedCard;
 }
 
 /**
