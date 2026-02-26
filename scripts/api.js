@@ -2,7 +2,7 @@
  * Base URL for the Firebase Realtime Database API
  * @type {string}
  */
-const BASE_URL = "https://join-ee4e0-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL = "https://join-kanban-projekt-default-rtdb.europe-west1.firebasedatabase.app/"
 
 /**
  * Array to store contacts fetched from Firebase

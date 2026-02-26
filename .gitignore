@@ -1,3 +1,4 @@
 out/
 scripts/firebase_auth.js
 scripts/firebase_config.js
+.vercel
