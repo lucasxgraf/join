@@ -84,14 +84,15 @@ Contributions are what make the open-source community such an amazing place to l
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## 📄 License and Context
 This project is licensed under the MIT License. 
 
+This app was developed collaboratively by a student team to apply and showcase learned concepts in modern web development.
 
 ## 👤 Author
-**Lucas Graf**
-- GitHub: [@lucasxgraf](https://github.com/lucasxgraf)
-**Maik Groth**
-- GitHub: [@croser93](https://github.com/croser93)
-**Leon Georg Leuning**
-- GitHub: [@213Leon213](https://github.com/213Leon213)
+**Lucas Graf** <br>
+GitHub: [@lucasxgraf](https://github.com/lucasxgraf) <br> <br>
+**Maik Groth** <br>
+GitHub: [@croser93](https://github.com/croser93) <br> <br>
+**Leon Georg Leuning** <br>
+GitHub: [@213Leon213](https://github.com/213Leon213)
